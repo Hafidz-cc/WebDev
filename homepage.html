@@ -2,8 +2,8 @@
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="CSS/styles.css">
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="CSS/styles.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
    
@@ -11,34 +11,39 @@
 <body>
      
     <div id="navbar">  
- <ul>
-    <h1>Study Buddy</h1>
-     <li><a href="homepage.html">Home</a></li>
-     <li><a href="dashboard.html">Dashboard</a></li>
-     <li><a href="groups.html">Groups</a></li>
- </ul>
-
+          <h1>Study Buddy</h1>
+           <ul>
+                <li><a href="homepage.html">Home</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="groups.html">Groups</a></li>
+          </ul>
     </div>
     
     <div id="text">
-    <span class="front">Learn better,</span>
-    <br>
-    <span class="front one"> together.</span>
+        <span class="front">Learn better,</span>
+            <br>
+        <span class="front one"> together.</span>
     </div>
 
     <div id="description">
-    <p> Connect with peers, share knowledge, and ace your classes. Find the perfect study squad for any subject, anytime, anywhere.</p>
+        <p> Connect with peers, share knowledge, and ace your classes.<br> Find the perfect study squad for any subject, anytime, anywhere.</p>
     </div>
 
   
-        <div id="search">
-         <input type="search" class="search-bar"  placeholder="What do you want to study?">
+        <div id="inputs">
+            <form action="/search" method="get">
+                <input type="search" class="search-bar" aria-label="Search for a study topic" placeholder="What do you want to study?">
+                 <input type="submit" value="Search" class="search-button">
+                 <input type="button" value="+ create group" class="create-button">
+             </form>
         </div>
     
 
          <div class="pic">
-                <img src="images/Group.jpg" alt="hero image" id="image">
-        </div>
+            <img src="images/Group.jpg" alt="hero image" id="image">
+         </div>
     
 </body>
+
+   
 </html>
