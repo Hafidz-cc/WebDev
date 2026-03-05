@@ -29,7 +29,7 @@ body{
     font-size: 1.2em;
     }
 
-#navbar{
+.navbar{
     z-index: 1;
     padding: .5vw;
     display: flex;
