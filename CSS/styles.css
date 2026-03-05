@@ -29,7 +29,9 @@ body{
     font-size: 1.2em;
     }
 
-.navbar{
+#navbar{
+    z-index: 1;
+    padding: .5vw;
     display: flex;
     align-items: center;
     padding: 15px 20px;
@@ -88,6 +90,7 @@ body{
      gap: 1em;
     padding: 20px;
     align-content: space-between;
+    flex-wrap: wrap;
     }
 
 .search-bar{
@@ -131,6 +134,9 @@ body{
     max-width: 45vw;
     height: auto;
     border-radius: 2%;
+    left: 50vw;
+     bottom: 0;
+
 }
 
 #groups-section {
