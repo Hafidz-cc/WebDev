@@ -7,7 +7,7 @@
 
 body{
     background-color: rgb(211, 189, 243);
- 
+
    }
 
 #text{
@@ -33,33 +33,47 @@ body{
     z-index: 1;
     padding: .5vw;
     display: flex;
+    align-items: center;
+    padding: 15px 20px;
     top: 0;
     position: sticky;
     background-color: rgb(255, 255, 255);
     width: 100%;
-    }
-ul{
-    display: flex;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+    flex-wrap: wrap;
     }
 
-li{
-    border: 1px solid rgb(255, 255, 255);
-    display:inline-block;
-    background-color: rgb(255, 255, 255);
-    padding: 1em;
+.logo {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+.nav-links{
+    margin-left: 10px;
+    list-style: none;
+    display: flex;
+    gap: 2px;
+    align-items: center;
+    }
+
+.nav-links li{
+    margin: left 20px;
    }
 
-li a{
-    font-size: clamp(1rem, 1.2vw, 3rem);
-    text-decoration: none;
+.nav-links a{
     color: black;
-    display: block;
+    text-decoration: none;
+    font-size: 1em;
+    transition: color 0.5s ease;
     }
- li a:hover{
-    color:rgb(162, 119, 227);
+
+.nav-item {
+    padding: 12px;
+}
+ .nav-item:hover{
+    color: white;
+    background-color:rgb(162, 119, 227);
+    border-radius: 10px;
+    transition: color ease;
+    background-color: 1s ease;
      }
 
 #description{
@@ -106,10 +120,16 @@ li a{
     cursor: pointer;
     }
 
+.pic{
+   
+    width: 100%;
+     height: auto;
+     padding: 2em;
+    display: flex;
+    justify-content: flex-end;
+    }
 
-
-#image{
-    position: absolute;
+#homepage-image{
     align-content: flex-start;
     max-width: 45vw;
     height: auto;
@@ -118,6 +138,48 @@ li a{
      bottom: 0;
 
 }
+
+#groups-section {
+    padding: 20px;
+    margin: 20px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.group-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1em;
+  padding: 20px;
+  gap: 20px;
+}
+
+@media (max-width: 1024px) {
+  .group-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .group-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+.group-item{
+    background-color: rgb(223, 223, 223);
+    border-radius: 10px;
+    width: auto;
+    height: 300px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.group-item:hover   {
+    background-color: rgba(211, 189, 243, 0.651);
+    transition: all 0.7s ease;
+    }
 
 .footer{
     background-color: rgb(255, 255, 255);
