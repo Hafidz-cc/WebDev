@@ -7,7 +7,7 @@
 
 body{
     background-color: rgb(211, 189, 243);
- 
+
    }
 
 #text{
@@ -29,36 +29,48 @@ body{
     font-size: 1.2em;
     }
 
-#navbar{
-    padding: .5vw;
+.navbar{
     display: flex;
+    align-items: center;
+    padding: 15px 20px;
     top: 0;
     position: sticky;
     background-color: rgb(255, 255, 255);
     width: 100%;
-    }
-ul{
-    display: flex;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+    flex-wrap: wrap;
     }
 
-li{
-    border: 1px solid rgb(255, 255, 255);
-    display:inline-block;
-    background-color: rgb(255, 255, 255);
-    padding: 1em;
+.logo {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+.nav-links{
+    list-style: none;
+    display: flex;
+    gap: 2px;
+    align-items: center;
+    }
+
+.nav-links li{
+    margin: left 20px;
    }
 
-li a{
-    font-size: clamp(1rem, 1.2vw, 3rem);
-    text-decoration: none;
+.nav-links a{
     color: black;
-    display: block;
+    text-decoration: none;
+    font-size: 1em;
+    transition: color 0.5s ease;
     }
- li a:hover{
-    color:rgb(162, 119, 227);
+
+.nav-item {
+    padding: 12px;
+}
+ .nav-item:hover{
+    color: white;
+    background-color:rgb(162, 119, 227);
+    border-radius: 10px;
+    transition: color ease;
+    background-color: 1s ease;
      }
 
 #description{
