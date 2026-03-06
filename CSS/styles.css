@@ -6,12 +6,14 @@
     }
 
 body{
-    background-color: rgb(211, 189, 243);
-
+    background-color: rgb(225, 210, 250);
    }
 
 #text{
-    text-align:left;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     color: black;
     font-size: clamp(3rem, 8vw, 6.25rem);
     font-weight: bold;
@@ -22,11 +24,13 @@ body{
 .front{
     color: black;
     font-size: 1.2em;
+    text-shadow: 2px 1px 4px rgba(0, 0, 0, 0.2);
     }
 
 .one{
     color: rgb(177, 10, 243);
     font-size: 1.2em;
+    text-shadow: 2px 1px 4px rgba(0, 0, 0, 0.2);
     }
 
 .navbar{
@@ -34,12 +38,13 @@ body{
     padding: .5vw;
     display: flex;
     align-items: center;
-    padding: 15px 20px;
+    padding: 20px 20px;
     top: 0;
     position: sticky;
     background-color: rgb(255, 255, 255);
     width: 100%;
     flex-wrap: wrap;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
 .logo {
@@ -50,6 +55,7 @@ body{
     margin-left: 10px;
     list-style: none;
     display: flex;
+    flex-direction: row;
     gap: 2px;
     align-items: center;
     }
@@ -61,7 +67,7 @@ body{
 .nav-links a{
     color: black;
     text-decoration: none;
-    font-size: 1em;
+    font-size: clamp(1.25em, 2vw, 1.5em);
     transition: color 0.5s ease;
     }
 
@@ -77,26 +83,31 @@ body{
      }
 
 #description{
-   font-size: clamp(1rem, 1.2vw, 2.5rem);
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: clamp(1rem, 1.5vw, 1.8rem);
     color: black;
     padding: 2em;
     text-align: justify;
     }
 
 #inputs{
-    position: relative;
-    display: inline-flex;
-     flex-direction: column;
-     gap: 1em;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
     padding: 20px;
-    align-content: space-between;
-    flex-wrap: wrap;
+    
     }
 
 .search-bar{
+   
     width: clamp(200px, 50vw, 400px);
     padding-left: 60px;   
-    font-size: clamp(1rem, .7vw, 2.5rem);
+    font-size: clamp(1rem, .8vw, 2.5rem);
     height: 40px ;
 
         }
@@ -104,30 +115,25 @@ body{
 
 .search-button{
     padding: 10px 20px;
-    font-size: clamp(1rem, .7vw, 2.5rem);
+    font-size: clamp(1rem, .8vw, 2.5rem);
     background-color: rgb(177, 10, 243);
     color: white;
     border: none;
     cursor: pointer;
+    box-shadow: 1px 4px 1px rgba(0, 0, 0, 0.2);
     }
 
     .create-button{
     padding: 10px 20px;
-    font-size: clamp(1rem, .7vw, 2.5rem);
+    font-size: clamp(1rem, .8vw, 2.5rem);
     background-color: rgb(177, 10, 243);
+    box-shadow: 1px 4px 1px rgba(0, 0, 0, 0.2);
     color: white;
     border: none;
     cursor: pointer;
     }
 
-.pic{
-   
-    width: 100%;
-     height: auto;
-     padding: 2em;
-    display: flex;
-    justify-content: flex-end;
-    }
+
 
 #homepage-image{
     align-content: flex-start;
