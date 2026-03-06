@@ -1,0 +1,29 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body{
+    background: linear-gradient(135deg, rgb(211,189,243), rgb(255,255,255));
+}
+
+#text{
+    text-align:left;
+    color:black;
+    font-size: clamp(3rem, 8vw, 6.25rem);
+    font-weight:bold;
+    padding-top:2vw;
+    padding-left:1vw;
+}
+
+.front{
+    color:black;
+    font-size:1.2em;
+}
+
+.one{
+    color:rgb(177,10,243);
+    font-size:1.2em;
+}

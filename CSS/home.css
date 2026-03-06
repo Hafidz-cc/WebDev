@@ -1,0 +1,46 @@
+#description{
+    font-size:clamp(1rem,1.2vw,2.5rem);
+    color:black;
+    padding:2em;
+    text-align:justify;
+}
+
+#inputs{
+    position:relative;
+    display:inline-flex;
+    flex-direction:column;
+    gap:1em;
+    padding:20px;
+    flex-wrap:wrap;
+}
+
+.search-bar{
+    width:clamp(200px,50vw,400px);
+    padding-left:60px;
+    font-size:clamp(1rem,.7vw,2.5rem);
+    height:40px;
+}
+
+.search-button,
+.create-button{
+    padding:10px 20px;
+    font-size:clamp(1rem,.7vw,2.5rem);
+    background-color:rgb(177,10,243);
+    color:white;
+    border:none;
+    cursor:pointer;
+}
+
+.pic{
+    width:100%;
+    height:auto;
+    padding:2em;
+    display:flex;
+    justify-content:flex-end;
+}
+
+#homepage-image{
+    max-width:45vw;
+    height:auto;
+    border-radius:2%;
+}
