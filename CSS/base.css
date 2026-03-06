@@ -6,24 +6,28 @@
 }
 
 body{
-    background: linear-gradient(135deg, rgb(211,189,243), rgb(255,255,255));
+    height: 100vh;
+    background: linear-gradient(180deg, rgb(239, 172, 249), rgb(238, 211, 250));
 }
 
 #text{
-    text-align:left;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    display: flex;
     color:black;
-    font-size: clamp(3rem, 8vw, 6.25rem);
+    font-size: clamp(3.5rem, 8vw, 7rem);
     font-weight:bold;
     padding-top:2vw;
     padding-left:1vw;
-}
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);}
 
 .front{
     color:black;
-    font-size:1.2em;
+    
 }
 
 .one{
     color:rgb(177,10,243);
-    font-size:1.2em;
+    
 }
