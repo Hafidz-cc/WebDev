@@ -19,20 +19,21 @@
 
 .search-bar{
     width:clamp(200px,50vw,400px);
-    padding-left:60px;
+    padding-left:clamp(10px,30px,60px);
     font-size:clamp(1rem,1.2vw,1.25rem);
     height:clamp(45px, 2vh, 60px);
+    border-radius: 21px;
 }
 
 .search-button{
-    padding:9px 20px;
+    padding:10px 20px;
     font-size:clamp(1rem,.8vw,2.5rem);
     background-color:rgb(177,10,243);
     color:white;
     border:none;
     cursor:pointer;
     box-shadow: 1px 2px 5px rgba(0,0,0,0.2);
-
+    border-radius: 21px;
 }
 .search-button:hover{
     color: black;
@@ -43,16 +44,16 @@
 }
 
 .create-button{
-   
-    padding:9px 20px;
+   margin-top: 10px;
+    padding:10px 20px;
     font-size:clamp(1rem,.8vw,2.5rem);
     background-color:rgb(177,10,243);
     color:white;
     border:none;
     cursor:pointer;
     box-shadow: 1px 2px 5px rgba(0,0,0,0.2);
-    
-    
+    border-radius: 21px;
+ 
 }
 
 #homepage-image{
