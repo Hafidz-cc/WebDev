@@ -1,64 +1,245 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="CSS/base.css">
-    <link rel="stylesheet" href="CSS/home.css">
-    <link rel="stylesheet" href="CSS/navbar.css">
-    <link rel="stylesheet" href="CSS/footer.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StudyBuddy</title>
-   
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudyBuddy — Learn Better, Together</title>
+  <link rel="stylesheet" href="CSS/home.css">
+  <link rel="stylesheet" href="CSS/base.css">
+  <link rel="stylesheet" href="CSS/navbar.css">
 </head>
 <body>
-    <nav class="navbar">  
-        <div class="logo">StudyBuddy</div>
-            <ul class="nav-links">
-                <li><a href="homepage.html" class="nav-item">Home</a></li>
-                <li><a href="MyGroups.html" class="nav-item">My Groups</a></li>
-                <li><a href="groups.html" class="nav-item">Groups</a></li>
-            </ul>
 
-        <div id="authentification">
-            <a href="login.html" class="nav-links nav-item">Login</a>
-            <a href="signup.html" class="nav-links nav-item">Sign Up</a>
+<nav>
+  <div class="logo">Study<span>Buddy</span></div>
+  <ul class="nav-links">
+    <li><a href="homepage.html">Home</a></li>
+    <li><a href="MyGroups.html">My Groups</a></li>
+    <li><a href="groups.html">Groups</a></li>
+  </ul>
+  <div class="nav-buttons">
+    <a href="login.html" class="login">Log in</a>
+    <a href="signup.html" class="signup">Sign up free</a>
+  </div>
+</nav>
+
+<header class="top-section">
+    <div class="top-text-side">
+        <p class="top-tagline">For students, by students</p>
+        <h1>Learn better,<br><em>together.</em></h1>
+        <p class="top-description">Connect with peers, share knowledge, and ace your classes. Find your perfect study squad for any subject — anytime, anywhere.</p>
+        <div class="search-bar">
+            <input type="search" placeholder="Search a subject or topic…">
+            <button class="btn-purple">Search</button>
         </div>
-    </nav>
-    
-    <div id="text">
-        <span class="front">Learn better,</span>
-     
-        <span class="front one"> together.</span>
+        <div class="top-buttons">
+            <a href="groups.html" class="btn-purple">+ Create a group</a>
+            <a href="groups.html" class="btn-white-outline">Browse groups →</a>
+        </div>
     </div>
 
-    <div id="description">
-        <p> Connect with peers, share knowledge, and ace your classes.<br> Find the perfect study squad for any subject, anytime, anywhere.</p>
+    <div class="top-image-side">
+        <img src="images/Group.jpg" alt="Students studying together">
+    </div>
+</header>
+
+<div class="subjects-bar" aria-hidden="true">
+    <div class="subjects-track">
+        <span class="subject-name">Calculus</span>
+        <span class="subject-name">Machine Learning</span>
+        <span class="subject-name">Literature</span>
+        <span class="subject-name">Physics</span>
+        <span class="subject-name">Data Structures</span>
+        <span class="subject-name">History</span>
+        <span class="subject-name">Statistics</span>
+        <span class="subject-name">Biology</span>
+    </div>
+</div>
+
+<section class="groups-section">
+    <div class="section-top">
+        <div>
+            <p class="section-small-label">Active right now</p>
+            <h2 class="section-big-title">Popular Study Groups</h2>
+        </div>
+        <a href="groups.html" class="see-all-link">See all groups →</a>
     </div>
 
-  
-        <div id="inputs">
-            <form action="/search" method="get">
-                 <input type="search" class="search-bar" aria-label="Search for a study topic" placeholder="What do you want to study?">
-                 <input type="submit" value="Search" class="search-button">
-                 
-             </form>
-             
+    <div class="cards-row">
+        <a href="groups.html" class="group-card">
+            <div class="group-image">
+                <img src="images/calculus.jpg" alt="Calculus Study Group">
+            </div>
+            <div class="group-content">
+                <div class="group-emoji-box">📐</div>
+                    <h3>Calculus Study Group</h3>
+                    <p>Tackling integration, limits, and series together. Weekly problem sets and peer walkthroughs.</p>
+                    <div class="card-bottom-row">
+                        <span class="members-text">15 active members</span>
+                        <span class="join-link">Join →</span>
+                    </div>
+                </div>
+        </a>
 
-                    <form action="groups.html" method="get">
-                    <input type="submit" value="Create a Group" class="create-button" >
-                        
-             </div>
+        <a href="groups.html" class="group-card">
+            <div class="group-image">
+                <img src="images/physics.jpg" alt="Physics Study Group">
+            </div>
+            <div class="group-content">
+                <div class="group-emoji-box">⚛️</div>
+                    <h3>Physics Study Group</h3>
+                    <p>From Newtonioan mechanics to quantum theory. Concept breakdowns and formula reviews.</p>
+                    <div class="card-bottom-row">
+                        <span class="members-text">19 active members</span>
+                        <span class="join-link">Join →</span>
+                    </div>
+                </div>
+        </a>
 
-           
-                
-           
+        <a href="groups.html" class="group-card">
+            <div class="group-image">
+                <img src="images/biology.jpg" alt="Biology Study Group">
+            </div>
+            <div class="group-content">
+                <div class="group-emoji-box">🧬</div>
+                    <h3>Biology Study Group</h3>
+                    <p>Cell biology, genetics, and ecology. Shared flashcards and peer teaching sessions.</p>
+                    <div class="card-bottom-row">
+                        <span class="members-text">67 active members</span>
+                        <span class="join-link">Join →</span>
+                    </div>
+                </div>
+        </a>
+    </div>
+</section>
+
+<section class="steps-section">
+    <div class="section-top">
+        <div>
+            <p class="section-small-label">Simple as 1-2-3</p>
+            <h2 class="section-big-title">How StudyBuddy works</h2>
         </div>
-    
+    </div>
 
-         
-    
+    <div class="steps-row">
+        <div class="step-box">
+            <div class="step-image">
+                <img src="images/search.png" alt="Search a topic">
+            </div>
+            <div class="step-content">
+                <p class="step-number">01</p>
+                <h3>Search a Topic</h3>
+                <p>Browse hundreds of active groups across every subject. Find one that fits your schedule and goals.</p>
+            </div>
+        </div>
+        <div class="step-box">
+            <div class="step-image">
+                <img src="images/create-goups.png" alt="Search a topic">
+            </div>
+            <div class="step-content">
+                <p class="step-number">02</p>
+                <h3>Join or Create</h3>
+                <p>Jump into an existing group or start your own. Invite classmates and set your group's focus.</p>
+            </div>
+        </div>
+
+        <div class="step-box">
+            <div class="step-image">
+                <img src="images/sharing.png" alt="Search a topic">
+            </div>
+            <div class="step-content">
+                <p class="step-number">03</p>
+                <h3>Start Studying</h3>
+                <p>Collaborate, share notes, quiz each other, and track your progress together.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="stats-section">
+    <div class="stats-row">
+        <div class="stat-box">
+            <strong>1,200+</strong>
+            <span>Students learning together</span>
+        </div>
+        <div class="stat-box">
+            <strong>300+</strong>
+            <span>Active study groups</span>
+        </div>
+        <div class="stat-box">
+            <strong>50+</strong>
+            <span>Subjects covered</span>
+        </div>
+    </div>
+</section>
+
+<section class="why-section">
+    <div class="section-top">
+        <div>
+            <p class="section-small-label">Why it works</p>
+            <h2 class="section-big-title">Built for how students actually learn</h2>
+        </div>
+    </div>
+    <div class="reasons-grid">
+
+        <div class="reason-card">
+            <div class="reason-image">
+                <img src="images/connect.png" alt="Students connecting">
+            </div>
+            <div class="reason-content">
+                <div class="icon">🔗</div>
+                    <h3>Connect with peers easily</h3>
+                    <p>Find students in your school, your class, or your time zone. No cold emails — just shared goals.</p>
+            </div>
+        </div>
+
+        <div class="reason-card reverse">
+            <div class="reason-image">
+                <img src="images/sharing.png" alt="Students sharing notes">
+            </div>
+            <div class="reason-content">
+                <div class="icon">💡</div>
+                    <h3>Share knowledge efficiently</h3>
+                    <p>Upload notes, link resources, and explain concepts to each other. Teaching is the fastest way to learn.</p>
+            </div>
+        </div>
+
+        <div class="reason-card">
+            <div class="reason-image">
+                <img src="images/anywhere.png" alt="Studying anywhere">
+            </div>
+            <div class="reason-content">
+                <div class="icon">🌍</div>
+                    <h3>Learn anytime, anywhere</h3>
+                    <p>StudyBuddy works on any device. Prep for exams at midnight or join a session from a café.</p>
+            </div>
+        </div>
+
+        <div class="reason-card reverse">
+            <div class="reason-image">
+                <img src="images/grades.png" alt="Better grades">
+            </div>
+            <div class="reason-content">
+                <div class="icon">📈</div>
+                    <h3>Boost your grades</h3>
+                    <p>Students who study in groups consistently outperform solo studiers. The research backs it — and now the tool does too.</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="signup-banner">
+    <p class="section-small-label">Ready to start?</p>
+    <h2>Your best semester<br>starts here.</h2>
+    <p>Join thousands of students already learning smarter with StudyBuddy. It's free to get started.</p>
+    <a href="signup.html" class="btn-purple">Create your free account →</a>
+</section>
+
+<footer>
+    <div class="logo">Study<span>Buddy</span></div>
+    <p>© 2026 StudyBuddy. All rights reserved.</p>
+</footer>
+
 </body>
-
-   
 </html>
