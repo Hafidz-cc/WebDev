@@ -18,11 +18,13 @@
 }
 
 .search-bar{
+    border-color: white;
     width:clamp(200px,50vw,400px);
-    padding-left:clamp(10px,30px,60px);
+    text-align: center;
     font-size:clamp(1rem,1.2vw,1.25rem);
     height:clamp(45px, 2vh, 60px);
     border-radius: 21px;
+    box-shadow: 1px 1px 1px rgba(0,0,0,0.3);
 }
 
 .search-button{
@@ -37,10 +39,15 @@
 }
 .search-button:hover{
     color: black;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+   
+
     
 }
 .create-button:hover{
     color: black;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+
 }
 
 .create-button{
