@@ -45,10 +45,34 @@
              </form>
              
 
-                    <form action="groups.html" method="get">
-                    <input type="submit" value="Create a Group" class="create-button" >
+            <button id = "open">Create Group</button>
+
+                <div class = "modal-container" id = "modal_container">
+                    <div class = "modal">
                         
-             </div>
+                        <div class = "container">
+                            <div class = "title">Start a New Study Group</div>
+                            <p>Set up the details so the right people can find and join you.</p>
+                        </div>
+                        <button id = "close">Close</button>
+                </div>
+        </div>
+        <script>
+            const open = document.getElementById('open');
+            const modal_container = document.getElementById('modal_container');
+            const close = document.getElementById('close');
+
+            open.addEventListener('click' , () => {
+                modal_container.classList.add('show');
+            });
+
+            close.addEventListener('click' , () => {
+                modal_container.classList.remove('show');
+            });
+        </script>
+
+                        
+    </div>
 
            
                 
