@@ -6,7 +6,8 @@
 }
 
 body{
-    background: linear-gradient(135deg, rgb(211,189,243), rgb(255,255,255));
+    height: 100vh;
+    background: linear-gradient(180deg, rgb(213, 140, 247), rgb(238, 211, 250));
 }
 
 #text{
