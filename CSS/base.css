@@ -7,16 +7,20 @@
 
 body{
     height: 100vh;
-    background: linear-gradient(180deg, rgb(213, 140, 247), rgb(238, 211, 250));
+    background: linear-gradient(180deg, rgb(221, 167, 247), rgb(238, 211, 250));
 }
 
 #text{
-    text-align:left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     color:black;
     font-size: clamp(3rem, 8vw, 6.25rem);
     font-weight:bold;
     padding-top:2vw;
     padding-left:1vw;
+    text-shadow: 1px 1px 3px black;
 }
 
 .front{
