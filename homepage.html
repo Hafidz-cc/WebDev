@@ -33,7 +33,7 @@
             <button class="btn-purple">Search</button>
         </div>
         <div class="top-buttons">
-            <a href="groups.html" class="btn-purple">+ Create a group</a>
+            <button id="open" class="btn-purple">+ Create a group</button>
             <a href="groups.html" class="btn-white-outline">Browse groups →</a>
         </div>
     </div>
@@ -241,5 +241,34 @@
     <p>© 2026 StudyBuddy. All rights reserved.</p>
 </footer>
 
+<div class="modal-container" id="modal_container">
+    <div class="modal">
+        <div class="container">
+            <div class="title">Start a New Study Group</div>
+                <p>Set up the details so the right people can find and join you.</p>
+            </div>
+        <button id="close">Close</button>
+    </div>
+</div>
+<script>
+const openBtn = document.getElementById('open');
+const modalContainer = document.getElementById('modal_container');
+const closeBtn = document.getElementById('close');
+
+openBtn.addEventListener('click', () => {
+    modalContainer.classList.add('show');
+});
+
+closeBtn.addEventListener('click', () => {
+    modalContainer.classList.remove('show');
+});
+
+/* Click outside to close */
+modalContainer.addEventListener('click', (e) => {
+    if (e.target === modalContainer) {
+        modalContainer.classList.remove('show');
+    }
+});
+</script>
 </body>
 </html>
