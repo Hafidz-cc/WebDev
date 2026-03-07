@@ -3,29 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Login - StudyBuddy</title>
+<title>Sign Up - StudyBuddy</title>
 <link rel="stylesheet" href="CSS/base.css">
 <link rel="stylesheet" href="CSS/auth.css">
 </head>
 
-<body class="auth-page show-toast">
+<body class="auth-page">
 <input type="checkbox" id="toast-toggle" hidden>
-<div class="toast">
-    Account successfully created!
-    <label for="toast-toggle" class="close-btn">×</label>
-</div>
 
 <div class="login-container">
 
     <div class="login-card">
-        <a href="homepage.html" class="close-page">×</a>
-        <h1>Login</h1>
+        <a href="login.html" class="close-page">×</a>
+        <h1>Sign Up</h1>
 
-        <form action="homepage.html">
+        <form action="login.html" method="get">
+            <input type="text" placeholder="Last Name" required>
+            <input type="text" placeholder="First Name" required>
             <input type="email" placeholder="Email" required>
             <input type="password" placeholder="Password" required>
+            <input type="password" placeholder="Confirm Password" required>
 
-            <button type="submit">Login</button>
+            <button type="submit">Create Account</button>
         </form>
 
         <div class="divider">
@@ -36,11 +35,11 @@
             <span class="google-icon">
                 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" alt="Google">
             </span>
-            Log in with Google
+            Sign up with Google
         </button>
 
         <p class="signup-link">
-            Don't have an account? <a href="signup.html">Sign up</a>
+            Already have an account? <a href="login.html">Login</a>
         </p>
     </div>
 
