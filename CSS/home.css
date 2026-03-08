@@ -644,3 +644,23 @@ footer p { font-size: 0.82rem; color: rgba(255, 255, 255, 0.35); }
     background: rgb(213, 140, 247);
     transform: translateY(-2px);
 }
+
+.backtohomefoot {
+ text-decoration: none;
+color: #ffffff;
+}
+.backtohomefoot :hover{
+ text-decoration: none;
+
+ 
+}
+
+.backtohome{
+ text-decoration: none;
+color: #000000;
+}
+.backtohome :hover{
+ text-decoration: none;
+
+ 
+}
