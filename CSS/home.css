@@ -1,4 +1,4 @@
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0;}
 
 html { scroll-behavior: smooth; }
 
@@ -598,6 +598,7 @@ footer p { font-size: 0.82rem; color: rgba(255, 255, 255, 0.35); }
 /* Modal Box */
 .modal {
     background: linear-gradient(180deg, #ffffff, #f5ecff);
+    background-color: purple;
     padding: 2.5rem;
     border-radius: 20px;
     width: 420px;
@@ -628,8 +629,92 @@ footer p { font-size: 0.82rem; color: rgba(255, 255, 255, 0.35); }
     margin-bottom: 2rem;
     line-height: 1.6;
 }
+/*Create Group Modal Form*/
+ .modal h2 { 
+    font-family: 'Sora', sans-serif; 
+    font-weight: 800; 
+    font-size: 18px; 
+    color: var(--indigo-dk); 
+    margin-bottom: 5px; 
+  }
+
+  .modal-sub { 
+    font-size: 13px; 
+    color: var(--muted); 
+    margin-bottom: 20px; 
+  }
+
+  .modal label { 
+    display: block; 
+    font-size: 11px; 
+    font-weight: 700; 
+    color: var(--indigo-dk); 
+    margin-bottom: 5px; 
+    letter-spacing: 0.04em; 
+  }
+
+  .modal input, .modal select, .modal textarea { 
+    width: 100%; 
+    padding: 9px 12px; 
+    border: 1.5px solid var(--border); 
+    border-radius: 9px; 
+    font-family: 'DM Sans', sans-serif; 
+    font-size: 13px; 
+    color: var(--text); 
+    outline: none; 
+    background: white; 
+    transition: border-color 0.2s; 
+    margin-bottom: 12px; 
+  }
+
+  .modal input:focus, .modal select:focus, .modal textarea:focus { 
+    border-color: var(--violet-lt); 
+  }
+
+  .modal textarea { 
+    min-height: 80px; 
+    resize: vertical; 
+  }
+
+  .modal-row { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 10px; 
+  }
+
+  .modal-footer { 
+    display: flex; 
+    gap: 10px; 
+    justify-content: flex-end; 
+    padding-top: 12px; 
+    border-top: 1px solid var(--border); 
+    margin-top: 4px; 
+  }
+
+
 
 #close {
+  background: transparent;
+  color: rgb(177, 10, 243);
+  border: 1.5px solid rgb(213, 140, 247);
+  padding: 0.9rem 1.8rem;
+  border-radius: 100px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  text-decoration: none;
+  display: inline-block;
+}
+
+#close:hover {
+  background: rgb(238, 211, 250);
+  transform: translateY(-1px);
+}
+
+
+
+#createModal {
     background: rgb(177, 10, 243);
     color: white;
     border: none;
@@ -640,9 +725,20 @@ footer p { font-size: 0.82rem; color: rgba(255, 255, 255, 0.35); }
     transition: 0.2s;
 }
 
+#createModal:hover {
+  background: rgb(110, 51, 138);
+    transform: translateY(-2px);
+}
+
 #close:hover {
     background: rgb(213, 140, 247);
     transform: translateY(-2px);
+}
+
+.addBGcolor{
+  padding: 20px;
+  background-color: rgba(141, 42, 180, 0.25);
+  border-radius: 10px;
 }
 
 .backtohomefoot {
