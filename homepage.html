@@ -255,16 +255,20 @@
                 <label>GROUP NAME</label>
                 <input type="text" placeholder="e.g. Late Night Calculus Crushers">
                     <div class="modal-row">
-                        <div><label>SUBJECT</label>
+                        <div><label>Meeting options</label>
                             <select>
                                 <option>Select...</option>
-                                <option>Computer Science</option>
-                                <option>Mathematics</option>
-                                <option>Chemistry</option>
-                                <option>Biology</option>
-                                <option>Physics</option>
-                                <option>Economics</option>
-                                <option>History</option>
+                                <option>online</option>
+                                <option>face-to-face</option>
+                               
+                            </select>
+                        </div>
+                        <div><label>meeting frequency</label>
+                            <select>
+                                <option>Select...</option>
+                                <option>one-time-only</option>
+                                <option>recurring</option>
+                               
                             </select>
                         </div>
                         <div>
@@ -284,16 +288,20 @@
                         <label>LOCATION</label>
                         <input placeholder="Library or Zoom link">
                     </div>
-                </div>
+                   
+                    </div>
 
-                <label>DESCRIPTION / VIBE</label>
-                <textarea placeholder="What will you be focusing on? What's the vibe?"></textarea>
+                    <label>DESCRIPTION / VIBE</label>
+                    <textarea placeholder="What will you be focusing on? What's the vibe?"></textarea>
+               
+                <label>RULES</label>
+                    <textarea placeholder="Optional: Set some ground rules for your group"></textarea>
                 </div>
 
                 <div class="modal-footer">
                 <button id="close">Cancel</button>
                 <button id="createModal" onclick="groupCreated()">Create Group →</button>
-            </div>
+           
     </div>
 </div>
 <script>
