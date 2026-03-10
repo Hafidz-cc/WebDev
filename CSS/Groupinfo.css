@@ -86,6 +86,7 @@
     border-radius: 21px;
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s;
+
 }
 
 .join-btn:hover {
@@ -101,3 +102,26 @@ color: #000000;
  text-decoration: none;
 
 }
+
+.procedure {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+.join-btn {
+    display: inline-block;
+    padding: 15px 40px;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    background: rgb(177,10,243);
+    border: none;
+    border-radius: 21px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    user-select:none;
+}
+.procedure:checked + .join-btn {
+    background: rgb(124, 119, 133);
+}
+
