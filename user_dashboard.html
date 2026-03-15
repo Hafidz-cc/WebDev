@@ -210,7 +210,7 @@
     </div>
   </div>
 
-  <!-- EXPLORE -->
+  <!-- explore -->
   <div class="page" id="page-explore">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
       <div><div style="font-size:14px;color:var(--muted);">Find groups that match your subjects and schedule.</div></div>
@@ -236,3 +236,226 @@
     </div>
   </div>
 
+   <!-- mygroups -->
+  <div class="page" id="page-mygroups">
+    <div style="display:flex;justify-content:flex-end;margin-bottom:20px;">
+        <button class="btn btn-primary" onclick="document.getElementById('createModal').classList.add('open')">+ Create New Group</button>
+    </div>
+
+    <div class="my-groups-section">
+      <div class="mgs-label">Groups I Created (1)</div>
+      <div class="mg-card">
+        <div class="mg-color" style="background:#6D28D9;"></div>
+        <div class="mgc-info">
+          <div class="mgc-name">Intro to Algorithms – Final Prep</div>
+          <div class="mgc-meta">Computer Science · 3/5 members · Mon & Wed, 7 PM · Main Library, Room 3B</div>
+        </div>
+
+        <div class="mgc-avatars avatars" style="margin-right:12px;">
+            <div class="av av1">JD</div>
+            <div class="av av2">PM</div>
+            <div class="av av3">RB</div>
+        </div>
+
+        <div class="mgc-actions">
+          <button class="btn btn-primary btn-sm" onclick="window.location.href='group-admin.html'">Manage →</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="my-groups-section">
+      <div class="mgs-label">Groups I've Joined (2)</div>
+      <div class="mg-card">
+        <div class="mg-color" style="background:#D97706;"></div>
+        <div class="mgc-info">
+          <div class="mgc-name">Abstract Algebra Deep Dive</div>
+          <div class="mgc-meta">Mathematics · 2/6 members · Thursdays, 8 PM · Virtual (Discord)</div>
+        </div>
+        <div class="mgc-avatars avatars" style="margin-right:12px;">
+            <div class="av av4">DM</div>
+            <div class="av av2">YK</div>
+        </div>
+
+        <div class="mgc-actions">
+          <button class="btn btn-ghost btn-sm" onclick="showToast('↩️ You left Abstract Algebra Deep Dive')">Leave</button>
+        </div>
+      </div>
+
+      <div class="mg-card">
+        <div class="mg-color" style="background:#059669;"></div>
+        <div class="mgc-info">
+          <div class="mgc-name">Data Science Interview Prep</div>
+          <div class="mgc-meta">Computer Science · 3/6 members · Saturdays, 10 AM · Virtual (Zoom)</div>
+        </div>
+        <div class="mgc-avatars avatars" style="margin-right:12px;">
+            <div class="av av2">JL</div>
+            <div class="av av4">KP</div>
+            <div class="av av1">NR</div>
+        </div>
+        <div class="mgc-actions">
+          <button class="btn btn-ghost btn-sm" onclick="showToast('↩️ You left Data Science Interview Prep')">Leave</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- messages -->
+  <div class="page" id="page-messages">
+    <div class="messages-layout">
+      <div class="convo-list">
+        <div class="convo-search"><input type="text" placeholder="Search conversations..."></div>
+        <div class="convo-item active" onclick="selectConvo(this)">
+          <div class="c-av" style="background:#6D28D9;">📚</div>
+          <div class="c-info"><div class="c-name">Algorithms Final Prep</div><div class="c-preview">KL: May nakagawa na ng problem 4?</div></div>
+          <div class="c-time">2m</div>
+        </div>
+        <div class="convo-item" onclick="selectConvo(this)">
+          <div class="c-av" style="background:#D97706;">➗</div>
+          <div class="c-info"><div class="c-name">Abstract Algebra</div><div class="c-preview">DM: Session moved to 8:30 PM</div></div>
+          <div class="c-time">1h</div>
+        </div>
+        <div class="convo-item" onclick="selectConvo(this)">
+          <div class="c-av" style="background:#059669;">📊</div>
+          <div class="c-info"><div class="c-name">Data Science Prep</div><div class="c-preview">NR: Great mock session today!</div></div>
+          <div class="c-time">3h</div>
+        </div>
+      </div>
+      <div class="chat-area">
+        <div class="chat-hd">
+          <div class="c-av" style="background:#6D28D9;width:34px;height:34px;font-size:0.85rem;">📚</div>
+          <div><div class="chat-hd-name">Algorithms Final Prep</div><div class="chat-hd-sub">3 members · Mon & Wed, 7 PM</div></div>
+        </div>
+        <div class="chat-msgs" id="chatMsgs">
+          <div class="msg"><div class="msg-av av2">PM</div><div class="msg-body"><div class="msg-sender">Patricia Marie</div><div class="msg-bubble">Hey everyone! May nakastart na sa problem 4?</div><div class="msg-time">2:34 PM</div></div></div>
+          <div class="msg"><div class="msg-av av3">RB</div><div class="msg-body"><div class="msg-sender">Renato Batumbakal Jr.</div><div class="msg-bubble">Sharing notes Monday! Flashcards really help guys</div><div class="msg-time">2:37 PM</div></div></div>
+          <div class="msg mine"><div class="msg-av av1">JD</div><div class="msg-body"><div class="msg-sender">Juan (You)</div><div class="msg-bubble">Nice session, guys!!! Sa uulitin!.</div><div class="msg-time">2:40 PM</div></div></div>
+          <div class="msg"><div class="msg-av av2">PM</div><div class="msg-body"><div class="msg-sender">Patricia Marie</div><div class="msg-bubble">Do you guys have notes sa Chapter 2.1? Stuck ako sa Question 6</div><div class="msg-time">3:12 PM</div></div></div>
+        </div>
+        <div class="chat-input-bar">
+          <input type="text" class="chat-input" placeholder="Type a message..." id="chatInput" onkeypress="if(event.key==='Enter')sendMsg()">
+          <button class="send-btn" onclick="sendMsg()">↑</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+   <!-- notifications -->
+  <div class="page" id="page-notifications">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+      <div style="font-size:13px;color:var(--muted);">5 unread notifications</div>
+      <button class="btn btn-ghost btn-sm" onclick="document.querySelectorAll('.notif-item').forEach(n=>n.classList.remove('unread'));document.querySelectorAll('.unread-dot').forEach(d=>d.remove());showToast('✅ All notifications marked as read')">Mark all read</button>
+    </div>
+    <div style="border-radius:14px;overflow:hidden;border:1px solid var(--border);">
+      <div class="notif-item unread"><div class="notif-icon ni-v">📩</div><div class="notif-info"><div class="notif-title">New join request for your group</div><div class="notif-desc">Sarah M. wants to join "Intro to Algorithms – Final Prep". Review her request in your group dashboard.</div></div><div class="notif-time">5m</div><div class="unread-dot"></div></div>
+      <div class="notif-item unread"><div class="notif-icon ni-g">✅</div><div class="notif-info"><div class="notif-title">Jamie R. joined Abstract Algebra</div><div class="notif-desc">A new member has joined your study group. Welcome them!</div></div><div class="notif-time">20m</div><div class="unread-dot"></div></div>
+      <div class="notif-item unread"><div class="notif-icon" style="background:#FEF3C7;">📅</div><div class="notif-info"><div class="notif-title">Session reminder: Algorithms Prep</div><div class="notif-desc">You have a study session today at 7:00 PM — Main Library, Room 3B.</div></div><div class="notif-time">1h</div><div class="unread-dot"></div></div>
+      <div class="notif-item unread"><div class="notif-icon ni-v">📢</div><div class="notif-info"><div class="notif-title">Announcement from Abstract Algebra</div><div class="notif-desc">Creator posted: "Session moved to 8:30 PM this Thursday. Come prepared with chapter 5!"</div></div><div class="notif-time">2h</div><div class="unread-dot"></div></div>
+      <div class="notif-item unread"><div class="notif-icon" style="background:#FEE2E2;">💬</div><div class="notif-info"><div class="notif-title">3 new messages in Data Science Prep</div><div class="notif-desc">NR, KP, and JL sent messages in your group chat.</div></div><div class="notif-time">3h</div><div class="unread-dot"></div></div>
+      <div class="notif-item"><div class="notif-icon ni-g">🎉</div><div class="notif-info"><div class="notif-title">Your group hit 3 members!</div><div class="notif-desc">"Intro to Algorithms" now has 3 members. 2 more spots remaining.</div></div><div class="notif-time">Yesterday</div></div>
+      <div class="notif-item"><div class="notif-icon ni-v">📚</div><div class="notif-info"><div class="notif-title">New recommended group for you</div><div class="notif-desc">Based on your CS subjects: "Systems Programming Study Group" just opened up 2 spots.</div></div><div class="notif-time">2 days ago</div></div>
+    </div>
+  </div>
+
+  <!-- profile-->
+  <div class="page" id="page-profile">
+    <div class="profile-layout">
+      <div class="profile-card">
+        <div class="profile-av">JD</div>
+        <div class="profile-name">Juan Dela Cruz</div>
+        <div class="profile-email">juandelacruz@wmsu.edu.ph</div>
+        <div class="profile-badge">Computer Science · Year 3</div>
+        <div class="pstats">
+          <div class="pstat"><div class="pstat-num">3</div><div class="pstat-label">Groups</div></div>
+          <div class="pstat"><div class="pstat-num">14h</div><div class="pstat-label">Study Time</div></div>
+          <div class="pstat"><div class="pstat-num">8</div><div class="pstat-label">Sessions</div></div>
+          <div class="pstat"><div class="pstat-num">1</div><div class="pstat-label">Created</div></div>
+        </div>
+      </div>
+      <div class="profile-main">
+        <div class="form-card">
+          <div class="form-card-title">Personal Information</div>
+          <div class="form-row"><div class="fg"><label>FIRST NAME</label><input value="Juan"></div><div class="fg"><label>LAST NAME</label><input value="Dela Cruz"></div></div>
+          <div class="fg"><label>SCHOOL EMAIL</label><input type="email" value="juandelacruz@wmsu.edu.ph"></div>
+          <div class="form-row"><div class="fg"><label>YEAR LEVEL</label><select><option>Year 1</option><option>Year 2</option><option selected>Year 3</option><option>Year 4</option><option>Graduate</option></select></div><div class="fg"><label>MAJOR</label><input value="Computer Science"></div></div>
+          <div class="fg"><label>BIO</label><textarea>CS junior who loves algorithms and data structures. Always looking to collaborate!</textarea></div>
+          <button class="btn btn-primary btn-sm" onclick="showToast('✅ Profile saved!')">Save Changes</button>
+        </div>
+        <div class="form-card">
+          <div class="form-card-title">Study Preferences</div>
+          <div class="form-row"><div class="fg"><label>PREFERRED MODE</label><select><option>Both</option><option>In-Person</option><option>Remote</option></select></div><div class="fg"><label>GROUP SIZE</label><select><option>Small (2–4)</option><option selected>Medium (5–8)</option><option>Large (9+)</option></select></div></div>
+          <button class="btn btn-ghost btn-sm" onclick="showToast('✅ Preferences saved!')">Update Preferences</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- create group -->
+<div class="modal-overlay" id="createModal">
+  <div class="modal">
+    <button class="modal-close" onclick="document.getElementById('createModal').classList.remove('open')">✕</button>
+    <h2>Start a New Study Group</h2>
+    <p class="modal-sub">Set up the details so the right people can find and join you.</p>
+    <label>GROUP NAME</label><input type="text" placeholder="e.g. Late Night Calculus Crushers">
+    <div class="modal-row">
+      <div><label>SUBJECT</label><select><option>Select...</option><option>Computer Science</option><option>Mathematics</option><option>Chemistry</option><option>Biology</option><option>Physics</option><option>Economics</option><option>History</option></select></div>
+      <div><label>MAX MEMBERS</label><input type="number" value="4" min="2" max="20"></div>
+    </div>
+    <div class="modal-row">
+      <div><label>MEETING TIME</label><input placeholder="e.g. Tuesdays, 6 PM"></div>
+      <div><label>LOCATION</label><input placeholder="Library or Zoom link"></div>
+    </div>
+    <label>DESCRIPTION / VIBE</label>
+    <textarea placeholder="What will you be focusing on? What's the vibe?"></textarea>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="document.getElementById('createModal').classList.remove('open')">Cancel</button>
+      <button class="btn btn-primary" onclick="groupCreated()">Create Group →</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const pageMap = {dashboard:'Dashboard',explore:'Explore Groups',mygroups:'My Groups',messages:'Messages',notifications:'Notifications',profile:'My Profile'};
+
+  function navigate(page, btn) {
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+    document.getElementById('page-'+page).classList.add('active');
+    document.getElementById('pageTitle').textContent = pageMap[page];
+    if(btn) btn.classList.add('active');
+  }
+
+  function setFC(el){document.querySelectorAll('.fc').forEach(c=>c.classList.remove('active'));el.classList.add('active');}
+
+  function joinGroup(btn) {
+    btn.textContent = '⏳ Request Sent';
+    btn.classList.remove('jb-open'); btn.classList.add('jb-joined');
+    btn.onclick = null;
+    showToast('📨 Join request sent! The group creator will review it.');
+  }
+
+  function selectConvo(el){document.querySelectorAll('.convo-item').forEach(c=>c.classList.remove('active'));el.classList.add('active');}
+
+  function sendMsg(){
+    const inp = document.getElementById('chatInput');
+    const txt = inp.value.trim(); if(!txt) return;
+    const now = new Date();
+    const time = now.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
+    const el = document.createElement('div'); el.className='msg mine';
+    el.innerHTML=`<div class="msg-av av1">AJ</div><div class="msg-body"><div class="msg-sender">Alex (You)</div><div class="msg-bubble">${txt}</div><div class="msg-time">${time}</div></div>`;
+    const c = document.getElementById('chatMsgs'); c.appendChild(el); c.scrollTop=c.scrollHeight; inp.value='';
+  }
+
+  function groupCreated(){document.getElementById('createModal').classList.remove('open');showToast('🎉 Group created! Redirecting...');setTimeout(()=>window.location.href='group-admin.html',1800);}
+
+  function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);}
+
+  document.getElementById('createModal').addEventListener('click',function(e){if(e.target===this)this.classList.remove('open');});
+</script>
+</body>
+</html>
+
+</body>
