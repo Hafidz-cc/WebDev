@@ -93,3 +93,146 @@
     </div>
   </div>
 </aside>
+
+<!--topbar-->
+<div class="main">
+  <div class="topbar">
+    <div class="topbar-title" id="pageTitle">
+        Dashboard
+    </div>
+
+    <div class="topbar-right">
+      <div class="tb-search">
+        <span style="color:var(--muted);font-size:13px;">
+            <span class="material-symbols-rounded">search</span>
+        </span>
+        <input type="text" placeholder="Search groups, subjects...">
+      </div>
+      <div class="icon-btn" onclick="navigate('notifications', document.querySelectorAll('.nav-btn')[4])">
+        <span class="material-symbols-rounded">notifications</span>
+        <div class="notif-dot"></div>
+      </div>
+      <button class="btn btn-primary" onclick="document.getElementById('createModal').classList.add('open')">+ Create Group</button>
+    </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="page active" id="page-dashboard">
+<div class="welcome-banner">
+    <div class="wb-text">
+        <h2>Good afternoon, Juan! ☀️</h2>
+        <p>You have 2 upcoming study sessions this week.</p>
+    </div>
+    <button class="wb-btn" onclick="navigate('explore', document.querySelectorAll('.nav-btn')[1])">
+        Find a Group →
+    </button>
+</div>
+
+<div class="stats-row">
+    <div class="stat-card">
+        <div class="stat-icon si-v">
+            <span class="material-symbols-rounded">menu_book</span>
+        </div>
+        <div>
+            <div class="stat-num">3</div><div class="stat-label">Groups Joined</div>
+            <div class="stat-change">↑ 1 this month</div>
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon si-a">
+            <span class="material-symbols-rounded">alarm_on</span>
+        </div>
+        <div>
+            <div class="stat-num">14h</div>
+            <div class="stat-label">Study Hours</div>
+            <div class="stat-change">↑ 3h this week</div>
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon si-g">
+            <span class="material-symbols-rounded">check_box</span>
+        </div>
+        <div>
+            <div class="stat-num">8</div>
+            <div class="stat-label">Sessions Done</div>
+            <div class="stat-change">100% attendance</div>
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon si-r">
+            <span class="material-symbols-rounded">chat_bubble</span>
+        </div>
+        <div>
+            <div class="stat-num">3</div>
+            <div class="stat-label">Unread Messages</div>
+            <div class="stat-change" style="color:#DC2626;">New today</div>
+        </div>
+    </div>
+</div>
+
+<div class="two-col" style="margin-bottom:22px;">
+      <div class="card">
+        <div class="card-hd"><div class="card-title">My Study Groups</div><span class="card-link" onclick="navigate('mygroups', document.querySelectorAll('.nav-btn')[2])">View All</span></div>
+        <div class="my-group-row"><div class="mg-dot" style="background:#6D28D9;"></div><div class="mg-info"><div class="mg-name">Intro to Algorithms – Final Prep</div><div class="mg-sub">Computer Science</div></div><span class="role-pill rp-creator">Creator</span></div>
+        <div class="my-group-row"><div class="mg-dot" style="background:#D97706;"></div><div class="mg-info"><div class="mg-name">Abstract Algebra Deep Dive</div><div class="mg-sub">Mathematics</div></div><span class="role-pill rp-member">Member</span></div>
+        <div class="my-group-row"><div class="mg-dot" style="background:#059669;"></div><div class="mg-info"><div class="mg-name">Data Science Interview Prep</div><div class="mg-sub">Computer Science</div></div><span class="role-pill rp-member">Member</span></div>
+      </div>
+      <div class="card">
+        <div class="card-hd"><div class="card-title">This Week's Sessions</div></div>
+        <div class="sched-row"><div class="sched-day">Mon<br>7:00 PM</div><div class="sched-dot" style="background:#6D28D9;"></div><div class="sched-info"><div class="sname">Algorithms Final Prep</div><div class="sloc">📍 Main Library, Room 3B</div></div></div>
+        <div class="sched-row"><div class="sched-day">Wed<br>7:00 PM</div><div class="sched-dot" style="background:#6D28D9;"></div><div class="sched-info"><div class="sname">Algorithms Final Prep</div><div class="sloc">📍 Main Library, Room 3B</div></div></div>
+        <div class="sched-row"><div class="sched-day">Thu<br>8:00 PM</div><div class="sched-dot" style="background:#D97706;"></div><div class="sched-info"><div class="sname">Abstract Algebra</div><div class="sloc">🌐 Virtual (Discord)</div></div></div>
+        <div class="sched-row"><div class="sched-day">Sat<br>10:00 AM</div><div class="sched-dot" style="background:#059669;"></div><div class="sched-info"><div class="sname">Data Science Prep</div><div class="sloc">🌐 Virtual (Zoom)</div></div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-hd"><div class="card-title">Recommended for You</div><span class="card-link" onclick="navigate('explore', document.querySelectorAll('.nav-btn')[1])">See All</span></div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding:16px 20px;">
+        <div style="background:var(--lavender);border-radius:12px;padding:14px;cursor:pointer;" onclick="showToast('🔍 Opening group details...')">
+          <span class="subj-tag st-cs" style="margin-bottom:8px;display:inline-block;">Computer Science</span>
+          <div style="font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:var(--indigo-dk);margin-bottom:4px;">Systems Programming Study</div>
+          <div style="font-size:11px;color:var(--muted);">🕐 Tues & Thurs · 🌐 Zoom · 2/6 open</div>
+        </div>
+        <div style="background:var(--lavender);border-radius:12px;padding:14px;cursor:pointer;" onclick="showToast('🔍 Opening group details...')">
+          <span class="subj-tag st-math" style="margin-bottom:8px;display:inline-block;">Mathematics</span>
+          <div style="font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:var(--indigo-dk);margin-bottom:4px;">Linear Algebra Bootcamp</div>
+          <div style="font-size:11px;color:var(--muted);">🕐 Mondays · 📍 Eng. Building · 3/5 open</div>
+        </div>
+        <div style="background:var(--lavender);border-radius:12px;padding:14px;cursor:pointer;" onclick="showToast('🔍 Opening group details...')">
+          <span class="subj-tag st-cs" style="margin-bottom:8px;display:inline-block;">Computer Science</span>
+          <div style="font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:var(--indigo-dk);margin-bottom:4px;">Web Dev Study Circle</div>
+          <div style="font-size:11px;color:var(--muted);">🕐 Fridays · 🌐 Discord · 4/8 open</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXPLORE -->
+  <div class="page" id="page-explore">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
+      <div><div style="font-size:14px;color:var(--muted);">Find groups that match your subjects and schedule.</div></div>
+      <button class="btn btn-primary" onclick="document.getElementById('createModal').classList.add('open')">+ Create Group</button>
+    </div>
+    <div class="filter-bar">
+      <button class="fc active" onclick="setFC(this)">All</button>
+      <button class="fc" onclick="setFC(this)">In-Person</button>
+      <button class="fc" onclick="setFC(this)">Remote</button>
+      <button class="fc" onclick="setFC(this)">Computer Science</button>
+      <button class="fc" onclick="setFC(this)">Mathematics</button>
+      <button class="fc" onclick="setFC(this)">Biology</button>
+      <button class="fc" onclick="setFC(this)">Economics</button>
+      <button class="fc" onclick="setFC(this)">History</button>
+    </div>
+    <div class="groups-grid">
+      <div class="group-card"><div class="gc-top"><span class="subj-tag st-cs">Computer Science</span><span class="cap-ind">3/5</span></div><h3>Intro to Algorithms – Final Prep</h3><p>Dynamic programming & graph algorithms for the CS301 final.</p><div class="gc-meta"><span>🕐 Mon & Wed, 7:00 PM</span><span>📍 Main Library, Room 3B</span></div><div class="gc-tags"><span class="gc-tag">Algorithms</span><span class="gc-tag">Final Prep</span><span class="gc-tag">In-person</span></div><div class="gc-foot"><div class="avatars"><div class="av av1">AJ</div><div class="av av2">KL</div><div class="av av3">MP</div></div><button class="join-btn jb-joined">✓ Joined</button></div></div>
+      <div class="group-card"><div class="gc-top"><span class="subj-tag st-bio">Biology/Chem</span><span class="cap-ind full">4/4 Full</span></div><h3>Organic Chemistry Survival Group</h3><p>Tackling reaction mechanisms. Lecture notes & practice problems.</p><div class="gc-meta"><span>🕐 Tuesdays, 4:00 PM</span><span>📍 Science Building Café</span></div><div class="gc-tags"><span class="gc-tag">O-Chem</span><span class="gc-tag">Weekly</span></div><div class="gc-foot"><div class="avatars"><div class="av av4">SL</div><div class="av av2">RP</div><div class="av av3">TN</div><div class="av av5">CK</div></div><button class="join-btn jb-full">Group Full</button></div></div>
+      <div class="group-card"><div class="gc-top"><span class="subj-tag st-math">Mathematics</span><span class="cap-ind">2/6</span></div><h3>Abstract Algebra Deep Dive</h3><p>Dummit & Foote ch. 4–6. Group theory and ring theory. Grad welcome.</p><div class="gc-meta"><span>🕐 Thursdays, 8:00 PM</span><span>🌐 Virtual (Discord)</span></div><div class="gc-tags"><span class="gc-tag">Math</span><span class="gc-tag">Remote</span><span class="gc-tag">Grad</span></div><div class="gc-foot"><div class="avatars"><div class="av av4">DM</div><div class="av av2">YK</div></div><button class="join-btn jb-joined">✓ Joined</button></div></div>
+      <div class="group-card"><div class="gc-top"><span class="subj-tag st-hist">History</span><span class="cap-ind">5/8</span></div><h3>Modern European History</h3><p>Reading group for 19th & 20th century European history.</p><div class="gc-meta"><span>🕐 Fridays, 2:00 PM</span><span>📍 Coffee Shop Downtown</span></div><div class="gc-tags"><span class="gc-tag">History</span><span class="gc-tag">Reading</span></div><div class="gc-foot"><div class="avatars"><div class="av av3">AL</div><div class="av av1">BM</div></div><button class="join-btn jb-open" onclick="joinGroup(this)">Join Group →</button></div></div>
+      <div class="group-card"><div class="gc-top"><span class="subj-tag st-cs">Computer Science</span><span class="cap-ind">3/6</span></div><h3>Data Science Interview Prep</h3><p>Mock interviews, LeetCode, and SQL practice for summer internships.</p><div class="gc-meta"><span>🕐 Saturdays, 10:00 AM</span><span>🌐 Virtual (Zoom)</span></div><div class="gc-tags"><span class="gc-tag">LeetCode</span><span class="gc-tag">SQL</span><span class="gc-tag">Remote</span></div><div class="gc-foot"><div class="avatars"><div class="av av2">JL</div><div class="av av4">KP</div><div class="av av1">NR</div></div><button class="join-btn jb-joined">✓ Joined</button></div></div>
+      <div class="group-card"><div class="gc-top"><span class="subj-tag st-econ">Economics</span><span class="cap-ind">1/4</span></div><h3>Microeconomics Study Session</h3><p>Reviewing problem sets and preparing for midterms.</p><div class="gc-meta"><span>🕐 Wednesdays, 5:30 PM</span><span>📍 Business Hall, Rm 112</span></div><div class="gc-tags"><span class="gc-tag">Econ</span><span class="gc-tag">Midterm</span></div><div class="gc-foot"><div class="avatars"><div class="av av5">FG</div></div><button class="join-btn jb-open" onclick="joinGroup(this)">Join Group →</button></div></div>
+    </div>
+  </div>
+
