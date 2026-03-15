@@ -24,6 +24,11 @@
     gap:15px;
 }
 
+.user-redirect a {
+    text-decoration:none;
+    color: white;
+}
+
 .login-card input{
     padding:10px;
     border-radius:8px;
@@ -52,7 +57,7 @@
 
 .signup-link a{
     color:rgb(177,10,243);
-    text-decoration:none;
+    text-decoration: none;
 }
 
 .divider{
