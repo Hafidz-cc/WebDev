@@ -23,7 +23,7 @@
 }
 
 body { 
-    font-family: 'Segoe UI', Arial, sans-serif;
+    font-family: Inter;
     background: var(--lavender); 
     color: var(--text); 
     display: flex; 
@@ -34,7 +34,7 @@ body {
 
 .sidebar { 
     width: 220px; 
-    background: rgb(177, 10, 243); 
+    background: #6D00CC; 
     display: flex; 
     flex-direction: column; 
     position: fixed; 
@@ -57,7 +57,7 @@ body {
 .sb-logo { 
     width: 34px; 
     height: 34px; 
-    background: var(--violet-lt); 
+    background: #D4C4FF; 
     border-radius: 9px; 
     display: flex; 
     align-items: center; 
@@ -66,7 +66,6 @@ body {
 }
 
 .sb-name { 
-    font-family: 'Sora', sans-serif; 
     font-weight: 700; 
     font-size: 14px; 
     color: white; 
@@ -90,7 +89,7 @@ nav {
     display: flex; 
     align-items: center; 
     gap: 10px; 
-    color: #030303; 
+    color: #EED5FF; 
     font-family: 'DM Sans', sans-serif; 
     font-size: 13px; 
     font-weight: 500; 
@@ -100,19 +99,19 @@ nav {
 }
 
 .nav-btn:hover { 
-    background: rgba(124,58,237,0.2); 
+    background: #5500A3; 
     color: white; 
 }
 
 .nav-btn.active { 
-    background: var(--violet-lt); 
+    background: #5500A3; 
     color: white; 
     font-weight: 600; 
 }
 
 .nav-btn .icon { 
-    font-size: 15px; 
-    width: 18px; 
+    font-size: 10px; 
+    width: 15px; 
     text-align: center; 
 }
 
