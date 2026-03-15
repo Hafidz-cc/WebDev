@@ -52,6 +52,7 @@
     display: flex;
     align-items: flex-end;
     gap: 20px;
+    width: 100%;
 }
 
 #info-row > img {
@@ -62,7 +63,9 @@
     object-fit: cover;
 }
 
-#text { flex: 1; }
+#text { 
+    display: block;
+}
 
 #text h1 {
     font-size: 2rem;
@@ -76,6 +79,7 @@
     align-items: center;
     gap: 10px;
     flex-wrap: wrap;
+    justify-content: flex-start;
 }
 
 .tag {
