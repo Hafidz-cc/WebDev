@@ -3,12 +3,14 @@
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: 'Segoe UI', Arial, sans-serif;
+  font-family: Inter;
   background: #fdf9ff;
   color: #0d0d0d;
   overflow-x: hidden;
   margin: 0;
 }
+
+
 
 .top-section {
   min-height: 100vh;
@@ -53,6 +55,15 @@ body {
   display: block;
   width: 28px; height: 2px;
   background: rgb(177, 10, 243);
+}
+
+.tagline {
+  font-size:80px;
+  font-weight: bold;
+}
+
+.tagline em {
+  color: rgb(177, 10, 243);
 }
 
 .top-text-side h1 {
