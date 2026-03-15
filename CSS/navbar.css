@@ -17,6 +17,11 @@ nav {
   backdrop-filter: blur(12px);
 }
 
+a {
+  text-decoration: none;
+  color: black;
+}
+
 .logo {
   font-size: clamp(1.2rem, 2vw, 1.6rem);
   font-weight: 800;

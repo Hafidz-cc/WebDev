@@ -22,79 +22,190 @@
             <a href="signup.html" class="signup">Sign up</a>
         </div>
     </nav>
-    <section id="groups-section">
-        <h1>Groups</h1>
-        <p>Here you can find and join study groups based on your courses and interests.</p>
-        <input type="text" class="group-search" placeholder="Search groups...">
-        <div class="group-list">
-            <a href="Groupinfo.html" class="group-link">
-                <div class="group-item">
-                    <h2>Calculus Study Group</h2>
-                    <img src="images/calculus.jpg" alt="Calculus Group Image" class="group-image">
-                    <div class="tags">
-                    <div class="tags">
-                        <span class="tag">Math</span>
-                        <span class="tag">Calculus</span>
-                        <span class="tag">Exams</span>
-                        <span class="tag">Problem Solving</span>
-                    </div>
-                </div>
-                    <p>Join us to discuss calculus problems and share resources.</p>
-            </div>
-            </a>
-            <a href="Groupinfo2.html" class="group-link">
-                <div class="group-item">
-                    <h2>Physics Study Group</h2>
-                    <img src="images/physics.jpg" alt="Physics Group Image" class="group-image">
-                    <div class="tags">
-                        <span class="tag">Science</span>
-                        <span class="tag">Physics</span>
-                        <span class="tag">Formulas</span>
-                        <span class="tag">Exams</span>
-                    </div>
-                    <p>Collaborate with us physics interested students and prepare for exams together.</p>
-                </div>
-            </a>
-            <a href="#" class="group-link">
-                <div class="group-item">
-                    <h2>Computer Science Study Group</h2>
-                    <img src="images/compsci.jpg" alt="Computer Science Group Image" class="group-image">
-                    <div class="tags">
-                        <span class="tag">Technology</span>
-                        <span class="tag">Programming</span>
-                        <span class="tag">Coding</span>
-                        <span class="tag">Projects</span>
-                    </div>
-                    <p>Share coding tips, work on projects, and prepare for coding interviews.</p>
-                </div>
-            </a>
-            <a href="#" class="group-link">
-                <div class="group-item">
-                    <h2>Biology Study Group</h2>
-                    <img src="images/biology.jpg" alt="Biology Group Image" class="group-image">
-                    <div class="tags">
-                        <span class="tag">Science</span>
-                        <span class="tag">Biology</span>
-                        <span class="tag">Notes</span>
-                        <span class="tag">Review</span>
-                    </div>
-                    <p>Discuss biology concepts, share notes, and prepare for exams together.</p>
-                </div>
-            </a>
-            <a href="#" class="group-link">
-                <div class="group-item">
-                    <h2>History Study Group</h2>
-                    <img src="images/history.jpg" alt="History Group Image" class="group-image">
-                    <div class="tags">
-                        <span class="tag">History</span>
-                        <span class="tag">Events</span>
-                        <span class="tag">Research</span>
-                        <span class="tag">Exams</span>
-                    </div>
-                    <p>Join us to discuss historical events, share resources, and prepare for exams.</p>
-                </div>
-            </a>
+
+    <div id="container">
+
+        <div id="header">
+            <h1>Groups</h1>
+            <hr>
+            <p>Find and join study groups based on your courses and interests</p>
         </div>
-    </section>
+
+        <div id="search-bar">
+            <input type="text" placeholder="Search groups...">
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">⭐ Recommended</h2>
+            <div class="groups-grid">
+                <a href="calculus-page">
+                    <div class="group-card">
+                        <div class="card-image"><img src="images/calculus.jpg"></div>
+                        <div class="card-body">
+                            <h3 class="card-title">Calculus study group</h3>
+                            <p class="card-description">Master derivatives, integrals, and limits together.</p>
+                        </div>
+                    </div>
+                </a>
+                <a href="compsci-page">
+                    <div class="group-card">
+                        <div class="card-image"><img src="images/compsci.jpg"></div>
+                        <div class="card-body">
+                            <h3 class="card-title">Computer Science study group</h3>
+                            <p class="card-description">Tackle algorithms, data structures, and coding problems.</p>
+                        </div>
+                    </div>
+                </a>
+                <a href="biology-page">
+                    <div class="group-card">
+                        <div class="card-image"><img src="images/biology.jpg"></div>
+                        <div class="card-body">
+                            <h3 class="card-title">Biology study group</h3>
+                            <p class="card-description">Explore cells, ecosystems, and everything in between.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="section">
+            <h2 class="section-title">📐 Math</h2>
+            <div class="groups-grid">
+                <a href="calculus-page">
+                    <div class="group-card">
+                        <div class="card-image"><img src="images/calculus.jpg"></div>
+                        <div class="card-body">
+                            <h3 class="card-title">Calculus study group</h3>
+                            <p class="card-description">Master derivatives, integrals, and limits together.</p>
+                        </div>
+                    </div>
+                </a>
+                <a href="stats-page">
+                    <div class="group-card">
+                        <div class="card-image"><img src="images/stats.png"></div>
+                        <div class="card-body">
+                            <h3 class="card-title">Statistics & Probability study group</h3>
+                            <p class="card-description">Make sense of data, distributions, and hypothesis testing.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="section">
+            <h2 class="section-title">🔬 Science</h2>
+            <div class="groups-grid">
+                <a href="physics-page">
+                    <div class="group-card">
+                        <div class="card-image"><img src="images/physics.jpg"></div>
+                        <div class="card-body">
+                            <h3 class="card-title">Physics study group</h3>
+                            <p class="card-description">Break down mechanics, waves, and electromagnetism.</p>
+                        </div>
+                    </div>
+                </a>
+                <a href="biology-page">
+                    <div class="group-card">
+                        <div class="card-image"><img src="images/biology.jpg"></div>
+                        <div class="card-body">
+                            <h3 class="card-title">Biology study group</h3>
+                            <p class="card-description">Explore cells, ecosystems, and everything in between.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="section">
+            <h2 class="section-title">🏥 Health</h2>
+            <div class="groups-grid">
+                <a href="nursing-page">
+                    <div class="group-card">
+                        <div class="card-image"><img src="images/nursing.jpeg"></div>
+                        <div class="card-body">
+                            <h3 class="card-title">Nursing study group</h3>
+                            <p class="card-description">Review anatomy, patient care, and medical procedures.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="section">
+            <h2 class="section-title">💻 Technology</h2>
+            <div class="groups-grid">
+                <a href="compsci-page">
+                    <div class="group-card">
+                        <div class="card-image"><img src="images/compsci.jpg"></div>
+                        <div class="card-body">
+                            <h3 class="card-title">Computer Science study group</h3>
+                            <p class="card-description">Tackle algorithms, data structures, and coding problems.</p>
+                        </div>
+                    </div>
+                </a>
+                <a href="webdev-page">
+                    <div class="group-card">
+                        <div class="card-image"><img src="images/webdev.jpg"></div>
+                        <div class="card-body">
+                            <h3 class="card-title">Web Development study group</h3>
+                            <p class="card-description">Build and design websites from the ground up.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="section">
+            <h2 class="section-title">📊 Business</h2>
+            <div class="groups-grid">
+                <a href="accounting-page">
+                    <div class="group-card">
+                        <div class="card-image"><img src="images/accounting.png"></div>
+                        <div class="card-body">
+                            <h3 class="card-title">Accounting study group</h3>
+                            <p class="card-description">Work through financial statements, journals, and ledgers.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="section">
+            <h2 class="section-title">📚 Humanities</h2>
+            <div class="groups-grid">
+                <a href="history-page">
+                    <div class="group-card">
+                        <div class="card-image"><img src="images/history.jpg"></div>
+                        <div class="card-body">
+                            <h3 class="card-title">History study group</h3>
+                            <p class="card-description">Discuss and analyze major events across world history.</p>
+                        </div>
+                    </div>
+                </a>
+                <a href="english-page">
+                    <div class="group-card">
+                        <div class="card-image"><img src="images/english.jpg"></div>
+                        <div class="card-body">
+                            <h3 class="card-title">English Proficiency study group</h3>
+                            <p class="card-description">Sharpen grammar, writing, and communication skills.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+    </div>
 </body>
 </html>
