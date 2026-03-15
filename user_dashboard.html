@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study Buddy — My Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel = "stylesheet" href = "CSS/user_dashboard_style.css">
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <a href="index.html" class="sb-brand">
+    <div class="sb-logo">📚</div>
+    <span class="sb-name">Study Buddy</span>
+  </a>
+  <nav>
+    <button class="nav-btn active" onclick="navigate('dashboard', this)">
+        <span class="icon">🏠</span> 
+        Dashboard
+    </button>
+
+    <button class="nav-btn" onclick="navigate('explore', this)">
+        <span class="icon">🔍</span> 
+        Explore Groups
+    </button>
+
+    <button class="nav-btn" onclick="navigate('mygroups', this)">
+        <span class="icon">👥</span>
+        My Groups
+    </button>
+
+    <button class="nav-btn" onclick="navigate('messages', this)">
+        <span class="icon">💬</span>
+        Messages 
+        <span class="nav-badge">3</span>
+    </button>
+
+    <button class="nav-btn" onclick="navigate('notifications', this)">
+        <span class="icon">🔔</span>
+        Notifications 
+        <span class="nav-badge">5</span>
+    </button>
+
+    <button class="nav-btn" onclick="navigate('profile', this)">
+        <span class="icon">👤</span>
+        Profile
+    </button>
+
+    <button class="nav-btn" onclick="window.location.href='index.html'" style="margin-top:auto;">
+        <span class="icon">🚪</span>
+        Sign Out
+    </button>
+  </nav>
+
+  <div class="sb-footer">
+    <div class="sb-av">JD</div>
+    <div class="sb-user">
+      <div class="sb-uname">Juan Dela Cruz</div>
+      <div class="sb-urole">Computer Science</div>
+    </div>
+  </div>
+</aside>
