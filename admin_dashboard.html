@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Buddy — Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!--font family-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+    <!--Icons used-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" />
+  <link rel = "stylesheet" href = "CSS/admin_dashboard_style.css">
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+    <aside class="sidebar">
+    <div class="sb-brand">
+        <div class="sb-logo">
+             <span class="material-symbols-rounded" style ="color:#6D00CC;">auto_stories</span>
+        </div>
+        <div class="sb-names">
+        <div class="sb-name" style ="font-family:Instrument Serif;font-size:20px;font-weight:lighter;">StudyBuddy</div>
+        <div class="sb-sub">School Administration</div>
+        </div>
+        <span class="admin-pill">ADMIN</span>
+    </div>
+    <nav>
+        <button class="nav-btn active" onclick="navigate('overview', this)">
+            <span class="icon">
+                <span class="material-symbols-rounded">analytics</span>
+            </span>
+            <span></span>
+            Overview
+        </button>
+
+        <button class="nav-btn" onclick="navigate('users', this)">
+            <span class="icon">
+                <span class="material-symbols-rounded">group</span>
+            </span>
+            <span></span>
+            Users
+        </button>
+
+        <button class="nav-btn" onclick="navigate('groups', this)">
+            <span class="icon">
+                <span class="material-symbols-rounded">diversity_3</span>
+            </span>
+            <span></span>
+            Groups
+        </button>
+
+        <button class="nav-btn" onclick="navigate('reports', this)">
+            <span class="icon">
+                <span class="material-symbols-rounded">report</span>
+            </span> 
+            <span></span>
+            Reports 
+            <span class="nav-badge">3</span>
+        </button>
+
+        <button class="nav-btn" onclick="navigate('settings', this)">
+            <span class="icon">
+                <span class="material-symbols-rounded">settings</span>
+            </span>
+            <span></span>
+            Settings
+        </button>
+
+        <div class="nav-sep"></div>
+        <button class="nav-btn" onclick="window.location.href='../homepage.html'">
+            <span class="icon">
+                <span class="material-symbols-rounded">captive_portal</span>
+            </span> 
+            <span></span>
+            View Site
+        </button>
+
+        <button class="nav-btn" onclick="window.location.href='../homepage.html'">
+            <span class="icon">
+                <span class="material-symbols-rounded">logout</span>
+            </span>
+            <span></span>
+            Sign Out
+        </button>
+    </nav>
+    <div class="sb-footer">
+        <div class="sb-av">SA</div>
+        <div class="sb-user">
+        <div class="sb-uname">Site Admin</div>
+        <div class="sb-urole">Western Mindanao State University</div>
+        </div>
+    </div>
+    </aside>
+
+</body>
