@@ -12,54 +12,48 @@
         .bg {
             position: absolute;
             inset: 0;
-            background-image: url("images/calculus.jpg");
+            background-image: url("images/compsci.jpg");
             background-size: cover;
             background-position: center;
             filter: brightness(0.5);
-}
+        }
     </style>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" />
 </head>
 <body>
-
     <nav>
-    <div class="logo">
-        <span class="material-symbols-rounded" style ="color:#6D00CC;font-size:30px;">auto_stories</span>
-        <a class = "backtohome" href = "homepage.html">
-    <span class="pagename" style ="font-family:Instrument Serif;font-size:30px;font-weight:lighter;color:black;">StudyBuddy</span>
-    </a>
-    </div>
-
-    <ul class="nav-links">
-        <li><a href="homepage.html">Home</a></li>
-        <li><a href="MyGroups.html">My Groups</a></li>
-        <li><a href="groups.html">Groups</a></li>
-    </ul>
-    <div class="nav-buttons">
-        <a href="login.html" class="login">Log in</a>
-        <a href="signup.html" class="signup">Sign up</a>
-    </div>
+        <div class="logo">
+            <span class="material-symbols-rounded" style="color:#6D00CC;font-size:30px;">auto_stories</span>
+            <a class="backtohome" href="homepage.html">
+                <span class="pagename" style="font-family:Instrument Serif;font-size:30px;font-weight:lighter;color:black;">StudyBuddy</span>
+            </a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="homepage.html">Home</a></li>
+            <li><a href="MyGroups.html">My Groups</a></li>
+            <li><a href="groups.html">Groups</a></li>
+        </ul>
+        <div class="nav-buttons">
+            <a href="login.html" class="login">Log in</a>
+            <a href="signup.html" class="signup">Sign up</a>
+        </div>
     </nav>
 
     <div id="page">
         <div id="top">
             <div class="bg"></div>
             <div class="overlay"></div>
-
             <a href="groups.html" id="back">&#8592; Back</a>
-
             <div id="info-row">
                 <img src="images/person-profile.jpg" alt="pfp">
                 <div id="text">
-                    <h1>Calculus Study Group</h1>
+                    <h1>Computer Science Study Group</h1>
                     <div id="tags">
                         <div class="tag">Group owner: Person 1</div>
-                        <div class="tag"><span class="dot"></span> 13 / 15 members</div>
+                        <div class="tag"><span class="dot"></span> 10 / 20 members</div>
                         <div class="tag">Frequency: Recurring</div>
                         <button class="join-btn">Join Group</button>
                     </div>
@@ -70,50 +64,46 @@
         <main>
             <div class="box" id="about">
                 <h2>About us</h2>
-                <p>Calculus can feel scary, but it's way easier when you're not doing it alone. We help each other understand limits, derivatives, and integrals without the usual headache. Expect lots of problem-solving, "aha!" moments, and maybe a few bad math jokes.</p>
+                <p>From data structures to algorithms, we tackle CS concepts together. Whether you're debugging your first loop or prepping for technical interviews, this group is your space to learn, share, and grow. We code together, struggle together, and figure it out together.</p>
             </div>
 
             <div id="cols">
                 <div id="left">
                     <div class="box" id="rules">
                         <h2>Group rules!!</h2>
-                        <div class="rule"><span class="num">1</span> Be respectful to everyone in the group</div>
-                        <div class="rule"><span class="num">2</span> Come prepared — at least try the problems first</div>
-                        <div class="rule"><span class="num">3</span> No sharing answers without explaining how</div>
-                        <div class="rule"><span class="num">4</span> Let the organizer know if you can't make it</div>
-                        <div class="rule"><span class="num">5</span> Keep distractions to a minimum during sessions</div>
+                        <div class="rule"><span class="num">1</span> Be respectful and patient with everyone's learning pace</div>
+                        <div class="rule"><span class="num">2</span> Try the problem yourself before asking for the solution</div>
+                        <div class="rule"><span class="num">3</span> Share code snippets, not just answers — explain your logic</div>
+                        <div class="rule"><span class="num">4</span> Keep discussion on-topic during focused sessions</div>
+                        <div class="rule"><span class="num">5</span> Notify the group if you'll miss a session</div>
                     </div>
 
                     <div class="box" id="comments">
                         <h2>Comments</h2>
-
                         <div class="comment">
                             <img src="images/person-profile.jpg">
                             <div>
                                 <div class="cname">Person 2</div>
-                                <div class="ctext">Really helpful session last week! Finally got derivatives to click for me</div>
-                                <div class="ctime">2 days ago</div>
+                                <div class="ctext">Finally understood recursion after last session. The tree visualization really helped!</div>
+                                <div class="ctime">1 day ago</div>
                             </div>
                         </div>
-
                         <div class="comment">
                             <img src="images/person-profile.jpg">
                             <div>
                                 <div class="cname">Person 3</div>
-                                <div class="ctext">Can we cover integration by parts next time? I'm lost on that one</div>
-                                <div class="ctime">5 days ago</div>
+                                <div class="ctext">Can we go over linked lists vs arrays next time? Still confused on when to use which</div>
+                                <div class="ctime">3 days ago</div>
                             </div>
                         </div>
-
                         <div class="comment">
                             <img src="images/person-profile.jpg">
                             <div>
                                 <div class="cname">Person 4</div>
-                                <div class="ctext">sixseveennnnn</div>
-                                <div class="ctime">5 days ago</div>
+                                <div class="ctext">This group is so helpful, shoutout to everyone who stayed late to help debug my code 😭</div>
+                                <div class="ctime">1 week ago</div>
                             </div>
                         </div>
-
                         <div id="post-box">
                             <input type="text" placeholder="Leave a comment...">
                             <button>Post</button>
@@ -123,32 +113,29 @@
 
                 <div class="box" id="meetup">
                     <h2>Meetup details</h2>
-
                     <div class="mrow">
                         <div class="mlabel">Location</div>
-                        <div class="mval">LR3, College of Computing Studies Building</div>
+                        <div class="mval">Computer Lab 2, CCS Building</div>
                     </div>
                     <div class="mrow">
                         <div class="mlabel">Schedule</div>
-                        <div class="mval">Every Saturday, 2:00 PM</div>
+                        <div class="mval">Every Friday, 3:00 PM</div>
                     </div>
                     <div class="mrow">
                         <div class="mlabel">Duration</div>
-                        <div class="mval">2 hours</div>
+                        <div class="mval">2.5 hours</div>
                     </div>
                     <div class="mrow">
                         <div class="mlabel">Mode</div>
-                        <div class="mval">Face-to-face</div>
+                        <div class="mval">Face-to-face / Hybrid</div>
                     </div>
-
                     <div id="next">
                         <div id="next-label">Next session</div>
-                        <div id="next-date">Saturday, March 22</div>
-                        <div id="next-sub">2:00 PM &mdash; LR3, CCS Building</div>
+                        <div id="next-date">Friday, March 21</div>
+                        <div id="next-sub">3:00 PM &mdash; Computer Lab 2, CCS Building</div>
                     </div>
-
                     <div id="members">
-                        <h3>Members (13/15)</h3>
+                        <h3>Members (10/20)</h3>
                         <div class="mrow2">
                             <img src="images/person-profile.jpg">
                             <div class="mname">Person 1</div>
@@ -158,12 +145,11 @@
                         <div class="mrow2"><img src="images/person-profile.jpg"><div class="mname">Person 3</div></div>
                         <div class="mrow2"><img src="images/person-profile.jpg"><div class="mname">Person 4</div></div>
                         <div class="mrow2"><img src="images/person-profile.jpg"><div class="mname">Person 5</div></div>
-                        <p id="more">+8 more members</p>
+                        <p id="more">+5 more members</p>
                     </div>
                 </div>
             </div>
         </main>
     </div>
-
 </body>
 </html>
