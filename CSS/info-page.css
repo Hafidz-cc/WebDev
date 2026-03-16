@@ -11,15 +11,6 @@
     font-family: sans-serif;
 }
 
-.bg {
-    position: absolute;
-    inset: 0;
-    background-image: url("../images/calculus.jpg");
-    background-size: cover;
-    background-position: center;
-    filter: brightness(0.5);
-}
-
 .overlay {
     position: absolute;
     inset: 0;
