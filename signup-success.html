@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Created - HiveMinds</title>
+    <link rel="stylesheet" href="CSS/base.css">
+    <link rel="stylesheet" href="CSS/auth.css">
+    <style>
+        @keyframes bgCycle {
+            0%,  30% { background-image: url('images/backgroundimg1.png'); }
+            33%, 63% { background-image: url('images/backgroundimg2.png'); }
+            66%, 96% { background-image: url('images/backgroundimg3.jpg'); }
+            100%      { background-image: url('images/backgroundimg1.png'); }
+        }
+
+        body.auth-page {
+            animation: bgCycle 15s infinite;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .success-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px 36px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.15);
+        }
+
+        .success-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+        }
+
+        .success-card h1 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 26px;
+            font-weight: normal;
+            color: #1E1B4B;
+            margin-bottom: 10px;
+        }
+
+        .success-card p {
+            font-size: 14px;
+            color: #6B7280;
+            margin-bottom: 28px;
+            line-height: 1.6;
+        }
+
+        .btn-login {
+            display: inline-block;
+            background: #6D28D9;
+            color: white;
+            padding: 11px 28px;
+            border-radius: 100px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .btn-login:hover { background: #7C3AED; }
+    </style>
+</head>
+<body class="auth-page">
+
+<div class="login-container">
+    <div class="success-card">
+        <div class="success-icon">🎉</div>
+        <h1>Account created!</h1>
+        <p>Welcome to HiveMinds. You're all set — log in to start finding study groups.</p>
+        <a href="login.html" class="btn-login">Go to Login →</a>
+    </div>
+</div>
+
+</body>
+</html>
