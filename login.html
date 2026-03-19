@@ -1,36 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Login - HiveMinds</title>
-<link rel="stylesheet" href="CSS/base.css">
-<link rel="stylesheet" href="CSS/auth.css">
-</head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - HiveMinds</title>
+    <link rel="stylesheet" href="CSS/base.css">
+    <link rel="stylesheet" href="CSS/auth.css">
+    <style>
+        @keyframes bgCycle {
+            0%,  30% { background-image: url('images/backgroundimg1.png'); }
+            33%, 63% { background-image: url('images/backgroundimg2.png'); }
+            66%, 96% { background-image: url('images/backgroundimg3.jpg'); }
+            100%      { background-image: url('images/backgroundimg1.png'); }
+        }
 
-<body class="auth-page show-toast">
-<input type="checkbox" id="toast-toggle" hidden>
-<div class="toast">
-    Account successfully created!
-    <label for="toast-toggle" class="close-btn">×</label>
-</div>
+        body.auth-page {
+            animation: bgCycle 15s infinite;
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body class="auth-page">
 
 <div class="login-container">
-
     <div class="login-card">
         <a href="homepage.html" class="close-page">×</a>
         <h1>Login</h1>
 
-        <form action="user_dashboard.html">
-            <input type="email" placeholder="Email" required>
-            <input type="password" placeholder="Password" required>
-
-            <button type="submit" class ="user-redirect"><a href = "user_dashboard.html">Login</a></button>
+        <form action="user_dashboard.html" method="get">
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Login</button>
         </form>
 
-        <div class="divider">
-            <span>or</span>
-        </div>
+        <div class="divider"><span>or</span></div>
 
         <button class="google-btn">
             <span class="google-icon">
@@ -42,33 +46,10 @@
         <p class="signup-link">
             Don't have an account? <a href="signup.html">Sign up</a>
             <br>
-            School admin? <a href ="admin_dashboard.html">Admin Dashboard...</a>
+            School admin? <a href="admin_dashboard.html">Admin Dashboard...</a>
         </p>
-    
     </div>
-
 </div>
-
-<script>
-if (document.body.classList.contains("auth-page")) {
-
-    const images = [
-        "images/backgroundimg1.png",
-        "images/backgroundimg2.png",
-        "images/backgroundimg3.jpg"
-    ];
-
-    let index = 0;
-
-    function changeBackground() {
-        document.body.style.backgroundImage = `url('${images[index]}')`;
-        index = (index + 1) % images.length;
-    }
-
-    changeBackground();
-    setInterval(changeBackground, 5000);
-}
-</script>
 
 </body>
 </html>

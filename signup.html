@@ -1,35 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sign Up - StudyBuddy</title>
-<link rel="stylesheet" href="CSS/base.css">
-<link rel="stylesheet" href="CSS/auth.css">
-</head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - HiveMinds</title>
+    <link rel="stylesheet" href="CSS/base.css">
+    <link rel="stylesheet" href="CSS/auth.css">
+    <style>
+        @keyframes bgCycle {
+            0%,  30% { background-image: url('images/backgroundimg1.png'); }
+            33%, 63% { background-image: url('images/backgroundimg2.png'); }
+            66%, 96% { background-image: url('images/backgroundimg3.jpg'); }
+            100%      { background-image: url('images/backgroundimg1.png'); }
+        }
 
+        body.auth-page {
+            animation: bgCycle 15s infinite;
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
 <body class="auth-page">
-<input type="checkbox" id="toast-toggle" hidden>
 
 <div class="login-container">
-
     <div class="login-card">
         <a href="login.html" class="close-page">×</a>
         <h1>Sign Up</h1>
 
-        <form action="login.html" method="get">
-            <input type="text" placeholder="Last Name" required>
-            <input type="text" placeholder="First Name" required>
-            <input type="email" placeholder="Email" required>
-            <input type="password" placeholder="Password" required>
-            <input type="password" placeholder="Confirm Password" required>
-
+        <!-- On submit, goes to signup-success.html instead of login directly -->
+        <form action="signup-success.html" method="get">
+            <input type="text" name="lastName" placeholder="Last Name" required>
+            <input type="text" name="firstName" placeholder="First Name" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
             <button type="submit">Create Account</button>
         </form>
 
-        <div class="divider">
-            <span>or</span>
-        </div>
+        <div class="divider"><span>or</span></div>
 
         <button class="google-btn">
             <span class="google-icon">
@@ -42,29 +51,7 @@
             Already have an account? <a href="login.html">Login</a>
         </p>
     </div>
-
 </div>
-
-<script>
-if (document.body.classList.contains("auth-page")) {
-
-    const images = [
-        "images/backgroundimg1.png",
-        "images/backgroundimg2.png",
-        "images/backgroundimg3.jpg"
-    ];
-
-    let index = 0;
-
-    function changeBackground() {
-        document.body.style.backgroundImage = `url('${images[index]}')`;
-        index = (index + 1) % images.length;
-    }
-
-    changeBackground();
-    setInterval(changeBackground, 5000);
-}
-</script>
 
 </body>
 </html>
