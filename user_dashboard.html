@@ -19,7 +19,7 @@
 
 <!-- SIDEBAR -->
 <aside class="sidebar">
-  <a href="index.html" class="sb-brand">
+  <a href="homepage.html" class="sb-brand">
     <div class="sb-logo">
         <span class="material-symbols-rounded" style ="color:#6D00CC;">auto_stories</span>
     </div>
@@ -34,13 +34,15 @@
         Dashboard
     </button>
 
-    <button class="nav-btn" onclick="navigate('explore', this)">
+    <a href="groups.html">
+    <button class="nav-btn">
         <span class="icon">
             <span class="material-symbols-rounded">search</span>
         </span> 
         <span> </span>
         Explore Groups
     </button>
+    </a>
 
     <button class="nav-btn" onclick="navigate('mygroups', this)">
         <span class="icon">
@@ -76,7 +78,7 @@
         Profile
     </button>
 
-    <button class="nav-btn" onclick="window.location.href='index.html'" style="margin-top:auto;">
+    <button class="nav-btn" onclick="window.location.href='login.html'" style="margin-top:auto;">
         <span class="icon">
             <span class="material-symbols-rounded">logout</span>
         </span>
@@ -123,9 +125,10 @@
         <h2>Good afternoon, Juan! ☀️</h2>
         <p>You have 2 upcoming study sessions this week.</p>
     </div>
-    <button class="wb-btn" onclick="navigate('explore', document.querySelectorAll('.nav-btn')[1])">
+    <a href="groups.html"><button class="wb-btn">
         Find a Group →
     </button>
+    </a>
 </div>
 
 <div class="stats-row">
@@ -377,7 +380,7 @@
           <div class="form-card-title">Personal Information</div>
           <div class="form-row"><div class="fg"><label>FIRST NAME</label><input value="Juan"></div><div class="fg"><label>LAST NAME</label><input value="Dela Cruz"></div></div>
           <div class="fg"><label>SCHOOL EMAIL</label><input type="email" value="juandelacruz@wmsu.edu.ph"></div>
-          <div class="form-row"><div class="fg"><label>YEAR LEVEL</label><select><option>Year 1</option><option>Year 2</option><option selected>Year 3</option><option>Year 4</option><option>Graduate</option></select></div><div class="fg"><label>MAJOR</label><input value="Computer Science"></div></div>
+          <div class="form-row"><div class="fg"><label>YEAR LEVEL</label><select><option>Year 1</option><option>Year 2</option><option selected>Year 3</option><option>Year 4</option></select></div><div class="fg"><label>MAJOR</label><input value="Computer Science"></div></div>
           <div class="fg"><label>BIO</label><textarea>CS junior who loves algorithms and data structures. Always looking to collaborate!</textarea></div>
           <button class="btn btn-primary btn-sm" onclick="showToast('✅ Profile saved!')">Save Changes</button>
         </div>
@@ -405,6 +408,15 @@
     <div class="modal-row">
       <div><label>MEETING TIME</label><input placeholder="e.g. Tuesdays, 6 PM"></div>
       <div><label>LOCATION</label><input placeholder="Library or Zoom link"></div>
+    </div>
+    <div class="modal-row">
+      <div><label>FREQUENCY</label>
+        <select placeholder="Recurring / One-Time">
+          <option>Recurring</option>
+          <option>One-Time</option>
+        </select>
+      </div>
+      <div><label>GROUP RULES</label><textarea placeholder="- Do not be noisy"></textarea></div>
     </div>
     <label>DESCRIPTION / VIBE</label>
     <textarea placeholder="What will you be focusing on? What's the vibe?"></textarea>
@@ -449,7 +461,7 @@
     const c = document.getElementById('chatMsgs'); c.appendChild(el); c.scrollTop=c.scrollHeight; inp.value='';
   }
 
-  function groupCreated(){document.getElementById('createModal').classList.remove('open');showToast('🎉 Group created! Redirecting...');setTimeout(()=>window.location.href='group-admin.html',1800);}
+  function groupCreated(){document.getElementById('createModal').classList.remove('open');showToast('🎉 Group created! Redirecting...');setTimeout(()=>window.location.href='groups.html',1800);}
 
   function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);}
 
