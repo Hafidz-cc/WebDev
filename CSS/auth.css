@@ -6,10 +6,11 @@
 }
 
 .login-card{
-    background:white;
+    background-color:rgb(247, 245, 245);
     padding:40px;
-    border-radius:12px;
-    box-shadow:0 4px 12px rgba(0,0,0,0.15);
+    border: 5px solid #FFD400;
+    border-radius:4px;
+    box-shadow: 10px 10px rgba(0, 0, 0, 0.622);
     width:clamp(320px, 50vw, 400px);
     text-align:center;
 }
@@ -40,14 +41,16 @@
     padding:10px;
     border:none;
     border-radius:8px;
-    background:rgb(177,10,243);
+    background: #FFD400;
     color:white;
     font-size:1rem;
     cursor:pointer;
+
+    transition: 0.4s ease;
 }
 
 .login-card button:hover{
-    background:rgb(150,8,210);
+    background:#FF5F00;
 }
 
 .signup-link{
@@ -56,7 +59,7 @@
 }
 
 .signup-link a{
-    color:rgb(177,10,243);
+    color:#FF5F00;
     text-decoration: none;
 }
 
@@ -148,7 +151,7 @@
 }
 
 .close-page:hover {
-    color: rgb(177,10,243);
+    color: #FF5F00;
 }
 
 .auth-page {

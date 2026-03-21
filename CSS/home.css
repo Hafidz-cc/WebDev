@@ -1,0 +1,163 @@
+#container {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+}
+#sidebar {
+    height: 100%;
+    width: 20%;
+    background-color: #fffdf5;
+    border-right: 3px solid rgba(0, 0, 0, 0.118);
+    display: flex;
+    padding: 30px 10px 0px 30px;
+    flex-direction: column;
+    gap: 50px;
+}
+
+#menu {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#my-hives {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+#menu > p , #my-hives > p {
+    font-size: 0.9em;
+    color: gray;
+}
+#content {
+    height: 100%;
+    width: 80%;
+    padding: 30px;
+    background:
+    repeating-linear-gradient(60deg, transparent, transparent 28px, rgba(0,0,0,0.08) 28px, rgba(0,0,0,0.02) 30px),
+    repeating-linear-gradient(-60deg, transparent, transparent 28px, rgba(0,0,0,0.08) 28px, rgba(0,0,0,0.02) 30px),
+    #fffdf5;
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+}
+
+.sidebar-button {
+    width: 100%;
+    display: flex;
+    padding:10px;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 5px;
+
+    transition: 0.3s ease;
+}
+
+.sidebar-button.active {
+    background-color: #ffd50096;;
+    border-left: 5px solid #FFD400;
+}
+
+.sidebar-button:hover {
+    background-color: #ffd50096;;
+    border-left: 5px solid #FFD400;
+}
+.menu p{
+    font-size: 1.3em;
+}
+
+.my-hives {
+    font-size: 1em;
+}
+
+.my-hives span {
+    height: 10px;
+    width: 12px;
+    background-color: #FF5F00;
+    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);;
+}
+
+#qotd {
+    width: 100%;
+    height: fit-content;
+    background-color:#ffd50075;
+    border: 3.5px dashed #FFD400;
+    border-radius: 10px;
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-size: 1.3em;
+}
+
+#qotd span {
+    align-self: flex-start;
+}
+
+#whats-buzzin {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    width: 50%;
+    gap: 20px;
+}
+
+#upcoming {
+    width: 50%;
+}
+
+#title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.content-title {
+    font-size: 1.5em;
+}
+
+.card {
+    width: 100%;
+    height: fit-content;
+    background-color: white;
+    border:2px solid #FFD400;
+    box-shadow: -2px 3px rgba(0, 0, 0, 0.384);
+    border-radius: 10px;
+    display: flex;
+    padding: 20px;
+}
+
+.header {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.profile img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}
+
+.person-name {
+    font-size: 1.5em;
+}
+
+.details {
+    display: flex;
+    color:rgb(85, 85, 85);
+    gap: 6px;
+}
+
+.tag {
+  display: inline-block;
+  background: #FFD400;
+  color: #000;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border: 1.5px solid #000;
+  width: fit-content;
+}
