@@ -1,331 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HiveMinds — Learn Better, Together</title>
-    <link rel="stylesheet" href="CSS/home.css">
-    <link rel="stylesheet" href="CSS/base.css">
-    <link rel="stylesheet" href="CSS/navbar.css">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="CSS/styles.css">
+        <link rel="stylesheet" href="CSS/base.css">
+        <link rel="stylesheet" href="CSS/navbar.css">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Belanosima&family=Bricolage+Grotesque:opsz,wght@12..96,420&family=Coiny&family=McLaren&family=Pacifico&family=Pangolin&display=swap" rel="stylesheet">
+    
+    </head>
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" />
-</head>
-<body>
+    <body>
+        <header>
+            <div id="hero">
+                <div id="heading">
+                    <div id="title">
+                        <h1>Hive<span>Minds</span></h1>
+                    </div>
 
-    <nav>
-    <div class="logo">
-        <span class="material-symbols-rounded" style ="color:#6D00CC;font-size:30px;">auto_stories</span>
-        <a class = "backtohome" href = "homepage.html">
-    <span class="pagename" style ="font-family:Instrument Serif;font-size:30px;font-weight:lighter;color:black;">HiveMinds</span>
-    </a>
-    </div>
-
-    <ul class="nav-links">
-        <li><a href="homepage.html">Home</a></li>
-        <li><a href="#steps-section">Features</a></li>
-        <li><a href="groups.html">Groups</a></li>
-    </ul>
-    <div class="nav-buttons">
-        <a href="login.html" class="login">Log in</a>
-        <a href="signup.html" class="signup">Sign up</a>
-    </div>
-    </nav>
-
-    <!--Welcome page?? idk-->
-    <header class="top-section">
-        <div class="top-text-side">
-            <br><br><br><br>
-            <p class="top-tagline">For students, by students</p>
-            <div class = "tagline">
-                <p>Learn better,<br><em>together.</em></p>
-            </div>
-            <p class="top-description">Connect with peers, share knowledge, and ace your classes. Find your perfect study squad for any subject — anytime, anywhere.</p>
-            <div class="search-bar">
-                <input type="search" placeholder="Search a subject or topic…">
-                <button class="btn-purple">Search</button>
-            </div>
-            <div class="top-buttons">
-                <a href="login.html" class="btn-purple">+ Create a group</a>
-                <a href="groups.html" class="btn-white-outline">Browse groups →</a>
-            </div>
-        </div>
-
-        <div class="top-image-side">
-            <img src="images/Group.jpg" alt="Students studying together">
-        </div>
-    </header>
-
-
-    <!--Subjects-->
-    <div class="subjects-bar" aria-hidden="true">
-        <div class="subjects-track">
-            <span class="subject-name">Calculus</span>
-            <span class="subject-name">Machine Learning</span>
-            <span class="subject-name">Literature</span>
-            <span class="subject-name">Physics</span>
-            <span class="subject-name">Data Structures</span>
-            <span class="subject-name">History</span>
-            <span class="subject-name">Statistics</span>
-            <span class="subject-name">Biology</span>
-        </div>
-    </div>
-
-    <section class="groups-section">
-        <div class="section-top">
-            <div>
-                <p class="section-small-label">Active right now</p>
-                <h2 class="section-big-title">Popular Study Groups</h2>
-            </div>
-            <a href="groups.html" class="see-all-link">See all groups →</a>
-        </div>
-
-        <div class="cards-row">
-            <a href="groups.html" class="group-card">
-                <div class="group-image">
-                    <img src="images/calculus.jpg" alt="Calculus Study Group">
+                    <div id="desc">
+                        Connect with other students, join study groups, and stay motivated while learning
+                    </div>
                 </div>
-                <div class="group-content">
-                    <h3>Calculus Study Group</h3>
-                    <p>Master derivatives, integrals, and limits together.</p>
-                    <span class="members-text">15 active members</span>
-                </div>
-            </a>
-
-            <a href="groups.html" class="group-card">
-                <div class="group-image">
-                    <img src="images/physics.jpg" alt="Physics Study Group">
-                </div>
-                <div class="group-content">
-                    <h3>Physics Study Group</h3>
-                    <p>From Newtonian mechanics to quantum theory. Concept breakdowns and formula reviews.</p>
-                    <span class="members-text">19 active members</span>
-                </div>
-            </a>
-
-            <a href="groups.html" class="group-card">
-                <div class="group-image">
-                    <img src="images/biology.jpg" alt="Biology Study Group">
-                </div>
-                <div class="group-content">
-                    <h3>Biology Study Group</h3>
-                    <p>Cell biology, genetics, and ecology. Shared flashcards and peer teaching sessions.</p>
-                    <span class="members-text">67 active members</span>
-                </div>
-            </a>
-        </div>
-    </section>
-
-    <section id="steps-section">
-        <div class="section-top">
-            <div>
-                <p class="section-small-label">Simple as 1-2-3</p>
-                <h2 class="section-big-title">How HiveMinds works</h2>
-            </div>
-        </div>
-
-        <div class="steps-row">
-            <div class="step-box">
-                <div class="step-image">
-                    <img src="images/search.png" alt="Search a topic">
-                </div>
-                <div class="step-content">
-                    <p class="step-number">01</p>
-                    <h3>Search a Topic</h3>
-                    <p>Browse hundreds of active groups across every subject. Find one that fits your schedule and goals.</p>
+                <div id="cta-button">
+                    <a href="login.html">
+                        <div class="hex-outer-btn">
+                            <div class="hex-inner-btn">
+                                Join the Hive →
+                            </div>
+                        </div>                        
+                    </a>
                 </div>
             </div>
-            <div class="step-box">
-                <div class="step-image">
-                    <img src="images/create-goups.png" alt="Search a topic">
-                </div>
-                <div class="step-content">
-                    <p class="step-number">02</p>
-                    <h3>Join or Create</h3>
-                    <p>Jump into an existing group or start your own. Invite classmates and set your group's focus.</p>
-                </div>
-            </div>
+        </header>
 
-            <div class="step-box">
-                <div class="step-image">
-                    <img src="images/sharing.png" alt="Search a topic">
-                </div>
-                <div class="step-content">
-                    <p class="step-number">03</p>
-                    <h3>Start Studying</h3>
-                    <p>Collaborate, share notes, quiz each other, and track your progress together.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-<section class="stats-section">
-    <div class="stats-row">
-        <div class="stat-box">
-            <strong>1,200+</strong>
-            <span>Students learning together</span>
-        </div>
-        <div class="stat-box">
-            <strong>300+</strong>
-            <span>Active study groups</span>
-        </div>
-        <div class="stat-box">
-            <strong>50+</strong>
-            <span>Subjects covered</span>
-        </div>
-    </div>
-</section>
-
-<section class="why-section">
-    <div class="section-top">
-        <div>
-            <p class="section-small-label">Why it works</p>
-            <h2 class="section-big-title">Built for how students actually learn</h2>
-        </div>
-    </div>
-    <div class="reasons-grid">
-
-        <div class="reason-card">
-            <div class="reason-image">
-                <img src="images/connect.png" alt="Students connecting">
-            </div>
-            <div class="reason-content">
-                <div class="icon">🔗</div>
-                    <h3>Connect with peers easily</h3>
-                    <p>Find students in your school, your class, or your time zone. No cold emails — just shared goals.</p>
-            </div>
-        </div>
-
-        <div class="reason-card reverse">
-            <div class="reason-image">
-                <img src="images/sharing.png" alt="Students sharing notes">
-            </div>
-            <div class="reason-content">
-                <div class="icon">💡</div>
-                    <h3>Share knowledge efficiently</h3>
-                    <p>Upload notes, link resources, and explain concepts to each other. Teaching is the fastest way to learn.</p>
-            </div>
-        </div>
-
-        <div class="reason-card">
-            <div class="reason-image">
-                <img src="images/anywhere.png" alt="Studying anywhere">
-            </div>
-            <div class="reason-content">
-                <div class="icon">🌍</div>
-                    <h3>Learn anytime, anywhere</h3>
-                    <p>HiveMinds works on any device. Prep for exams at midnight or join a session from a café.</p>
-            </div>
-        </div>
-
-        <div class="reason-card reverse">
-            <div class="reason-image">
-                <img src="images/grades.png" alt="Better grades">
-            </div>
-            <div class="reason-content">
-                <div class="icon">📈</div>
-                    <h3>Boost your grades</h3>
-                    <p>Students who study in groups consistently outperform solo studiers. The research backs it — and now the tool does too.</p>
-            </div>
-        </div>
-
-    </div>
-</section>
-
-<section class="signup-banner">
-    <p class="section-small-label">Ready to start?</p>
-    <h2>Your best semester<br>starts here.</h2>
-    <p>Join thousands of students already learning smarter with HiveMinds. It's free to get started.</p>
-    <a href="signup.html" class="btn-purple">Create your free account →</a>
-</section>
-
-<footer>
-    <div class="logo"><a class="backtohomefoot" href="homepage.html">Hive<span>Minds</span></a></div>
-    <p>© 2026 HiveMinds. All rights reserved.</p>
-</footer>
-
-<div class="modal-container" id="modal_container">
-    <div class="modal">
-        <div class="container">
-            <div class="title">Start a New Study Group</div>
-                <p>Set up the details so the right people can find and join you.</p>
-
-                <div class = "addBGcolor">
-                <label>GROUP NAME</label>
-                <input type="text" placeholder="e.g. Late Night Calculus Crushers">
-                    <div class="modal-row">
-                        <div><label>Meeting Options</label>
-                            <select>
-                                <option>Select...</option>
-                                <option>Online</option>
-                                <option>Face-to-Face</option>
-                               
-                            </select>
+        <nav>
+                <div id="nav-container">
+                    <a href="homepage.html">
+                        <div class="logo">
+                            <span class="black">Hive</span><span class="orange">Minds</span>
                         </div>
-                        <div><label>Meeting Frequency</label>
-                            <select>
-                                <option>Select...</option>
-                                <option>One-Time Only</option>
-                                <option>Recurring</option>
-                               
-                            </select>
+                    </a>
+                    <div id="nav-links">
+                        <a class="hover" href="home.html">
+                            Home
+                        </a>
+                        <a class="hover" href="home.html">
+                            Hives
+                        </a>
+                        <a class="hover" href="home.html">
+                            Profile
+                        </a>
+                    </div>
+                    <div id="auth-links">
+                        <a class="hover" href="login.html">
+                            Login
+                        </a>
+                        <span id="bee">|</span>
+                        <a class="hover" href="signup.html">
+                            Signup
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        
+        <main>
+            <section id="popular-hives">
+                <div id="hives-left">
+                    <h2 id="hives-title">Popular hives<br>right now</h2>
+
+                    <p id="hives-sub">
+                        Thousands of students are already buzzing.
+                        Find your hive and start learning together.
+                    </p>
+                    <a href="#" id="browse-btn">Browse All Hives →</a>
+                </div>
+                <div id="hives-right">
+
+                    <div class="card">
+                        <div class="img-container">
+                            <img src="images/calculus.jpg">
                         </div>
-                        <div>
-                            <label>MAX MEMBERS</label>
-                            <input type="number" value="4" min="2" max="20">
+                        <div class="text-area">
+                            <span class="tag">Mathematics</span>
+                            <h3 class="card-title">Calculus study group</h3>
+                            <p class="card-meta">24 members · active now</p>
                         </div>
                     </div>
-                
-                    <div class="modal-row">
-                
-                    <div>
-                        <label>MEETING TIME</label>
-                        <input placeholder="e.g. Tuesdays, 6 PM">
+
+                    <div class="card">
+                        <div class="img-container">
+                            <img src="images/biology.jpg">
+                        </div>
+                        <div class="text-area">
+                            <span class="tag">Science</span>
+                            <h3 class="card-title">Biology study group</h3>
+                            <p class="card-meta">67 members · active now</p>
+                        </div>
                     </div>
 
-                    <div>
-                        <label>LOCATION</label>
-                        <input placeholder="Library or Zoom link">
-                    </div>
-                   
+                    <div class="card">
+                        <div class="img-container">
+                            <img src="images/compsci.jpg">
+                        </div>
+                        <div class="text-area">
+                            <span class="tag">Technology</span>
+                            <h3 class="card-title">Computer Science study group</h3>
+                            <p class="card-meta">20 members · active now</p>
+                        </div>
                     </div>
 
-                    <label>DESCRIPTION / VIBE</label>
-                    <textarea placeholder="What will you be focusing on? What's the vibe?"></textarea>
-               
-                <label>RULES</label>
-                    <textarea placeholder="Optional: Set some ground rules for your group"></textarea>
+                    <div class="card">
+                        <div class="img-container">
+                            <img src="images/history.jpg">
+                        </div>
+                        <div class="text-area">
+                            <span class="tag">History</span>
+                            <h3 class="card-title">History study group</h3>
+                            <p class="card-meta">17 members · active now</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="separator"></div>
+
+            <section id="how-it-works">
+                <div id="how-left">
+                    <div class="how-card">
+                        <div class="num">01</div>
+                        <div class="how-card-title">Create an Account</div>
+                        <div class="how-card-desc">Sign up! Get up and running in under a minute!</div>
+                    </div>
+                    <div class="how-card">
+                        <div class="num">02</div>
+                        <div class="how-card-title">Search a Topic</div>
+                        <div class="how-card-desc">Browse hundreds of active groups across every subject. Find one that fits your schedule and goals!</div>
+                    </div>
+                    <div class="how-card">
+                        <div class="num">03</div>
+                        <div class="how-card-title">Join or Create</div>
+                        <div class="how-card-desc">Jump into an existing group or start your own. Invite classmates and set your group's focus!</div>
+                    </div>
+                    <div class="how-card">
+                        <div class="num">04</div>
+                        <div class="how-card-title">Start Studying</div>
+                        <div class="how-card-desc">Collaborate, share notes, quiz each other, and track your progress together!</div>
+                    </div>
                 </div>
 
-                <div class="modal-footer">
-                <button id="close">Cancel</button>
-                <button id="createModal" onclick="groupCreated()">Create Group →</button>
-           
-    </div>
-</div>
-<script>
-const openBtn = document.getElementById('open');
-const modalContainer = document.getElementById('modal_container');
-const closeBtn = document.getElementById('close');
+                <div id="how-right">
+                    <h2>How does<br><span class="white">Hive</span><span class="orange">Minds</span><br>work?</h2>
+                </div>
+            </section>
 
+            <div class="separator"></div>
 
-openBtn.addEventListener('click', () => {
-    modalContainer.classList.add('show');
-});
+            <section id="cta">
+                <div id="cta-text">
+                    <div id="cta-title">
+                        <h1>READY TO <br><span>BUZZ ?</span></h1>
+                    </div>
+                    <div id="cta-desc">
+                        <p>Find your hive, vibe with your people, and actually enjoy studying for once</p>
+                    </div>
+                    <div id="cta-section-button">
+                        Sign Up Now
+                    </div>
+                </div>
 
-closeBtn.addEventListener('click', () => {
-    modalContainer.classList.remove('show');
-});
+                <div id="ghost-text-thing">
+                    start now
+                </div>
+            </section>
+        </main>
 
-/* Click outside to close */
-modalContainer.addEventListener('click', (e) => {
-    if (e.target === modalContainer) {
-        modalContainer.classList.remove('show');
-    }
-});
-</script>
-</body>
+        <footer>
+            <div id="footer-inner">
+
+                <div id="footer-top">
+                    <div id="footer-brand">
+                        <div id="footer-logo">Hive<span>Minds</span></div>
+                        <p id="footer-tag">Where students come to buzz.</p>
+                    </div>
+                    <div id="footer-bottom">
+                        <p>© 2026 HiveMinds. All rights reserved.</p>
+                    </div>
+
+                    <div id="footer-socials">
+                        <a href="#">Twitter</a>
+                        <a href="#">Instagram</a>
+                        <a href="#">Discord</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </body>
 </html>
