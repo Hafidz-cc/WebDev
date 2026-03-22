@@ -27,6 +27,10 @@ a {
   color:#FF5F00;
 }
 
+.active-nav {
+  font-size: 1.5em;
+  color:#FF5F00;
+}
 .logo span{
   font-family: 'Pacifico', arial;
   font-size: 1.4em;

@@ -1,5 +1,5 @@
 #container {
-    height: 100vh;
+    height: fit-content;
     width: 100vw;
     display: flex;
 }
@@ -43,6 +43,14 @@
     gap:20px;
 }
 
+.content-link {
+    transition: 0.4s ease;
+}
+
+.content-link:hover {
+    color:#FFD400;
+}
+
 .sidebar-button {
     width: 100%;
     display: flex;
@@ -71,7 +79,7 @@
     font-size: 1em;
 }
 
-.my-hives span {
+.hex {
     height: 10px;
     width: 12px;
     background-color: #FF5F00;
@@ -105,9 +113,10 @@
 
 #upcoming {
     width: 50%;
+    height: fit-content;
 }
 
-#title {
+.title {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -125,18 +134,29 @@
     box-shadow: -2px 3px rgba(0, 0, 0, 0.384);
     border-radius: 10px;
     display: flex;
-    padding: 20px;
+    padding: 15px;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .header {
     display: flex;
-    gap: 10px;
     align-items: center;
+    width: 100%;
 }
+
+.profile {
+    width: 17%;
+}
+
 .profile img {
     width: 70px;
     height: 70px;
     border-radius: 50%;
+}
+
+.person-info {
+    width: 65%;
 }
 
 .person-name {
@@ -145,19 +165,89 @@
 
 .details {
     display: flex;
-    color:rgb(85, 85, 85);
+    color:rgb(117, 117, 117);
     gap: 6px;
 }
 
 .tag {
-  display: inline-block;
-  background: #FFD400;
-  color: #000;
-  font-size: 9px;
-  font-weight: 900;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  padding: 3px 8px;
-  border: 1.5px solid #000;
-  width: fit-content;
+    display: flex;
+    background: #FFD400;
+    color: #000;
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border: 1.5px solid #000;
+    align-self: flex-start;
+}
+
+.card-text {
+    font-size: 1.2em;
+    padding: 0px 10px;
+}
+
+.card-text a {
+    color:#FF5F00;
+}
+
+.card-text a:hover {
+    color:hsla(31, 100%, 65%, 0.912);
+}
+
+.like {
+    width: fit-content;
+    font-size: 1em;
+    height: fit-content;
+    padding: 10px;
+    color:rgb(117, 117, 117);
+    cursor: pointer;
+
+    transition: 0.4s ease;
+}
+
+.like:hover {
+    color:rgb(255, 213, 46);
+}
+
+#content-body {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#upcoming {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    width: 50%;
+    gap: 20px;
+}
+
+.session {
+    width: 100%;
+    padding: 10px;
+    height: fit-content;
+    display: flex;
+    font-size: 1.3em;
+    align-items: center;
+    gap: 15px;
+}
+
+.session-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.session .topic {
+    margin-left: 10px;
+    margin-top: 5px;
+    font-size: 0.7em;
+    color:#515151;
+}
+
+#trending {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 20px;
 }
