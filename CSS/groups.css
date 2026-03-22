@@ -53,7 +53,7 @@ hr {
 }
 
 #search-bar input:focus {
-    border-color: rgb(177, 10, 243);
+    border-color:#ffc300;;
 }
 
 /* Sections */
@@ -68,7 +68,7 @@ hr {
     color: #1a1a1a;
     margin: 0 0 16px;
     padding-left: 12px;
-    border-left: 4px solid rgb(177, 10, 243);
+    border-left: 4px solid#ffc300;;
     line-height: 1.2;
 }
 
