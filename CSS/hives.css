@@ -1,0 +1,332 @@
+#hives-body {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.hives-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.hive-browse-card {
+    width: calc(50% - 10px);
+    background-color: white;
+    border: 2px solid #FFD400;
+    box-shadow: -2px 3px rgba(0, 0, 0, 0.384);
+    border-radius: 10px;
+    padding: 20px 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-sizing: border-box;
+}
+
+.hive-browse-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.hive-browse-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.hive-browse-name {
+    font-size: 1.3em;
+    transition: 0.2s ease;
+}
+
+.hive-browse-info a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.hive-browse-info a:hover .hive-browse-name {
+    color: #FF5F00;
+}
+
+.hive-browse-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.hive-browse-owner {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 0.82em;
+    color: rgb(117, 117, 117);
+}
+
+.hive-browse-owner img {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.hive-browse-desc {
+    font-size: 0.88em;
+    color: #515151;
+    line-height: 1.5;
+}
+
+.hive-browse-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 4px;
+}
+
+.hive-browse-stats {
+    display: flex;
+    gap: 14px;
+    font-size: 0.8em;
+    color: rgb(117, 117, 117);
+}
+
+.hive-browse-stats span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.tag {
+    display: flex;
+    background: #FFD400;
+    color: #000;
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border: 1.5px solid #000;
+    align-self: flex-start;
+    white-space: nowrap;
+}
+
+.frequency-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 9px;
+    border-radius: 20px;
+    font-size: 0.75em;
+    font-weight: bold;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+}
+
+.frequency-badge.recurring {
+    background-color: #fff3b0;
+    border: 1.5px solid #FFD400;
+    color: #7a6000;
+}
+
+.frequency-badge.one-time {
+    background-color: #ffe8d6;
+    border: 1.5px solid #FF5F00;
+    color: #7a2e00;
+}
+
+.frequency-badge .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.frequency-badge.recurring .dot { background-color: #FFD400; }
+.frequency-badge.one-time .dot { background-color: #FF5F00; }
+
+.btn-join {
+    padding: 8px 22px;
+    font-size: 0.85em;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 2px solid #000;
+    background-color: #FFD400;
+    color: #000;
+    font-family: 'Bricolage Grotesque', sans-serif;
+    transition: 0.3s ease;
+    flex-shrink: 0;
+}
+
+.btn-join:hover {
+    background-color: #e6bf00;
+}
+
+.section-label {
+    font-size: 0.85em;
+    font-weight: bold;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: gray;
+    padding: 4px 0;
+    border-bottom: 1.5px solid rgba(0,0,0,0.1);
+}
+
+.search-bar {
+    width: 100%;
+    padding: 11px 16px;
+    font-size: 1em;
+    font-family: 'Bricolage Grotesque', sans-serif;
+    border: 2px solid rgba(0,0,0,0.15);
+    border-radius: 8px;
+    background-color: white;
+    outline: none;
+    transition: 0.2s ease;
+    box-sizing: border-box;
+}
+
+.search-bar:focus {
+    border-color: #FFD400;
+}
+
+/* top bar with title + create button */
+.hives-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.btn-create-hive {
+    padding: 9px 20px;
+    font-size: 0.88em;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 2px solid #000;
+    background-color: #FF5F00;
+    color: #fff;
+    font-family: 'Bricolage Grotesque', sans-serif;
+    transition: 0.3s ease;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.btn-create-hive:hover {
+    background-color: #e05500;
+}
+
+/* create hive form panel */
+#create-hive-panel {
+    background-color: white;
+    border: 2px solid #FFD400;
+    box-shadow: -2px 3px rgba(0, 0, 0, 0.384);
+    border-radius: 10px;
+    padding: 25px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+#create-hive-panel .panel-title {
+    font-size: 1.3em;
+    font-weight: bold;
+    border-bottom: 1.5px solid rgba(0,0,0,0.08);
+    padding-bottom: 12px;
+}
+
+.form-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+    min-width: 200px;
+}
+
+.form-field.full {
+    flex: 100%;
+    min-width: 100%;
+}
+
+.form-field label {
+    font-size: 0.82em;
+    font-weight: bold;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: gray;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+    padding: 9px 13px;
+    font-size: 0.95em;
+    font-family: 'Bricolage Grotesque', sans-serif;
+    border: 2px solid rgba(0,0,0,0.15);
+    border-radius: 6px;
+    background-color: #fffdf5;
+    outline: none;
+    transition: 0.2s ease;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+    border-color: #FFD400;
+}
+
+.form-field textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding-top: 4px;
+}
+
+.btn-submit {
+    padding: 9px 24px;
+    font-size: 0.88em;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 2px solid #000;
+    background-color: #FFD400;
+    color: #000;
+    font-family: 'Bricolage Grotesque', sans-serif;
+    transition: 0.3s ease;
+}
+
+.btn-submit:hover {
+    background-color: #e6bf00;
+}
+
+.btn-cancel {
+    padding: 9px 24px;
+    font-size: 0.88em;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 2px solid rgba(0,0,0,0.2);
+    background-color: white;
+    color: #000;
+    font-family: 'Bricolage Grotesque', sans-serif;
+    transition: 0.2s ease;
+    text-decoration: none;
+}
+
+.btn-cancel:hover {
+    background-color: #f5f5f5;
+}

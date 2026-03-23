@@ -1,0 +1,123 @@
+#settings-body {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.settings-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.section-label {
+    font-size: 0.85em;
+    font-weight: bold;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: gray;
+    padding: 4px 0;
+    border-bottom: 1.5px solid rgba(0,0,0,0.1);
+}
+
+.settings-card {
+    background-color: white;
+    border: 2px solid #FFD400;
+    box-shadow: -2px 3px rgba(0, 0, 0, 0.384);
+    border-radius: 10px;
+    padding: 20px 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.field-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.field-label {
+    width: 120px;
+    font-size: 0.9em;
+    color: rgb(117, 117, 117);
+    flex-shrink: 0;
+}
+
+.field-value {
+    flex: 1;
+    font-size: 1em;
+}
+
+.field-input {
+    flex: 1;
+    padding: 8px 12px;
+    font-size: 1em;
+    font-family: 'Bricolage Grotesque', sans-serif;
+    border: 2px solid rgba(0,0,0,0.15);
+    border-radius: 6px;
+    background-color: #fffdf5;
+    outline: none;
+    transition: 0.2s ease;
+}
+
+.field-input:focus {
+    border-color: #FFD400;
+}
+
+.field-row hr {
+    width: 100%;
+    border: none;
+    border-top: 1px solid rgba(0,0,0,0.07);
+}
+
+.settings-divider {
+    border: none;
+    border-top: 1px solid rgba(0,0,0,0.07);
+}
+
+.btn {
+    padding: 8px 20px;
+    font-size: 0.85em;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 2px solid #000;
+    font-family: 'Bricolage Grotesque', sans-serif;
+    transition: 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #FFD400;
+    color: #000;
+}
+
+.btn-primary:hover {
+    background-color: #e6bf00;
+}
+
+.btn-danger {
+    background-color: white;
+    color: #c0392b;
+    border-color: #c0392b;
+}
+
+.btn-danger:hover {
+    background-color: #fff0ee;
+}
+
+.btn-row {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.logout-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logout-desc {
+    font-size: 0.9em;
+    color: rgb(117, 117, 117);
+}

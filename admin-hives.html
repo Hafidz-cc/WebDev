@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="CSS/home.css">
+        <link rel="stylesheet" href="CSS/base.css">
+        <link rel="stylesheet" href="CSS/navbar.css">
+        <link rel="stylesheet" href="CSS/switcher.css">
+        <link rel="stylesheet" href="CSS/admin.css">
+        <link rel="stylesheet" href="CSS/admin-pages.css">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Belanosima&family=Bricolage+Grotesque:opsz,wght@12..96,420&family=Coiny&family=McLaren&family=Pacifico&family=Pangolin&display=swap" rel="stylesheet">
+    </head>
+
+    <body>
+        <nav>
+            <div id="nav-container">
+                <a href="landing-page.html">
+                    <div class="logo">
+                        <span class="black">Hive</span><span class="orange">Minds</span>
+                    </div>
+                </a>
+                <div id="nav-links">
+                    <a class="hover" href="admin-dashboard.html">Dashboard</a>
+                    <a class="hover" href="admin-users.html">Users</a>
+                    <a class="hover active-nav" href="admin-hives.html">Hives</a>
+                </div>
+                <div id="auth-links">
+                    <a class="hover" href="profile.html">Admin</a>
+                </div>
+            </div>
+        </nav>
+
+        <main>
+            <div id="container">
+                <div id="sidebar">
+                    <div id="menu">
+                        <p>MENU</p>
+                        <hr>
+                        <a href="admin-dashboard.html">
+                            <div class="sidebar-button menu">
+                                <p>Dashboard</p>
+                            </div>
+                        </a>
+                        <a href="admin-users.html">
+                            <div class="sidebar-button menu">
+                                <p>Users</p>
+                            </div>
+                        </a>
+                        <a href="admin-hives.html">
+                            <div class="sidebar-button menu active">
+                                <p>Hives</p>
+                            </div>
+                        </a>
+                        <a href="admin-settings.html">
+                            <div class="sidebar-button menu">
+                                <p>Settings</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div id="my-hives">
+                        <p>QUICK STATS</p>
+                        <hr>
+                        <div class="sidebar-button my-hives">
+                            <span class="hex"></span><p>124 total users</p>
+                        </div>
+                        <div class="sidebar-button my-hives">
+                            <span class="hex"></span><p>38 active hives</p>
+                        </div>
+                        <div class="sidebar-button my-hives">
+                            <span class="hex"></span><p>3 flagged posts</p>
+                        </div>
+                        <div class="sidebar-button my-hives">
+                            <span class="hex"></span><p>12 new today</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="content">
+                    <div id="qotd">Admin — Hives</div>
+
+                    <div class="admin-page-body">
+
+                        <div class="page-topbar">
+                            <div class="page-topbar-title">All Hives</div>
+                            <span class="tbl-badge badge-active" style="font-size:0.85em;padding:6px 14px;">38 active</span>
+                        </div>
+
+                        <div class="filter-bar">
+                            <input class="filter-input" type="text" placeholder="Search by hive name or owner...">
+                            <select class="filter-select">
+                                <option value="">All subjects</option>
+                                <option>Mathematics</option>
+                                <option>Biology</option>
+                                <option>Chemistry</option>
+                                <option>Physics</option>
+                                <option>History</option>
+                                <option>English</option>
+                            </select>
+                            <select class="filter-select">
+                                <option value="">All types</option>
+                                <option>Recurring</option>
+                                <option>One-time</option>
+                            </select>
+                            <select class="filter-select">
+                                <option value="">All modes</option>
+                                <option>Online</option>
+                                <option>In-person</option>
+                            </select>
+                        </div>
+
+                        <div class="full-table-card">
+                            <table class="admin-table-full">
+                                <thead>
+                                    <tr>
+                                        <th>Hive</th>
+                                        <th>Owner</th>
+                                        <th>Subject</th>
+                                        <th>Type</th>
+                                        <th>Mode</th>
+                                        <th>Members</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><div class="td-name">Calculus Study Group</div><div class="td-sub">Created Mar 10</div></td>
+                                        <td>
+                                            <div class="td-user" style="gap:7px;">
+                                                <img src="images/person-profile.jpg">
+                                                <span>Rick Buzztley</span>
+                                            </div>
+                                        </td>
+                                        <td><span class="tbl-tag">Mathematics</span></td>
+                                        <td><span class="freq-badge freq-recurring"><span class="freq-dot"></span> Recurring</span></td>
+                                        <td>Online</td>
+                                        <td>18 / 30</td>
+                                        <td><span class="tbl-badge badge-open">Open</span></td>
+                                        <td>
+                                            <div class="td-actions">
+                                                <button class="tbl-btn view">View</button>
+                                                <button class="tbl-btn danger">Remove</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="td-name">Biology Study Group</div><div class="td-sub">Created Mar 15</div></td>
+                                        <td>
+                                            <div class="td-user" style="gap:7px;">
+                                                <img src="images/person-profile.jpg">
+                                                <span>Maya Santos</span>
+                                            </div>
+                                        </td>
+                                        <td><span class="tbl-tag">Biology</span></td>
+                                        <td><span class="freq-badge freq-one-time"><span class="freq-dot"></span> One-time</span></td>
+                                        <td>In-person</td>
+                                        <td>12 / 20</td>
+                                        <td><span class="tbl-badge badge-open">Open</span></td>
+                                        <td>
+                                            <div class="td-actions">
+                                                <button class="tbl-btn view">View</button>
+                                                <button class="tbl-btn danger">Remove</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="td-name">Calc Crusaders</div><div class="td-sub">Created Mar 5</div></td>
+                                        <td>
+                                            <div class="td-user" style="gap:7px;">
+                                                <img src="images/person-profile.jpg">
+                                                <span>Jake Almeida</span>
+                                            </div>
+                                        </td>
+                                        <td><span class="tbl-tag">Mathematics</span></td>
+                                        <td><span class="freq-badge freq-recurring"><span class="freq-dot"></span> Recurring</span></td>
+                                        <td>Online</td>
+                                        <td>55 / 60</td>
+                                        <td><span class="tbl-badge badge-open">Open</span></td>
+                                        <td>
+                                            <div class="td-actions">
+                                                <button class="tbl-btn view">View</button>
+                                                <button class="tbl-btn danger">Remove</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="td-name">Chemistry Wizards</div><div class="td-sub">Created Mar 8</div></td>
+                                        <td>
+                                            <div class="td-user" style="gap:7px;">
+                                                <img src="images/person-profile.jpg">
+                                                <span>Nina Cruz</span>
+                                            </div>
+                                        </td>
+                                        <td><span class="tbl-tag">Chemistry</span></td>
+                                        <td><span class="freq-badge freq-recurring"><span class="freq-dot"></span> Recurring</span></td>
+                                        <td>Online</td>
+                                        <td>42 / 50</td>
+                                        <td><span class="tbl-badge badge-open">Open</span></td>
+                                        <td>
+                                            <div class="td-actions">
+                                                <button class="tbl-btn view">View</button>
+                                                <button class="tbl-btn danger">Remove</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="td-name">Literature & Lore</div><div class="td-sub">Created Mar 12</div></td>
+                                        <td>
+                                            <div class="td-user" style="gap:7px;">
+                                                <img src="images/person-profile.jpg">
+                                                <span>Carla Mendez</span>
+                                            </div>
+                                        </td>
+                                        <td><span class="tbl-tag">English</span></td>
+                                        <td><span class="freq-badge freq-recurring"><span class="freq-dot"></span> Recurring</span></td>
+                                        <td>Online</td>
+                                        <td>38 / 40</td>
+                                        <td><span class="tbl-badge badge-open">Open</span></td>
+                                        <td>
+                                            <div class="td-actions">
+                                                <button class="tbl-btn view">View</button>
+                                                <button class="tbl-btn danger">Remove</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="td-name">Bio Bees</div><div class="td-sub">Created Mar 9</div></td>
+                                        <td>
+                                            <div class="td-user" style="gap:7px;">
+                                                <img src="images/person-profile.jpg">
+                                                <span>Leo Reyes</span>
+                                            </div>
+                                        </td>
+                                        <td><span class="tbl-tag">Biology</span></td>
+                                        <td><span class="freq-badge freq-recurring"><span class="freq-dot"></span> Recurring</span></td>
+                                        <td>In-person</td>
+                                        <td>29 / 30</td>
+                                        <td><span class="tbl-badge badge-full">Full</span></td>
+                                        <td>
+                                            <div class="td-actions">
+                                                <button class="tbl-btn view">View</button>
+                                                <button class="tbl-btn danger">Remove</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="td-name">Physics Exam Blitz</div><div class="td-sub">Created Mar 18</div></td>
+                                        <td>
+                                            <div class="td-user" style="gap:7px;">
+                                                <img src="images/person-profile.jpg">
+                                                <span>Sam Uy</span>
+                                            </div>
+                                        </td>
+                                        <td><span class="tbl-tag">Physics</span></td>
+                                        <td><span class="freq-badge freq-one-time"><span class="freq-dot"></span> One-time</span></td>
+                                        <td>Online</td>
+                                        <td>21 / 40</td>
+                                        <td><span class="tbl-badge badge-open">Open</span></td>
+                                        <td>
+                                            <div class="td-actions">
+                                                <button class="tbl-btn view">View</button>
+                                                <button class="tbl-btn danger">Remove</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="td-name">History Cram Night</div><div class="td-sub">Created Mar 19</div></td>
+                                        <td>
+                                            <div class="td-user" style="gap:7px;">
+                                                <img src="images/person-profile.jpg">
+                                                <span>Carla Mendez</span>
+                                            </div>
+                                        </td>
+                                        <td><span class="tbl-tag">History</span></td>
+                                        <td><span class="freq-badge freq-one-time"><span class="freq-dot"></span> One-time</span></td>
+                                        <td>In-person</td>
+                                        <td>15 / 25</td>
+                                        <td><span class="tbl-badge badge-open">Open</span></td>
+                                        <td>
+                                            <div class="td-actions">
+                                                <button class="tbl-btn view">View</button>
+                                                <button class="tbl-btn danger">Remove</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="pagination">
+                                <span>Showing 8 of 38 hives</span>
+                                <div class="pagination-btns">
+                                    <button class="pg-btn active">1</button>
+                                    <button class="pg-btn">2</button>
+                                    <button class="pg-btn">3</button>
+                                    <button class="pg-btn">→</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <div id="role-switcher">
+            <span class="switcher-label">View as</span>
+            <a href="home_home-feed.html" class="switcher-btn">Student</a>
+            <a href="admin-dashboard.html" class="switcher-btn active">Admin</a>
+        </div>
+    </body>
+</html>

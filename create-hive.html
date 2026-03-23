@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="CSS/hives.css">
+        <link rel="stylesheet" href="CSS/home.css">
+        <link rel="stylesheet" href="CSS/base.css">
+        <link rel="stylesheet" href="CSS/navbar.css">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Belanosima&family=Bricolage+Grotesque:opsz,wght@12..96,420&family=Coiny&family=McLaren&family=Pacifico&family=Pangolin&display=swap" rel="stylesheet">
+    </head>
+
+    <body>
+        <nav>
+            <div id="nav-container">
+                <a href="landing-page.html">
+                    <div class="logo">
+                        <span class="black">Hive</span><span class="orange">Minds</span>
+                    </div>
+                </a>
+                <div id="nav-links">
+                    <a class="hover" href="home_home-feed.html">Home</a>
+                    <a class="hover active-nav" href="hives.html">Hives</a>
+                    <a class="hover" href="profile.html">Profile</a>
+                </div>
+                <div id="auth-links">
+                    <a class="hover" href="profile.html">Rick Buzztley</a>
+                </div>
+            </div>
+        </nav>
+
+        <main>
+            <div id="container">
+                <div id="content" style="width: 100%;">
+                    <div id="hives-body">
+
+                        <div class="hives-topbar">
+                            <p class="content-title">Create a Hive</p>
+                            <a href="hives.html" class="btn-cancel">← Back to Browse</a>
+                        </div>
+
+                        <div id="create-hive-panel">
+                            <div class="panel-title">Hive Details</div>
+
+                            <form action="hives.html" method="get">
+                                <div class="form-grid">
+
+                                    <div class="form-field full">
+                                        <label for="hive-name">Hive Name</label>
+                                        <input type="text" id="hive-name" name="hive-name" placeholder="e.g. Calculus Study Group" required>
+                                    </div>
+
+                                    <div class="form-field full">
+                                        <label for="hive-desc">Description</label>
+                                        <textarea id="hive-desc" name="hive-desc" placeholder="What is this hive about? What will members do?" required></textarea>
+                                    </div>
+
+                                    <div class="form-field">
+                                        <label for="hive-subject">Subject</label>
+                                        <select id="hive-subject" name="hive-subject">
+                                            <option value="">Select a subject</option>
+                                            <option value="mathematics">Mathematics</option>
+                                            <option value="biology">Biology</option>
+                                            <option value="chemistry">Chemistry</option>
+                                            <option value="physics">Physics</option>
+                                            <option value="history">History</option>
+                                            <option value="english">English</option>
+                                            <option value="technology">Technology</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-field">
+                                        <label for="hive-frequency">Frequency</label>
+                                        <select id="hive-frequency" name="hive-frequency">
+                                            <option value="recurring">Recurring</option>
+                                            <option value="one-time">One-time</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-field">
+                                        <label for="hive-mode">Mode</label>
+                                        <select id="hive-mode" name="hive-mode">
+                                            <option value="online">Online</option>
+                                            <option value="in-person">In-person</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-field">
+                                        <label for="hive-limit">Member Limit</label>
+                                        <input type="number" id="hive-limit" name="hive-limit" placeholder="e.g. 30" min="2" max="200">
+                                    </div>
+
+                                    <div class="form-field">
+                                        <label for="hive-date">Session Date</label>
+                                        <input type="date" id="hive-date" name="hive-date">
+                                    </div>
+
+                                    <div class="form-field">
+                                        <label for="hive-time-start">Start Time</label>
+                                        <input type="time" id="hive-time-start" name="hive-time-start">
+                                    </div>
+
+                                    <div class="form-field">
+                                        <label for="hive-time-end">End Time</label>
+                                        <input type="time" id="hive-time-end" name="hive-time-end">
+                                    </div>
+
+                                    <div class="form-field">
+                                        <label for="hive-location">Location / Platform</label>
+                                        <input type="text" id="hive-location" name="hive-location" placeholder="e.g. Discord, Room 204">
+                                    </div>
+
+                                    <div class="form-field full">
+                                        <label for="hive-topic">Session Topic</label>
+                                        <input type="text" id="hive-topic" name="hive-topic" placeholder="e.g. Linear algebra basics review">
+                                    </div>
+
+                                    <div class="form-field full">
+                                        <label for="hive-rules">Group Rules</label>
+                                        <textarea id="hive-rules" name="hive-rules" placeholder="List your group rules here, one per line."></textarea>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-actions">
+                                    <a href="hives.html" class="btn-cancel">Cancel</a>
+                                    <button type="submit" class="btn-submit">Create Hive</button>
+                                </div>
+                            </form>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </main>
+    </body>
+</html>

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="CSS/hive.css">
+        <link rel="stylesheet" href="CSS/created-hives.css">
+        <link rel="stylesheet" href="CSS/home.css">
+        <link rel="stylesheet" href="CSS/base.css">
+        <link rel="stylesheet" href="CSS/navbar.css">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Belanosima&family=Bricolage+Grotesque:opsz,wght@12..96,420&family=Coiny&family=McLaren&family=Pacifico&family=Pangolin&display=swap" rel="stylesheet">
+    </head>
+
+    <body>
+        <nav>
+            <div id="nav-container">
+                <a href="landing-page.html">
+                    <div class="logo">
+                        <span class="black">Hive</span><span class="orange">Minds</span>
+                    </div>
+                </a>
+                <div id="nav-links">
+                    <a class="hover" href="home_home-feed.html">
+                        Home
+                    </a>
+                    <a class="hover active-nav" href="hives.html">
+                        Hives
+                    </a>
+                    <a class="hover" href="profile.html">
+                        Profile
+                    </a>
+                </div>
+                <div id="auth-links">
+                    <a class="hover" href="profile.html">Rick Buzztley</a>
+                </div>
+            </div>
+        </nav>
+
+        <main>
+            <div id="container">
+                <div id="sidebar">
+
+                    <div id="menu">
+                        <p>MENU</p>
+                        <hr>
+                        <a href="home_home-feed.html">
+                            <div class="sidebar-button menu">
+                                <p>Home Feed</p>
+                            </div>
+                        </a>
+                        <a href="home_my-schedule.html">
+                            <div class="sidebar-button menu">
+                                <p>My Schedule</p>
+                            </div>
+                        </a>
+
+                        <a href="home_settings.html">
+                            <div class="sidebar-button menu">
+                                <p>Settings</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div id="created-hives">
+                        <p>CREATED HIVES</p>
+                        <hr>
+                        <a href="home_created-hives.html">
+                            <div class="created-hive-btn">
+                                <span class="hex-owner"></span><p>Rick's Study Circle</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div id="my-hives">
+                        <p>MY HIVES</p>
+                        <hr>
+                        <a href="home_calculus.html">
+                            <div class="sidebar-button my-hives active">
+                                <span class="hex"></span><p>Calculus study group</p>
+                            </div>
+                        </a>
+                        <a href="home_biology.html">
+                            <div class="sidebar-button my-hives">
+                                <span class="hex"></span><p>Biology study group</p>
+                            </div>
+                        </a>
+                        <a href="home_history.html">
+                            <div class="sidebar-button my-hives">
+                                <span class="hex"></span><p>History study group</p>
+                            </div>
+                        </a>
+                        <a href="home_english.html">
+                            <div class="sidebar-button my-hives">
+                                <span class="hex"></span><p>English study group</p>
+                            </div>
+                        </a>
+                        <a href="home_physics.html">
+                            <div class="sidebar-button my-hives">
+                                <span class="hex"></span><p>Physics study group</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="content">
+                    <div id="hive-body">
+
+                        <!-- Header -->
+                        <div class="hive-header">
+                            <div class="hive-header-left">
+                                <div class="hive-title">Calculus Study Group</div>
+                                <div class="hive-meta">
+                                    <span class="tag">Mathematics</span>
+                                    <span class="frequency-badge recurring">
+                                        <span class="dot"></span> Recurring
+                                    </span>
+                                    <span>&bull; 18 members</span>
+                                </div>
+                                <div class="hive-owner">
+                                    <img src="images/person-profile.jpg">
+                                    Owned by <strong>Rick Buzztley</strong>
+                                </div>
+                            </div>
+                            <button class="btn-leave">Leave Hive</button>
+                        </div>
+
+                        <!-- Two columns -->
+                        <div class="hive-columns">
+
+                            <!-- Left: comments -->
+                            <div class="hive-left">
+                                <div>
+                                    <div class="section-label">Comments</div>
+                                    <div class="comments-card">
+
+                                        <div class="comment">
+                                            <img src="images/person-profile.jpg">
+                                            <div class="comment-body">
+                                                <div class="comment-name">Rick Buzztley</div>
+                                                <div class="comment-text">Hey everyone, reminder that tonight's session is at 7 PM sharp. We're covering related rates so please review chapter 4 beforehand!</div>
+                                                <div class="comment-time">2 hours ago</div>
+                                            </div>
+                                        </div>
+
+                                        <hr class="comment-divider">
+
+                                        <div class="comment">
+                                            <img src="images/person-profile.jpg">
+                                            <div class="comment-body">
+                                                <div class="comment-name">Milky</div>
+                                                <div class="comment-text">Got it! Should we bring the problem sets from last week too?</div>
+                                                <div class="comment-time">1 hour ago</div>
+                                            </div>
+                                        </div>
+
+                                        <hr class="comment-divider">
+
+                                        <div class="comment">
+                                            <img src="images/person-profile.jpg">
+                                            <div class="comment-body">
+                                                <div class="comment-name">Sam Uy</div>
+                                                <div class="comment-text">Yes bring them! We still have 3 unsolved ones from last session 😭</div>
+                                                <div class="comment-time">45 minutes ago</div>
+                                            </div>
+                                        </div>
+
+                                        <hr class="comment-divider">
+
+                                        <div class="comment-input-row">
+                                            <input class="comment-input" type="text" placeholder="Write a comment...">
+                                            <button class="btn-comment">Post</button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Right: details, schedule, rules -->
+                            <div class="hive-right">
+
+                                <div>
+                                    <div class="section-label">Next Session</div>
+                                    <div class="details-card">
+                                        <div class="detail-row">
+                                            <div class="detail-icon"><i class="fa-regular fa-calendar"></i></div>
+                                            <div class="detail-key">Date</div>
+                                            <div class="detail-value">Monday, March 23</div>
+                                        </div>
+                                        <div class="detail-row">
+                                            <div class="detail-icon"><i class="fa-regular fa-clock"></i></div>
+                                            <div class="detail-key">Time</div>
+                                            <div class="detail-value">6:00 PM – 7:00 PM</div>
+                                        </div>
+                                        <div class="detail-row">
+                                            <div class="detail-icon"><i class="fa-solid fa-location-dot"></i></div>
+                                            <div class="detail-key">Location</div>
+                                            <div class="detail-value">Discord — #calculus-voice</div>
+                                        </div>
+                                        <div class="detail-row">
+                                            <div class="detail-icon"><i class="fa-solid fa-wifi"></i></div>
+                                            <div class="detail-key">Mode</div>
+                                            <div class="detail-value">Online</div>
+                                        </div>
+                                        <div class="detail-row">
+                                            <div class="detail-icon"><i class="fa-solid fa-book"></i></div>
+                                            <div class="detail-key">Topic</div>
+                                            <div class="detail-value">Linear algebra basics review</div>
+                                        </div>
+                                        <div class="detail-row">
+                                            <div class="detail-icon"><i class="fa-solid fa-users"></i></div>
+                                            <div class="detail-key">Members</div>
+                                            <div class="detail-value">18 members</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="section-label">Recurring Schedule</div>
+                                    <div class="schedule-card">
+                                        <div class="schedule-row">
+                                            <div class="schedule-day">Monday</div>
+                                            <div class="schedule-time">6:00 PM – 7:00 PM</div>
+                                            <div class="schedule-topic">Lecture review</div>
+                                        </div>
+                                        <div class="schedule-row">
+                                            <div class="schedule-day">Wednesday</div>
+                                            <div class="schedule-time">5:00 PM – 6:30 PM</div>
+                                            <div class="schedule-topic">Problem sets</div>
+                                        </div>
+                                        <div class="schedule-row">
+                                            <div class="schedule-day">Friday</div>
+                                            <div class="schedule-time">7:00 PM – 8:30 PM</div>
+                                            <div class="schedule-topic">Quiz prep</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="section-label">Group Rules</div>
+                                    <div class="rules-card">
+                                        <div class="rule-item">
+                                            <div class="rule-num">1</div>
+                                            Be on time. Sessions start promptly — late joins are fine but don't disrupt.
+                                        </div>
+                                        <div class="rule-item">
+                                            <div class="rule-num">2</div>
+                                            Do the prep work before each session so everyone can move forward together.
+                                        </div>
+                                        <div class="rule-item">
+                                            <div class="rule-num">3</div>
+                                            Respect everyone's pace. No question is too basic here.
+                                        </div>
+                                        <div class="rule-item">
+                                            <div class="rule-num">4</div>
+                                            Keep it on topic during sessions. Side convos go in #off-topic.
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </main>
+    </body>
+</html>
