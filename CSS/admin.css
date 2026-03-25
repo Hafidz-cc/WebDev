@@ -39,59 +39,59 @@ body {
 }
 
 /* ── ADMIN NAV override ── */
-nav {
+body nav {
     background: var(--hive) !important;
     border-bottom: 3px solid var(--amber-d) !important;
 }
 
-#nav-container .logo .black { color: var(--amber) !important; }
-#nav-container .logo .orange { color: var(--pale) !important; }
-#nav-links a { color: var(--pale) !important; }
-#nav-links a:hover,
-#nav-links a.active-nav { color: var(--amber) !important; }
-#auth-links a { color: var(--amber) !important; font-weight: bold; }
+body #nav-container .logo .black { color: var(--amber) !important; }
+body #nav-container .logo .orange { color: var(--pale) !important; }
+body #nav-links a { color: var(--pale) !important; }
+body #nav-links a:hover,
+body #nav-links a.active-nav { color: var(--amber) !important; }
+body #auth-links a { color: var(--amber) !important; font-weight: bold; }
 
 /* ── SIDEBAR override ── */
-#sidebar {
+body #sidebar {
     background: var(--hive) !important;
     border-right: 3px solid var(--amber-d) !important;
 }
 
-#menu > p,
-#my-hives > p { color: var(--pale) !important; }
+body #menu > p,
+body #my-hives > p { color: var(--pale) !important; }
 
-#sidebar hr { border-top-color: var(--dark) !important; }
+body #sidebar hr { border-top-color: var(--dark) !important; }
 
-.sidebar-button p { color: var(--pale) !important; }
+body #sidebar .sidebar-button p { color: var(--pale) !important; }
 
-.sidebar-button:hover {
+body #sidebar .sidebar-button:hover {
     background-color: var(--dark) !important;
     border-left: 5px solid var(--amber) !important;
 }
 
-.sidebar-button:hover p { color: var(--amber) !important; }
+body #sidebar .sidebar-button:hover p { color: var(--amber) !important; }
 
-.sidebar-button.active {
+body #sidebar .sidebar-button.active {
     background-color: var(--amber) !important;
     border-left: 5px solid var(--amber-dk) !important;
 }
 
-.sidebar-button.active p {
+body #sidebar .sidebar-button.active p {
     color: var(--hive) !important;
     font-weight: bold;
 }
 
-.hex { background-color: var(--amber) !important; }
+body #sidebar .hex { background-color: var(--amber) !important; }
 
 /* ── CONTENT AREA ── */
-#content {
+body #content {
     background:
         repeating-linear-gradient(60deg, transparent, transparent 28px, rgba(232,200,74,0.06) 28px, rgba(232,200,74,0.02) 30px),
         repeating-linear-gradient(-60deg, transparent, transparent 28px, rgba(232,200,74,0.06) 28px, rgba(232,200,74,0.02) 30px),
         var(--wax) !important;
 }
 
-#qotd {
+body #qotd {
     background-color: var(--comb) !important;
     border: 3.5px dashed var(--amber) !important;
     font-weight: bold;
