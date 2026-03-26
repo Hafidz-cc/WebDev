@@ -526,3 +526,54 @@
     padding: 2px 7px;
     border-radius: 3px;
 }
+
+/* Modal background */
+.leave-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.4);
+    
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+/* Show modal when checked */
+#leave-toggle:checked ~ .leave-modal {
+    display: flex;
+}
+
+/* Modal box */
+.leave-box {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    width: 300px;
+}
+
+/* Buttons */
+.leave-actions {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.confirm-btn {
+    background: #ff4d4d;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+.cancel-btn {
+    background: #ccc;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}

@@ -12,8 +12,8 @@ body nav {
 }
 
 body #nav-container .logo .black  { color: var(--amber) !important; }
-body #nav-container .logo .orange { color: var(--pale)  !important; }
-body #nav-links a                  { color: var(--pale)  !important; }
+body #nav-container .logo .orange { color: var(--black)  !important; }
+body #nav-links a                  { color: var(--black)  !important; }
 body #nav-links a:hover,
 body #nav-links a.active-nav       { color: var(--amber) !important; }
 body #auth-links a                 { color: var(--amber) !important; font-weight: bold; }
