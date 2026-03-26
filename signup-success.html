@@ -18,9 +18,17 @@
             animation: bgCycle 15s infinite;
             background-size: cover;
             background-position: center;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        .success-card {
+        /* ── Hide all radio inputs ── */
+        input[type="radio"] { display: none; }
+
+        /* ── Check Card ── */
+        .check-card {
             background: white;
             border-radius: 20px;
             padding: 40px 36px;
@@ -30,10 +38,52 @@
             box-shadow: 0 8px 40px rgba(0,0,0,0.15);
         }
 
-        .success-icon {
-            font-size: 3rem;
-            margin-bottom: 16px;
+        .check-icon { font-size: 3rem; margin-bottom: 16px; }
+
+        .check-card h1 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 26px;
+            font-weight: normal;
+            color: #1E1B4B;
+            margin-bottom: 10px;
         }
+
+        .check-card p {
+            font-size: 14px;
+            color: #6B7280;
+            margin-bottom: 28px;
+            line-height: 1.6;
+        }
+
+        .btn-check {
+            display: inline-block;
+            background: #FF5F00;
+            color: white;
+            padding: 11px 28px;
+            border-radius: 100px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 4px;
+            transition: background 0.2s;
+        }
+
+        .btn-check:hover { background: #ff8400; }
+
+        /* ── Success Card (hidden by default) ── */
+        .success-card {
+            display: none;
+            background: white;
+            border-radius: 20px;
+            padding: 40px 36px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.15);
+        }
+
+        .success-icon { font-size: 3rem; margin-bottom: 16px; }
 
         .success-card h1 {
             font-family: 'Instrument Serif', serif;
@@ -64,18 +114,182 @@
         }
 
         .btn-login:hover { background: #ff8400; }
+
+        /* ── Shared Popup Overlay ── */
+        .popup-overlay,
+        .otp-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-box,
+        .otp-box {
+            background: white;
+            border-radius: 16px;
+            padding: 36px 32px;
+            max-width: 380px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 12px 48px rgba(0,0,0,0.2);
+        }
+
+        .popup-icon,
+        .otp-icon { font-size: 2.4rem; margin-bottom: 12px; }
+
+        .popup-box h2,
+        .otp-box h2 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 20px;
+            font-weight: normal;
+            color: #1E1B4B;
+            margin-bottom: 10px;
+        }
+
+        .popup-box p,
+        .otp-box p {
+            font-size: 13.5px;
+            color: #6B7280;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .btn-popup-ok {
+            display: inline-block;
+            background: #FF5F00;
+            color: white;
+            padding: 10px 28px;
+            border-radius: 100px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .btn-popup-ok:hover { background: #ff8400; }
+
+        /* ── OTP Input ── */
+        .otp-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #E5E7EB;
+            border-radius: 12px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 0.4em;
+            text-align: center;
+            color: #1E1B4B;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .otp-input:focus { border-color: #FF5F00; }
+        .otp-input:valid { border-color: #22c55e; }
+
+        .btn-verify {
+            display: inline-block;
+            background: #FF5F00;
+            color: white;
+            padding: 11px 32px;
+            border-radius: 100px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .btn-verify:hover { background: #ff8400; }
+
+        /* ─────────────────────────────────────────
+           CSS-only state machine via :checked
+        ───────────────────────────────────────── */
+
+        /* Active → hide check card, show success card, show OTP popup */
+        #pick-active:checked ~ .check-card   { display: none; }
+        #pick-active:checked ~ .success-card { display: block; }
+        #pick-active:checked ~ .otp-overlay  { display: flex; }
+
+        /* Former → show former warning popup */
+        #pick-former:checked ~ .popup-overlay { display: flex; }
+
+        /* Got it (former reset) → hide former popup */
+        #pick-reset:checked ~ .popup-overlay  { display: none; }
+
+        /* OTP verified → hide OTP overlay */
+        #pick-otp-done:checked ~ .otp-overlay { display: none; }
+
+        /* OTP done also overrides the active-triggered OTP display */
+        #pick-otp-done:checked ~ .otp-overlay { display: none !important; }
     </style>
 </head>
 <body class="auth-page">
 
-<div class="login-container">
+    <!-- State radios — must come before all cards as siblings -->
+    <input type="radio" id="pick-active"   name="student-type">
+    <input type="radio" id="pick-former"   name="student-type">
+    <input type="radio" id="pick-reset"    name="student-type">
+    <input type="radio" id="pick-otp-done" name="otp-state">
+
+    <!-- ── Enrollment Check Card ── -->
+    <div class="check-card">
+        <div class="check-icon">?</div>
+        <h1>Are you an active or former student?</h1>
+        <p>
+            <strong>Active</strong> — A student currently enrolled for the ongoing academic term<br>
+            <strong>Former</strong> — A graduate of the university / alum
+        </p>
+        <label for="pick-active" class="btn-check">Active</label>
+        <label for="pick-former" class="btn-check">Former</label>
+    </div>
+
+    <!-- ── Success Card ── -->
     <div class="success-card">
         <div class="success-icon">🎉</div>
         <h1>Account created!</h1>
         <p>Welcome to HiveMinds. You're all set — log in to start finding study groups.</p>
         <a href="login.html" class="btn-login">Go to Login →</a>
     </div>
-</div>
+
+    <!-- ── Former-student Warning Popup ── -->
+    <div class="popup-overlay">
+        <div class="popup-box">
+            <div class="popup-icon">⚠️</div>
+            <h2>Active Students Only</h2>
+            <p>Access to this website is meant only for Active students who are currently enrolled for the ongoing term.</p>
+            <label for="pick-reset" class="btn-popup-ok">Got it</label>
+        </div>
+    </div>
+
+    <!-- ── OTP Popup (shown when Active is selected) ── -->
+    <div class="otp-overlay">
+        <div class="otp-box">
+            <div class="otp-icon">📧</div>
+            <h2>Check your email</h2>
+            <p>An OTP will be sent to your email. Please check your email's inbox for the code.</p>
+            <input
+                class="otp-input"
+                type="text"
+                inputmode="numeric"
+                maxlength="6"
+                pattern="\d{6}"
+                placeholder="······"
+                title="Enter the 6-digit code sent to your email"
+                required
+            >
+            <br>
+            <label for="pick-otp-done" class="btn-verify">Verify →</label>
+        </div>
+    </div>
 
 </body>
 </html>
