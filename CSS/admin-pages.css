@@ -1,12 +1,17 @@
-/* ── ADMIN PAGES SHARED ── */
+/* ═══════════════════════════════════════════
+   ADMIN-PAGES.CSS
+   Shared styles for Users, Hives, and Settings admin pages.
+   Depends on: base.css, admin.css
+   ═══════════════════════════════════════════ */
 
+/* ── Page wrapper ── */
 .admin-page-body {
     display: flex;
     flex-direction: column;
     gap: 25px;
 }
 
-/* page topbar with title + action */
+/* ── Page topbar ── */
 .page-topbar {
     display: flex;
     align-items: center;
@@ -40,7 +45,7 @@
 
 .btn-admin-action:hover { background: var(--amber-d); }
 
-/* filter bar */
+/* ── Filter bar ── */
 .filter-bar {
     display: flex;
     gap: 10px;
@@ -80,7 +85,7 @@
 
 .filter-select:focus { border-color: var(--amber); }
 
-/* full table card */
+/* ── Full table card ── */
 .full-table-card {
     background: white;
     border: 1.5px solid var(--accent);
@@ -90,7 +95,7 @@
     width: 100%;
 }
 
-/* extended table */
+/* ── Extended table (users/hives pages) ── */
 .admin-table-full {
     width: 100%;
     border-collapse: collapse;
@@ -118,8 +123,9 @@
 }
 
 .admin-table-full tr:last-child td { border-bottom: none; }
-.admin-table-full tr:hover td { background: var(--wax); }
+.admin-table-full tr:hover td      { background: var(--wax); }
 
+/* ── Table user cell ── */
 .td-user {
     display: flex;
     align-items: center;
@@ -143,20 +149,9 @@
 .td-name { font-weight: 700; color: var(--hive); }
 .td-sub  { font-size: 0.78em; color: var(--aged); margin-top: 1px; }
 
-.td-actions {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-}
+.td-actions { display: flex; gap: 6px; flex-wrap: wrap; }
 
-/* status badges */
-.badge-active   { background: var(--success-bg); color: var(--success); }
-.badge-inactive { background: #F3F4F6; color: var(--warmgray); border: 1px solid #ddd; }
-.badge-flagged  { background: var(--warning-bg); color: var(--warning); }
-.badge-banned   { background: var(--danger-bg); color: var(--danger); }
-.badge-open     { background: var(--success-bg); color: var(--success); }
-.badge-full     { background: var(--danger-bg); color: var(--danger); }
-
+/* ── Table badges ── */
 .tbl-badge {
     display: inline-flex;
     padding: 3px 10px;
@@ -166,7 +161,14 @@
     white-space: nowrap;
 }
 
-/* subject tag in table */
+.badge-active   { background: var(--success-bg); color: var(--success); }
+.badge-inactive { background: #F3F4F6; color: var(--warmgray); border: 1px solid #ddd; }
+.badge-flagged  { background: var(--warning-bg); color: var(--warning); }
+.badge-banned   { background: var(--danger-bg);  color: var(--danger); }
+.badge-open     { background: var(--success-bg); color: var(--success); }
+.badge-full     { background: var(--danger-bg);  color: var(--danger); }
+
+/* ── Table subject tag ── */
 .tbl-tag {
     display: inline-flex;
     background: var(--amber);
@@ -181,7 +183,7 @@
     white-space: nowrap;
 }
 
-/* action buttons in table */
+/* ── Table action buttons ── */
 .tbl-btn {
     padding: 4px 11px;
     font-size: 0.75em;
@@ -195,18 +197,18 @@
 }
 
 .tbl-btn.view   { border-color: var(--amber-d); color: var(--amber-d); background: var(--comb); }
-.tbl-btn.view:hover { background: var(--amber); color: var(--hive); border-color: var(--amber); }
+.tbl-btn.view:hover   { background: var(--amber); color: var(--hive); border-color: var(--amber); }
 
 .tbl-btn.warn   { border-color: var(--warning); color: var(--warning); background: var(--warning-bg); }
-.tbl-btn.warn:hover { background: var(--warning); color: white; }
+.tbl-btn.warn:hover   { background: var(--warning); color: white; }
 
 .tbl-btn.danger { border-color: var(--danger); color: var(--danger); background: var(--danger-bg); }
 .tbl-btn.danger:hover { background: var(--danger); color: white; }
 
 .tbl-btn.safe   { border-color: var(--success); color: var(--success); background: var(--success-bg); }
-.tbl-btn.safe:hover { background: var(--success); color: white; }
+.tbl-btn.safe:hover   { background: var(--success); color: white; }
 
-/* frequency badge */
+/* ── Frequency badge (table variant) ── */
 .freq-badge {
     display: inline-flex;
     align-items: center;
@@ -224,7 +226,40 @@
 .freq-recurring .freq-dot { background: var(--amber); }
 .freq-one-time  .freq-dot { background: #e67e22; }
 
-/* ── SETTINGS PAGE ── */
+/* ── Pagination ── */
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-top: 1px solid var(--pale);
+    background: var(--wax);
+    font-size: 0.82em;
+    color: var(--aged);
+}
+
+.pagination-btns { display: flex; gap: 6px; }
+
+.pg-btn {
+    padding: 4px 12px;
+    font-size: 0.82em;
+    font-weight: 700;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1.5px solid var(--accent);
+    background: white;
+    color: var(--hive);
+    font-family: 'Bricolage Grotesque', sans-serif;
+    transition: 0.15s ease;
+}
+
+.pg-btn:hover  { background: var(--comb); }
+.pg-btn.active { background: var(--amber); border-color: var(--amber-d); }
+
+/* ════════════════════════════════
+   SETTINGS PAGE
+   ════════════════════════════════ */
+
 .settings-grid {
     display: flex;
     flex-direction: column;
@@ -248,17 +283,8 @@
     justify-content: space-between;
 }
 
-.settings-card-title {
-    font-size: 0.95em;
-    font-weight: 800;
-    color: var(--hive);
-}
-
-.settings-card-desc {
-    font-size: 0.78em;
-    color: var(--aged);
-    margin-top: 2px;
-}
+.settings-card-title { font-size: 0.95em; font-weight: 800; color: var(--hive); }
+.settings-card-desc  { font-size: 0.78em; color: var(--aged); margin-top: 2px; }
 
 .settings-card-body {
     padding: 20px;
@@ -300,12 +326,9 @@
 .settings-field input:focus,
 .settings-field select:focus { border-color: var(--amber); }
 
-.settings-divider {
-    border: none;
-    border-top: 1px solid var(--pale);
-}
+.settings-divider { border: none; border-top: 1px solid var(--pale); }
 
-/* toggle row */
+/* ── Toggle rows ── */
 .toggle-row {
     display: flex;
     align-items: center;
@@ -316,17 +339,8 @@
 
 .toggle-row:last-child { border-bottom: none; }
 
-.toggle-info .toggle-label {
-    font-size: 0.9em;
-    font-weight: 700;
-    color: var(--hive);
-}
-
-.toggle-info .toggle-desc {
-    font-size: 0.78em;
-    color: var(--aged);
-    margin-top: 2px;
-}
+.toggle-info .toggle-label { font-size: 0.9em; font-weight: 700; color: var(--hive); }
+.toggle-info .toggle-desc  { font-size: 0.78em; color: var(--aged); margin-top: 2px; }
 
 .toggle {
     position: relative;
@@ -350,10 +364,8 @@
 .toggle-slider::before {
     content: '';
     position: absolute;
-    width: 15px;
-    height: 15px;
-    left: 3px;
-    top: 50%;
+    width: 15px; height: 15px;
+    left: 3px; top: 50%;
     transform: translateY(-50%);
     background: var(--warmgray);
     border-radius: 50%;
@@ -363,12 +375,8 @@
 .toggle input:checked + .toggle-slider { background: var(--amber); border-color: var(--amber-d); }
 .toggle input:checked + .toggle-slider::before { transform: translate(20px, -50%); background: var(--hive); }
 
-/* save row */
-.settings-save-row {
-    display: flex;
-    justify-content: flex-end;
-    padding-top: 4px;
-}
+/* ── Save row ── */
+.settings-save-row { display: flex; justify-content: flex-end; padding-top: 4px; }
 
 .btn-save {
     padding: 9px 24px;
@@ -399,36 +407,3 @@
 }
 
 .btn-danger-full:hover { background: var(--danger); color: white; }
-
-/* pagination */
-.pagination {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 16px;
-    border-top: 1px solid var(--pale);
-    background: var(--wax);
-    font-size: 0.82em;
-    color: var(--aged);
-}
-
-.pagination-btns {
-    display: flex;
-    gap: 6px;
-}
-
-.pg-btn {
-    padding: 4px 12px;
-    font-size: 0.82em;
-    font-weight: 700;
-    border-radius: 5px;
-    cursor: pointer;
-    border: 1.5px solid var(--accent);
-    background: white;
-    color: var(--hive);
-    font-family: 'Bricolage Grotesque', sans-serif;
-    transition: 0.15s ease;
-}
-
-.pg-btn:hover { background: var(--comb); }
-.pg-btn.active { background: var(--amber); border-color: var(--amber-d); }

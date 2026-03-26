@@ -1,106 +1,13 @@
-#container {
-    height: fit-content;
-    width: 100vw;
+/* ═══════════════════════════════════════════
+   HOME.CSS
+   Page-specific styles for home_home-feed.html
+   Depends on: base.css, layout.css
+   ═══════════════════════════════════════════ */
+
+/* ── Two-column feed layout ── */
+#content-body {
     display: flex;
-}
-#sidebar {
-    height: 100%;
-    width: 20%;
-    background-color: #fffdf5;
-    border-right: 3px solid rgba(0, 0, 0, 0.118);
-    display: flex;
-    padding: 30px 10px 0px 30px;
-    flex-direction: column;
-    gap: 50px;
-}
-
-#menu {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-#my-hives {
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
-}
-
-#menu > p , #my-hives > p {
-    font-size: 0.9em;
-    color: gray;
-}
-#content {
-    height: 100%;
-    width: 80%;
-    padding: 30px;
-    background:
-    repeating-linear-gradient(60deg, transparent, transparent 28px, rgba(0,0,0,0.08) 28px, rgba(0,0,0,0.02) 30px),
-    repeating-linear-gradient(-60deg, transparent, transparent 28px, rgba(0,0,0,0.08) 28px, rgba(0,0,0,0.02) 30px),
-    #fffdf5;
-    display: flex;
-    flex-direction: column;
-    gap:20px;
-}
-
-.content-link {
-    transition: 0.4s ease;
-}
-
-.content-link:hover {
-    color:#FFD400;
-}
-
-.sidebar-button {
-    width: 100%;
-    display: flex;
-    padding:10px;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 5px;
-
-    transition: 0.3s ease;
-}
-
-.sidebar-button.active {
-    background-color: #ffd50096;;
-    border-left: 5px solid #FFD400;
-}
-
-.sidebar-button:hover {
-    background-color: #ffd50096;;
-    border-left: 5px solid #FFD400;
-}
-.menu p{
-    font-size: 1.3em;
-}
-
-.my-hives {
-    font-size: 1em;
-}
-
-.hex {
-    height: 10px;
-    width: 12px;
-    background-color: #FF5F00;
-    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);;
-}
-
-#qotd {
-    width: 100%;
-    height: fit-content;
-    background-color:#ffd50075;
-    border: 3.5px dashed #FFD400;
-    border-radius: 10px;
-    padding: 30px;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    font-size: 1.3em;
-}
-
-#qotd span {
-    align-self: flex-start;
+    flex-wrap: wrap;
 }
 
 #whats-buzzin {
@@ -112,33 +19,28 @@
 }
 
 #upcoming {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
     width: 50%;
-    height: fit-content;
+    gap: 20px;
 }
 
+#trending {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 20px;
+}
+
+/* ── Title row (title + "see more" link) ── */
 .title {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.content-title {
-    font-size: 1.5em;
-}
-
-.card {
-    width: 100%;
-    height: fit-content;
-    background-color: white;
-    border:2px solid #FFD400;
-    box-shadow: -2px 3px rgba(0, 0, 0, 0.384);
-    border-radius: 10px;
-    display: flex;
-    padding: 15px;
-    flex-direction: column;
-    gap: 20px;
-}
-
+/* ── Post card internals ── */
 .header {
     display: flex;
     align-items: center;
@@ -153,6 +55,7 @@
     width: 70px;
     height: 70px;
     border-radius: 50%;
+    object-fit: cover;
 }
 
 .person-info {
@@ -165,64 +68,31 @@
 
 .details {
     display: flex;
-    color:rgb(117, 117, 117);
+    color: rgb(117, 117, 117);
     gap: 6px;
-}
-
-.tag {
-    display: flex;
-    background: #FFD400;
-    color: #000;
-    font-size: 9px;
-    font-weight: 900;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    padding: 3px 8px;
-    border: 1.5px solid #000;
-    align-self: flex-start;
 }
 
 .card-text {
     font-size: 1.2em;
-    padding: 0px 10px;
+    padding: 0 10px;
 }
 
-.card-text a {
-    color:#FF5F00;
-}
-
-.card-text a:hover {
-    color:hsla(31, 100%, 65%, 0.912);
-}
+.card-text a          { color: #FF5F00; }
+.card-text a:hover    { color: hsla(31, 100%, 65%, 0.912); }
 
 .like {
     width: fit-content;
     font-size: 1em;
     height: fit-content;
     padding: 10px;
-    color:rgb(117, 117, 117);
+    color: rgb(117, 117, 117);
     cursor: pointer;
-
     transition: 0.4s ease;
 }
 
-.like:hover {
-    color:rgb(255, 213, 46);
-}
+.like:hover { color: rgb(255, 213, 46); }
 
-#content-body {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-#upcoming {
-    display: flex;
-    flex-direction: column;
-    padding: 15px;
-    width: 50%;
-    gap: 20px;
-}
-
+/* ── Upcoming / trending session rows ── */
 .session {
     width: 100%;
     padding: 10px;
@@ -242,12 +112,5 @@
     margin-left: 10px;
     margin-top: 5px;
     font-size: 0.7em;
-    color:#515151;
-}
-
-#trending {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    gap: 20px;
+    color: #515151;
 }

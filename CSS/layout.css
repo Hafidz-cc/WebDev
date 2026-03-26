@@ -1,0 +1,124 @@
+/* ═══════════════════════════════════════════
+   LAYOUT.CSS
+   #container · #sidebar · #content
+   Shared by all student-side pages that use the sidebar shell.
+   Also includes created-hives sidebar additions.
+   ═══════════════════════════════════════════ */
+
+/* ── Shell ── */
+#container {
+    width: 100vw;
+    display: flex;
+    align-items: stretch;
+    min-height: calc(100vh - 60px); /* navbar is 60px */
+}
+
+/* ── Sidebar ── */
+#sidebar {
+    width: 20%;
+    min-height: 100%;
+    height: auto !important;
+    background-color: #fffdf5;
+    border-right: 3px solid rgba(0, 0, 0, 0.118);
+    display: flex;
+    padding: 30px 10px 0 30px;
+    flex-direction: column;
+    gap: 50px;
+}
+
+#menu,
+#my-hives,
+#created-hives {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+#menu        { gap: 10px; }
+#my-hives    { gap: 7px;  }
+#created-hives { gap: 7px; }
+
+#menu > p,
+#my-hives > p,
+#created-hives > p {
+    font-size: 0.9em;
+    color: gray;
+}
+
+#sidebar hr {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* ── Sidebar buttons ── */
+.sidebar-button {
+    width: 100%;
+    display: flex;
+    padding: 10px;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 5px;
+    transition: 0.3s ease;
+}
+
+.sidebar-button:hover {
+    background-color: #ffd50096;
+    border-left: 5px solid #FFD400;
+}
+
+.sidebar-button.active {
+    background-color: #ffd50096;
+    border-left: 5px solid #FFD400;
+}
+
+.sidebar-button p { font-size: 1em; }
+
+/* ── Created-hive owner button ── */
+.created-hive-btn {
+    width: 100%;
+    display: flex;
+    padding: 10px;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 5px;
+    transition: 0.3s ease;
+    font-size: 1em;
+}
+
+.created-hive-btn:hover {
+    background-color: #ffd50096;
+    border-left: 5px solid #FFD400;
+}
+
+.created-hive-btn.active {
+    background-color: #ffd50096;
+    border-left: 5px solid #FFD400;
+}
+
+/* Owner hex (yellow, vs orange for joined hives) */
+.hex-owner {
+    height: 10px;
+    width: 12px;
+    background-color: #FFD400;
+    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+    flex-shrink: 0;
+}
+
+/* ── Content area ── */
+#content {
+    width: 80%;
+    min-height: 100%;
+    padding: 30px;
+    background:
+        repeating-linear-gradient(60deg,  transparent, transparent 28px, rgba(0,0,0,0.08) 28px, rgba(0,0,0,0.02) 30px),
+        repeating-linear-gradient(-60deg, transparent, transparent 28px, rgba(0,0,0,0.08) 28px, rgba(0,0,0,0.02) 30px),
+        #fffdf5;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Full-width content (no sidebar, e.g. hives.html, create-hive.html) */
+#content.full-width {
+    width: 100%;
+}
