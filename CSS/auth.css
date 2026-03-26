@@ -58,7 +58,7 @@
     font-size:0.9rem;
 }
 
-.signup-link a{
+.signup-link a, .terms a{
     color:#FF5F00;
     text-decoration: none;
 }
