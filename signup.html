@@ -28,13 +28,18 @@
         <a href="login.html" class="close-page">×</a>
         <h1>Sign Up</h1>
 
-        <form action="signup-success.html" method="get">
+        <form action="verify-enrollment.html" method="get">
             <input type="text" name="lastName" placeholder="Last Name" required>
             <input type="text" name="firstName" placeholder="First Name" required>
             <input type="text" name="middleInitial" placeholder="Middle Initial (optional)" maxlength="1">
             <input type="email" name="email" title="Please use your @wmsu.edu.ph email address" pattern=[a-zA-Z0-9._%+\-]+@wmsu\.edu\.ph placeholder="e.g.,ty0000000000@wmsu.edu.ph" required>
             <input type="password" name="password" placeholder="Password" required>
             <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
+
+            <div class="terms"> 
+                <input type="checkbox" required> I agree to the <a href="terms.html">Terms</a> and <a href="privacy.html">Privacy Policy</a> 
+            </div>
+
             <button type="submit">Create Account</button>
         </form>
 

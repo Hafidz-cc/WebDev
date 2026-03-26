@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Enrollment — HiveMinds</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Belanosima&family=Bricolage+Grotesque:wght@200..800&family=Pacifico&display=swap" rel="stylesheet">
+
+<style>
+    body {
+        font-family: 'Bricolage Grotesque', sans-serif;
+        background: #FEFAF0;
+        margin: 0;
+        padding: 40px;
+    }
+
+    .return {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .return a {
+        text-decoration: none;
+        color: gray;
+    }
+
+    .container {
+        max-width: 600px;
+        margin: auto;
+        background: white;
+        padding: 30px;
+        border: 2px solid #E8C84A;
+        border-radius: 12px;
+    }
+
+    h1 {
+        font-family: 'Belanosima';
+        margin-bottom: 10px;
+    }
+
+    h2 {
+        margin-top: 20px;
+    }
+
+    p, li {
+        font-size: 0.9em;
+        line-height: 1.6;
+    }
+
+    ul {
+        padding-left: 18px;
+    }
+
+    .note {
+        background: #FDF3D0;
+        padding: 12px;
+        border-left: 4px solid #FFD400;
+        margin-top: 15px;
+        border-radius: 6px;
+        font-size: 0.85em;
+    }
+
+    input[type="file"] {
+        margin-top: 15px;
+    }
+
+    button {
+        margin-top: 20px;
+        padding: 10px;
+        background: #FFD400;
+        border: 2px solid black;
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+        width: 100%;
+    }
+</style>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+<div class="return">
+    <a href="signup.html">x</a>
+</div>
+
+<h1>Verify Your Enrollment</h1>
+
+<p>
+    To continue using full features, please upload a copy of your current class schedule from (MyWmsu).
+</p>
+
+<h2>Your schedule should show:</h2>
+<ul>
+    <li>Your name</li>
+    <li>Your current subjects or classes</li>
+</ul>
+
+<div class="note">
+    You may hide or blur any other personal information.<br>
+    This file will be used only for verification and will not be stored after review.
+</div>
+
+<!-- Upload form -->
+    <input type="file" accept=".jpg,.jpeg,.png,.pdf" required>
+
+    <a href="verify-enrollment-success.html"><button>Submit for Verification</button></a>
+
+</div>
+
+</body>
+</html>
