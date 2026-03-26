@@ -23,10 +23,10 @@
                     </div>
                 </a>
                 <div id="nav-links">
-                    <a class="hover" href="home_home-feed.html">
+                    <a class="hover active-nav" href="home_home-feed.html">
                         Home
                     </a>
-                    <a class="hover active-nav" href="hives.html">
+                    <a class="hover" href="hives.html">
                         Hives
                     </a>
                     <a class="hover" href="profile.html">
@@ -124,7 +124,19 @@
                                     Owned by <strong>Rick Buzztley</strong>
                                 </div>
                             </div>
-                            <button class="btn-leave">Leave Hive</button>
+                            <label for="leave-toggle" class="btn-leave">Leave Hive</label>
+                            <input type="checkbox" id="leave-toggle" hidden>
+
+                            <div class="leave-modal">
+                                <div class="leave-box">
+                                    <p>Are you sure you want to leave this hive?</p>
+                                    
+                                    <div class="leave-actions">
+                                        <a href="home_home-feed.html" class="confirm-btn">Yes, Leave</a>
+                                        <label for="leave-toggle" class="cancel-btn">Cancel</label>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <!-- Two columns -->
