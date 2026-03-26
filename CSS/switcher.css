@@ -1,3 +1,8 @@
+/* ═══════════════════════════════════════════
+   SWITCHER.CSS
+   Fixed bottom-right role switcher widget
+   ═══════════════════════════════════════════ */
+
 #role-switcher {
     position: fixed;
     bottom: 24px;
@@ -38,10 +43,7 @@
     transition: 0.2s ease;
 }
 
-.switcher-btn:hover {
-    background-color: #1A1600;
-    color: #F5A800;
-}
+.switcher-btn:hover  { background-color: #1A1600; color: #F5A800; }
 
 .switcher-btn.active {
     background-color: #F5A800;
