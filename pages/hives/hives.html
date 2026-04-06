@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Verifications — HiveMinds Admin</title>
+        <link rel="stylesheet" href="../../assets/CSS/base/base.css">
+        <link rel="stylesheet" href="../../assets/CSS/base/navbar.css">
+        <link rel="stylesheet" href="../../assets/CSS/base/layout.css">
+        <link rel="stylesheet" href="../../assets/CSS/admin/admin.css">
+        <link rel="stylesheet" href="../../assets/CSS/admin/admin-pages.css">
+        <link rel="stylesheet" href="../../assets/CSS/misc/switcher.css">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Belanosima&family=Bricolage+Grotesque:opsz,wght@12..96,420&family=Coiny&family=McLaren&family=Pacifico&family=Pangolin&display=swap" rel="stylesheet">
+
+        <style>
+            #verification-body { display: flex; flex-direction: column; gap: 28px; padding: 20px 0; }
+            .section-label { font-size: 0.78rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #aaa; margin-bottom: 10px; }
+            .verif-card { background: #fff; border: 1.5px solid #f0f0f0; border-radius: 12px; padding: 18px 22px; display: flex; align-items: flex-start; gap: 18px; margin-bottom: 10px; }
+            .verif-avatar-placeholder { width: 44px; height: 44px; border-radius: 50%; background: #f3f4f6; display: flex; align-items: center; justify-content: center; color: #bbb; font-size: 1.1rem; flex-shrink: 0; border: 2px solid #eee; }
+            .verif-info { flex: 1; display: flex; flex-direction: column; gap: 5px; }
+            .verif-name { font-size: 0.97rem; font-weight: 600; color: #1a1a1a; }
+            .verif-meta { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 3px 16px; }
+            .verif-meta span { font-size: 0.81rem; color: #444; }
+            .verif-meta span b { color: #aaa; font-weight: 500; }
+            .verif-submitted { font-size: 0.77rem; color: #bbb; margin-top: 2px; }
+            .verif-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 7px; flex-shrink: 0; }
+            .badge { font-size: 0.73rem; font-weight: 700; padding: 3px 10px; border-radius: 99px; text-transform: uppercase; letter-spacing: .04em; }
+            .badge-pending  { background: #fef3c7; color: #92400e; }
+            .badge-approved { background: #dcfce7; color: #166534; }
+            .badge-rejected { background: #fee2e2; color: #991b1b; }
+            .btn-approve { padding: 6px 14px; background: #22c55e; color: #fff; border: none; border-radius: 7px; font-size: 0.81rem; font-weight: 600; cursor: pointer; }
+            .btn-reject { padding: 6px 14px; background: #fff; color: #ef4444; border: 1.5px solid #ef4444; border-radius: 7px; font-size: 0.81rem; font-weight: 600; cursor: pointer; }
+        </style>
+    </head>
+
+    <body>
+        <nav>
+            <div id="nav-container">
+                <a href="../../index.html">
+                    <div class="logo">
+                        <span class="black">Hive</span><span class="orange">Minds</span>
+                    </div>
+                </a>
+                <div id="nav-links">
+                    <a class="hover active-nav" href="admin-dashboard.html">Dashboard</a>
+                    <a class="hover" href="admin-hives.html">Hives</a>
+                    <a class="hover" href="../../pages/misc/profile.html">Profile</a>
+                </div>
+                <div id="auth-links">
+                    <a class="hover" href="../../pages/misc/profile.html">Admin</a>
+                </div>
+            </div>
+        </nav>
+
+        <main>
+            <div id="container">
+                <div id="sidebar">
+                    <div id="menu">
+                        <p>MENU</p>
+                        <hr>
+                        <a href="admin-dashboard.html">
+                            <div class="sidebar-button menu"><p>Dashboard</p></div>
+                        </a>
+                        <a href="admin-users.html">
+                            <div class="sidebar-button menu"><p>Users</p></div>
+                        </a>
+                        <a href="admin-hives.html">
+                            <div class="sidebar-button menu"><p>Hives</p></div>
+                        </a>
+                        <a href="admin-verifications.html">
+                            <div class="sidebar-button menu active"><p>Verifications</p></div>
+                        </a>
+                        <a href="admin-settings.html">
+                            <div class="sidebar-button menu"><p>Settings</p></div>
+                        </a>
+                    </div>
+
+                    <div id="my-hives">
+                        <p>QUICK STATS</p>
+                        <hr>
+                        <div class="sidebar-button my-hives"><span class="hex"></span><p>124 total users</p></div>
+                        <div class="sidebar-button my-hives"><span class="hex"></span><p>38 active hives</p></div>
+                        <div class="sidebar-button my-hives"><span class="hex"></span><p>3 flagged posts</p></div>
+                        <div class="sidebar-button my-hives"><span class="hex"></span><p>12 new today</p></div>
+                    </div>
+                </div>
+
+                <div id="content">
+                    <div id="qotd">Student Verifications — HiveMinds</div>
+
+                    <div id="verification-body">
+
+                        <div>
+                            <div class="section-label">Pending Review</div>
+
+                            <div class="verif-card">
+                                <div class="verif-avatar-placeholder"><i class="fa fa-user"></i></div>
+                                <div class="verif-info">
+                                    <div class="verif-name">Buzztley, Rick A.</div>
+                                    <div class="verif-meta">
+                                        <span><b>Email </b>rb0000000001@wmsu.edu.ph</span>
+                                        <span><b>Student No. </b>2021-00001</span>
+                                        <span><b>Course </b>BS Computer Science</span>
+                                        <span><b>Year Level </b>3rd Year</span>
+                                        <span><b>Department </b>College of Computing Studies</span>
+                                        <span><b>Section </b>BSCS 3-A</span>
+                                    </div>
+                                    <div class="verif-submitted">Submitted: Mar 20, 2026 &middot; 9:14 AM</div>
+                                </div>
+                                <div class="verif-actions">
+                                    <span class="badge badge-pending">Pending</span>
+                                    <button class="btn-approve">Approve</button>
+                                    <button class="btn-reject">Reject</button>
+                                </div>
+                            </div>
+
+                            <div class="verif-card">
+                                <div class="verif-avatar-placeholder"><i class="fa fa-user"></i></div>
+                                <div class="verif-info">
+                                    <div class="verif-name">Santos, Maya L.</div>
+                                    <div class="verif-meta">
+                                        <span><b>Email </b>ms0000000002@wmsu.edu.ph</span>
+                                        <span><b>Student No. </b>2022-00045</span>
+                                        <span><b>Course </b>BS Biology</span>
+                                        <span><b>Year Level </b>2nd Year</span>
+                                        <span><b>Department </b>College of Science</span>
+                                        <span><b>Section </b>BSBio 2-B</span>
+                                    </div>
+                                    <div class="verif-submitted">Submitted: Mar 21, 2026 &middot; 2:38 PM</div>
+                                </div>
+                                <div class="verif-actions">
+                                    <span class="badge badge-pending">Pending</span>
+                                    <button class="btn-approve">Approve</button>
+                                    <button class="btn-reject">Reject</button>
+                                </div>
+                            </div>
+
+                            <div class="verif-card">
+                                <div class="verif-avatar-placeholder"><i class="fa fa-user"></i></div>
+                                <div class="verif-info">
+                                    <div class="verif-name">Reyes, Leo M.</div>
+                                    <div class="verif-meta">
+                                        <span><b>Email </b>lr0000000003@wmsu.edu.ph</span>
+                                        <span><b>Student No. </b>2023-00112</span>
+                                        <span><b>Course </b>BS Mathematics</span>
+                                        <span><b>Year Level </b>1st Year</span>
+                                        <span><b>Department </b>College of Science</span>
+                                        <span><b>Section </b>BSMath 1-A</span>
+                                    </div>
+                                    <div class="verif-submitted">Submitted: Mar 22, 2026 &middot; 8:05 AM</div>
+                                </div>
+                                <div class="verif-actions">
+                                    <span class="badge badge-pending">Pending</span>
+                                    <button class="btn-approve">Approve</button>
+                                    <button class="btn-reject">Reject</button>
+                                </div>
+                            </div>
+
+                            <div class="verif-card">
+                                <div class="verif-avatar-placeholder"><i class="fa fa-user"></i></div>
+                                <div class="verif-info">
+                                    <div class="verif-name">Mendez, Carla B.</div>
+                                    <div class="verif-meta">
+                                        <span><b>Email </b>cm0000000004@wmsu.edu.ph</span>
+                                        <span><b>Student No. </b>2022-00088</span>
+                                        <span><b>Course </b>BS Chemistry</span>
+                                        <span><b>Year Level </b>2nd Year</span>
+                                        <span><b>Department </b>College of Science</span>
+                                        <span><b>Section </b>BSChem 2-A</span>
+                                    </div>
+                                    <div class="verif-submitted">Submitted: Mar 22, 2026 &middot; 11:20 AM</div>
+                                </div>
+                                <div class="verif-actions">
+                                    <span class="badge badge-pending">Pending</span>
+                                    <button class="btn-approve">Approve</button>
+                                    <button class="btn-reject">Reject</button>
+                                </div>
+                            </div>
+
+                            <div class="verif-card">
+                                <div class="verif-avatar-placeholder"><i class="fa fa-user"></i></div>
+                                <div class="verif-info">
+                                    <div class="verif-name">Uy, Sam T.</div>
+                                    <div class="verif-meta">
+                                        <span><b>Email </b>su0000000005@wmsu.edu.ph</span>
+                                        <span><b>Student No. </b>2021-00234</span>
+                                        <span><b>Course </b>BS Physics</span>
+                                        <span><b>Year Level </b>3rd Year</span>
+                                        <span><b>Department </b>College of Science</span>
+                                        <span><b>Section </b>BSPhysics 3-B</span>
+                                    </div>
+                                    <div class="verif-submitted">Submitted: Mar 23, 2026 &middot; 4:52 PM</div>
+                                </div>
+                                <div class="verif-actions">
+                                    <span class="badge badge-pending">Pending</span>
+                                    <button class="btn-approve">Approve</button>
+                                    <button class="btn-reject">Reject</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="section-label">Approved</div>
+
+                            <div class="verif-card">
+                                <div class="verif-avatar-placeholder"><i class="fa fa-user"></i></div>
+                                <div class="verif-info">
+                                    <div class="verif-name">Cruz, Ana G.</div>
+                                    <div class="verif-meta">
+                                        <span><b>Email </b>ac0000000010@wmsu.edu.ph</span>
+                                        <span><b>Student No. </b>2020-00301</span>
+                                        <span><b>Course </b>BS Computer Science</span>
+                                        <span><b>Year Level </b>4th Year</span>
+                                        <span><b>Department </b>College of Computing Studies</span>
+                                        <span><b>Section </b>BSCS 4-A</span>
+                                    </div>
+                                    <div class="verif-submitted">Approved: Mar 18, 2026</div>
+                                </div>
+                                <div class="verif-actions">
+                                    <span class="badge badge-approved">Approved</span>
+                                </div>
+                            </div>
+
+                            <div class="verif-card">
+                                <div class="verif-avatar-placeholder"><i class="fa fa-user"></i></div>
+                                <div class="verif-info">
+                                    <div class="verif-name">Torres, Ben R.</div>
+                                    <div class="verif-meta">
+                                        <span><b>Email </b>bt0000000011@wmsu.edu.ph</span>
+                                        <span><b>Student No. </b>2021-00405</span>
+                                        <span><b>Course </b>BS English</span>
+                                        <span><b>Year Level </b>3rd Year</span>
+                                        <span><b>Department </b>College of Arts &amp; Sciences</span>
+                                        <span><b>Section </b>BSEng 3-C</span>
+                                    </div>
+                                    <div class="verif-submitted">Approved: Mar 19, 2026</div>
+                                </div>
+                                <div class="verif-actions">
+                                    <span class="badge badge-approved">Approved</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="section-label">Rejected</div>
+
+                            <div class="verif-card">
+                                <div class="verif-avatar-placeholder"><i class="fa fa-user"></i></div>
+                                <div class="verif-info">
+                                    <div class="verif-name">Flores, Dan K.</div>
+                                    <div class="verif-meta">
+                                        <span><b>Email </b>df0000000020@wmsu.edu.ph</span>
+                                        <span><b>Student No. </b>2022-00199</span>
+                                        <span><b>Course </b>BS Biology</span>
+                                        <span><b>Year Level </b>2nd Year</span>
+                                        <span><b>Department </b>College of Science</span>
+                                        <span><b>Section </b>BSBio 2-A</span>
+                                    </div>
+                                    <div class="verif-submitted">Rejected: Mar 17, 2026 &middot; Reason: COR unreadable</div>
+                                </div>
+                                <div class="verif-actions">
+                                    <span class="badge badge-rejected">Rejected</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <div id="role-switcher">
+            <span class="switcher-label">View as</span>
+            <a href="../../pages/home/home_home-feed.html" class="switcher-btn">Student</a>
+            <a href="admin-dashboard.html" class="switcher-btn active">Admin</a>
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - HiveMinds</title>
+    <link rel="stylesheet" href="../../assets/CSS/base/base.css">
+    <link rel="stylesheet" href="../../assets/CSS/misc/auth.css">
+    <style>
+        @keyframes bgCycle {
+            0%,  30% { background-image: url('../../assets/images/backgroundimg1.png'); }
+            33%, 63% { background-image: url('../../assets/images/backgroundimg2.png'); }
+            66%, 96% { background-image: url('../../assets/images/backgroundimg3.jpg'); }
+            100%      { background-image: url('../../assets/images/backgroundimg1.png'); }
+        }
+
+        body.auth-page {
+            animation: bgCycle 15s infinite;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .error-msg {
+            color: red;
+            font-size: 0.85rem;
+            margin-top: -8px;
+            margin-bottom: 8px;
+            display: none;
+        }
+    </style>
+</head>
+<body class="auth-page">
+
+<div class="login-container">
+    <div class="login-card">
+        <a href="landing-page.html" class="close-page">×</a>
+        <h1>Login</h1>
+
+        <form id="loginForm">
+            <input type="email" id="email" name="email" 
+                title="Please use your @wmsu.edu.ph email address" 
+                pattern="[a-zA-Z0-9._%+\-]+@wmsu\.edu\.ph" 
+                placeholder="Email" required>
+            <input type="password" id="password" name="password" placeholder="Password" required>
+            <p class="error-msg" id="errorMsg">Incorrect email or password.</p>
+            <button type="submit">Login</button>
+        </form>
+
+        <p class="signup-link">
+            Don't have an account? <a href="signup.html">Sign up</a>
+        </p>
+    </div>
+</div>
+
+<script>
+    // --- Credentials ---
+    const ADMIN = {
+        email: "admin@wmsu.edu.ph",
+        password: "admin123"
+    };
+
+    const USER = {
+        email: "user@wmsu.edu.ph",
+        password: "user123"
+    };
+
+    // --- Redirect destinations ---
+    const ADMIN_PAGE = "../../pages/admin/admin-dashboard.html";
+    const USER_PAGE  = "../../pages/home/home_home-feed.html";
+
+    // --- Login logic ---
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        const email    = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value;
+        const errorMsg = document.getElementById("errorMsg");
+
+        if (email === ADMIN.email && password === ADMIN.password) {
+            window.location.href = ADMIN_PAGE;
+
+        } else if (email === USER.email && password === USER.password) {
+            window.location.href = USER_PAGE;
+
+        } else {
+            errorMsg.style.display = "block";
+        }
+    });
+</script>
+
+</body>
+</html>

@@ -3,10 +3,10 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="CSS/base.css">
-        <link rel="stylesheet" href="CSS/navbar.css">
-        <link rel="stylesheet" href="CSS/layout.css">
-        <link rel="stylesheet" href="CSS/home_settings.css">
+        <link rel="stylesheet" href="../../assets/CSS/base/base.css">
+        <link rel="stylesheet" href="../../assets/CSS/base/navbar.css">
+        <link rel="stylesheet" href="../../assets/CSS/base/layout.css">
+        <link rel="stylesheet" href="../../assets/CSS/home/home_settings.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,24 +16,16 @@
     <body>
         <nav>
             <div id="nav-container">
-                <a href="landing-page.html">
-                    <div class="logo">
-                        <span class="black">Hive</span><span class="orange">Minds</span>
-                    </div>
+                <a href="../../index.html">
+                    <div class="logo"><span class="black">Hive</span><span class="orange">Minds</span></div>
                 </a>
                 <div id="nav-links">
-                    <a class="hover" href="home_home-feed.html">
-                        Home
-                    </a>
-                    <a class="hover" href="hives.html">
-                        Hives
-                    </a>
-                    <a class="hover" href="profile.html">
-                        Profile
-                    </a>
+                    <a class="hover" href="home_home-feed.html">Home</a>
+                    <a class="hover" href="../hives/hives.html">Hives</a>
+                    <a class="hover" href="../misc/profile.html">Profile</a>
                 </div>
                 <div id="auth-links">
-                    <a class="hover" href="profile.html">Rick Buzztley</a>
+                    <a class="hover" href="../misc/profile.html">Rick Buzztley</a>
                 </div>
             </div>
         </nav>
@@ -41,79 +33,35 @@
         <main>
             <div id="container">
                 <div id="sidebar">
-
                     <div id="menu">
                         <p>MENU</p>
                         <hr>
-                        <a href="home_home-feed.html">
-                            <div class="sidebar-button menu">
-                                <p>Home Feed</p>
-                            </div>
-                        </a>
-                        <a href="home_my-schedule.html">
-                            <div class="sidebar-button menu">
-                                <p>My Schedule</p>
-                            </div>
-                        </a>
-
-                        <a href="home_settings.html">
-                            <div class="sidebar-button menu active">
-                                <p>Settings</p>
-                            </div>
-                        </a>
+                        <a href="home_home-feed.html"><div class="sidebar-button menu"><p>Home Feed</p></div></a>
+                        <a href="home_my-schedule.html"><div class="sidebar-button menu"><p>My Schedule</p></div></a>
+                        <a href="home_settings.html"><div class="sidebar-button menu active"><p>Settings</p></div></a>
                     </div>
-
                     <div id="created-hives">
                         <p>CREATED HIVES</p>
                         <hr>
-                        <a href="home_created-hives.html">
-                            <div class="created-hive-btn">
-                                <span class="hex-owner"></span><p>Rick's Study Circle</p>
-                            </div>
-                        </a>
+                        <a href="home_created-hives.html"><div class="created-hive-btn"><span class="hex-owner"></span><p>Rick's Study Circle</p></div></a>
                     </div>
-
                     <div id="my-hives">
                         <p>MY HIVES</p>
                         <hr>
-                        <a href="home_calculus.html">
-                            <div class="sidebar-button my-hives">
-                                <span class="hex"></span><p>Calculus study group</p>
-                            </div>
-                        </a>
-                        <a href="home_biology.html">
-                            <div class="sidebar-button my-hives">
-                                <span class="hex"></span><p>Biology study group</p>
-                            </div>
-                        </a>
-                        <a href="home_history.html">
-                            <div class="sidebar-button my-hives">
-                                <span class="hex"></span><p>History study group</p>
-                            </div>
-                        </a>
-                        <a href="home_english.html">
-                            <div class="sidebar-button my-hives">
-                                <span class="hex"></span><p>English study group</p>
-                            </div>
-                        </a>
-                        <a href="home_physics.html">
-                            <div class="sidebar-button my-hives">
-                                <span class="hex"></span><p>Physics study group</p>
-                            </div>
-                        </a>
+                        <a href="home_calculus.html"><div class="sidebar-button my-hives"><span class="hex"></span><p>Calculus study group</p></div></a>
+                        <a href="home_biology.html"><div class="sidebar-button my-hives"><span class="hex"></span><p>Biology study group</p></div></a>
+                        <a href="home_history.html"><div class="sidebar-button my-hives"><span class="hex"></span><p>History study group</p></div></a>
+                        <a href="home_english.html"><div class="sidebar-button my-hives"><span class="hex"></span><p>English study group</p></div></a>
+                        <a href="home_physics.html"><div class="sidebar-button my-hives"><span class="hex"></span><p>Physics study group</p></div></a>
                     </div>
                 </div>
 
                 <div id="content">
-
                     <div id="settings-body">
-
                         <p class="content-title">Settings</p>
 
-                        <!-- Account -->
                         <div class="settings-section">
                             <div class="section-label">Account</div>
-
                             <div class="settings-card">
                                 <div class="field-row">
                                     <div class="field-label">Name</div>
@@ -134,28 +82,22 @@
                                     <div class="field-label">Class Schedule</div>
                                     <input class="field-input" type="file" accept=".jpg,.jpeg,.png,.pdf" disabled>
                                 </div>
-
-                                <div class="upload-note">
-                                    Please upload a new schedule (COR) every 6 months for verification.
-                                </div>
+                                <div class="upload-note">Please upload a new schedule (COR) every 6 months for verification.</div>
                                 <div class="btn-row">
                                     <button class="btn btn-primary">Save Changes</button>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Log Out -->
                         <div class="settings-section">
                             <div class="section-label">Session</div>
-
                             <div class="settings-card">
                                 <div class="logout-row">
                                     <div class="logout-desc">End your current session and return to the login page.</div>
-                                    <a href="landing-page.html"><button class="btn btn-danger">Log Out</button></a>
+                                    <a href="../../landing-page.html"><button class="btn btn-danger">Log Out</button></a>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>

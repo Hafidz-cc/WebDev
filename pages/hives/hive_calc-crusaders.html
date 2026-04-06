@@ -3,9 +3,9 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="CSS/base.css">
-        <link rel="stylesheet" href="CSS/navbar.css">
-        <link rel="stylesheet" href="CSS/hive.css">
+        <link rel="stylesheet" href="../../assets/CSS/base/base.css">
+        <link rel="stylesheet" href="../../assets/CSS/base/navbar.css">
+        <link rel="stylesheet" href="../../assets/CSS/hives/hive.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,14 +14,14 @@
     <body>
         <nav>
             <div id="nav-container">
-                <a href="landing-page.html"><div class="logo"><span class="black">Hive</span><span class="orange">Minds</span></div></a>
+                <a href="../../index.html"><div class="logo"><span class="black">Hive</span><span class="orange">Minds</span></div></a>
                 <div id="nav-links">
-                    <a class="hover" href="home_home-feed.html">Home</a>
+                    <a class="hover" href="../home/home_home-feed.html">Home</a>
                     <a class="hover active-nav" href="hives.html">Hives</a>
-                    <a class="hover" href="profile.html">Profile</a>
+                    <a class="hover" href="../misc/profile.html">Profile</a>
                 </div>
                 <div id="auth-links">
-                    <a class="hover" href="profile.html">Rick Buzztley</a>
+                    <a class="hover" href="../misc/profile.html">Rick Buzztley</a>
                 </div>
             </div>
         </nav>
@@ -39,7 +39,7 @@
                                     <span>&bull; 55 members</span>
                                 </div>
                                 <div class="hive-owner">
-                                    <img src="images/person-profile.jpg">
+                                    <img src="../../assets/images/person-profile.jpg">
                                     Owned by <strong>Jake Almeida</strong>
                                 </div>
                             </div>
@@ -52,7 +52,7 @@
                                     <div class="section-label">Comments</div>
                                     <div class="comments-card">
                                         <div class="comment">
-                                            <img src="images/person-profile.jpg">
+                                            <img src="../../assets/images/person-profile.jpg">
                                             <div class="comment-body">
                                                 <div class="comment-name">Jake Almeida</div>
                                                 <div class="comment-text">Welcome to Calc Crusaders! Monday sessions are for reviewing lectures, Thursdays are pure problem solving. Come ready to get your hands dirty 🧮</div>
@@ -61,7 +61,7 @@
                                         </div>
                                         <hr class="comment-divider">
                                         <div class="comment">
-                                            <img src="images/person-profile.jpg">
+                                            <img src="../../assets/images/person-profile.jpg">
                                             <div class="comment-body">
                                                 <div class="comment-name">Nina Cruz</div>
                                                 <div class="comment-text">Just joined! Is there a specific textbook we follow?</div>
@@ -70,7 +70,7 @@
                                         </div>
                                         <hr class="comment-divider">
                                         <div class="comment">
-                                            <img src="images/person-profile.jpg">
+                                            <img src="../../assets/images/person-profile.jpg">
                                             <div class="comment-body">
                                                 <div class="comment-name">Jake Almeida</div>
                                                 <div class="comment-text">We use Stewart Calculus but any edition works. Check the pinned resources in Discord!</div>
@@ -90,51 +90,19 @@
                                 <div>
                                     <div class="section-label">Next Session</div>
                                     <div class="details-card">
-                                        <div class="detail-row">
-                                            <div class="detail-icon"><i class="fa-regular fa-calendar"></i></div>
-                                            <div class="detail-key">Date</div>
-                                            <div class="detail-value">Monday, March 24</div>
-                                        </div>
-                                        <div class="detail-row">
-                                            <div class="detail-icon"><i class="fa-regular fa-clock"></i></div>
-                                            <div class="detail-key">Time</div>
-                                            <div class="detail-value">7:00 PM – 8:30 PM</div>
-                                        </div>
-                                        <div class="detail-row">
-                                            <div class="detail-icon"><i class="fa-solid fa-location-dot"></i></div>
-                                            <div class="detail-key">Location</div>
-                                            <div class="detail-value">Discord — #crusaders-voice</div>
-                                        </div>
-                                        <div class="detail-row">
-                                            <div class="detail-icon"><i class="fa-solid fa-wifi"></i></div>
-                                            <div class="detail-key">Mode</div>
-                                            <div class="detail-value">Online</div>
-                                        </div>
-                                        <div class="detail-row">
-                                            <div class="detail-icon"><i class="fa-solid fa-book"></i></div>
-                                            <div class="detail-key">Topic</div>
-                                            <div class="detail-value">Integration by parts</div>
-                                        </div>
-                                        <div class="detail-row">
-                                            <div class="detail-icon"><i class="fa-solid fa-users"></i></div>
-                                            <div class="detail-key">Members</div>
-                                            <div class="detail-value">55 members</div>
-                                        </div>
+                                        <div class="detail-row"><div class="detail-icon"><i class="fa-regular fa-calendar"></i></div><div class="detail-key">Date</div><div class="detail-value">Monday, March 24</div></div>
+                                        <div class="detail-row"><div class="detail-icon"><i class="fa-regular fa-clock"></i></div><div class="detail-key">Time</div><div class="detail-value">7:00 PM – 8:30 PM</div></div>
+                                        <div class="detail-row"><div class="detail-icon"><i class="fa-solid fa-location-dot"></i></div><div class="detail-key">Location</div><div class="detail-value">Discord — #crusaders-voice</div></div>
+                                        <div class="detail-row"><div class="detail-icon"><i class="fa-solid fa-wifi"></i></div><div class="detail-key">Mode</div><div class="detail-value">Online</div></div>
+                                        <div class="detail-row"><div class="detail-icon"><i class="fa-solid fa-book"></i></div><div class="detail-key">Topic</div><div class="detail-value">Integration by parts</div></div>
+                                        <div class="detail-row"><div class="detail-icon"><i class="fa-solid fa-users"></i></div><div class="detail-key">Members</div><div class="detail-value">55 members</div></div>
                                     </div>
                                 </div>
                                 <div>
                                     <div class="section-label">Recurring Schedule</div>
                                     <div class="schedule-card">
-                                        <div class="schedule-row">
-                                            <div class="schedule-day">Monday</div>
-                                            <div class="schedule-time">7:00 PM – 8:30 PM</div>
-                                            <div class="schedule-topic">Lecture review</div>
-                                        </div>
-                                        <div class="schedule-row">
-                                            <div class="schedule-day">Thursday</div>
-                                            <div class="schedule-time">6:00 PM – 8:00 PM</div>
-                                            <div class="schedule-topic">Problem solving</div>
-                                        </div>
+                                        <div class="schedule-row"><div class="schedule-day">Monday</div><div class="schedule-time">7:00 PM – 8:30 PM</div><div class="schedule-topic">Lecture review</div></div>
+                                        <div class="schedule-row"><div class="schedule-day">Thursday</div><div class="schedule-time">6:00 PM – 8:00 PM</div><div class="schedule-topic">Problem solving</div></div>
                                     </div>
                                 </div>
                                 <div>
