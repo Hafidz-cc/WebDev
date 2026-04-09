@@ -129,7 +129,7 @@
 
                                 <div class="form-actions">
                                     <a href="hives.html" class="btn-cancel">Cancel</a>
-                                    <button type="submit" class="btn-submit">Create Hive</button>
+                                    <button type="button" class="btn-submit" onclick="document.getElementById('verif-modal').style.display='flex'">Create Hive</button>
                                 </div>
                             </form>
 
@@ -139,5 +139,20 @@
                 </div>
             </div>
         </main>
+        <div id="verif-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.45); align-items:center; justify-content:center; z-index:1000;">
+  <div style="background:var(--color-bg, #fff); border-radius:12px; padding:2rem; max-width:380px; width:90%; text-align:center; box-shadow: 0 8px 32px rgba(0,0,0,0.15);">
+    <div style="width:52px;height:52px;border-radius:50%;background:#fff5e6;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">
+      <!-- shield/check icon -->
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+        <path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.35C17.25 22.15 21 17.25 21 12V7L12 2z" fill="#f0860a" opacity="0.15"/>
+        <path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.35C17.25 22.15 21 17.25 21 12V7L12 2z" stroke="#f0860a" stroke-width="1.5"/>
+        <path d="M12 8v4m0 3h.01" stroke="#f0860a" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <h2 style="font-size:1.1rem;font-weight:600;margin-bottom:0.5rem;">Your hive is under review</h2>
+    <p style="font-size:0.9rem;color:#666;line-height:1.6;margin-bottom:1.5rem;">Your hive has been submitted and will go through a quick verification process before it becomes visible to other members. We'll notify you once it's approved.</p>
+    <button onclick="document.getElementById('verif-modal').style.display='none'" style="background:#f0860a;color:#fff;border:none;border-radius:8px;padding:10px 28px;font-size:0.9rem;font-weight:600;cursor:pointer;width:100%;">Got it</button>
+  </div>
+</div>
     </body>
 </html>
