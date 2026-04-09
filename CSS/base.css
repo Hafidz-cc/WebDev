@@ -1,10 +1,219 @@
-*{
+/* ═══════════════════════════════════════════
+   BASE.CSS
+   Reset · Typography · Design tokens · Reusable components
+   (.tag, .frequency-badge, .btn-*, .hex, .section-label)
+   ═══════════════════════════════════════════ */
+
+/* ── Reset ── */
+*, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Belanosima', arial;
+    font-family: 'Belanosima', Arial, sans-serif;
 }
 
 a {
     text-decoration: none;
+    color: inherit;
+}
+
+/* ── Design tokens ── */
+:root {
+    --amber:      #F5A800;
+    --amber-d:    #D48C00;
+    --amber-dk:   #B37200;
+    --wax:        #FEFAF0;
+    --comb:       #FDF3D0;
+    --pale:       #F5E49A;
+    --accent:     #E8C84A;
+    --hive:       #0D0B00;
+    --dark:       #1A1600;
+    --aged:       #6B5800;
+    --warmgray:   #8C8880;
+    --text:       #1A1600;
+    --muted:      #6B5800;
+    --success:    #059669;
+    --warning:    #D97706;
+    --danger:     #DC2626;
+    --success-bg: #D1FAE5;
+    --warning-bg: #FEF3C7;
+    --danger-bg:  #FEE2E2;
+
+    /* Student-side accent (orange) */
+    --orange:     #FF5F00;
+    --orange-d:   #e05500;
+    --yellow:     #FFD400;
+    --yellow-d:   #e6bf00;
+}
+
+body {
+    background: var(--wax);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ── Shared layout shell ──
+   Pages that use #container/#sidebar/#content include layout.css,
+   but these base rules ensure body stretches correctly. */
+main {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+
+/* ════════════════════════════════
+   SHARED COMPONENTS
+   Used on both student & admin sides
+   ════════════════════════════════ */
+
+/* ── Hex bullet ── */
+.hex {
+    height: 10px;
+    width: 12px;
+    background-color: var(--orange);
+    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+    flex-shrink: 0;
+}
+
+/* ── Section label ── */
+.section-label {
+    font-size: 0.85em;
+    font-weight: bold;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: gray;
+    padding: 4px 0;
+    border-bottom: 1.5px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 12px;
+}
+
+/* ── Subject tag ── */
+.tag {
+    display: inline-flex;
+    background: var(--yellow);
+    color: #000;
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border: 1.5px solid #000;
+    border-radius: 3px;
+    white-space: nowrap;
+    align-self: flex-start;
+}
+
+/* ── Frequency badge ── */
+.frequency-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.78em;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+}
+
+.frequency-badge.recurring {
+    background-color: #fff3b0;
+    border: 1.5px solid var(--yellow);
+    color: #7a6000;
+}
+
+.frequency-badge.one-time {
+    background-color: #ffe8d6;
+    border: 1.5px solid var(--orange);
+    color: #7a2e00;
+}
+
+.frequency-badge .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.frequency-badge.recurring .dot { background-color: var(--yellow); }
+.frequency-badge.one-time  .dot { background-color: var(--orange); }
+
+/* ── Generic card (student side) ── */
+.card {
+    width: 100%;
+    background-color: white;
+    border: 2px solid var(--yellow);
+    box-shadow: -2px 3px rgba(0, 0, 0, 0.384);
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ── Shared button styles ── */
+.btn {
+    padding: 8px 20px;
+    font-size: 0.85em;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 2px solid #000;
+    font-family: 'Bricolage Grotesque', 'Belanosima', sans-serif;
+    transition: 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background-color: var(--yellow);
+    color: #000;
+}
+.btn-primary:hover { background-color: var(--yellow-d); }
+
+.btn-danger {
+    background-color: white;
+    color: #c0392b;
+    border-color: #c0392b;
+}
+.btn-danger:hover { background-color: #fff0ee; }
+
+/* ── Shared content title ── */
+.content-title {
+    font-size: 1.5em;
+}
+
+.content-link {
+    transition: 0.4s ease;
+    color: inherit;
+}
+.content-link:hover { color: var(--yellow); }
+
+/* ── QOTD banner ── */
+#qotd {
+    width: 100%;
+    background-color: #ffd50075;
+    border: 3.5px dashed var(--yellow);
+    border-radius: 10px;
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-size: 1.3em;
+}
+
+#qotd span {
+    align-self: flex-start;
+}
+
+/* ── Footer (minimal) ── */
+footer {
+    background-color: rgb(12, 12, 12);
+    border-top: 0.1px solid var(--yellow);
+    width: 100%;
 }

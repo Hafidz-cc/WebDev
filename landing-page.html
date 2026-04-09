@@ -14,6 +14,7 @@
 
     <body>
         <header>
+            <div id = "hex-bg">
             <div id="hero">
                 <div id="heading">
                     <div id="title">
@@ -36,6 +37,7 @@
                     <img src="images/group.jpg">
                 </div>
             </div>
+            </div>
         </header>
 
         <nav>
@@ -46,9 +48,9 @@
                     </div>
                 </a>
                 <div id="nav-links">
-                    <a class="hover" href="login.html">Home</a>
-                    <a class="hover" href="login.html">Hives</a>
-                    <a class="hover" href="login.html">Profile</a>
+                    <a class = "hover"href="#features">Features</a>
+                    <a class = "hover" href="#how">How it works</a>
+                    <a class = "hover" href="#popular-hives">Explore hives</a>
                 </div>
                 <div id="auth-links">
                     <a class="hover" href="login.html">Login</a>
@@ -59,15 +61,91 @@
         </nav>
 
         <main>
-            <section id="popular-hives">
-                <div id="hives-left">
-                    <h2 id="hives-title">Popular hives<br>right now</h2>
-                    <p id="hives-sub">
-                        Thousands of students are already buzzing.
-                        Find your hive and start learning together.
-                    </p>
-                    <a href="login.html" id="browse-btn">Browse All Hives →</a>
+            <div class="features-wrap" id="features">
+            <div class="section-wrap">
+                <div class="section-intro">
+                    <span class="intro-line"></span>Why HiveMinds?
                 </div>
+
+                <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;">
+
+                <div class="section-title">
+                    Everything you need<br>to study smarter
+                </div>
+                <a href="login.html" class="btn btn-ghost">Get started →</a>
+            </div>
+
+                <div class="feature-grid">
+                    <div class="feat-card">
+                        <div class="feat-icon">🔍</div>
+                        <h3>Find groups by subject</h3>
+                        <p>Filter through hundreds of groups by subject, schedule, or location to find your perfect match in seconds.</p>
+                    </div>
+                    <div class="feat-card">
+                        <div class="feat-icon">✏️</div>
+                        <h3>Create your own group</h3>
+                        <p>Start a group in under a minute. Set the topic, schedule, and max size — then invite your classmates to join.</p>
+                    </div>
+                    <div class="feat-card">
+                        <div class="feat-icon">🏫</div>
+                        <h3>School-scoped community</h3>
+                        <p>Only students from your school can join. A safe, verified space built exclusively for your campus community.</p>
+                    </div>
+                    <div class="feat-card">
+                        <div class="feat-icon">🌐</div>
+                        <h3>In-person or remote</h3>
+                        <p>Study at the library, a café, or hop on Zoom — Study Buddy supports whatever format works for your squad.</p>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+
+            <div class="how-wrap" id="how">
+                <div class="section-wrap">
+                    <div class="section-intro"><span class="intro-line"></span>How it works</div>
+                    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;">
+                    <div>
+                        <div class="section-title">Three steps to your<br>perfect study hive</div>
+                        <p class="section-sub">No complicated setup. Sign up and start connecting with classmates who are ready to learn.</p>
+                    </div>
+                    <a href="login.html" class="btn btn-primary">Start now →</a>
+                    </div>
+                    <div class="how-grid">
+                    <div class="how-card">
+                        <div class="how-step">1</div>
+                        <h3>Create an account</h3>
+                        <p>Sign up with your school email address. Your account is verified and scoped to your campus so you always know who you're studying with.</p>
+                    </div>
+                    <div class="how-card">
+                        <div class="how-step">2</div>
+                        <h3>Browse or create a group</h3>
+                        <p>Explore existing study groups by subject, schedule, or mode. Can't find one? Start your own in under a minute and invite classmates.</p>
+                    </div>
+                    <div class="how-card">
+                        <div class="how-step">3</div>
+                        <h3>Start studying together</h3>
+                        <p>Join a session, share notes, tackle problem sets, and prep for exams as a team. Your grades — and friendships — will thank you.</p>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div class="separator"></div>
+
+            <div class="groups-wrap" id="popular-hives">
+                <div class="section-wrap">
+                    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;margin-bottom:8px;padding:18px;">
+                    <div>
+                        <div class="section-intro"><span class="intro-line"></span>Active groups</div>
+                        <div class="section-title">Popular hives right now</div>
+                        <p id="hives-sub">
+                            Thousands of students are already buzzing.
+                            Find your hive and start learning together.
+                        </p>
+                    </div>
+                    <a href="login.html" class="btn btn-ghost">View all groups →</a>
+                </div>
+
                 <div id="hives-right">
 
                     <a href="login.html">
@@ -123,42 +201,15 @@
                     </a>
 
                 </div>
-            </section>
+            </div>
 
-            <div class="separator"></div>
+            <
 
-            <section id="how-it-works">
-                <div id="how-left">
-                    <div class="how-card">
-                        <div class="num">01</div>
-                        <div class="how-card-title">Create an Account</div>
-                        <div class="how-card-desc">Sign up! Get up and running in under a minute!</div>
-                    </div>
-                    <div class="how-card">
-                        <div class="num">02</div>
-                        <div class="how-card-title">Search a Topic</div>
-                        <div class="how-card-desc">Browse hundreds of active groups across every subject. Find one that fits your schedule and goals!</div>
-                    </div>
-                    <div class="how-card">
-                        <div class="num">03</div>
-                        <div class="how-card-title">Join or Create</div>
-                        <div class="how-card-desc">Jump into an existing group or start your own. Invite classmates and set your group's focus!</div>
-                    </div>
-                    <div class="how-card">
-                        <div class="num">04</div>
-                        <div class="how-card-title">Start Studying</div>
-                        <div class="how-card-desc">Collaborate, share notes, quiz each other, and track your progress together!</div>
-                    </div>
-                </div>
+        
+        </main>
 
-                <div id="how-right">
-                    <h2>How does<br><span class="white">Hive</span><span class="orange">Minds</span><br>work?</h2>
-                </div>
-            </section>
-
-            <div class="separator"></div>
-
-            <section id="cta">
+        <footer>
+             <section id="cta">
                 <div id="cta-text">
                     <div id="cta-title">
                         <h1>READY TO <br><span>BUZZ ?</span></h1>
@@ -172,9 +223,7 @@
                 </div>
                 <div id="ghost-text-thing">start now</div>
             </section>
-        </main>
-
-        <footer>
+            
             <div id="footer-inner">
                 <div id="footer-top">
                     <div id="footer-brand">

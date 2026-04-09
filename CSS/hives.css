@@ -4,6 +4,10 @@
     gap: 25px;
 }
 
+#container {
+    padding: 10px 30px;
+}
+
 .hives-grid {
     display: flex;
     flex-wrap: wrap;

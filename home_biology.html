@@ -3,11 +3,10 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="CSS/hive.css">
-        <link rel="stylesheet" href="CSS/created-hives.css">
-        <link rel="stylesheet" href="CSS/home.css">
         <link rel="stylesheet" href="CSS/base.css">
         <link rel="stylesheet" href="CSS/navbar.css">
+        <link rel="stylesheet" href="CSS/layout.css">
+        <link rel="stylesheet" href="CSS/hive.css">
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,10 +23,10 @@
                     </div>
                 </a>
                 <div id="nav-links">
-                    <a class="hover" href="home_home-feed.html">
+                    <a class="hover active-nav" href="home_home-feed.html">
                         Home
                     </a>
-                    <a class="hover active-nav" href="hives.html">
+                    <a class="hover" href="hives.html">
                         Hives
                     </a>
                     <a class="hover" href="profile.html">
@@ -125,7 +124,48 @@
                                     Owned by <strong>Maya Santos</strong>
                                 </div>
                             </div>
-                            <button class="btn-leave">Leave Hive</button>
+
+                            <!-- Action buttons -->
+                            <div class="hive-header-actions">
+                                <label for="report-toggle" class="btn-report">
+                                    <i class="fa-solid fa-flag"></i> Report
+                                </label>
+                                <label for="leave-toggle" class="btn-leave">Leave Hive</label>
+                            </div>
+
+                            <!-- Hidden checkboxes -->
+                            <input type="checkbox" id="report-toggle" hidden>
+                            <input type="checkbox" id="leave-toggle" hidden>
+
+                            <!-- Report modal -->
+                            <div class="report-modal">
+                                <div class="report-box">
+                                    <p style="font-weight: bold; font-size: 1em;">Report this hive?</p>
+                                    <p style="font-size: 0.85em; color: gray; margin-bottom: 14px;">Let us know why you're reporting this group.</p>
+                                    <select class="report-select">
+                                        <option value="">Select a reason...</option>
+                                        <option>Spam or misleading content</option>
+                                        <option>Harassment or bullying</option>
+                                        <option>Inappropriate content</option>
+                                        <option>Other</option>
+                                    </select>
+                                    <div class="report-actions">
+                                        <label for="report-toggle" class="cancel-btn">Cancel</label>
+                                        <a href="#" class="confirm-btn" style="background: #e67e22;">Submit Report</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Leave modal -->
+                            <div class="leave-modal">
+                                <div class="leave-box">
+                                    <p>Are you sure you want to leave this hive?</p>
+                                    <div class="leave-actions">
+                                        <a href="home_home-feed.html" class="confirm-btn">Yes, Leave</a>
+                                        <label for="leave-toggle" class="cancel-btn">Cancel</label>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <!-- Two columns -->

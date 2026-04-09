@@ -1,66 +1,32 @@
-/* ── ADMIN DESIGN SYSTEM ── */
-:root {
-    --amber:      #F5A800;
-    --amber-d:    #D48C00;
-    --amber-dk:   #B37200;
-    --wax:        #FEFAF0;
-    --comb:       #FDF3D0;
-    --pale:       #F5E49A;
-    --accent:     #E8C84A;
-    --hive:       #0D0B00;
-    --dark:       #1A1600;
-    --aged:       #6B5800;
-    --warmgray:   #8C8880;
-    --text:       #1A1600;
-    --muted:      #6B5800;
-    --success:    #059669;
-    --warning:    #D97706;
-    --danger:     #DC2626;
-    --success-bg: #D1FAE5;
-    --warning-bg: #FEF3C7;
-    --danger-bg:  #FEE2E2;
-}
+/* ═══════════════════════════════════════════
+   ADMIN.CSS
+   Admin design system — overrides navbar/sidebar to dark theme,
+   stat cards, admin tables, hive rows, badges, action buttons.
+   Replaces the two duplicate admin.css files.
+   ═══════════════════════════════════════════ */
 
-body {
-    background: var(--wax);
-    font-family: 'Bricolage Grotesque', sans-serif;
-    color: var(--text);
-}
-
-/* ── FULL HEIGHT SIDEBAR FIX ── */
-#container {
-    align-items: stretch;
-    min-height: calc(100vh - 60px);
-}
-
-#sidebar {
-    min-height: 100%;
-    height: auto !important;
-}
-
-/* ── ADMIN NAV override ── */
+/* ── Admin nav override ── */
 body nav {
     background: var(--hive) !important;
     border-bottom: 3px solid var(--amber-d) !important;
 }
 
-body #nav-container .logo .black { color: var(--amber) !important; }
-body #nav-container .logo .orange { color: var(--pale) !important; }
-body #nav-links a { color: var(--pale) !important; }
+body #nav-container .logo .black  { color: var(--amber) !important; }
+body #nav-container .logo .orange { color: var(--black)  !important; }
+body #nav-links a                  { color: var(--black)  !important; }
 body #nav-links a:hover,
-body #nav-links a.active-nav { color: var(--amber) !important; }
-body #auth-links a { color: var(--amber) !important; font-weight: bold; }
+body #nav-links a.active-nav       { color: var(--amber) !important; }
+body #auth-links a                 { color: var(--amber) !important; font-weight: bold; }
 
-/* ── SIDEBAR override ── */
+/* ── Admin sidebar override ── */
 body #sidebar {
     background: var(--hive) !important;
     border-right: 3px solid var(--amber-d) !important;
 }
 
 body #menu > p,
-body #my-hives > p { color: var(--pale) !important; }
-
-body #sidebar hr { border-top-color: var(--dark) !important; }
+body #my-hives > p       { color: var(--pale) !important; }
+body #sidebar hr         { border-top-color: var(--dark) !important; }
 
 body #sidebar .sidebar-button p { color: var(--pale) !important; }
 
@@ -68,14 +34,12 @@ body #sidebar .sidebar-button:hover {
     background-color: var(--dark) !important;
     border-left: 5px solid var(--amber) !important;
 }
-
 body #sidebar .sidebar-button:hover p { color: var(--amber) !important; }
 
 body #sidebar .sidebar-button.active {
     background-color: var(--amber) !important;
     border-left: 5px solid var(--amber-dk) !important;
 }
-
 body #sidebar .sidebar-button.active p {
     color: var(--hive) !important;
     font-weight: bold;
@@ -83,10 +47,10 @@ body #sidebar .sidebar-button.active p {
 
 body #sidebar .hex { background-color: var(--amber) !important; }
 
-/* ── CONTENT AREA ── */
+/* ── Admin content area ── */
 body #content {
     background:
-        repeating-linear-gradient(60deg, transparent, transparent 28px, rgba(232,200,74,0.06) 28px, rgba(232,200,74,0.02) 30px),
+        repeating-linear-gradient(60deg,  transparent, transparent 28px, rgba(232,200,74,0.06) 28px, rgba(232,200,74,0.02) 30px),
         repeating-linear-gradient(-60deg, transparent, transparent 28px, rgba(232,200,74,0.06) 28px, rgba(232,200,74,0.02) 30px),
         var(--wax) !important;
 }
@@ -99,14 +63,14 @@ body #qotd {
     color: var(--hive) !important;
 }
 
-/* ── ADMIN BODY ── */
+/* ── Admin body wrapper ── */
 #admin-body {
     display: flex;
     flex-direction: column;
     gap: 25px;
 }
 
-/* ── STAT CARDS ── */
+/* ── Stat cards ── */
 .admin-stats-grid {
     display: flex;
     gap: 15px;
@@ -144,8 +108,9 @@ body #qotd {
     color: var(--muted);
 }
 
-/* ── SECTION LABEL ── */
-.section-label {
+/* ── Section label (admin override — amber border) ── */
+#admin-body .section-label,
+.admin-page-body .section-label {
     font-size: 0.78em;
     font-weight: 800;
     letter-spacing: 0.1em;
@@ -154,30 +119,15 @@ body #qotd {
     padding: 4px 0;
     border-bottom: 2px solid var(--pale);
     margin-bottom: 15px;
+    color: var(--aged);
 }
 
-/* ── COLUMNS ── */
-.admin-columns {
-    display: flex;
-    gap: 20px;
-    align-items: flex-start;
-}
+/* ── Two-column layout ── */
+.admin-columns { display: flex; gap: 20px; align-items: flex-start; }
+.admin-left  { width: 58%; display: flex; flex-direction: column; gap: 20px; }
+.admin-right { width: 42%; display: flex; flex-direction: column; gap: 20px; }
 
-.admin-left {
-    width: 58%;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.admin-right {
-    width: 42%;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-/* ── ADMIN CARD ── */
+/* ── Admin card ── */
 .admin-card {
     background: white;
     border: 1.5px solid var(--accent);
@@ -186,7 +136,7 @@ body #qotd {
     overflow: hidden;
 }
 
-/* ── TABLE ── */
+/* ── Admin table (dashboard compact) ── */
 .admin-table {
     width: 100%;
     border-collapse: collapse;
@@ -213,8 +163,9 @@ body #qotd {
 }
 
 .admin-table tr:last-child td { border-bottom: none; }
-.admin-table tr:hover td { background-color: var(--wax); }
+.admin-table tr:hover td      { background-color: var(--wax); }
 
+/* ── User row with avatar ── */
 .user-row {
     display: flex;
     align-items: center;
@@ -231,7 +182,7 @@ body #qotd {
     border: 2px solid var(--pale);
 }
 
-/* ── STATUS BADGES ── */
+/* ── Status badges (dashboard) ── */
 .status-badge {
     display: inline-flex;
     padding: 3px 10px;
@@ -244,23 +195,7 @@ body #qotd {
 .status-inactive { background: #F3F4F6; color: var(--warmgray); border: 1px solid #ddd; }
 .status-flagged  { background: var(--warning-bg); color: var(--warning); }
 
-/* ── SUBJECT TAG ── */
-.tag {
-    display: inline-flex;
-    background: var(--amber);
-    color: var(--hive);
-    font-size: 9px;
-    font-weight: 900;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    padding: 3px 8px;
-    border: 1.5px solid var(--hive);
-    border-radius: 3px;
-    white-space: nowrap;
-    align-self: flex-start;
-}
-
-/* ── ACTION BUTTONS ── */
+/* ── Action buttons (dashboard compact) ── */
 .action-btn {
     padding: 4px 11px;
     font-size: 0.75em;
@@ -287,7 +222,7 @@ body #qotd {
     color: white;
 }
 
-/* ── HIVE ROWS ── */
+/* ── Hive rows (dashboard) ── */
 .hive-admin-row {
     display: flex;
     align-items: center;
@@ -297,7 +232,7 @@ body #qotd {
 }
 
 .hive-admin-row:last-child { border-bottom: none; }
-.hive-admin-row:hover { background: var(--wax); }
+.hive-admin-row:hover      { background: var(--wax); }
 
 .hive-admin-info {
     flex: 1;
@@ -306,13 +241,5 @@ body #qotd {
     gap: 2px;
 }
 
-.hive-admin-name {
-    font-size: 0.92em;
-    font-weight: 700;
-    color: var(--hive);
-}
-
-.hive-admin-meta {
-    font-size: 0.76em;
-    color: var(--aged);
-}
+.hive-admin-name { font-size: 0.92em; font-weight: 700; color: var(--hive); }
+.hive-admin-meta { font-size: 0.76em; color: var(--aged); }
