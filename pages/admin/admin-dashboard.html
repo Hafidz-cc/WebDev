@@ -3,12 +3,12 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="CSS/base.css">
-        <link rel="stylesheet" href="CSS/navbar.css">
-        <link rel="stylesheet" href="CSS/layout.css">
-        <link rel="stylesheet" href="CSS/admin.css">
-        <link rel="stylesheet" href="CSS/admin-pages.css">
-        <link rel="stylesheet" href="CSS/switcher.css">
+        <link rel="stylesheet" href="../../assets/CSS/base/base.css">
+        <link rel="stylesheet" href="../../assets/CSS/base/navbar.css">
+        <link rel="stylesheet" href="../../assets/CSS/base/layout.css">
+        <link rel="stylesheet" href="../../assets/CSS/admin/admin.css">
+        <link rel="stylesheet" href="../../assets/CSS/admin/admin-pages.css">
+        <link rel="stylesheet" href="../../assets/CSS/misc/switcher.css">
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,18 +19,18 @@
     <body>
         <nav>
             <div id="nav-container">
-                <a href="landing-page.html">
+                <a href="../../index.html">
                     <div class="logo">
                         <span class="black">Hive</span><span class="orange">Minds</span>
                     </div>
                 </a>
                 <div id="nav-links">
                     <a class="hover active-nav" href="admin-dashboard.html">Dashboard</a>
-                    <a class="hover" href="hives.html">Hives</a>
-                    <a class="hover" href="profile.html">Profile</a>
+                    <a class="hover" href="admin-hives.html">Hives</a>
+                    <a class="hover" href="../../pages/misc/profile.html">Profile</a>
                 </div>
                 <div id="auth-links">
-                    <a class="hover" href="profile.html">Admin</a>
+                    <a class="hover" href="../../pages/misc/profile.html">Admin</a>
                 </div>
             </div>
         </nav>
@@ -57,7 +57,12 @@
                                 <p>Hives</p>
                             </div>
                         </a>
-                        <a href="home_settings.html">
+                        <a href="admin-verifications.html">
+                            <div class="sidebar-button menu">
+                                <p>Verifications</p>
+                            </div>
+                        </a>
+                        <a href="admin-settings.html">
                             <div class="sidebar-button menu">
                                 <p>Settings</p>
                             </div>
@@ -134,7 +139,7 @@
                                                 <tr>
                                                     <td>
                                                         <div class="user-row">
-                                                            <img src="images/person-profile.jpg">
+                                                            <img src="../../assets/images/person-profile.jpg">
                                                             Rick Buzztley
                                                         </div>
                                                     </td>
@@ -145,7 +150,7 @@
                                                 <tr>
                                                     <td>
                                                         <div class="user-row">
-                                                            <img src="images/person-profile.jpg">
+                                                            <img src="../../assets/images/person-profile.jpg">
                                                             Maya Santos
                                                         </div>
                                                     </td>
@@ -156,7 +161,7 @@
                                                 <tr>
                                                     <td>
                                                         <div class="user-row">
-                                                            <img src="images/person-profile.jpg">
+                                                            <img src="../../assets/images/person-profile.jpg">
                                                             Leo Reyes
                                                         </div>
                                                     </td>
@@ -167,7 +172,7 @@
                                                 <tr>
                                                     <td>
                                                         <div class="user-row">
-                                                            <img src="images/person-profile.jpg">
+                                                            <img src="../../assets/images/person-profile.jpg">
                                                             Carla Mendez
                                                         </div>
                                                     </td>
@@ -175,11 +180,10 @@
                                                     <td><span class="status-badge status-inactive">Inactive</span></td>
                                                     <td><button class="action-btn danger">Ban</button></td>
                                                 </tr>
-                                               
                                                 <tr>
                                                     <td>
                                                         <div class="user-row">
-                                                            <img src="images/person-profile.jpg">
+                                                            <img src="../../assets/images/person-profile.jpg">
                                                             Sam Uy
                                                         </div>
                                                     </td>
@@ -208,7 +212,7 @@
                                                 <tr>
                                                     <td>
                                                         <div class="user-row">
-                                                            <img src="images/person-profile.jpg">
+                                                            <img src="../../assets/images/person-profile.jpg">
                                                             Sam Uy
                                                         </div>
                                                     </td>
@@ -222,7 +226,7 @@
                                                 <tr>
                                                     <td>
                                                         <div class="user-row">
-                                                            <img src="images/person-profile.jpg">
+                                                            <img src="../../assets/images/person-profile.jpg">
                                                            Charla Cruz
                                                         </div>
                                                     </td>
@@ -236,7 +240,7 @@
                                                 <tr>
                                                     <td>
                                                         <div class="user-row">
-                                                            <img src="images/person-profile.jpg">
+                                                            <img src="../../assets/images/person-profile.jpg">
                                                             Anthony
                                                         </div>
                                                     </td>
@@ -250,7 +254,7 @@
                                                 <tr>
                                                     <td>
                                                         <div class="user-row">
-                                                            <img src="images/person-profile.jpg">
+                                                            <img src="../../assets/images/person-profile.jpg">
                                                             Milky
                                                         </div>
                                                     </td>
@@ -360,7 +364,7 @@
         <!-- Role switcher -->
         <div id="role-switcher">
             <span class="switcher-label">View as</span>
-            <a href="home_home-feed.html" class="switcher-btn">Student</a>
+            <a href="../../pages/home/home_home-feed.html" class="switcher-btn">Student</a>
             <a href="admin-dashboard.html" class="switcher-btn active">Admin</a>
         </div>
 

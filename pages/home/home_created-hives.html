@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../../assets/CSS/base/base.css">
+        <link rel="stylesheet" href="../../assets/CSS/base/navbar.css">
+        <link rel="stylesheet" href="../../assets/CSS/base/layout.css">
+        <link rel="stylesheet" href="../../assets/CSS/hives/hive.css">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Belanosima&family=Bricolage+Grotesque:opsz,wght@12..96,420&family=Coiny&family=McLaren&family=Pacifico&family=Pangolin&display=swap" rel="stylesheet">
+    </head>
+
+    <body>
+        <nav>
+            <div id="nav-container">
+                <a href="../../index.html">
+                    <div class="logo"><span class="black">Hive</span><span class="orange">Minds</span></div>
+                </a>
+                <div id="nav-links">
+                    <a class="hover active-nav" href="home_home-feed.html">Home</a>
+                    <a class="hover" href="../hives/hives.html">Hives</a>
+                    <a class="hover" href="../misc/profile.html">Profile</a>
+                </div>
+                <div id="auth-links">
+                    <a class="hover" href="../misc/profile.html">Rick Buzztley</a>
+                </div>
+            </div>
+        </nav>
+        <main>
+            <div id="container">
+                <div id="sidebar">
+                    <div id="menu">
+                        <p>MENU</p>
+                        <hr>
+                        <a href="home_home-feed.html"><div class="sidebar-button menu"><p>Home Feed</p></div></a>
+                        <a href="home_my-schedule.html"><div class="sidebar-button menu"><p>My Schedule</p></div></a>
+                        <a href="home_settings.html"><div class="sidebar-button menu"><p>Settings</p></div></a>
+                    </div>
+                    <div id="created-hives">
+                        <p>CREATED HIVES</p>
+                        <hr>
+                        <a href="home_created-hives.html"><div class="created-hive-btn active"><span class="hex-owner"></span><p>Rick's Study Circle</p></div></a>
+                    </div>
+                    <div id="my-hives">
+                        <p>MY HIVES</p>
+                        <hr>
+                        <a href="home_calculus.html"><div class="sidebar-button my-hives"><span class="hex"></span><p>Calculus study group</p></div></a>
+                        <a href="home_biology.html"><div class="sidebar-button my-hives"><span class="hex"></span><p>Biology study group</p></div></a>
+                        <a href="home_history.html"><div class="sidebar-button my-hives"><span class="hex"></span><p>History study group</p></div></a>
+                        <a href="home_english.html"><div class="sidebar-button my-hives"><span class="hex"></span><p>English study group</p></div></a>
+                        <a href="home_physics.html"><div class="sidebar-button my-hives"><span class="hex"></span><p>Physics study group</p></div></a>
+                    </div>
+                </div>
+
+                <div id="content">
+                    <div id="hive-body">
+
+                        <div class="owner-banner">
+                            <i class="fa-solid fa-crown"></i>
+                            You are the owner of this hive
+                        </div>
+
+                        <div class="hive-header">
+                            <div class="hive-header-left">
+                                <div class="hive-title">Rick's Study Circle</div>
+                                <div class="hive-meta">
+                                    <span class="tag">Mathematics</span>
+                                    <span class="frequency-badge recurring"><span class="dot"></span> Recurring</span>
+                                    <span>&bull; 8 members</span>
+                                </div>
+                                <div class="hive-owner">
+                                    <img src="../../assets/images/person-profile.jpg">
+                                    Owned by <strong>Rick Buzztley</strong>
+                                </div>
+                            </div>
+                            <div class="owner-actions">
+                                <a href="../hives/create-hive.html"><button class="btn-owner edit"><i class="fa-solid fa-pen"></i> Edit Details</button></a>
+                                <button class="btn-owner delete"><i class="fa-solid fa-trash"></i> Delete Hive</button>
+                            </div>
+                        </div>
+
+                        <div class="hive-columns">
+                            <div class="hive-left">
+                                <div>
+                                    <div class="section-label">Members</div>
+                                    <div class="members-card">
+                                        <div class="member-row"><img class="member-avatar" src="../../assets/images/person-profile.jpg"><div class="member-info"><div class="member-name">Rick Buzztley <span class="owner-badge">Owner</span></div><div class="member-meta">Joined Mar 20 &mdash; Active</div></div></div>
+                                        <div class="member-row"><img class="member-avatar" src="../../assets/images/person-profile.jpg"><div class="member-info"><div class="member-name">Maya Santos</div><div class="member-meta">Joined Mar 21 &mdash; Active</div></div><div class="member-actions"><button class="btn-member report"><i class="fa-solid fa-flag"></i> Report</button><button class="btn-member kick"><i class="fa-solid fa-user-minus"></i> Kick</button></div></div>
+                                        <div class="member-row"><img class="member-avatar" src="../../assets/images/person-profile.jpg"><div class="member-info"><div class="member-name">Sam Uy</div><div class="member-meta">Joined Mar 21 &mdash; Active</div></div><div class="member-actions"><button class="btn-member report"><i class="fa-solid fa-flag"></i> Report</button><button class="btn-member kick"><i class="fa-solid fa-user-minus"></i> Kick</button></div></div>
+                                        <div class="member-row"><img class="member-avatar" src="../../assets/images/person-profile.jpg"><div class="member-info"><div class="member-name">Milky</div><div class="member-meta">Joined Mar 22 &mdash; Active</div></div><div class="member-actions"><button class="btn-member report"><i class="fa-solid fa-flag"></i> Report</button><button class="btn-member kick"><i class="fa-solid fa-user-minus"></i> Kick</button></div></div>
+                                        <div class="member-row"><img class="member-avatar" src="../../assets/images/person-profile.jpg"><div class="member-info"><div class="member-name">Carla Mendez</div><div class="member-meta">Joined Mar 22 &mdash; Inactive</div></div><div class="member-actions"><button class="btn-member report"><i class="fa-solid fa-flag"></i> Report</button><button class="btn-member kick"><i class="fa-solid fa-user-minus"></i> Kick</button></div></div>
+                                        <div class="member-row"><img class="member-avatar" src="../../assets/images/person-profile.jpg"><div class="member-info"><div class="member-name">Leo Reyes</div><div class="member-meta">Joined Mar 23 &mdash; Active</div></div><div class="member-actions"><button class="btn-member report"><i class="fa-solid fa-flag"></i> Report</button><button class="btn-member kick"><i class="fa-solid fa-user-minus"></i> Kick</button></div></div>
+                                        <div class="member-row"><img class="member-avatar" src="../../assets/images/person-profile.jpg"><div class="member-info"><div class="member-name">Anthony</div><div class="member-meta">Joined Mar 23 &mdash; Active</div></div><div class="member-actions"><button class="btn-member report"><i class="fa-solid fa-flag"></i> Report</button><button class="btn-member kick"><i class="fa-solid fa-user-minus"></i> Kick</button></div></div>
+                                        <div class="member-row"><img class="member-avatar" src="../../assets/images/person-profile.jpg"><div class="member-info"><div class="member-name">Nina Cruz</div><div class="member-meta">Joined Mar 23 &mdash; Active</div></div><div class="member-actions"><button class="btn-member report"><i class="fa-solid fa-flag"></i> Report</button><button class="btn-member kick"><i class="fa-solid fa-user-minus"></i> Kick</button></div></div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="section-label">Comments</div>
+                                    <div class="comments-card">
+                                        <div class="comment"><img src="../../assets/images/person-profile.jpg"><div class="comment-body"><div class="comment-name">Rick Buzztley</div><div class="comment-text">Hey everyone, first session is this Friday at 6 PM. We'll be doing a quick intro and going over what topics to cover each week. See you all there!</div><div class="comment-time">1 day ago</div></div></div>
+                                        <hr class="comment-divider">
+                                        <div class="comment"><img src="../../assets/images/person-profile.jpg"><div class="comment-body"><div class="comment-name">Maya Santos</div><div class="comment-text">Excited! Should we prepare anything beforehand?</div><div class="comment-time">22 hours ago</div></div></div>
+                                        <hr class="comment-divider">
+                                        <div class="comment-input-row">
+                                            <input class="comment-input" type="text" placeholder="Write a comment...">
+                                            <button class="btn-comment">Post</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="hive-right">
+                                <div>
+                                    <div class="section-label">Session Details</div>
+                                    <div class="details-card">
+                                        <div class="detail-row"><div class="detail-icon"><i class="fa-regular fa-calendar"></i></div><div class="detail-key">Date</div><div class="detail-value">Friday, March 28</div></div>
+                                        <div class="detail-row"><div class="detail-icon"><i class="fa-regular fa-clock"></i></div><div class="detail-key">Time</div><div class="detail-value">6:00 PM – 8:00 PM</div></div>
+                                        <div class="detail-row"><div class="detail-icon"><i class="fa-solid fa-location-dot"></i></div><div class="detail-key">Location</div><div class="detail-value">Discord — #ricks-circle</div></div>
+                                        <div class="detail-row"><div class="detail-icon"><i class="fa-solid fa-wifi"></i></div><div class="detail-key">Mode</div><div class="detail-value">Online</div></div>
+                                        <div class="detail-row"><div class="detail-icon"><i class="fa-solid fa-book"></i></div><div class="detail-key">Topic</div><div class="detail-value">Intro session — topic planning</div></div>
+                                        <div class="detail-row"><div class="detail-icon"><i class="fa-solid fa-users"></i></div><div class="detail-key">Members</div><div class="detail-value">8 / 20 members</div></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="section-label">Recurring Schedule</div>
+                                    <div class="schedule-card">
+                                        <div class="schedule-row"><div class="schedule-day">Friday</div><div class="schedule-time">6:00 PM – 8:00 PM</div><div class="schedule-topic">Weekly session</div></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="section-label">Group Rules</div>
+                                    <div class="rules-card">
+                                        <div class="rule-item"><div class="rule-num">1</div>Be on time — sessions start promptly at 6 PM.</div>
+                                        <div class="rule-item"><div class="rule-num">2</div>Come prepared with questions or topics you want to cover.</div>
+                                        <div class="rule-item"><div class="rule-num">3</div>Keep it respectful — everyone's here to learn.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </main>
+    </body>
+</html>
