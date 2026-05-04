@@ -560,7 +560,6 @@
 
 /* ── MODALS ── */
 
-/* Shared modal backdrop */
 .leave-modal,
 .report-modal {
     position: fixed;
@@ -575,7 +574,6 @@
     z-index: 999;
 }
 
-/* Show modals when checkbox is checked */
 #leave-toggle:checked ~ .leave-modal {
     display: flex;
 }
@@ -584,7 +582,6 @@
     display: flex;
 }
 
-/* Leave modal box */
 .leave-box {
     background: white;
     padding: 24px;
@@ -599,7 +596,6 @@
     justify-content: space-between;
 }
 
-/* Report modal box */
 .report-box {
     background: white;
     padding: 24px;
@@ -628,13 +624,32 @@
     border-color: #e67e22;
 }
 
+.report-textarea {
+    width: 100%;
+    margin-top: 10px;
+    padding: 8px 10px;
+    font-size: 0.9em;
+    font-family: 'Bricolage Grotesque', sans-serif;
+    border: 2px solid rgba(0,0,0,0.15);
+    border-radius: 6px;
+    outline: none;
+    background-color: #fffdf5;
+    transition: 0.2s ease;
+    box-sizing: border-box;
+    resize: vertical;
+    min-height: 80px;
+}
+
+.report-textarea:focus {
+    border-color: #e67e22;
+}
+
 .report-actions {
     margin-top: 15px;
     display: flex;
     justify-content: space-between;
 }
 
-/* Shared modal buttons */
 .confirm-btn {
     background: #ff4d4d;
     color: white;
@@ -668,4 +683,109 @@
 
 .cancel-btn:hover {
     background: #e0e0e0;
+}
+
+/* ── THREAD COMMENTS ── */
+
+.thread-comment {
+    padding: 4px 0;
+}
+
+.thread-comment-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+}
+
+.thread-avatar {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    display: block;
+}
+
+.thread-name {
+    font-size: 0.95em;
+    font-weight: bold;
+}
+
+.thread-time {
+    font-size: 0.75em;
+    color: rgb(117, 117, 117);
+}
+
+.thread-title {
+    font-size: 0.95em;
+    font-weight: bold;
+    color: #111;
+    margin-bottom: 3px;
+}
+
+.thread-text {
+    font-size: 0.9em;
+    color: #333;
+    line-height: 1.5;
+    margin-bottom: 5px;
+}
+
+.thread-actions {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 4px;
+}
+
+.thread-btn {
+    background: none;
+    border: none;
+    font-size: 0.75em;
+    font-weight: bold;
+    font-family: 'Bricolage Grotesque', sans-serif;
+    color: rgb(117, 117, 117);
+    cursor: pointer;
+    padding: 3px 8px;
+    border-radius: 4px;
+    transition: background 0.2s ease;
+    letter-spacing: 0.03em;
+}
+
+.thread-btn:hover {
+    background: #fffdf5;
+    color: #333;
+}
+
+.thread-children {
+    margin-top: 4px;
+}
+
+.thread-line-wrap {
+    display: flex;
+}
+
+.thread-line {
+    width: 2px;
+    background: rgba(0,0,0,0.12);
+    border-radius: 2px;
+    margin-left: 14px;
+    margin-right: 14px;
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.thread-line:hover {
+    background: #FFD400;
+}
+
+.reply-box {
+    margin-top: 8px;
+}
+
+.thread-child {
+    flex: 1;
+    padding-top: 8px;
+    min-width: 0;
 }
