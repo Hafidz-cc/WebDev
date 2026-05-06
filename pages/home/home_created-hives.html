@@ -7,14 +7,726 @@
         <link rel="stylesheet" href="../../assets/CSS/base/navbar.css">
         <link rel="stylesheet" href="../../assets/CSS/base/layout.css">
         <link rel="stylesheet" href="../../assets/CSS/hives/hive.css">
-
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Belanosima&family=Bricolage+Grotesque:opsz,wght@12..96,420&family=Coiny&family=McLaren&family=Pacifico&family=Pangolin&display=swap" rel="stylesheet">
+
+        <style>
+            /* ════════════════════════════════════════════
+               ACTIVITY TRACKER — new styles only
+               Everything else inherits from hive.css
+            ════════════════════════════════════════════ */
+
+            /* ── OVERALL ACTIVITY BAR (top of hive body) ── */
+            .activity-overview {
+                background: white;
+                border: 2px solid #FFD400;
+                box-shadow: -2px 3px rgba(0,0,0,.384);
+                border-radius: 10px;
+                padding: 20px 25px;
+                display: flex;
+                flex-direction: column;
+                gap: 14px;
+            }
+
+            .activity-overview-top {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+
+            .activity-title {
+                font-size: 1em;
+                font-weight: 800;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+            .activity-title .live-dot {
+                width: 9px;
+                height: 9px;
+                background: #2ecc71;
+                border-radius: 50%;
+                border: 1.5px solid #000;
+                animation: blink 1.6s infinite;
+                flex-shrink: 0;
+            }
+
+            @keyframes blink {
+                0%, 100% { opacity: 1; }
+                50%       { opacity: 0.25; }
+            }
+
+            .activity-stats-row {
+                display: flex;
+                gap: 20px;
+                flex-wrap: wrap;
+            }
+
+            .act-stat {
+                display: flex;
+                flex-direction: column;
+                gap: 1px;
+            }
+
+            .act-stat .asv {
+                font-size: 1.5em;
+                font-weight: 900;
+                line-height: 1;
+                letter-spacing: -0.03em;
+            }
+
+            .act-stat .asl {
+                font-size: 0.72em;
+                color: rgb(117, 117, 117);
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.06em;
+            }
+
+            /* Master progress bar */
+            .master-bar-wrap {
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+            }
+
+            .master-bar-labels {
+                display: flex;
+                justify-content: space-between;
+                font-size: 0.78em;
+                font-weight: 700;
+                color: rgb(117,117,117);
+            }
+
+            .master-bar-track {
+                width: 100%;
+                height: 14px;
+                background: #f0f0f0;
+                border: 1.5px solid #000;
+                border-radius: 4px;
+                overflow: hidden;
+                position: relative;
+            }
+
+            .master-bar-fill {
+                height: 100%;
+                background: #FFD400;
+                border-right: 1.5px solid #000;
+                transition: width 0.6s ease;
+                position: relative;
+            }
+
+            .master-bar-fill::after {
+                content: '';
+                position: absolute;
+                top: 0; left: 0; right: 0; bottom: 0;
+                background: repeating-linear-gradient(
+                    -45deg,
+                    transparent,
+                    transparent 5px,
+                    rgba(0,0,0,.07) 5px,
+                    rgba(0,0,0,.07) 10px
+                );
+            }
+
+            /* hex-dot session history strip */
+            .session-dots-row {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                flex-wrap: wrap;
+            }
+
+            .session-dots-label {
+                font-size: 0.72em;
+                font-weight: 800;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                color: rgb(117,117,117);
+                margin-right: 4px;
+            }
+
+            .s-dot {
+                width: 20px;
+                height: 20px;
+                border-radius: 4px;
+                border: 1.5px solid #000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 9px;
+                font-weight: 900;
+                cursor: default;
+                position: relative;
+            }
+
+            .s-dot.held   { background: #FFD400; }
+            .s-dot.missed { background: #fde8e8; }
+            .s-dot.upcoming { background: #f0f0f0; border-style: dashed; }
+
+            .s-dot:hover .s-dot-tip {
+                display: block;
+            }
+
+            .s-dot-tip {
+                display: none;
+                position: absolute;
+                bottom: calc(100% + 6px);
+                left: 50%;
+                transform: translateX(-50%);
+                background: #000;
+                color: #FFD400;
+                font-size: 9px;
+                font-weight: 700;
+                padding: 4px 8px;
+                border-radius: 4px;
+                white-space: nowrap;
+                z-index: 10;
+                pointer-events: none;
+            }
+
+            /* ── LOG SESSION MODAL TRIGGER ── */
+            .btn-log-session {
+                padding: 9px 20px;
+                font-size: 0.85em;
+                font-weight: 800;
+                border-radius: 6px;
+                cursor: pointer;
+                border: 2px solid #000;
+                background: #FFD400;
+                color: #000;
+                font-family: 'Bricolage Grotesque', sans-serif;
+                transition: .2s ease;
+                display: flex;
+                align-items: center;
+                gap: 7px;
+                flex-shrink: 0;
+            }
+
+            .btn-log-session:hover { background: #e6bf00; }
+
+            /* ── SESSION LOG HISTORY CARD ── */
+            .session-log-card {
+                background: white;
+                border: 2px solid #FFD400;
+                box-shadow: -2px 3px rgba(0,0,0,.384);
+                border-radius: 10px;
+                overflow: hidden;
+            }
+
+            .slc-header {
+                background: #FFD400;
+                border-bottom: 2px solid #000;
+                padding: 12px 20px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 12px;
+            }
+
+            .slc-header h4 {
+                font-size: 0.88em;
+                font-weight: 900;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+            }
+
+            /* Individual session log entry */
+            .session-entry {
+                border-bottom: 1.5px solid rgba(0,0,0,.08);
+                padding: 0;
+                overflow: hidden;
+            }
+
+            .session-entry:last-child { border-bottom: none; }
+
+            .session-entry-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 13px 20px;
+                cursor: pointer;
+                gap: 12px;
+                transition: background .15s;
+                flex-wrap: wrap;
+            }
+
+            .session-entry-header:hover { background: #fffdf0; }
+
+            .seh-left { display: flex; align-items: center; gap: 12px; }
+
+            .seh-num {
+                width: 28px;
+                height: 28px;
+                background: #FFD400;
+                border: 1.5px solid #000;
+                border-radius: 5px;
+                font-size: 0.78em;
+                font-weight: 900;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+            }
+
+            .seh-info .seh-date { font-size: 0.92em; font-weight: 800; }
+            .seh-info .seh-topic { font-size: 0.78em; color: rgb(117,117,117); margin-top: 1px; }
+
+            .seh-right {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                flex-shrink: 0;
+            }
+
+            /* Mini attendance bar on each session entry */
+            .mini-att-bar {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                font-size: 0.78em;
+            }
+
+            .mini-att-track {
+                width: 80px;
+                height: 7px;
+                background: #eee;
+                border: 1px solid #ccc;
+                border-radius: 3px;
+                overflow: hidden;
+            }
+
+            .mini-att-fill {
+                height: 100%;
+                border-radius: 3px;
+                transition: width .5s ease;
+            }
+
+            .att-high  { background: #2ecc71; }
+            .att-mid   { background: #FFD400; }
+            .att-low   { background: #FF5F00; }
+
+            .seh-chevron {
+                font-size: 0.75em;
+                color: rgb(117,117,117);
+                transition: transform .2s;
+            }
+
+            .session-entry.open .seh-chevron { transform: rotate(180deg); }
+
+            /* Attendance body (expandable) */
+            .session-att-body {
+                display: none;
+                padding: 0 20px 16px;
+                background: #fffdf5;
+                border-top: 1px solid rgba(0,0,0,.07);
+            }
+
+            .session-entry.open .session-att-body { display: block; }
+
+            .att-body-top {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 10px 0 10px;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+
+            .att-body-top .abt-label {
+                font-size: 0.75em;
+                font-weight: 900;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                color: rgb(117,117,117);
+            }
+
+            .att-body-top .att-summary {
+                font-size: 0.82em;
+                font-weight: 700;
+            }
+
+            /* Attendance member row */
+            .att-member-row {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                padding: 8px 0;
+                border-bottom: 1px solid rgba(0,0,0,.06);
+            }
+
+            .att-member-row:last-child { border-bottom: none; }
+
+            .att-avatar {
+                width: 32px;
+                height: 32px;
+                min-width: 32px;
+                border-radius: 50%;
+                object-fit: cover;
+                border: 1.5px solid #000;
+                flex-shrink: 0;
+            }
+
+            .att-name { flex: 1; font-size: 0.88em; font-weight: 700; }
+
+            /* Attendance toggle buttons */
+            .att-toggle {
+                display: flex;
+                border: 1.5px solid #000;
+                border-radius: 5px;
+                overflow: hidden;
+                flex-shrink: 0;
+            }
+
+            .att-btn {
+                padding: 5px 12px;
+                font-size: 0.75em;
+                font-weight: 800;
+                cursor: pointer;
+                border: none;
+                background: #f0f0f0;
+                color: #777;
+                font-family: 'Bricolage Grotesque', sans-serif;
+                transition: .15s;
+                display: flex;
+                align-items: center;
+                gap: 4px;
+                border-right: 1.5px solid #000;
+            }
+
+            .att-btn:last-child { border-right: none; }
+
+            .att-btn.present.active {
+                background: #2ecc71;
+                color: #000;
+            }
+
+            .att-btn.absent.active {
+                background: #ff4d4d;
+                color: #fff;
+            }
+
+            .att-btn.late.active {
+                background: #FF5F00;
+                color: #fff;
+            }
+
+            .att-btn:hover { opacity: 0.8; }
+
+            /* Session note field */
+            .session-note-row {
+                margin-top: 10px;
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .session-note-row label {
+                font-size: 0.72em;
+                font-weight: 900;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                color: rgb(117,117,117);
+            }
+
+            .session-note-row textarea {
+                font-family: 'Bricolage Grotesque', sans-serif;
+                font-size: 0.88em;
+                padding: 8px 12px;
+                border: 1.5px solid rgba(0,0,0,.2);
+                border-radius: 6px;
+                background: white;
+                resize: none;
+                height: 60px;
+                outline: none;
+                transition: border-color .2s;
+            }
+
+            .session-note-row textarea:focus { border-color: #FFD400; }
+
+            .session-att-actions {
+                display: flex;
+                gap: 8px;
+                margin-top: 12px;
+                justify-content: flex-end;
+            }
+
+            .btn-save-att {
+                padding: 7px 18px;
+                font-size: 0.82em;
+                font-weight: 800;
+                border-radius: 6px;
+                cursor: pointer;
+                border: 2px solid #000;
+                background: #FFD400;
+                color: #000;
+                font-family: 'Bricolage Grotesque', sans-serif;
+                transition: .2s;
+                display: flex;
+                align-items: center;
+                gap: 6px;
+            }
+
+            .btn-save-att:hover { background: #e6bf00; }
+
+            .btn-cancel-att {
+                padding: 7px 18px;
+                font-size: 0.82em;
+                font-weight: 800;
+                border-radius: 6px;
+                cursor: pointer;
+                border: 2px solid rgba(0,0,0,.2);
+                background: white;
+                color: #333;
+                font-family: 'Bricolage Grotesque', sans-serif;
+                transition: .2s;
+            }
+
+            .btn-cancel-att:hover { background: #f5f5f5; }
+
+            /* saved state */
+            .att-saved-badge {
+                display: none;
+                font-size: 0.72em;
+                font-weight: 800;
+                background: #2ecc71;
+                color: #000;
+                border: 1.5px solid #000;
+                border-radius: 4px;
+                padding: 2px 8px;
+                align-items: center;
+                gap: 4px;
+            }
+
+            .att-saved-badge.show { display: inline-flex; }
+
+            /* ── LOG NEW SESSION MODAL ── */
+            .modal-overlay {
+                position: fixed;
+                inset: 0;
+                background: rgba(0,0,0,.45);
+                display: none;
+                align-items: center;
+                justify-content: center;
+                z-index: 999;
+                padding: 20px;
+            }
+
+            .modal-overlay.open { display: flex; }
+
+            .modal-box {
+                background: white;
+                border: 2px solid #000;
+                border-radius: 12px;
+                box-shadow: -4px 6px 0 rgba(0,0,0,.35);
+                width: 100%;
+                max-width: 520px;
+                animation: modalIn .2s ease;
+                overflow: hidden;
+            }
+
+            @keyframes modalIn {
+                from { opacity:0; transform:translateY(12px); }
+                to   { opacity:1; transform:translateY(0); }
+            }
+
+            .modal-head {
+                background: #FFD400;
+                border-bottom: 2px solid #000;
+                padding: 16px 22px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .modal-head h3 { font-size: 1em; font-weight: 900; }
+
+            .modal-close-btn {
+                background: none;
+                border: none;
+                font-size: 1.3em;
+                cursor: pointer;
+                color: #000;
+                font-family: 'Bricolage Grotesque', sans-serif;
+                line-height: 1;
+            }
+
+            .modal-body {
+                padding: 20px 22px;
+                display: flex;
+                flex-direction: column;
+                gap: 14px;
+            }
+
+            .modal-field {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .modal-field label {
+                font-size: 0.78em;
+                font-weight: 900;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+            }
+
+            .modal-field input,
+            .modal-field select,
+            .modal-field textarea {
+                font-family: 'Bricolage Grotesque', sans-serif;
+                font-size: 0.9em;
+                padding: 9px 12px;
+                border: 1.5px solid rgba(0,0,0,.2);
+                border-radius: 6px;
+                background: #fffdf5;
+                outline: none;
+                transition: border-color .2s;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            .modal-field input:focus,
+            .modal-field select:focus,
+            .modal-field textarea:focus { border-color: #FFD400; }
+
+            .modal-field textarea { resize: none; height: 70px; }
+
+            .modal-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+            .modal-footer {
+                padding: 14px 22px;
+                border-top: 1.5px solid rgba(0,0,0,.08);
+                display: flex;
+                justify-content: flex-end;
+                gap: 10px;
+            }
+
+            .btn-modal-cancel {
+                padding: 8px 18px;
+                font-size: 0.85em;
+                font-weight: 800;
+                border-radius: 6px;
+                cursor: pointer;
+                border: 1.5px solid rgba(0,0,0,.2);
+                background: white;
+                color: #333;
+                font-family: 'Bricolage Grotesque', sans-serif;
+                transition: .2s;
+            }
+
+            .btn-modal-cancel:hover { background: #f0f0f0; }
+
+            .btn-modal-confirm {
+                padding: 8px 20px;
+                font-size: 0.85em;
+                font-weight: 800;
+                border-radius: 6px;
+                cursor: pointer;
+                border: 2px solid #000;
+                background: #FFD400;
+                color: #000;
+                font-family: 'Bricolage Grotesque', sans-serif;
+                transition: .2s;
+                display: flex;
+                align-items: center;
+                gap: 7px;
+            }
+
+            .btn-modal-confirm:hover { background: #e6bf00; }
+
+            /* streak flame */
+            .streak-badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 5px;
+                background: #fff3b0;
+                border: 1.5px solid #FFD400;
+                border-radius: 20px;
+                padding: 3px 10px;
+                font-size: 0.78em;
+                font-weight: 800;
+                color: #7a6000;
+            }
+
+            /* attendance chip on member list */
+            .att-chip {
+                font-size: 0.7em;
+                font-weight: 900;
+                padding: 2px 8px;
+                border-radius: 3px;
+                border: 1.5px solid #000;
+            }
+
+            .att-chip.p { background: #2ecc71; color: #000; }
+            .att-chip.a { background: #ff4d4d; color: #fff; }
+            .att-chip.l { background: #FF5F00; color: #fff; }
+            .att-chip.n { background: #f0f0f0; color: #777; }
+        </style>
     </head>
 
     <body>
+
+        <!-- ══ LOG SESSION MODAL ══ -->
+        <div class="modal-overlay" id="logSessionModal">
+            <div class="modal-box">
+                <div class="modal-head">
+                    <h3><i class="fa-solid fa-clipboard-list"></i> &nbsp;Log a new session</h3>
+                    <button class="modal-close-btn" onclick="closeModal()">&#x2715;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-row">
+                        <div class="modal-field">
+                            <label>Session date</label>
+                            <input type="date" id="newSessionDate">
+                        </div>
+                        <div class="modal-field">
+                            <label>Duration</label>
+                            <select id="newSessionDuration">
+                                <option>1 hour</option>
+                                <option selected>2 hours</option>
+                                <option>3 hours</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-field">
+                        <label>Topic covered</label>
+                        <input type="text" id="newSessionTopic" placeholder="e.g. Quadratic equations — factoring methods">
+                    </div>
+                    <div class="modal-row">
+                        <div class="modal-field">
+                            <label>Mode</label>
+                            <select id="newSessionMode">
+                                <option>Online</option>
+                                <option>In-person</option>
+                                <option>Hybrid</option>
+                            </select>
+                        </div>
+                        <div class="modal-field">
+                            <label>Location / Link</label>
+                            <input type="text" id="newSessionLoc" placeholder="e.g. Discord or Room 204">
+                        </div>
+                    </div>
+                    <div class="modal-field">
+                        <label>Notes (optional)</label>
+                        <textarea id="newSessionNotes" placeholder="Any takeaways, follow-ups, or reminders for the group..."></textarea>
+                    </div>
+                    <div style="background:#fffbea;border:1.5px solid #FFD400;border-radius:6px;padding:10px 14px;font-size:0.82em;color:#7a6000">
+                        <i class="fa-solid fa-circle-info"></i>&nbsp; After logging the session, you'll be able to mark attendance for each member directly in the session history below.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-modal-cancel" onclick="closeModal()">Cancel</button>
+                    <button class="btn-modal-confirm" onclick="addSession()"><i class="fa-solid fa-plus"></i> Log session</button>
+                </div>
+            </div>
+        </div>
+
         <nav>
             <div id="nav-container">
                 <a href="../../index.html">
@@ -22,7 +734,7 @@
                 </a>
                 <div id="nav-links">
                     <a class="hover active-nav" href="home_home-feed.html">Home</a>
-                      <a class="hover" href="/WebDev/pages/hives/hives.html">Hives</a>
+                    <a class="hover" href="/WebDev/pages/hives/hives.html">Hives</a>
                     <a class="hover" href="../misc/profile.html">Profile</a>
                 </div>
                 <div id="auth-links">
@@ -30,6 +742,7 @@
                 </div>
             </div>
         </nav>
+
         <main>
             <div id="container">
                 <div id="sidebar">
@@ -48,11 +761,8 @@
                     <div id="my-hives">
                         <p>MY HIVES</p>
                         <hr>
-                        <a href="home_calculus.html"><div class="sidebar-button my-hives"><span class="hex"></span><p>Calculus study group</p></div></a>
-                        <a href="home_biology.html"><div class="sidebar-button my-hives"><span class="hex"></span><p>Biology study group</p></div></a>
-                        <a href="home_history.html"><div class="sidebar-button my-hives"><span class="hex"></span><p>History study group</p></div></a>
-                        <a href="home_english.html"><div class="sidebar-button my-hives"><span class="hex"></span><p>English study group</p></div></a>
-                        <a href="home_physics.html"><div class="sidebar-button my-hives"><span class="hex"></span><p>Physics study group</p></div></a>
+                        <a href="home_calculus.html"><div class="sidebar-button my-hives"><span class="hex"></span><p>Calculus Study Group</p></div></a>
+                        <a href="home_biology.html"><div class="sidebar-button my-hives"><span class="hex"></span><p>Biology Study Group</p></div></a>
                     </div>
                 </div>
 
@@ -61,9 +771,76 @@
 
                         <div class="owner-banner">
                             <i class="fa-solid fa-crown"></i>
-                            You are the owner of this hive
+                            You are the owner of this hive &mdash; you can log sessions and mark attendance below.
                         </div>
 
+                        <!-- ══════════════════════════════════════
+                             ACTIVITY OVERVIEW — new section
+                        ══════════════════════════════════════ -->
+                        <div class="activity-overview">
+                            <div class="activity-overview-top">
+                                <div class="activity-title">
+                                    <span class="live-dot"></span>
+                                    Hive Activity Tracker
+                                </div>
+                                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                                    <span class="streak-badge"><i class="fa-solid fa-fire"></i> 3-week streak</span>
+                                    <button class="btn-log-session" onclick="openModal()">
+                                        <i class="fa-solid fa-plus"></i> Log session
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Key stats -->
+                            <div class="activity-stats-row">
+                                <div class="act-stat">
+                                    <span class="asv" id="statSessions">3</span>
+                                    <span class="asl">Sessions held</span>
+                                </div>
+                                <div class="act-stat">
+                                    <span class="asv" id="statAvgAtt">87%</span>
+                                    <span class="asl">Avg attendance</span>
+                                </div>
+                                <div class="act-stat">
+                                    <span class="asv" id="statHours">6h</span>
+                                    <span class="asl">Total study hrs</span>
+                                </div>
+                                <div class="act-stat">
+                                    <span class="asv" id="statTopMember">Maya S.</span>
+                                    <span class="asl">Most consistent</span>
+                                </div>
+                            </div>
+
+                            <!-- Master attendance progress bar -->
+                            <div class="master-bar-wrap">
+                                <div class="master-bar-labels">
+                                    <span>Overall group attendance</span>
+                                    <span id="masterBarPct">87%</span>
+                                </div>
+                                <div class="master-bar-track">
+                                    <div class="master-bar-fill" id="masterBarFill" style="width:87%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Session dot history strip -->
+                            <div class="session-dots-row">
+                                <span class="session-dots-label">Sessions:</span>
+                                <div class="s-dot held"><i class="fa-solid fa-check" style="font-size:8px"></i><div class="s-dot-tip">Mar 14 — 7/8 attended</div></div>
+                                <div class="s-dot held"><i class="fa-solid fa-check" style="font-size:8px"></i><div class="s-dot-tip">Mar 21 — 8/8 attended</div></div>
+                                <div class="s-dot held"><i class="fa-solid fa-check" style="font-size:8px"></i><div class="s-dot-tip">Mar 28 — 6/8 attended</div></div>
+                                <div class="s-dot upcoming" id="upcomingDot1">4<div class="s-dot-tip">Apr 4 — Upcoming</div></div>
+                                <div class="s-dot upcoming">5<div class="s-dot-tip">Apr 11 — Upcoming</div></div>
+                                <div class="s-dot upcoming">6<div class="s-dot-tip">Apr 18 — Upcoming</div></div>
+                                <span style="font-size:0.75em;color:rgb(117,117,117);margin-left:4px">
+                                    <span style="margin-right:8px"><span class="s-dot held" style="display:inline-flex;width:12px;height:12px;font-size:7px;margin-right:3px;vertical-align:middle"><i class="fa-solid fa-check" style="font-size:6px"></i></span>Held</span>
+                                    <span><span class="s-dot upcoming" style="display:inline-flex;width:12px;height:12px;font-size:7px;margin-right:3px;vertical-align:middle"></span>Upcoming</span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- ══════════════════════════════════════
+                             HIVE HEADER (original)
+                        ══════════════════════════════════════ -->
                         <div class="hive-header">
                             <div class="hive-header-left">
                                 <div class="hive-title">Rick's Study Circle</div>
@@ -83,22 +860,240 @@
                             </div>
                         </div>
 
+                        <!-- ══════════════════════════════════════
+                             MAIN COLUMNS
+                        ══════════════════════════════════════ -->
                         <div class="hive-columns">
                             <div class="hive-left">
+
+                                <!-- SESSION LOG HISTORY — new section -->
                                 <div>
-                                    <div class="section-label">Members</div>
-                                    <div class="members-card">
-                                        <div class="member-row"><img class="member-avatar" src="../../assets/images/person-profile.jpg"><div class="member-info"><div class="member-name">Rick Buzztley <span class="owner-badge">Owner</span></div><div class="member-meta">Joined Mar 20 &mdash; Active</div></div></div>
-                                        <div class="member-row"><img class="member-avatar" src="../../assets/images/person-profile.jpg"><div class="member-info"><div class="member-name">Maya Santos</div><div class="member-meta">Joined Mar 21 &mdash; Active</div></div><div class="member-actions"><button class="btn-member report"><i class="fa-solid fa-flag"></i> Report</button><button class="btn-member kick"><i class="fa-solid fa-user-minus"></i> Kick</button></div></div>
-                                        <div class="member-row"><img class="member-avatar" src="../../assets/images/person-profile.jpg"><div class="member-info"><div class="member-name">Sam Uy</div><div class="member-meta">Joined Mar 21 &mdash; Active</div></div><div class="member-actions"><button class="btn-member report"><i class="fa-solid fa-flag"></i> Report</button><button class="btn-member kick"><i class="fa-solid fa-user-minus"></i> Kick</button></div></div>
-                                        <div class="member-row"><img class="member-avatar" src="../../assets/images/person-profile.jpg"><div class="member-info"><div class="member-name">Milky</div><div class="member-meta">Joined Mar 22 &mdash; Active</div></div><div class="member-actions"><button class="btn-member report"><i class="fa-solid fa-flag"></i> Report</button><button class="btn-member kick"><i class="fa-solid fa-user-minus"></i> Kick</button></div></div>
-                                        <div class="member-row"><img class="member-avatar" src="../../assets/images/person-profile.jpg"><div class="member-info"><div class="member-name">Carla Mendez</div><div class="member-meta">Joined Mar 22 &mdash; Inactive</div></div><div class="member-actions"><button class="btn-member report"><i class="fa-solid fa-flag"></i> Report</button><button class="btn-member kick"><i class="fa-solid fa-user-minus"></i> Kick</button></div></div>
-                                        <div class="member-row"><img class="member-avatar" src="../../assets/images/person-profile.jpg"><div class="member-info"><div class="member-name">Leo Reyes</div><div class="member-meta">Joined Mar 23 &mdash; Active</div></div><div class="member-actions"><button class="btn-member report"><i class="fa-solid fa-flag"></i> Report</button><button class="btn-member kick"><i class="fa-solid fa-user-minus"></i> Kick</button></div></div>
-                                        <div class="member-row"><img class="member-avatar" src="../../assets/images/person-profile.jpg"><div class="member-info"><div class="member-name">Anthony</div><div class="member-meta">Joined Mar 23 &mdash; Active</div></div><div class="member-actions"><button class="btn-member report"><i class="fa-solid fa-flag"></i> Report</button><button class="btn-member kick"><i class="fa-solid fa-user-minus"></i> Kick</button></div></div>
-                                        <div class="member-row"><img class="member-avatar" src="../../assets/images/person-profile.jpg"><div class="member-info"><div class="member-name">Nina Cruz</div><div class="member-meta">Joined Mar 23 &mdash; Active</div></div><div class="member-actions"><button class="btn-member report"><i class="fa-solid fa-flag"></i> Report</button><button class="btn-member kick"><i class="fa-solid fa-user-minus"></i> Kick</button></div></div>
+                                    <div class="section-label">Session History &amp; Attendance</div>
+                                    <div class="session-log-card">
+                                        <div class="slc-header">
+                                            <h4><i class="fa-solid fa-clipboard-list"></i>&nbsp; Session logs — Rick's Study Circle</h4>
+                                            <button class="btn-log-session" style="font-size:0.78em;padding:6px 14px" onclick="openModal()">
+                                                <i class="fa-solid fa-plus"></i> Log session
+                                            </button>
+                                        </div>
+
+                                        <!-- Session entries -->
+                                        <div id="sessionLogContainer">
+
+                                            <!-- SESSION 3 -->
+                                            <div class="session-entry" id="entry-3">
+                                                <div class="session-entry-header" onclick="toggleEntry('entry-3')">
+                                                    <div class="seh-left">
+                                                        <div class="seh-num">3</div>
+                                                        <div class="seh-info">
+                                                            <div class="seh-date">Friday, March 28, 2025</div>
+                                                            <div class="seh-topic">Intro to algebraic fractions &mdash; 2 hrs &mdash; Online</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="seh-right">
+                                                        <div class="mini-att-bar">
+                                                            <div class="mini-att-track"><div class="mini-att-fill att-mid" style="width:75%"></div></div>
+                                                            <span style="font-weight:800;font-size:0.85em">6/8</span>
+                                                        </div>
+                                                        <span class="att-saved-badge show"><i class="fa-solid fa-check"></i> Saved</span>
+                                                        <i class="fa-solid fa-chevron-down seh-chevron"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="session-att-body">
+                                                    <div class="att-body-top">
+                                                        <span class="abt-label"><i class="fa-solid fa-users"></i>&nbsp; Attendance &mdash; click to mark</span>
+                                                        <span class="att-summary" id="sum-3">6 present &bull; 1 absent &bull; 1 late</span>
+                                                    </div>
+                                                    <!-- attendance rows for session 3 -->
+                                                    <div class="att-member-row">
+                                                        <img class="att-avatar" src="../../assets/images/person-profile.jpg">
+                                                        <span class="att-name">Rick Buzztley <span style="font-size:0.75em;opacity:.6">(You)</span></span>
+                                                        <div class="att-toggle">
+                                                            <button class="att-btn present active" onclick="markAtt(this,'entry-3','Rick Buzztley','present')"><i class="fa-solid fa-check"></i> Present</button>
+                                                            <button class="att-btn late"    onclick="markAtt(this,'entry-3','Rick Buzztley','late')"><i class="fa-solid fa-clock"></i> Late</button>
+                                                            <button class="att-btn absent"  onclick="markAtt(this,'entry-3','Rick Buzztley','absent')"><i class="fa-solid fa-xmark"></i> Absent</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="att-member-row">
+                                                        <img class="att-avatar" src="../../assets/images/person-profile.jpg">
+                                                        <span class="att-name">Maya Santos</span>
+                                                        <div class="att-toggle">
+                                                            <button class="att-btn present active" onclick="markAtt(this,'entry-3','Maya Santos','present')"><i class="fa-solid fa-check"></i> Present</button>
+                                                            <button class="att-btn late"    onclick="markAtt(this,'entry-3','Maya Santos','late')"><i class="fa-solid fa-clock"></i> Late</button>
+                                                            <button class="att-btn absent"  onclick="markAtt(this,'entry-3','Maya Santos','absent')"><i class="fa-solid fa-xmark"></i> Absent</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="att-member-row">
+                                                        <img class="att-avatar" src="../../assets/images/person-profile.jpg">
+                                                        <span class="att-name">Sam Uy</span>
+                                                        <div class="att-toggle">
+                                                            <button class="att-btn present active" onclick="markAtt(this,'entry-3','Sam Uy','present')"><i class="fa-solid fa-check"></i> Present</button>
+                                                            <button class="att-btn late"    onclick="markAtt(this,'entry-3','Sam Uy','late')"><i class="fa-solid fa-clock"></i> Late</button>
+                                                            <button class="att-btn absent"  onclick="markAtt(this,'entry-3','Sam Uy','absent')"><i class="fa-solid fa-xmark"></i> Absent</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="att-member-row">
+                                                        <img class="att-avatar" src="../../assets/images/person-profile.jpg">
+                                                        <span class="att-name">Milky</span>
+                                                        <div class="att-toggle">
+                                                            <button class="att-btn present active" onclick="markAtt(this,'entry-3','Milky','present')"><i class="fa-solid fa-check"></i> Present</button>
+                                                            <button class="att-btn late"    onclick="markAtt(this,'entry-3','Milky','late')"><i class="fa-solid fa-clock"></i> Late</button>
+                                                            <button class="att-btn absent"  onclick="markAtt(this,'entry-3','Milky','absent')"><i class="fa-solid fa-xmark"></i> Absent</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="att-member-row">
+                                                        <img class="att-avatar" src="../../assets/images/person-profile.jpg">
+                                                        <span class="att-name">Carla Mendez</span>
+                                                        <div class="att-toggle">
+                                                            <button class="att-btn present" onclick="markAtt(this,'entry-3','Carla Mendez','present')"><i class="fa-solid fa-check"></i> Present</button>
+                                                            <button class="att-btn late"    onclick="markAtt(this,'entry-3','Carla Mendez','late')"><i class="fa-solid fa-clock"></i> Late</button>
+                                                            <button class="att-btn absent active"  onclick="markAtt(this,'entry-3','Carla Mendez','absent')"><i class="fa-solid fa-xmark"></i> Absent</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="att-member-row">
+                                                        <img class="att-avatar" src="../../assets/images/person-profile.jpg">
+                                                        <span class="att-name">Leo Reyes</span>
+                                                        <div class="att-toggle">
+                                                            <button class="att-btn present active" onclick="markAtt(this,'entry-3','Leo Reyes','present')"><i class="fa-solid fa-check"></i> Present</button>
+                                                            <button class="att-btn late"    onclick="markAtt(this,'entry-3','Leo Reyes','late')"><i class="fa-solid fa-clock"></i> Late</button>
+                                                            <button class="att-btn absent"  onclick="markAtt(this,'entry-3','Leo Reyes','absent')"><i class="fa-solid fa-xmark"></i> Absent</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="att-member-row">
+                                                        <img class="att-avatar" src="../../assets/images/person-profile.jpg">
+                                                        <span class="att-name">Anthony</span>
+                                                        <div class="att-toggle">
+                                                            <button class="att-btn present" onclick="markAtt(this,'entry-3','Anthony','present')"><i class="fa-solid fa-check"></i> Present</button>
+                                                            <button class="att-btn late active" onclick="markAtt(this,'entry-3','Anthony','late')"><i class="fa-solid fa-clock"></i> Late</button>
+                                                            <button class="att-btn absent"  onclick="markAtt(this,'entry-3','Anthony','absent')"><i class="fa-solid fa-xmark"></i> Absent</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="att-member-row">
+                                                        <img class="att-avatar" src="../../assets/images/person-profile.jpg">
+                                                        <span class="att-name">Nina Cruz</span>
+                                                        <div class="att-toggle">
+                                                            <button class="att-btn present active" onclick="markAtt(this,'entry-3','Nina Cruz','present')"><i class="fa-solid fa-check"></i> Present</button>
+                                                            <button class="att-btn late"    onclick="markAtt(this,'entry-3','Nina Cruz','late')"><i class="fa-solid fa-clock"></i> Late</button>
+                                                            <button class="att-btn absent"  onclick="markAtt(this,'entry-3','Nina Cruz','absent')"><i class="fa-solid fa-xmark"></i> Absent</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="session-note-row">
+                                                        <label><i class="fa-solid fa-note-sticky"></i>&nbsp; Session notes</label>
+                                                        <textarea>Covered algebraic fractions — good participation. Carla was absent, will catch up async. Anthony arrived 15 mins late but engaged well.</textarea>
+                                                    </div>
+                                                    <div class="session-att-actions">
+                                                        <button class="btn-cancel-att">Undo changes</button>
+                                                        <button class="btn-save-att" onclick="saveAtt('entry-3')"><i class="fa-solid fa-floppy-disk"></i> Save attendance</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- SESSION 2 -->
+                                            <div class="session-entry" id="entry-2">
+                                                <div class="session-entry-header" onclick="toggleEntry('entry-2')">
+                                                    <div class="seh-left">
+                                                        <div class="seh-num">2</div>
+                                                        <div class="seh-info">
+                                                            <div class="seh-date">Friday, March 21, 2025</div>
+                                                            <div class="seh-topic">Solving quadratic equations &mdash; 2 hrs &mdash; Online</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="seh-right">
+                                                        <div class="mini-att-bar">
+                                                            <div class="mini-att-track"><div class="mini-att-fill att-high" style="width:100%"></div></div>
+                                                            <span style="font-weight:800;font-size:0.85em">8/8</span>
+                                                        </div>
+                                                        <span class="att-saved-badge show"><i class="fa-solid fa-check"></i> Saved</span>
+                                                        <i class="fa-solid fa-chevron-down seh-chevron"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="session-att-body">
+                                                    <div class="att-body-top">
+                                                        <span class="abt-label"><i class="fa-solid fa-users"></i>&nbsp; Attendance</span>
+                                                        <span class="att-summary" id="sum-2">8 present &bull; 0 absent &bull; 0 late</span>
+                                                    </div>
+                                                    <div class="att-member-row"><img class="att-avatar" src="../../assets/images/person-profile.jpg"><span class="att-name">Rick Buzztley</span><div class="att-toggle"><button class="att-btn present active" onclick="markAtt(this,'entry-2','Rick Buzztley','present')"><i class="fa-solid fa-check"></i> Present</button><button class="att-btn late" onclick="markAtt(this,'entry-2','Rick Buzztley','late')"><i class="fa-solid fa-clock"></i> Late</button><button class="att-btn absent" onclick="markAtt(this,'entry-2','Rick Buzztley','absent')"><i class="fa-solid fa-xmark"></i> Absent</button></div></div>
+                                                    <div class="att-member-row"><img class="att-avatar" src="../../assets/images/person-profile.jpg"><span class="att-name">Maya Santos</span><div class="att-toggle"><button class="att-btn present active" onclick="markAtt(this,'entry-2','Maya Santos','present')"><i class="fa-solid fa-check"></i> Present</button><button class="att-btn late" onclick="markAtt(this,'entry-2','Maya Santos','late')"><i class="fa-solid fa-clock"></i> Late</button><button class="att-btn absent" onclick="markAtt(this,'entry-2','Maya Santos','absent')"><i class="fa-solid fa-xmark"></i> Absent</button></div></div>
+                                                    <div class="att-member-row"><img class="att-avatar" src="../../assets/images/person-profile.jpg"><span class="att-name">Sam Uy</span><div class="att-toggle"><button class="att-btn present active" onclick="markAtt(this,'entry-2','Sam Uy','present')"><i class="fa-solid fa-check"></i> Present</button><button class="att-btn late" onclick="markAtt(this,'entry-2','Sam Uy','late')"><i class="fa-solid fa-clock"></i> Late</button><button class="att-btn absent" onclick="markAtt(this,'entry-2','Sam Uy','absent')"><i class="fa-solid fa-xmark"></i> Absent</button></div></div>
+                                                    <div class="att-member-row"><img class="att-avatar" src="../../assets/images/person-profile.jpg"><span class="att-name">Milky</span><div class="att-toggle"><button class="att-btn present active" onclick="markAtt(this,'entry-2','Milky','present')"><i class="fa-solid fa-check"></i> Present</button><button class="att-btn late" onclick="markAtt(this,'entry-2','Milky','late')"><i class="fa-solid fa-clock"></i> Late</button><button class="att-btn absent" onclick="markAtt(this,'entry-2','Milky','absent')"><i class="fa-solid fa-xmark"></i> Absent</button></div></div>
+                                                    <div class="att-member-row"><img class="att-avatar" src="../../assets/images/person-profile.jpg"><span class="att-name">Carla Mendez</span><div class="att-toggle"><button class="att-btn present active" onclick="markAtt(this,'entry-2','Carla Mendez','present')"><i class="fa-solid fa-check"></i> Present</button><button class="att-btn late" onclick="markAtt(this,'entry-2','Carla Mendez','late')"><i class="fa-solid fa-clock"></i> Late</button><button class="att-btn absent" onclick="markAtt(this,'entry-2','Carla Mendez','absent')"><i class="fa-solid fa-xmark"></i> Absent</button></div></div>
+                                                    <div class="att-member-row"><img class="att-avatar" src="../../assets/images/person-profile.jpg"><span class="att-name">Leo Reyes</span><div class="att-toggle"><button class="att-btn present active" onclick="markAtt(this,'entry-2','Leo Reyes','present')"><i class="fa-solid fa-check"></i> Present</button><button class="att-btn late" onclick="markAtt(this,'entry-2','Leo Reyes','late')"><i class="fa-solid fa-clock"></i> Late</button><button class="att-btn absent" onclick="markAtt(this,'entry-2','Leo Reyes','absent')"><i class="fa-solid fa-xmark"></i> Absent</button></div></div>
+                                                    <div class="att-member-row"><img class="att-avatar" src="../../assets/images/person-profile.jpg"><span class="att-name">Anthony</span><div class="att-toggle"><button class="att-btn present active" onclick="markAtt(this,'entry-2','Anthony','present')"><i class="fa-solid fa-check"></i> Present</button><button class="att-btn late" onclick="markAtt(this,'entry-2','Anthony','late')"><i class="fa-solid fa-clock"></i> Late</button><button class="att-btn absent" onclick="markAtt(this,'entry-2','Anthony','absent')"><i class="fa-solid fa-xmark"></i> Absent</button></div></div>
+                                                    <div class="att-member-row"><img class="att-avatar" src="../../assets/images/person-profile.jpg"><span class="att-name">Nina Cruz</span><div class="att-toggle"><button class="att-btn present active" onclick="markAtt(this,'entry-2','Nina Cruz','present')"><i class="fa-solid fa-check"></i> Present</button><button class="att-btn late" onclick="markAtt(this,'entry-2','Nina Cruz','late')"><i class="fa-solid fa-clock"></i> Late</button><button class="att-btn absent" onclick="markAtt(this,'entry-2','Nina Cruz','absent')"><i class="fa-solid fa-xmark"></i> Absent</button></div></div>
+                                                    <div class="session-note-row">
+                                                        <label><i class="fa-solid fa-note-sticky"></i>&nbsp; Session notes</label>
+                                                        <textarea>Full attendance — great energy! Everyone participated in the factoring exercises. Maya had the best explanation of the quadratic formula.</textarea>
+                                                    </div>
+                                                    <div class="session-att-actions">
+                                                        <button class="btn-cancel-att">Undo changes</button>
+                                                        <button class="btn-save-att" onclick="saveAtt('entry-2')"><i class="fa-solid fa-floppy-disk"></i> Save attendance</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- SESSION 1 -->
+                                            <div class="session-entry" id="entry-1">
+                                                <div class="session-entry-header" onclick="toggleEntry('entry-1')">
+                                                    <div class="seh-left">
+                                                        <div class="seh-num">1</div>
+                                                        <div class="seh-info">
+                                                            <div class="seh-date">Friday, March 14, 2025</div>
+                                                            <div class="seh-topic">Intro session — topic planning &mdash; 2 hrs &mdash; Discord</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="seh-right">
+                                                        <div class="mini-att-bar">
+                                                            <div class="mini-att-track"><div class="mini-att-fill att-mid" style="width:87.5%"></div></div>
+                                                            <span style="font-weight:800;font-size:0.85em">7/8</span>
+                                                        </div>
+                                                        <span class="att-saved-badge show"><i class="fa-solid fa-check"></i> Saved</span>
+                                                        <i class="fa-solid fa-chevron-down seh-chevron"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="session-att-body">
+                                                    <div class="att-body-top">
+                                                        <span class="abt-label"><i class="fa-solid fa-users"></i>&nbsp; Attendance</span>
+                                                        <span class="att-summary" id="sum-1">7 present &bull; 1 absent &bull; 0 late</span>
+                                                    </div>
+                                                    <div class="att-member-row"><img class="att-avatar" src="../../assets/images/person-profile.jpg"><span class="att-name">Rick Buzztley</span><div class="att-toggle"><button class="att-btn present active" onclick="markAtt(this,'entry-1','Rick Buzztley','present')"><i class="fa-solid fa-check"></i> Present</button><button class="att-btn late" onclick="markAtt(this,'entry-1','Rick Buzztley','late')"><i class="fa-solid fa-clock"></i> Late</button><button class="att-btn absent" onclick="markAtt(this,'entry-1','Rick Buzztley','absent')"><i class="fa-solid fa-xmark"></i> Absent</button></div></div>
+                                                    <div class="att-member-row"><img class="att-avatar" src="../../assets/images/person-profile.jpg"><span class="att-name">Maya Santos</span><div class="att-toggle"><button class="att-btn present active" onclick="markAtt(this,'entry-1','Maya Santos','present')"><i class="fa-solid fa-check"></i> Present</button><button class="att-btn late" onclick="markAtt(this,'entry-1','Maya Santos','late')"><i class="fa-solid fa-clock"></i> Late</button><button class="att-btn absent" onclick="markAtt(this,'entry-1','Maya Santos','absent')"><i class="fa-solid fa-xmark"></i> Absent</button></div></div>
+                                                    <div class="att-member-row"><img class="att-avatar" src="../../assets/images/person-profile.jpg"><span class="att-name">Sam Uy</span><div class="att-toggle"><button class="att-btn present active" onclick="markAtt(this,'entry-1','Sam Uy','present')"><i class="fa-solid fa-check"></i> Present</button><button class="att-btn late" onclick="markAtt(this,'entry-1','Sam Uy','late')"><i class="fa-solid fa-clock"></i> Late</button><button class="att-btn absent" onclick="markAtt(this,'entry-1','Sam Uy','absent')"><i class="fa-solid fa-xmark"></i> Absent</button></div></div>
+                                                    <div class="att-member-row"><img class="att-avatar" src="../../assets/images/person-profile.jpg"><span class="att-name">Milky</span><div class="att-toggle"><button class="att-btn present active" onclick="markAtt(this,'entry-1','Milky','present')"><i class="fa-solid fa-check"></i> Present</button><button class="att-btn late" onclick="markAtt(this,'entry-1','Milky','late')"><i class="fa-solid fa-clock"></i> Late</button><button class="att-btn absent" onclick="markAtt(this,'entry-1','Milky','absent')"><i class="fa-solid fa-xmark"></i> Absent</button></div></div>
+                                                    <div class="att-member-row"><img class="att-avatar" src="../../assets/images/person-profile.jpg"><span class="att-name">Carla Mendez</span><div class="att-toggle"><button class="att-btn present" onclick="markAtt(this,'entry-1','Carla Mendez','present')"><i class="fa-solid fa-check"></i> Present</button><button class="att-btn late" onclick="markAtt(this,'entry-1','Carla Mendez','late')"><i class="fa-solid fa-clock"></i> Late</button><button class="att-btn absent active" onclick="markAtt(this,'entry-1','Carla Mendez','absent')"><i class="fa-solid fa-xmark"></i> Absent</button></div></div>
+                                                    <div class="att-member-row"><img class="att-avatar" src="../../assets/images/person-profile.jpg"><span class="att-name">Leo Reyes</span><div class="att-toggle"><button class="att-btn present active" onclick="markAtt(this,'entry-1','Leo Reyes','present')"><i class="fa-solid fa-check"></i> Present</button><button class="att-btn late" onclick="markAtt(this,'entry-1','Leo Reyes','late')"><i class="fa-solid fa-clock"></i> Late</button><button class="att-btn absent" onclick="markAtt(this,'entry-1','Leo Reyes','absent')"><i class="fa-solid fa-xmark"></i> Absent</button></div></div>
+                                                    <div class="att-member-row"><img class="att-avatar" src="../../assets/images/person-profile.jpg"><span class="att-name">Anthony</span><div class="att-toggle"><button class="att-btn present active" onclick="markAtt(this,'entry-1','Anthony','present')"><i class="fa-solid fa-check"></i> Present</button><button class="att-btn late" onclick="markAtt(this,'entry-1','Anthony','late')"><i class="fa-solid fa-clock"></i> Late</button><button class="att-btn absent" onclick="markAtt(this,'entry-1','Anthony','absent')"><i class="fa-solid fa-xmark"></i> Absent</button></div></div>
+                                                    <div class="att-member-row"><img class="att-avatar" src="../../assets/images/person-profile.jpg"><span class="att-name">Nina Cruz</span><div class="att-toggle"><button class="att-btn present active" onclick="markAtt(this,'entry-1','Nina Cruz','present')"><i class="fa-solid fa-check"></i> Present</button><button class="att-btn late" onclick="markAtt(this,'entry-1','Nina Cruz','late')"><i class="fa-solid fa-clock"></i> Late</button><button class="att-btn absent" onclick="markAtt(this,'entry-1','Nina Cruz','absent')"><i class="fa-solid fa-xmark"></i> Absent</button></div></div>
+                                                    <div class="session-note-row">
+                                                        <label><i class="fa-solid fa-note-sticky"></i>&nbsp; Session notes</label>
+                                                        <textarea>First session — introduced everyone and mapped out the topics for the next 8 weeks. Carla missed this one but confirmed she's still in.</textarea>
+                                                    </div>
+                                                    <div class="session-att-actions">
+                                                        <button class="btn-cancel-att">Undo changes</button>
+                                                        <button class="btn-save-att" onclick="saveAtt('entry-1')"><i class="fa-solid fa-floppy-disk"></i> Save attendance</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div><!-- /sessionLogContainer -->
                                     </div>
                                 </div>
 
+                                <!-- MEMBERS (original, with attendance chips added) -->
+                                <div>
+                                    <div class="section-label">Members &amp; attendance record</div>
+                                    <div class="members-card">
+                                        <div class="member-row"><img class="member-avatar" src="../../assets/images/person-profile.jpg"><div class="member-info"><div class="member-name">Rick Buzztley <span class="owner-badge">Owner</span></div><div class="member-meta">Joined Mar 20 &mdash; <strong>3/3</strong> sessions &mdash; <span style="color:#2ecc71;font-weight:700">100%</span></div></div><div class="member-actions"><span class="att-chip p">3 Present</span></div></div>
+                                        <div class="member-row"><img class="member-avatar" src="../../assets/images/person-profile.jpg"><div class="member-info"><div class="member-name">Maya Santos</div><div class="member-meta">Joined Mar 21 &mdash; <strong>3/3</strong> sessions &mdash; <span style="color:#2ecc71;font-weight:700">100%</span></div></div><div class="member-actions"><span class="att-chip p">3 Present</span><button class="btn-member report"><i class="fa-solid fa-flag"></i> Report</button></div></div>
+                                        <div class="member-row"><img class="member-avatar" src="../../assets/images/person-profile.jpg"><div class="member-info"><div class="member-name">Sam Uy</div><div class="member-meta">Joined Mar 21 &mdash; <strong>3/3</strong> sessions &mdash; <span style="color:#2ecc71;font-weight:700">100%</span></div></div><div class="member-actions"><span class="att-chip p">3 Present</span><button class="btn-member report"><i class="fa-solid fa-flag"></i> Report</button><button class="btn-member kick"><i class="fa-solid fa-user-minus"></i> Kick</button></div></div>
+                                        <div class="member-row"><img class="member-avatar" src="../../assets/images/person-profile.jpg"><div class="member-info"><div class="member-name">Milky</div><div class="member-meta">Joined Mar 22 &mdash; <strong>3/3</strong> sessions &mdash; <span style="color:#2ecc71;font-weight:700">100%</span></div></div><div class="member-actions"><span class="att-chip p">3 Present</span><button class="btn-member report"><i class="fa-solid fa-flag"></i> Report</button><button class="btn-member kick"><i class="fa-solid fa-user-minus"></i> Kick</button></div></div>
+                                        <div class="member-row"><img class="member-avatar" src="../../assets/images/person-profile.jpg"><div class="member-info"><div class="member-name">Carla Mendez</div><div class="member-meta">Joined Mar 22 &mdash; <strong>1/3</strong> sessions &mdash; <span style="color:#FF5F00;font-weight:700">33%</span></div></div><div class="member-actions"><span class="att-chip a">2 Absent</span><span class="att-chip p" style="margin-left:2px">1 Present</span><button class="btn-member report"><i class="fa-solid fa-flag"></i> Report</button><button class="btn-member kick"><i class="fa-solid fa-user-minus"></i> Kick</button></div></div>
+                                        <div class="member-row"><img class="member-avatar" src="../../assets/images/person-profile.jpg"><div class="member-info"><div class="member-name">Leo Reyes</div><div class="member-meta">Joined Mar 23 &mdash; <strong>3/3</strong> sessions &mdash; <span style="color:#2ecc71;font-weight:700">100%</span></div></div><div class="member-actions"><span class="att-chip p">3 Present</span><button class="btn-member report"><i class="fa-solid fa-flag"></i> Report</button><button class="btn-member kick"><i class="fa-solid fa-user-minus"></i> Kick</button></div></div>
+                                        <div class="member-row"><img class="member-avatar" src="../../assets/images/person-profile.jpg"><div class="member-info"><div class="member-name">Anthony</div><div class="member-meta">Joined Mar 23 &mdash; <strong>2/3</strong> sessions &mdash; <span style="color:#FFD400;font-weight:700">67%</span></div></div><div class="member-actions"><span class="att-chip p">2 Present</span><span class="att-chip l" style="margin-left:2px">1 Late</span><button class="btn-member report"><i class="fa-solid fa-flag"></i> Report</button><button class="btn-member kick"><i class="fa-solid fa-user-minus"></i> Kick</button></div></div>
+                                        <div class="member-row"><img class="member-avatar" src="../../assets/images/person-profile.jpg"><div class="member-info"><div class="member-name">Nina Cruz</div><div class="member-meta">Joined Mar 23 &mdash; <strong>3/3</strong> sessions &mdash; <span style="color:#2ecc71;font-weight:700">100%</span></div></div><div class="member-actions"><span class="att-chip p">3 Present</span><button class="btn-member report"><i class="fa-solid fa-flag"></i> Report</button><button class="btn-member kick"><i class="fa-solid fa-user-minus"></i> Kick</button></div></div>
+                                    </div>
+                                </div>
+
+                                <!-- COMMENTS (original) -->
                                 <div>
                                     <div class="section-label">Comments</div>
                                     <div class="comments-card">
@@ -112,8 +1107,9 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div><!-- /hive-left -->
 
+                            <!-- RIGHT COLUMN (original) -->
                             <div class="hive-right">
                                 <div>
                                     <div class="section-label">Session Details</div>
@@ -140,12 +1136,212 @@
                                         <div class="rule-item"><div class="rule-num">3</div>Keep it respectful — everyone's here to learn.</div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
+                            </div><!-- /hive-right -->
 
+                        </div><!-- /hive-columns -->
+                    </div><!-- /hive-body -->
+                </div><!-- /content -->
+            </div><!-- /container -->
+        </main>
+
+        <script>
+        // ── TOGGLE session entry open/close ──
+        function toggleEntry(id) {
+            const el = document.getElementById(id);
+            el.classList.toggle('open');
+        }
+
+        // ── MARK ATTENDANCE button ──
+        function markAtt(btn, entryId, memberName, status) {
+            // Deactivate siblings
+            const siblings = btn.closest('.att-toggle').querySelectorAll('.att-btn');
+            siblings.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            // Recalculate summary for this entry
+            recalcSummary(entryId);
+        }
+
+        function recalcSummary(entryId) {
+            const entry = document.getElementById(entryId);
+            const rows  = entry.querySelectorAll('.att-member-row');
+            let p = 0, a = 0, l = 0;
+
+            rows.forEach(row => {
+                const active = row.querySelector('.att-btn.active');
+                if (!active) return;
+                if (active.classList.contains('present')) p++;
+                else if (active.classList.contains('absent'))  a++;
+                else if (active.classList.contains('late'))    l++;
+            });
+
+            const total = p + a + l;
+            const sumEl = entry.querySelector('[id^="sum-"]');
+            if (sumEl) sumEl.textContent = `${p} present \u2022 ${a} absent \u2022 ${l} late`;
+
+            // Update mini bar
+            const pct = total > 0 ? Math.round(((p + l) / total) * 100) : 0;
+            const fill = entry.querySelector('.mini-att-fill');
+            const label = entry.querySelector('.seh-right span[style]');
+            if (fill) {
+                fill.style.width = pct + '%';
+                fill.className = 'mini-att-fill ' + (pct >= 90 ? 'att-high' : pct >= 60 ? 'att-mid' : 'att-low');
+            }
+            const countEl = entry.querySelector('.seh-right > div > span');
+            if (countEl) countEl.textContent = `${p+l}/${total}`;
+        }
+
+        // ── SAVE attendance ──
+        function saveAtt(entryId) {
+            const badge = document.querySelector(`#${entryId} .att-saved-badge`);
+            if (badge) {
+                badge.classList.add('show');
+                badge.style.background = '#2ecc71';
+            }
+            // flash feedback
+            const btn = event.currentTarget || document.querySelector(`#${entryId} .btn-save-att`);
+            const orig = btn ? btn.innerHTML : '';
+            if (btn) {
+                btn.innerHTML = '<i class="fa-solid fa-check"></i> Saved!';
+                setTimeout(() => { btn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Save attendance'; }, 1800);
+            }
+            recalcMasterBar();
+        }
+
+        // ── RECALCULATE master progress bar ──
+        function recalcMasterBar() {
+            const entries = document.querySelectorAll('.session-entry');
+            let totalPresent = 0, totalMembers = 0;
+            entries.forEach(entry => {
+                const rows = entry.querySelectorAll('.att-member-row');
+                rows.forEach(row => {
+                    totalMembers++;
+                    const active = row.querySelector('.att-btn.active');
+                    if (active && (active.classList.contains('present') || active.classList.contains('late'))) {
+                        totalPresent++;
+                    }
+                });
+            });
+            const pct = totalMembers > 0 ? Math.round((totalPresent / totalMembers) * 100) : 0;
+            document.getElementById('masterBarFill').style.width = pct + '%';
+            document.getElementById('masterBarPct').textContent  = pct + '%';
+            document.getElementById('statAvgAtt').textContent    = pct + '%';
+        }
+
+        // ── OPEN / CLOSE LOG SESSION MODAL ──
+        function openModal() {
+            // default date to today
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('newSessionDate').value = today;
+            document.getElementById('logSessionModal').classList.add('open');
+        }
+
+        function closeModal() {
+            document.getElementById('logSessionModal').classList.remove('open');
+        }
+
+        // Close on backdrop click
+        document.getElementById('logSessionModal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+
+        // ── ADD NEW SESSION ──
+        let sessionCount = 3; // current count
+
+        function addSession() {
+            const date     = document.getElementById('newSessionDate').value;
+            const topic    = document.getElementById('newSessionTopic').value.trim() || 'Untitled session';
+            const duration = document.getElementById('newSessionDuration').value;
+            const mode     = document.getElementById('newSessionMode').value;
+            const loc      = document.getElementById('newSessionLoc').value.trim() || mode;
+            const notes    = document.getElementById('newSessionNotes').value.trim();
+
+            sessionCount++;
+
+            // Format date nicely
+            const d = date ? new Date(date + 'T00:00:00') : new Date();
+            const pretty = d.toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+
+            const members = [
+                'Rick Buzztley','Maya Santos','Sam Uy','Milky',
+                'Carla Mendez','Leo Reyes','Anthony','Nina Cruz'
+            ];
+
+            const memberRows = members.map(name => `
+                <div class="att-member-row">
+                    <img class="att-avatar" src="../../assets/images/person-profile.jpg">
+                    <span class="att-name">${name}${name==='Rick Buzztley'?' <span style="font-size:.75em;opacity:.6">(You)</span>':''}</span>
+                    <div class="att-toggle">
+                        <button class="att-btn present" onclick="markAtt(this,'entry-${sessionCount}','${name}','present')"><i class="fa-solid fa-check"></i> Present</button>
+                        <button class="att-btn late"    onclick="markAtt(this,'entry-${sessionCount}','${name}','late')"><i class="fa-solid fa-clock"></i> Late</button>
+                        <button class="att-btn absent"  onclick="markAtt(this,'entry-${sessionCount}','${name}','absent')"><i class="fa-solid fa-xmark"></i> Absent</button>
+                    </div>
+                </div>`
+            ).join('');
+
+            const html = `
+            <div class="session-entry open" id="entry-${sessionCount}">
+                <div class="session-entry-header" onclick="toggleEntry('entry-${sessionCount}')">
+                    <div class="seh-left">
+                        <div class="seh-num">${sessionCount}</div>
+                        <div class="seh-info">
+                            <div class="seh-date">${pretty}</div>
+                            <div class="seh-topic">${topic} &mdash; ${duration} &mdash; ${loc}</div>
+                        </div>
+                    </div>
+                    <div class="seh-right">
+                        <div class="mini-att-bar">
+                            <div class="mini-att-track"><div class="mini-att-fill att-low" style="width:0%"></div></div>
+                            <span style="font-weight:800;font-size:.85em">0/${members.length}</span>
+                        </div>
+                        <span class="att-saved-badge"><i class="fa-solid fa-check"></i> Saved</span>
+                        <i class="fa-solid fa-chevron-down seh-chevron" style="transform:rotate(180deg)"></i>
                     </div>
                 </div>
-            </div>
-        </main>
+                <div class="session-att-body" style="display:block">
+                    <div class="att-body-top">
+                        <span class="abt-label"><i class="fa-solid fa-users"></i>&nbsp; Mark attendance below</span>
+                        <span class="att-summary" id="sum-${sessionCount}">0 present &bull; 0 absent &bull; 0 late</span>
+                    </div>
+                    ${memberRows}
+                    <div class="session-note-row">
+                        <label><i class="fa-solid fa-note-sticky"></i>&nbsp; Session notes</label>
+                        <textarea>${notes}</textarea>
+                    </div>
+                    <div class="session-att-actions">
+                        <button class="btn-cancel-att">Undo changes</button>
+                        <button class="btn-save-att" onclick="saveAtt('entry-${sessionCount}')"><i class="fa-solid fa-floppy-disk"></i> Save attendance</button>
+                    </div>
+                </div>
+            </div>`;
+
+            // Prepend (newest first)
+            document.getElementById('sessionLogContainer').insertAdjacentHTML('afterbegin', html);
+
+            // Add a new green dot to the strip
+            const strip = document.querySelector('.session-dots-row');
+            const newDot = document.createElement('div');
+            newDot.className = 's-dot held';
+            newDot.innerHTML = `<i class="fa-solid fa-check" style="font-size:8px"></i><div class="s-dot-tip">${pretty.split(',')[0]} — 0/${members.length} marked</div>`;
+            // insert before first upcoming dot
+            const firstUpcoming = strip.querySelector('.s-dot.upcoming');
+            if (firstUpcoming) strip.insertBefore(newDot, firstUpcoming);
+            else strip.appendChild(newDot);
+
+            // Update session count stat
+            document.getElementById('statSessions').textContent = sessionCount;
+
+            // Update total study hours
+            const hrs = sessionCount * 2;
+            document.getElementById('statHours').textContent = hrs + 'h';
+
+            closeModal();
+            // Scroll to new entry
+            document.getElementById('entry-'+sessionCount).scrollIntoView({ behavior:'smooth', block:'center' });
+        }
+
+        // Init recalc on load
+        recalcMasterBar();
+        </script>
     </body>
 </html>
