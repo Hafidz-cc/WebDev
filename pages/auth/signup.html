@@ -28,25 +28,38 @@
         <a href="/WebDev/index.html" class="close-page">×</a>
         <h1>Sign Up</h1>
 
-        <form action="verify-enrollment.html" method="get">
-            <input type="text" name="lastName" placeholder="Last Name" required>
-            <input type="text" name="firstName" placeholder="First Name" required>
-            <input type="text" name="middleInitial" placeholder="Middle Initial (optional)" maxlength="1">
-            <label for="birthdate" id="bdate"></label>
-            <input type="date" name="birthdate" placeholder="birthdate" required>
-            <input type="email" name="email" title="Please use your @wmsu.edu.ph email address" pattern=[a-zA-Z0-9._%+\-]+@wmsu\.edu\.ph placeholder="e.g.,ty0000000000@wmsu.edu.ph" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <input type="text" name="Year" placeholder="Year Level" required>
-            <input type="text" name="section" placeholder="Section" required>
-            <input type="text" name="course" placeholder="Course (e.g., BS Computer Science)" required>
-             <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
+        <form action="verify-enrollment.html" method="get" id="form">
+            <label for="lastName">Last Name</label>
+            <input id="lastName" type="text" name="lastName" placeholder="Last Name" required>
+            <label for="firstName">First Name</label>
+            <input id="firstName" type="text" name="firstName" placeholder="First Name" required>
+            <label for="middleInitial">Middle Initial (optional)</label>
+            <input id="middleInitial" type="text" name="middleInitial" placeholder="Middle Initial (optional)" maxlength="1">
+            <label for="birthdate">Birthdate</label>
+            <input id="birthdate" type="date" name="birthdate" required>
+            <label for="email">Email</label>
+            <input id="email" type="email" name="email" title="Please use your @wmsu.edu.ph email address" pattern=[a-zA-Z0-9._%+\-]+@wmsu\.edu\.ph placeholder="e.g., ty0000000000@wmsu.edu.ph" required>
+            <label for="number">Phone number (optional)</label>
+            <input type="number" name="number" required title="phone number" maxlength="11" minlength="11" placeholder="e.g., 09752817867">
+            <label for="password">Password  (minimum 8 characters password length)</label>
+            <input id="password" type="password" name="password" placeholder="Password" required minlength="8">
+            <label for="confirmPassword">Confirm Password</label>
+            <input id="confirmPassword" type="password" name="confirmPassword" placeholder="Confirm Password" required>
+            <label for="ID">Student ID number</label>
+            <input id="ID" type="number" name="ID" placeholder="e.g., 202500087" required>
+            <label for="Year">Year Level</label>
+            <input id="Year" type="number" name="Year" placeholder="e.g., '1'" required >
+            <label for="section">Section</label>
+            <input id="section" type="text" name="section" placeholder="Section" required>
+            <label for="course">Course</label>
+            <input id="course" type="text" name="course" placeholder="Course (e.g., BS Computer Science)" required>
    
            
            
           
 
-            <div class="terms"> 
-                <input type="checkbox" required> I agree to the <a href="../misc/terms.html">Terms</a> and <a href="../misc/privacy.html">Privacy Policy</a> 
+            <div class="terms">
+                <label><input type="checkbox" required> I agree to the <a href="../misc/terms.html">Terms</a> and <a href="../misc/privacy.html">Privacy Policy</a></label>
             </div>
 
             <button type="submit">Create Account</button>
@@ -61,5 +74,30 @@
 </div>
 
 </body>
+<script>  
+const pass = document.getElementById("password");
+const confirmpass = document.getElementById("confirmPassword");
+const form = document.getElementById("form");
+
+form.addEventListener("submit", checkpass);
+
+function checkpass(event) {
+    event.preventDefault();
+    
+    if (pass.value === "" || confirmpass.value === "") {
+        alert("Please enter a password!");
+        return;
+    }
+    
+    if (pass.value !== confirmpass.value) {
+        alert("Passwords don't match! Try again");
+        return;
+    }
+    
+    alert("Password confirmed!");
+    form.submit();
+}
+</script>
+
 </html>
-@media()
+

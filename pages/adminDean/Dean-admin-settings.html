@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../../assets/CSS/base/base.css">
+        <link rel="stylesheet" href="../../assets/CSS/base/navbar.css">
+        <link rel="stylesheet" href="../../assets/CSS/base/layout.css">
+        <link rel="stylesheet" href="../../assets/CSS/admin/admin.css">
+        <link rel="stylesheet" href="../../assets/CSS/admin/admin-pages.css">
+        <link rel="stylesheet" href="../../assets/CSS/misc/switcher.css">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Belanosima&family=Bricolage+Grotesque:opsz,wght@12..96,420&family=Coiny&family=McLaren&family=Pacifico&family=Pangolin&display=swap" rel="stylesheet">
+    </head>
+
+    <body>
+                <nav>
+            <div id="nav-container">
+                <a href="../../index.html">
+                    <div class="logo">
+                        <span class="black">Hive</span><span class="orange">Minds</span>
+                    </div>
+                </a>
+                <div id="nav-links">
+                    <a class="hover" href="Dean-admin-dashboard.html">Dashboard</a>
+                    <a class="hover" href="Dean-admin-users.html">Users</a>
+                    <a class="hover" href="Dean-admin-hives.html">Hives</a>
+                    <a class="hover" href="../../pages/misc/profile.html">Profile</a>
+                </div>
+                <div id="auth-links">
+                    <a class="hover" href="../../pages/misc/profile.html">Dean Admin</a>
+                </div>
+            </div>
+        </nav>
+
+
+        <main>
+            <div id="container">
+                <div id="sidebar">
+                    <div id="menu">
+                        <p>MENU</p>
+                        <hr>
+                        <a href="Dean-admin-dashboard.html">
+                            <div class="sidebar-button menu">
+                                <p>Dashboard</p>
+                            </div>
+                        </a>
+                        <a href="Dean-admin-users.html">
+                            <div class="sidebar-button menu">
+                                <p>Users</p>
+                            </div>
+                        </a>
+                        <a href="Dean-admin-hives.html">
+                            <div class="sidebar-button menu">
+                                <p>Hives</p>
+                            </div>
+                        </a>
+                         <a href="Dean-admin-verifications.html">
+                            <div class="sidebar-button menu">
+                                <p>Group Verifications</p>
+                            </div>
+                        </a>
+                        <a href="Dean-admin-settings.html">
+                            <div class="sidebar-button menu active">
+                                <p>Settings</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div id="my-hives">
+                        <p>QUICK STATS</p>
+                        <hr>
+                        <div class="sidebar-button my-hives">
+                            <span class="hex"></span><p>124 total users</p>
+                        </div>
+                        <div class="sidebar-button my-hives">
+                            <span class="hex"></span><p>38 active hives</p>
+                        </div>
+                        <div class="sidebar-button my-hives">
+                            <span class="hex"></span><p>3 flagged posts</p>
+                        </div>
+                        <div class="sidebar-button my-hives">
+                            <span class="hex"></span><p>12 new today</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="content">
+                    <div id="qotd">Dean Admin — Settings</div>
+
+                    <div class="admin-card" style="margin-bottom: 20px; padding: 18px;">
+                        <div class="section-label">Dean Responsibilities</div>
+                        <ul style="margin: 10px 0 0 16px; padding-left: 16px;">
+                            <li>Configure college-level moderation and verification preferences.</li>
+                            <li>Adjust rules for group approval, reporting, and student conduct.</li>
+                        </ul>
+                    </div>
+
+                    <div class="admin-page-body">
+
+                        <div class="page-topbar">
+                            <div class="page-topbar-title">Settings</div>
+                        </div>
+
+                        <div class="settings-grid">
+
+                            <!-- Admin Account -->
+                            <div class="settings-card">
+                                <div class="settings-card-header">
+                                    <div>
+                                        <div class="settings-card-title">Admin Account</div>
+                                        <div class="settings-card-desc">Update your admin credentials</div>
+                                    </div>
+                                </div>
+                                <div class="settings-card-body">
+                                    <div class="settings-field">
+                                        <label>Name</label>
+                                        <input type="text" value="Admin">
+                                    </div>
+                                    <hr class="settings-divider">
+                                    <div class="settings-field">
+                                        <label>Email</label>
+                                        <input type="email" value="admin@hiveminds.com">
+                                    </div>
+                                    <hr class="settings-divider">
+                                    <div class="settings-field">
+                                        <label>Password</label>
+                                        <input type="password" value="placeholder">
+                                    </div>
+                                    <div class="settings-save-row">
+                                        <button class="btn-save">Save Changes</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Platform Settings -->
+                           
+
+                            <!-- Moderation -->
+                            
+
+                            <!-- Danger Zone -->
+                            
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <div id="role-switcher">
+            <span class="switcher-label">View as</span>
+            <a href="../../pages/home/home_home-feed.html" class="switcher-btn">Student</a>
+            <a href="../admin/admin-dashboard.html" class="switcher-btn">Admin</a>
+                  <a href="../adminRegistrar/Registrar-admin-verifications.html" class="switcher-btn">Registrar-Admin</a>
+            <a href="Dean-admin-dashboard.html" class="switcher-btn active">Dean</a>
+        </div>
+            
+    </body>
+</html>
+

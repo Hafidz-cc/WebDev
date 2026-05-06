@@ -38,7 +38,7 @@
     </head>
 
     <body>
-        <nav>
+                <nav>
             <div id="nav-container">
                 <a href="../../index.html">
                     <div class="logo">
@@ -46,15 +46,17 @@
                     </div>
                 </a>
                 <div id="nav-links">
-                    <a class="hover active-nav" href="admin-dashboard.html">Dashboard</a>
-                    <a class="hover" href="admin-hives.html">Hives</a>
+                    <a class="hover active-nav" href="Dean-admin-dashboard.html">Dashboard</a>
+                    <a class="hover" href="Dean-admin-users.html">Users</a>
+                    <a class="hover" href="Dean-admin-hives.html">Hives</a>
                     <a class="hover" href="../../pages/misc/profile.html">Profile</a>
                 </div>
                 <div id="auth-links">
-                    <a class="hover" href="../../pages/misc/profile.html">Admin</a>
+                    <a class="hover" href="../../pages/misc/profile.html">Dean Admin</a>
                 </div>
             </div>
         </nav>
+
 
         <main>
             <div id="container">
@@ -62,19 +64,19 @@
                     <div id="menu">
                         <p>MENU</p>
                         <hr>
-                        <a href="admin-dashboard.html">
+                        <a href="Dean-admin-dashboard.html">
                             <div class="sidebar-button menu"><p>Dashboard</p></div>
                         </a>
-                        <a href="admin-users.html">
+                        <a href="Dean-admin-users.html">
                             <div class="sidebar-button menu"><p>Users</p></div>
                         </a>
-                        <a href="admin-hives.html">
+                        <a href="Dean-admin-hives.html">
                             <div class="sidebar-button menu"><p>Hives</p></div>
                         </a>
-                        <a href="admin-verifications.html">
-                            <div class="sidebar-button menu active"><p>Verifications</p></div>
+                        <a href="Dean-admin-verifications.html">
+                            <div class="sidebar-button menu active"><p> Group Verifications</p></div>
                         </a>
-                        <a href="admin-settings.html">
+                        <a href="Dean-admin-settings.html">
                             <div class="sidebar-button menu"><p>Settings</p></div>
                         </a>
                     </div>
@@ -90,26 +92,35 @@
                 </div>
 
                 <div id="content">
-                    <div id="qotd">Student Verifications — HiveMinds</div>
+                    <div id="qotd">Dean Admin — Verifications</div>
+
+                    <div class="admin-card" style="margin-bottom: 20px; padding: 18px;">
+                        <div class="section-label">Dean Responsibilities</div>
+                        <ul style="margin: 10px 0 0 16px; padding-left: 16px;">
+                            <li>Approve or reject group verifications before they become active.</li>
+                            <li>Manage student reports and moderate group behavior.</li>
+                            <li>Protect college integrity through careful review and approval.</li>
+                        </ul>
+                    </div>
 
                     <div id="verification-body">
 
                         <div>
-                            <div class="section-label">Pending Review</div>
+                            <div class="section-label">Group Verification Requests</div>
 
                             <div class="verif-card">
-                                <div class="verif-avatar-placeholder"><i class="fa fa-user"></i></div>
+                                <div class="verif-avatar-placeholder"><i class="fa fa-users"></i></div>
                                 <div class="verif-info">
-                                    <div class="verif-name">Buzztley, Rick A.</div>
+                                    <div class="verif-name">Calculus Study Group</div>
                                     <div class="verif-meta">
-                                        <span><b>Email </b>rb0000000001@wmsu.edu.ph</span>
-                                        <span><b>Student No. </b>2021-00001</span>
-                                        <span><b>Course </b>BS Computer Science</span>
-                                        <span><b>Year Level </b>3rd Year</span>
+                                        <span><b>Owner </b>Rick Buzztley</span>
+                                        <span><b>Subject </b>Mathematics</span>
+                                        <span><b>Members </b>18</span>
+                                        <span><b>Type </b>Recurring</span>
                                         <span><b>Department </b>College of Computing Studies</span>
-                                        <span><b>Section </b>BSCS 3-A</span>
+                                        <span><b>Status </b>Group pending verification</span>
                                     </div>
-                                    <div class="verif-submitted">Submitted: Mar 20, 2026 &middot; 9:14 AM</div>
+                                    <div class="verif-submitted">Requested: Mar 20, 2026 &middot; 9:14 AM</div>
                                 </div>
                                 <div class="verif-actions">
                                     <span class="badge badge-pending">Pending</span>
@@ -119,18 +130,18 @@
                             </div>
 
                             <div class="verif-card">
-                                <div class="verif-avatar-placeholder"><i class="fa fa-user"></i></div>
+                                <div class="verif-avatar-placeholder"><i class="fa fa-users"></i></div>
                                 <div class="verif-info">
-                                    <div class="verif-name">Santos, Maya L.</div>
+                                    <div class="verif-name">Bio Bees Support Hive</div>
                                     <div class="verif-meta">
-                                        <span><b>Email </b>ms0000000002@wmsu.edu.ph</span>
-                                        <span><b>Student No. </b>2022-00045</span>
-                                        <span><b>Course </b>BS Biology</span>
-                                        <span><b>Year Level </b>2nd Year</span>
+                                        <span><b>Owner </b>Maya Santos</span>
+                                        <span><b>Subject </b>Biology</span>
+                                        <span><b>Members </b>12</span>
+                                        <span><b>Type </b>One-time</span>
                                         <span><b>Department </b>College of Science</span>
-                                        <span><b>Section </b>BSBio 2-B</span>
+                                        <span><b>Status </b>Group pending verification</span>
                                     </div>
-                                    <div class="verif-submitted">Submitted: Mar 21, 2026 &middot; 2:38 PM</div>
+                                    <div class="verif-submitted">Requested: Mar 21, 2026 &middot; 2:38 PM</div>
                                 </div>
                                 <div class="verif-actions">
                                     <span class="badge badge-pending">Pending</span>
@@ -140,18 +151,18 @@
                             </div>
 
                             <div class="verif-card">
-                                <div class="verif-avatar-placeholder"><i class="fa fa-user"></i></div>
+                                <div class="verif-avatar-placeholder"><i class="fa fa-users"></i></div>
                                 <div class="verif-info">
-                                    <div class="verif-name">Reyes, Leo M.</div>
+                                    <div class="verif-name">Physics Exam Blitz</div>
                                     <div class="verif-meta">
-                                        <span><b>Email </b>lr0000000003@wmsu.edu.ph</span>
-                                        <span><b>Student No. </b>2023-00112</span>
-                                        <span><b>Course </b>BS Mathematics</span>
-                                        <span><b>Year Level </b>1st Year</span>
+                                        <span><b>Owner </b>Leo Reyes</span>
+                                        <span><b>Subject </b>Physics</span>
+                                        <span><b>Members </b>21</span>
+                                        <span><b>Type </b>One-time</span>
                                         <span><b>Department </b>College of Science</span>
-                                        <span><b>Section </b>BSMath 1-A</span>
+                                        <span><b>Status </b>Group pending verification</span>
                                     </div>
-                                    <div class="verif-submitted">Submitted: Mar 22, 2026 &middot; 8:05 AM</div>
+                                    <div class="verif-submitted">Requested: Mar 22, 2026 &middot; 8:05 AM</div>
                                 </div>
                                 <div class="verif-actions">
                                     <span class="badge badge-pending">Pending</span>
@@ -161,18 +172,18 @@
                             </div>
 
                             <div class="verif-card">
-                                <div class="verif-avatar-placeholder"><i class="fa fa-user"></i></div>
+                                <div class="verif-avatar-placeholder"><i class="fa fa-users"></i></div>
                                 <div class="verif-info">
-                                    <div class="verif-name">Mendez, Carla B.</div>
+                                    <div class="verif-name">Chemistry Wizards</div>
                                     <div class="verif-meta">
-                                        <span><b>Email </b>cm0000000004@wmsu.edu.ph</span>
-                                        <span><b>Student No. </b>2022-00088</span>
-                                        <span><b>Course </b>BS Chemistry</span>
-                                        <span><b>Year Level </b>2nd Year</span>
+                                        <span><b>Owner </b>Carla Mendez</span>
+                                        <span><b>Subject </b>Chemistry</span>
+                                        <span><b>Members </b>42</span>
+                                        <span><b>Type </b>Recurring</span>
                                         <span><b>Department </b>College of Science</span>
-                                        <span><b>Section </b>BSChem 2-A</span>
+                                        <span><b>Status </b>Group pending verification</span>
                                     </div>
-                                    <div class="verif-submitted">Submitted: Mar 22, 2026 &middot; 11:20 AM</div>
+                                    <div class="verif-submitted">Requested: Mar 22, 2026 &middot; 11:20 AM</div>
                                 </div>
                                 <div class="verif-actions">
                                     <span class="badge badge-pending">Pending</span>
@@ -182,18 +193,18 @@
                             </div>
 
                             <div class="verif-card">
-                                <div class="verif-avatar-placeholder"><i class="fa fa-user"></i></div>
+                                <div class="verif-avatar-placeholder"><i class="fa fa-users"></i></div>
                                 <div class="verif-info">
-                                    <div class="verif-name">Uy, Sam T.</div>
+                                    <div class="verif-name">History Cram Night</div>
                                     <div class="verif-meta">
-                                        <span><b>Email </b>su0000000005@wmsu.edu.ph</span>
-                                        <span><b>Student No. </b>2021-00234</span>
-                                        <span><b>Course </b>BS Physics</span>
-                                        <span><b>Year Level </b>3rd Year</span>
-                                        <span><b>Department </b>College of Science</span>
-                                        <span><b>Section </b>BSPhysics 3-B</span>
+                                        <span><b>Owner </b>Sam Uy</span>
+                                        <span><b>Subject </b>History</span>
+                                        <span><b>Members </b>15</span>
+                                        <span><b>Type </b>In-person</span>
+                                        <span><b>Department </b>College of Arts &amp; Sciences</span>
+                                        <span><b>Status </b>Group pending verification</span>
                                     </div>
-                                    <div class="verif-submitted">Submitted: Mar 23, 2026 &middot; 4:52 PM</div>
+                                    <div class="verif-submitted">Requested: Mar 23, 2026 &middot; 4:52 PM</div>
                                 </div>
                                 <div class="verif-actions">
                                     <span class="badge badge-pending">Pending</span>
@@ -207,16 +218,16 @@
                             <div class="section-label">Approved</div>
 
                             <div class="verif-card">
-                                <div class="verif-avatar-placeholder"><i class="fa fa-user"></i></div>
+                                <div class="verif-avatar-placeholder"><i class="fa fa-users"></i></div>
                                 <div class="verif-info">
-                                    <div class="verif-name">Cruz, Ana G.</div>
+                                    <div class="verif-name">Literature &amp; Lore</div>
                                     <div class="verif-meta">
-                                        <span><b>Email </b>ac0000000010@wmsu.edu.ph</span>
-                                        <span><b>Student No. </b>2020-00301</span>
-                                        <span><b>Course </b>BS Computer Science</span>
-                                        <span><b>Year Level </b>4th Year</span>
-                                        <span><b>Department </b>College of Computing Studies</span>
-                                        <span><b>Section </b>BSCS 4-A</span>
+                                        <span><b>Owner </b>Ana Cruz</span>
+                                        <span><b>Subject </b>English</span>
+                                        <span><b>Members </b>38</span>
+                                        <span><b>Type </b>Recurring</span>
+                                        <span><b>Department </b>College of Arts &amp; Sciences</span>
+                                        <span><b>Status </b>Group verified</span>
                                     </div>
                                     <div class="verif-submitted">Approved: Mar 18, 2026</div>
                                 </div>
@@ -226,16 +237,16 @@
                             </div>
 
                             <div class="verif-card">
-                                <div class="verif-avatar-placeholder"><i class="fa fa-user"></i></div>
+                                <div class="verif-avatar-placeholder"><i class="fa fa-users"></i></div>
                                 <div class="verif-info">
-                                    <div class="verif-name">Torres, Ben R.</div>
+                                    <div class="verif-name">Bio Bees</div>
                                     <div class="verif-meta">
-                                        <span><b>Email </b>bt0000000011@wmsu.edu.ph</span>
-                                        <span><b>Student No. </b>2021-00405</span>
-                                        <span><b>Course </b>BS English</span>
-                                        <span><b>Year Level </b>3rd Year</span>
-                                        <span><b>Department </b>College of Arts &amp; Sciences</span>
-                                        <span><b>Section </b>BSEng 3-C</span>
+                                        <span><b>Owner </b>Ben Torres</span>
+                                        <span><b>Subject </b>Biology</span>
+                                        <span><b>Members </b>29</span>
+                                        <span><b>Type </b>Recurring</span>
+                                        <span><b>Department </b>College of Science</span>
+                                        <span><b>Status </b>Group verified</span>
                                     </div>
                                     <div class="verif-submitted">Approved: Mar 19, 2026</div>
                                 </div>
@@ -249,18 +260,18 @@
                             <div class="section-label">Rejected</div>
 
                             <div class="verif-card">
-                                <div class="verif-avatar-placeholder"><i class="fa fa-user"></i></div>
+                                <div class="verif-avatar-placeholder"><i class="fa fa-users"></i></div>
                                 <div class="verif-info">
-                                    <div class="verif-name">Flores, Dan K.</div>
+                                    <div class="verif-name">Spam Study Circle</div>
                                     <div class="verif-meta">
-                                        <span><b>Email </b>df0000000020@wmsu.edu.ph</span>
-                                        <span><b>Student No. </b>2022-00199</span>
-                                        <span><b>Course </b>BS Biology</span>
-                                        <span><b>Year Level </b>2nd Year</span>
+                                        <span><b>Owner </b>Dan Flores</span>
+                                        <span><b>Subject </b>Miscellaneous</span>
+                                        <span><b>Members </b>8</span>
+                                        <span><b>Type </b>Online</span>
                                         <span><b>Department </b>College of Science</span>
-                                        <span><b>Section </b>BSBio 2-A</span>
+                                        <span><b>Status </b>Verification rejected</span>
                                     </div>
-                                    <div class="verif-submitted">Rejected: Mar 17, 2026 &middot; Reason: COR unreadable</div>
+                                    <div class="verif-submitted">Rejected: Mar 17, 2026 &middot; Reason: does not meet group conduct standards</div>
                                 </div>
                                 <div class="verif-actions">
                                     <span class="badge badge-rejected">Rejected</span>
@@ -276,9 +287,12 @@
         <div id="role-switcher">
             <span class="switcher-label">View as</span>
             <a href="../../pages/home/home_home-feed.html" class="switcher-btn">Student</a>
-            <a href="admin-dashboard.html" class="switcher-btn active">Admin</a>
-                     <a href="/WebDev/pages/adminRegistrar/Registrar-admin-verifications.html" class="switcher-btn active">Registrar-Admin</a>
+            <a href="../admin/admin-dashboard.html" class="switcher-btn">Admin</a>
+                     <a href="../adminRegistrar/Registrar-admin-verifications.html" class="switcher-btn">Registrar-Admin</a>
+            <a href="Dean-admin-dashboard.html" class="switcher-btn active">Dean</a>
         </div>
 
+            
     </body>
 </html>
+
