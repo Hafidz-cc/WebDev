@@ -17,7 +17,7 @@
     </head>
 
     <body >
-        <nav>
+                <nav>
             <div id="nav-container">
                 <a href="../../index.html">
                     <div class="logo">
@@ -25,15 +25,17 @@
                     </div>
                 </a>
                 <div id="nav-links">
-                    <a class="hover active-nav" href="admin-dashboard.html">Dashboard</a>
-                    <a class="hover" href="admin-hives.html">Hives</a>
+                    <a class="hover active-nav" href="Dean-admin-dashboard.html">Dashboard</a>
+                    <a class="hover" href="Dean-admin-users.html">Users</a>
+                    <a class="hover" href="Dean-admin-hives.html">Hives</a>
                     <a class="hover" href="../../pages/misc/profile.html">Profile</a>
                 </div>
                 <div id="auth-links">
-                    <a class="hover" href="../../pages/misc/profile.html">Admin</a>
+                    <a class="hover" href="../../pages/misc/profile.html">Dean Admin</a>
                 </div>
             </div>
         </nav>
+
 
         <main>
             <div id="container">
@@ -42,27 +44,27 @@
                     <div id="menu">
                         <p>MENU</p>
                         <hr>
-                        <a href="admin-dashboard.html">
+                        <a href="Dean-admin-dashboard.html">
                             <div class="sidebar-button menu active">
                                 <p>Dashboard</p>
                             </div>
                         </a>
-                        <a href="admin-users.html">
+                        <a href="Dean-admin-users.html">
                             <div class="sidebar-button menu">
                                 <p>Users</p>
                             </div>
                         </a>
-                        <a href="admin-hives.html">
+                        <a href="Dean-admin-hives.html">
                             <div class="sidebar-button menu">
                                 <p>Hives</p>
                             </div>
                         </a>
-                        <a href="admin-verifications.html">
+                        <a href="Dean-admin-verifications.html">
                             <div class="sidebar-button menu">
-                                <p>Verifications</p>
+                                <p>Group Verifications</p>
                             </div>
                         </a>
-                        <a href="admin-settings.html">
+                        <a href="Dean-admin-settings.html">
                             <div class="sidebar-button menu">
                                 <p>Settings</p>
                             </div>
@@ -89,7 +91,17 @@
 
                 <div id="content">
                     <div id="qotd">
-                        Super-Admin Dashboard — HiveMinds
+                        Dean Admin Dashboard — HiveMinds
+                    </div>
+
+                    <div class="admin-card" style="margin-bottom: 20px; padding: 18px;">
+                        <div class="section-label">Dean Responsibilities</div>
+                        <ul style="margin: 10px 0 0 16px; padding-left: 16px;">
+                            <li>Provide student behavioral oversight for all groups within the college.</li>
+                            <li>Moderate reported issues and manage student reports across the system.</li>
+                            <li>Review and verify new groups before they become active or part of the system.</li>
+                            <li>Ensure college-wide compliance, safety, and respectful collaboration.</li>
+                        </ul>
                     </div>
 
                     <div id="admin-body">
@@ -145,7 +157,7 @@
                                                     </td>
                                                     <td>Mar 20</td>
                                                     <td><span class="status-badge status-active">Active</span></td>
-                                                    <td><button class="action-btn danger">Ban</button></td>
+                                                    <td><button class="action-btn danger">Suspend</button></td>
                                                 </tr>
                                                 <tr>
                                                     <td>
@@ -156,7 +168,7 @@
                                                     </td>
                                                     <td>Mar 21</td>
                                                     <td><span class="status-badge status-active">Active</span></td>
-                                                    <td><button class="action-btn danger">Ban</button></td>
+                                                    <td><button class="action-btn danger">Suspend</button></td>
                                                 </tr>
                                                 <tr>
                                                     <td>
@@ -167,7 +179,7 @@
                                                     </td>
                                                     <td>Mar 22</td>
                                                     <td><span class="status-badge status-active">Active</span></td>
-                                                    <td><button class="action-btn danger">Ban</button></td>
+                                                    <td><button class="action-btn danger">Suspend</button></td>
                                                 </tr>
                                                 <tr>
                                                     <td>
@@ -178,7 +190,7 @@
                                                     </td>
                                                     <td>Mar 22</td>
                                                     <td><span class="status-badge status-inactive">Inactive</span></td>
-                                                    <td><button class="action-btn danger">Ban</button></td>
+                                                    <td><button class="action-btn danger">Suspend</button></td>
                                                 </tr>
                                                 <tr>
                                                     <td>
@@ -189,7 +201,7 @@
                                                     </td>
                                                     <td>Mar 23</td>
                                                     <td><span class="status-badge status-flagged">Flagged</span></td>
-                                                    <td><button class="action-btn danger">Ban</button></td>
+                                                    <td><button class="action-btn danger">Suspend</button></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -365,9 +377,12 @@
         <div id="role-switcher">
             <span class="switcher-label">View as</span>
             <a href="../../pages/home/home_home-feed.html" class="switcher-btn">Student</a>
-            <a href="admin-dashboard.html" class="switcher-btn active">Admin</a>
-                   <a href="/WebDev/pages/adminRegistrar/Registrar-admin-verifications.html" class="switcher-btn active">Registrar-Admin</a>
+            <a href="../admin/admin-dashboard.html" class="switcher-btn">Admin</a>
+            <a href="../adminRegistrar/Registrar-admin-verifications.html" class="switcher-btn">Registrar-Admin</a>
+            <a href="Dean-admin-dashboard.html" class="switcher-btn active">Dean</a>
         </div>
 
+            
     </body>
 </html>
+

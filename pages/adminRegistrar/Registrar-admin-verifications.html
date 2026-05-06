@@ -32,13 +32,14 @@
             .badge-pending  { background: #fef3c7; color: #92400e; }
             .badge-approved { background: #dcfce7; color: #166534; }
             .badge-rejected { background: #fee2e2; color: #991b1b; }
+            .btn-view { padding: 6px 14px; background: #3b82f6; color: #fff; border: none; border-radius: 7px; font-size: 0.81rem; font-weight: 600; cursor: pointer; }
             .btn-approve { padding: 6px 14px; background: #22c55e; color: #fff; border: none; border-radius: 7px; font-size: 0.81rem; font-weight: 600; cursor: pointer; }
             .btn-reject { padding: 6px 14px; background: #fff; color: #ef4444; border: 1.5px solid #ef4444; border-radius: 7px; font-size: 0.81rem; font-weight: 600; cursor: pointer; }
         </style>
     </head>
 
     <body>
-        <nav>
+                <nav>
             <div id="nav-container">
                 <a href="../../index.html">
                     <div class="logo">
@@ -46,8 +47,9 @@
                     </div>
                 </a>
                 <div id="nav-links">
-                    <a class="hover active-nav" href="admin-dashboard.html">Dashboard</a>
-                    <a class="hover" href="admin-hives.html">Hives</a>
+                    <a class="hover active-nav" href="Registrar-admin-dashboard.html">Dashboard</a>
+                    <a class="hover" href="Registrar-admin-users.html">Users</a>
+                    <a class="hover" href="Registrar-admin-hives.html">Hives</a>
                     <a class="hover" href="../../pages/misc/profile.html">Profile</a>
                 </div>
                 <div id="auth-links">
@@ -55,6 +57,7 @@
                 </div>
             </div>
         </nav>
+
 
         <main>
             <div id="container">
@@ -105,8 +108,8 @@
                                 </div>
                                 <div class="verif-actions">
                                     <span class="badge badge-pending">Pending</span>
+                                    <button class="btn-view">View Document</button>
                                     <button class="btn-approve">Approve</button>
-                                    <button class="btn-view" style="background-color:whitesmoke;">view Document ></button>
                                     <button class="btn-reject">Reject</button>
                                 </div>
                             </div>
@@ -127,8 +130,8 @@
                                 </div>
                                 <div class="verif-actions">
                                     <span class="badge badge-pending">Pending</span>
+                                    <button class="btn-view">View Document</button>
                                     <button class="btn-approve">Approve</button>
-                                                      <button class="btn-view" style="background-color:whitesmoke;">view Document ></button>
                                     <button class="btn-reject">Reject</button>
                                 </div>
                             </div>
@@ -149,8 +152,8 @@
                                 </div>
                                 <div class="verif-actions">
                                     <span class="badge badge-pending">Pending</span>
+                                    <button class="btn-view">View Document</button>
                                     <button class="btn-approve">Approve</button>
-                                                      <button class="btn-view" style="background-color:whitesmoke;">view Document ></button>
                                     <button class="btn-reject">Reject</button>
                                 </div>
                             </div>
@@ -171,8 +174,8 @@
                                 </div>
                                 <div class="verif-actions">
                                     <span class="badge badge-pending">Pending</span>
+                                    <button class="btn-view">View Document</button>
                                     <button class="btn-approve">Approve</button>
-                                                      <button class="btn-view" style="background-color:whitesmoke;">view Document ></button>
                                     <button class="btn-reject">Reject</button>
                                 </div>
                             </div>
@@ -193,8 +196,8 @@
                                 </div>
                                 <div class="verif-actions">
                                     <span class="badge badge-pending">Pending</span>
+                                    <button class="btn-view">View Document</button>
                                     <button class="btn-approve">Approve</button>
-                                                      <button class="btn-view" style="background-color:whitesmoke;">view Document ></button>
                                     <button class="btn-reject">Reject</button>
                                 </div>
                             </div>
@@ -277,5 +280,41 @@
                 <a href="/WebDev/pages/adminRegistrar/Registrar-admin-dashboard.html" class="switcher-btn active">Registrar-Admin</a>
         </div>
 
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Add event listeners to all buttons
+                document.querySelectorAll('.btn-approve').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        if (confirm('Are you sure you want to approve this verification?')) {
+                            alert('Verification approved!');
+                            // Here you would typically send a request to the server
+                        }
+                    });
+                });
+
+                document.querySelectorAll('.btn-reject').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const reason = prompt('Please provide a reason for rejection:');
+                        if (reason !== null && reason.trim() !== '') {
+                            if (confirm(`Reject with reason: "${reason}"?`)) {
+                                alert('Verification rejected!');
+                                // Here you would typically send a request to the server
+                            }
+                        } else if (reason !== null) {
+                            alert('Reason is required for rejection.');
+                        }
+                    });
+                });
+
+                document.querySelectorAll('.btn-view').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        alert('Opening document viewer...\n(In a real application, this would display the submitted student document for review.)');
+                        // Here you would typically open a modal or new window with the document
+                    });
+                });
+            });
+        </script>
+
+            
     </body>
 </html>

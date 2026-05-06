@@ -9,23 +9,23 @@
 
 .login-card{
     background-color:rgb(247, 245, 245);
-    padding:30px 24px;
-    border: 5px solid #FFD400;
-    border-radius:20px;
-    box-shadow: 10px 10px rgba(0, 0, 0, 0.622);
-    width:min(560px, 90vw);
-    max-width:600px;
+    padding:24px 20px;
+    border: 4px solid #FFD400;
+    border-radius:18px;
+    box-shadow: 8px 8px rgba(0, 0, 0, 0.22);
+    width:min(520px, 92vw);
+    max-width:520px;
     text-align:center;
 }
 
 .login-card h1{
-    margin-bottom:25px;
+    margin-bottom:18px;
 }
 
 .login-card form{
     display:flex;
     flex-direction:column;
-    gap:15px;
+    gap:10px;
 }
 
 .user-redirect a {
@@ -33,12 +33,21 @@
     color: white;
 }
 
+.login-card label{
+    display:flex;
+    justify-content:flex-start;
+    font-size:0.95rem;
+    color:#333;
+    font-weight:600;
+    margin-bottom:6px;
+}
+
 .login-card input{
     width:100%;
-    padding:10px;
+    padding:12px 12px;
     border-radius:8px;
     border:1px solid #ccc;
-    font-size:1rem;
+    font-size:0.98rem;
     box-sizing:border-box;
 }
 
@@ -63,7 +72,26 @@
     font-size:0.9rem;
 }
 
-.signup-link a, .terms a{
+.terms{
+    text-align:left;
+    font-size:0.92rem;
+    line-height:1.4;
+}
+
+.terms label{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    cursor:pointer;
+}
+
+.terms input[type="checkbox"]{
+    width:16px;
+    height:16px;
+    margin:0;
+}
+
+.terms a{
     color:#FF5F00;
     text-decoration: none;
 }
