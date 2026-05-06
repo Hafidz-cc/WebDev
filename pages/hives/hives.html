@@ -3,12 +3,11 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Verifications — HiveMinds Admin</title>
+        <title>Discover Groups — HiveMinds</title>
         <link rel="stylesheet" href="../../assets/CSS/base/base.css">
         <link rel="stylesheet" href="../../assets/CSS/base/navbar.css">
         <link rel="stylesheet" href="../../assets/CSS/base/layout.css">
-        <link rel="stylesheet" href="../../assets/CSS/admin/admin.css">
-        <link rel="stylesheet" href="../../assets/CSS/admin/admin-pages.css">
+        <link rel="stylesheet" href="../../assets/CSS/hives/hives.css">
         <link rel="stylesheet" href="../../assets/CSS/misc/switcher.css">
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -17,267 +16,359 @@
         <link href="https://fonts.googleapis.com/css2?family=Belanosima&family=Bricolage+Grotesque:opsz,wght@12..96,420&family=Coiny&family=McLaren&family=Pacifico&family=Pangolin&display=swap" rel="stylesheet">
 
         <style>
-            #verification-body { display: flex; flex-direction: column; gap: 28px; padding: 20px 0; }
-            .section-label { font-size: 0.78rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #aaa; margin-bottom: 10px; }
-            .verif-card { background: #fff; border: 1.5px solid #f0f0f0; border-radius: 12px; padding: 18px 22px; display: flex; align-items: flex-start; gap: 18px; margin-bottom: 10px; }
-            .verif-avatar-placeholder { width: 44px; height: 44px; border-radius: 50%; background: #f3f4f6; display: flex; align-items: center; justify-content: center; color: #bbb; font-size: 1.1rem; flex-shrink: 0; border: 2px solid #eee; }
-            .verif-info { flex: 1; display: flex; flex-direction: column; gap: 5px; }
-            .verif-name { font-size: 0.97rem; font-weight: 600; color: #1a1a1a; }
-            .verif-meta { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 3px 16px; }
-            .verif-meta span { font-size: 0.81rem; color: #444; }
-            .verif-meta span b { color: #aaa; font-weight: 500; }
-            .verif-submitted { font-size: 0.77rem; color: #bbb; margin-top: 2px; }
-            .verif-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 7px; flex-shrink: 0; }
-            .badge { font-size: 0.73rem; font-weight: 700; padding: 3px 10px; border-radius: 99px; text-transform: uppercase; letter-spacing: .04em; }
-            .badge-pending  { background: #fef3c7; color: #92400e; }
-            .badge-approved { background: #dcfce7; color: #166534; }
-            .badge-rejected { background: #fee2e2; color: #991b1b; }
-            .btn-approve { padding: 6px 14px; background: #22c55e; color: #fff; border: none; border-radius: 7px; font-size: 0.81rem; font-weight: 600; cursor: pointer; }
-            .btn-reject { padding: 6px 14px; background: #fff; color: #ef4444; border: 1.5px solid #ef4444; border-radius: 7px; font-size: 0.81rem; font-weight: 600; cursor: pointer; }
+            #hives-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; padding: 20px 0; }
+            
+            .filter-section { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+            .filter-btn { padding: 8px 16px; border: 1.5px solid #e5e7eb; border-radius: 8px; background: #fff; cursor: pointer; font-size: 0.9rem; font-weight: 500; color: #444; transition: all 0.2s; }
+            .filter-btn.active { background: #f97316; color: #fff; border-color: #f97316; }
+            .filter-btn:hover { border-color: #f97316; }
+
+            .group-card { background: #fff; border: 1.5px solid #e5e7eb; border-radius: 12px; padding: 18px; cursor: pointer; transition: all 0.3s; display: flex; flex-direction: column; gap: 12px; }
+            .group-card:hover { box-shadow: 0 4px 12px rgba(249, 115, 22, 0.15); border-color: #f97316; transform: translateY(-2px); }
+            
+            .group-header { display: flex; justify-content: space-between; align-items: start; gap: 8px; }
+            .group-name { font-size: 1.05rem; font-weight: 700; color: #1a1a1a; }
+            .group-status { font-size: 0.7rem; font-weight: 700; padding: 4px 10px; border-radius: 99px; text-transform: uppercase; letter-spacing: 0.04em; }
+            .status-verified { background: #dcfce7; color: #166534; }
+            .status-pending { background: #fef3c7; color: #92400e; }
+
+            .group-owner { font-size: 0.85rem; color: #666; display: flex; align-items: center; gap: 6px; }
+            .group-owner i { color: #999; }
+
+            .group-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px 0; border-top: 1px solid #f0f0f0; border-bottom: 1px solid #f0f0f0; }
+            .meta-item { font-size: 0.8rem; }
+            .meta-label { color: #999; font-weight: 600; }
+            .meta-value { color: #1a1a1a; font-weight: 500; }
+
+            .group-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+            .tag { font-size: 0.75rem; background: #f3f4f6; color: #444; padding: 4px 10px; border-radius: 6px; }
+
+            .group-footer { display: flex; gap: 8px; }
+            .btn-join { flex: 1; padding: 8px 12px; background: #f97316; color: #fff; border: none; border-radius: 7px; font-weight: 600; cursor: pointer; font-size: 0.9rem; transition: background 0.2s; }
+            .btn-join:hover { background: #ea580c; }
+            .btn-view { flex: 1; padding: 8px 12px; background: #fff; color: #f97316; border: 1.5px solid #f97316; border-radius: 7px; font-weight: 600; cursor: pointer; font-size: 0.9rem; transition: all 0.2s; }
+            .btn-view:hover { background: #fff7ed; }
+
+            /* Modal Styles */
+            .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1000; align-items: center; justify-content: center; }
+            .modal.active { display: flex; }
+            .modal-content { background: #fff; border-radius: 12px; padding: 32px; max-width: 500px; width: 90%; max-height: 90vh; overflow-y: auto; }
+            .modal-close { position: absolute; top: 16px; right: 16px; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #999; }
+            .modal-close:hover { color: #1a1a1a; }
+
+            .modal-header { margin-bottom: 20px; }
+            .modal-title { font-size: 1.5rem; font-weight: 700; color: #1a1a1a; margin-bottom: 8px; }
+            .modal-owner { font-size: 0.9rem; color: #666; display: flex; align-items: center; gap: 6px; }
+
+            .modal-info { display: flex; flex-direction: column; gap: 16px; margin-bottom: 20px; padding: 16px; background: #f9fafb; border-radius: 8px; }
+            .info-row { display: flex; justify-content: space-between; }
+            .info-label { font-weight: 600; color: #666; }
+            .info-value { color: #1a1a1a; font-weight: 500; }
+
+            .modal-description { color: #444; line-height: 1.6; margin-bottom: 20px; }
+
+            .modal-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+
+            .modal-actions { display: flex; gap: 10px; }
+            .btn-primary { flex: 1; padding: 12px; background: #f97316; color: #fff; border: none; border-radius: 7px; font-weight: 600; cursor: pointer; font-size: 0.95rem; }
+            .btn-primary:hover { background: #ea580c; }
+            .btn-secondary { flex: 1; padding: 12px; background: #f3f4f6; color: #1a1a1a; border: none; border-radius: 7px; font-weight: 600; cursor: pointer; font-size: 0.95rem; }
+            .btn-secondary:hover { background: #e5e7eb; }
+
+            .page-title { font-size: 1.8rem; font-weight: 700; color: #1a1a1a; margin-bottom: 8px; }
+            .page-subtitle { font-size: 0.95rem; color: #666; margin-bottom: 24px; }
+
+            .empty-state { text-align: center; padding: 40px 20px; color: #999; }
+            .empty-state i { font-size: 2.5rem; margin-bottom: 12px; }
         </style>
     </head>
 
     <body>
         <nav>
             <div id="nav-container">
-                <a href="../../index.html">
+                <a href="/WebDev/index.html">
                     <div class="logo">
                         <span class="black">Hive</span><span class="orange">Minds</span>
                     </div>
                 </a>
                 <div id="nav-links">
-                    <a class="hover active-nav" href="admin-dashboard.html">Dashboard</a>
-                   <a class="hover" href="/WebDev/pages/hives/hives.html">Hives</a>
+                    <a class="hover" href="../../pages/home/home_home-feed.html">Home</a>
+                    <a class="hover active-nav" href="hives.html">Hives</a>
                     <a class="hover" href="../../pages/misc/profile.html">Profile</a>
                 </div>
                 <div id="auth-links">
-                    <a class="hover" href="../../pages/misc/profile.html">Admin</a>
+                    <a class="hover" href="../../pages/misc/profile.html">Student</a>
                 </div>
             </div>
         </nav>
 
         <main>
             <div id="container">
-                <div id="sidebar">
-                    <div id="menu">
-                        <p>MENU</p>
-                        <hr>
-                        <a href="admin-dashboard.html">
-                            <div class="sidebar-button menu"><p>Dashboard</p></div>
-                        </a>
-                        <a href="admin-users.html">
-                            <div class="sidebar-button menu"><p>Users</p></div>
-                        </a>
-                        <a href="admin-hives.html">
-                            <div class="sidebar-button menu"><p>Hives</p></div>
-                        </a>
-                        <a href="admin-verifications.html">
-                            <div class="sidebar-button menu active"><p>Verifications</p></div>
-                        </a>
-                        <a href="admin-settings.html">
-                            <div class="sidebar-button menu"><p>Settings</p></div>
-                        </a>
+                <div id="content" style="flex: 1; padding: 0 24px;">
+                    <div class="page-title">Discover Groups</div>
+                    <div class="page-subtitle">Browse and join study groups, clubs, and hives</div>
+
+                    <div class="filter-section">
+                        <button class="filter-btn active" data-filter="all">All Groups</button>
+                        <button class="filter-btn" data-filter="verified">Verified Only</button>
+                        <button class="filter-btn" data-filter="pending">Pending Verification</button>
                     </div>
 
-                    <div id="my-hives">
-                        <p>QUICK STATS</p>
-                        <hr>
-                        <div class="sidebar-button my-hives"><span class="hex"></span><p>124 total users</p></div>
-                        <div class="sidebar-button my-hives"><span class="hex"></span><p>38 active hives</p></div>
-                        <div class="sidebar-button my-hives"><span class="hex"></span><p>3 flagged posts</p></div>
-                        <div class="sidebar-button my-hives"><span class="hex"></span><p>12 new today</p></div>
-                    </div>
-                </div>
-
-                <div id="content">
-                    <div id="qotd">Student Verifications — HiveMinds</div>
-
-                    <div id="verification-body">
-
-                        <div>
-                            <div class="section-label">Pending Review</div>
-
-                            <div class="verif-card">
-                                <div class="verif-avatar-placeholder"><i class="fa fa-user"></i></div>
-                                <div class="verif-info">
-                                    <div class="verif-name">Buzztley, Rick A.</div>
-                                    <div class="verif-meta">
-                                        <span><b>Email </b>rb0000000001@wmsu.edu.ph</span>
-                                        <span><b>Student No. </b>2021-00001</span>
-                                        <span><b>Course </b>BS Computer Science</span>
-                                        <span><b>Year Level </b>3rd Year</span>
-                                        <span><b>Department </b>College of Computing Studies</span>
-                                        <span><b>Section </b>BSCS 3-A</span>
-                                    </div>
-                                    <div class="verif-submitted">Submitted: Mar 20, 2026 &middot; 9:14 AM</div>
-                                </div>
-                                <div class="verif-actions">
-                                    <span class="badge badge-pending">Pending</span>
-                                    <button class="btn-approve">Approve</button>
-                                    <button class="btn-reject">Reject</button>
-                                </div>
+                    <div id="hives-container">
+                        <!-- Verified Groups -->
+                        <div class="group-card" data-status="verified">
+                            <div class="group-header">
+                                <div class="group-name">Calculus Study Group</div>
+                                <span class="group-status status-verified">Verified</span>
                             </div>
-
-                            <div class="verif-card">
-                                <div class="verif-avatar-placeholder"><i class="fa fa-user"></i></div>
-                                <div class="verif-info">
-                                    <div class="verif-name">Santos, Maya L.</div>
-                                    <div class="verif-meta">
-                                        <span><b>Email </b>ms0000000002@wmsu.edu.ph</span>
-                                        <span><b>Student No. </b>2022-00045</span>
-                                        <span><b>Course </b>BS Biology</span>
-                                        <span><b>Year Level </b>2nd Year</span>
-                                        <span><b>Department </b>College of Science</span>
-                                        <span><b>Section </b>BSBio 2-B</span>
-                                    </div>
-                                    <div class="verif-submitted">Submitted: Mar 21, 2026 &middot; 2:38 PM</div>
-                                </div>
-                                <div class="verif-actions">
-                                    <span class="badge badge-pending">Pending</span>
-                                    <button class="btn-approve">Approve</button>
-                                    <button class="btn-reject">Reject</button>
-                                </div>
+                            <div class="group-owner"><i class="fa fa-user"></i>Alex Rivera</div>
+                            <div class="group-meta">
+                                <div class="meta-item"><span class="meta-label">Members</span><br><span class="meta-value">24</span></div>
+                                <div class="meta-item"><span class="meta-label">Department</span><br><span class="meta-value">Science</span></div>
                             </div>
-
-                            <div class="verif-card">
-                                <div class="verif-avatar-placeholder"><i class="fa fa-user"></i></div>
-                                <div class="verif-info">
-                                    <div class="verif-name">Reyes, Leo M.</div>
-                                    <div class="verif-meta">
-                                        <span><b>Email </b>lr0000000003@wmsu.edu.ph</span>
-                                        <span><b>Student No. </b>2023-00112</span>
-                                        <span><b>Course </b>BS Mathematics</span>
-                                        <span><b>Year Level </b>1st Year</span>
-                                        <span><b>Department </b>College of Science</span>
-                                        <span><b>Section </b>BSMath 1-A</span>
-                                    </div>
-                                    <div class="verif-submitted">Submitted: Mar 22, 2026 &middot; 8:05 AM</div>
-                                </div>
-                                <div class="verif-actions">
-                                    <span class="badge badge-pending">Pending</span>
-                                    <button class="btn-approve">Approve</button>
-                                    <button class="btn-reject">Reject</button>
-                                </div>
+                            <div class="group-tags">
+                                <span class="tag">Mathematics</span>
+                                <span class="tag">Study Group</span>
                             </div>
-
-                            <div class="verif-card">
-                                <div class="verif-avatar-placeholder"><i class="fa fa-user"></i></div>
-                                <div class="verif-info">
-                                    <div class="verif-name">Mendez, Carla B.</div>
-                                    <div class="verif-meta">
-                                        <span><b>Email </b>cm0000000004@wmsu.edu.ph</span>
-                                        <span><b>Student No. </b>2022-00088</span>
-                                        <span><b>Course </b>BS Chemistry</span>
-                                        <span><b>Year Level </b>2nd Year</span>
-                                        <span><b>Department </b>College of Science</span>
-                                        <span><b>Section </b>BSChem 2-A</span>
-                                    </div>
-                                    <div class="verif-submitted">Submitted: Mar 22, 2026 &middot; 11:20 AM</div>
-                                </div>
-                                <div class="verif-actions">
-                                    <span class="badge badge-pending">Pending</span>
-                                    <button class="btn-approve">Approve</button>
-                                    <button class="btn-reject">Reject</button>
-                                </div>
-                            </div>
-
-                            <div class="verif-card">
-                                <div class="verif-avatar-placeholder"><i class="fa fa-user"></i></div>
-                                <div class="verif-info">
-                                    <div class="verif-name">Uy, Sam T.</div>
-                                    <div class="verif-meta">
-                                        <span><b>Email </b>su0000000005@wmsu.edu.ph</span>
-                                        <span><b>Student No. </b>2021-00234</span>
-                                        <span><b>Course </b>BS Physics</span>
-                                        <span><b>Year Level </b>3rd Year</span>
-                                        <span><b>Department </b>College of Science</span>
-                                        <span><b>Section </b>BSPhysics 3-B</span>
-                                    </div>
-                                    <div class="verif-submitted">Submitted: Mar 23, 2026 &middot; 4:52 PM</div>
-                                </div>
-                                <div class="verif-actions">
-                                    <span class="badge badge-pending">Pending</span>
-                                    <button class="btn-approve">Approve</button>
-                                    <button class="btn-reject">Reject</button>
-                                </div>
+                            <div class="group-footer">
+                                <button class="btn-view" onclick="openGroupModal(this)">View Details</button>
+                                <button class="btn-join" onclick="requestJoin(event)">Request Join</button>
                             </div>
                         </div>
 
-                        <div>
-                            <div class="section-label">Approved</div>
-
-                            <div class="verif-card">
-                                <div class="verif-avatar-placeholder"><i class="fa fa-user"></i></div>
-                                <div class="verif-info">
-                                    <div class="verif-name">Cruz, Ana G.</div>
-                                    <div class="verif-meta">
-                                        <span><b>Email </b>ac0000000010@wmsu.edu.ph</span>
-                                        <span><b>Student No. </b>2020-00301</span>
-                                        <span><b>Course </b>BS Computer Science</span>
-                                        <span><b>Year Level </b>4th Year</span>
-                                        <span><b>Department </b>College of Computing Studies</span>
-                                        <span><b>Section </b>BSCS 4-A</span>
-                                    </div>
-                                    <div class="verif-submitted">Approved: Mar 18, 2026</div>
-                                </div>
-                                <div class="verif-actions">
-                                    <span class="badge badge-approved">Approved</span>
-                                </div>
+                        <div class="group-card" data-status="verified">
+                            <div class="group-header">
+                                <div class="group-name">Chemistry Wizards</div>
+                                <span class="group-status status-verified">Verified</span>
                             </div>
-
-                            <div class="verif-card">
-                                <div class="verif-avatar-placeholder"><i class="fa fa-user"></i></div>
-                                <div class="verif-info">
-                                    <div class="verif-name">Torres, Ben R.</div>
-                                    <div class="verif-meta">
-                                        <span><b>Email </b>bt0000000011@wmsu.edu.ph</span>
-                                        <span><b>Student No. </b>2021-00405</span>
-                                        <span><b>Course </b>BS English</span>
-                                        <span><b>Year Level </b>3rd Year</span>
-                                        <span><b>Department </b>College of Arts &amp; Sciences</span>
-                                        <span><b>Section </b>BSEng 3-C</span>
-                                    </div>
-                                    <div class="verif-submitted">Approved: Mar 19, 2026</div>
-                                </div>
-                                <div class="verif-actions">
-                                    <span class="badge badge-approved">Approved</span>
-                                </div>
+                            <div class="group-owner"><i class="fa fa-user"></i>Jordan Chen</div>
+                            <div class="group-meta">
+                                <div class="meta-item"><span class="meta-label">Members</span><br><span class="meta-value">18</span></div>
+                                <div class="meta-item"><span class="meta-label">Department</span><br><span class="meta-value">Science</span></div>
+                            </div>
+                            <div class="group-tags">
+                                <span class="tag">Chemistry</span>
+                                <span class="tag">Lab Group</span>
+                            </div>
+                            <div class="group-footer">
+                                <button class="btn-view" onclick="openGroupModal(this)">View Details</button>
+                                <button class="btn-join" onclick="requestJoin(event)">Request Join</button>
                             </div>
                         </div>
 
-                        <div>
-                            <div class="section-label">Rejected</div>
-
-                            <div class="verif-card">
-                                <div class="verif-avatar-placeholder"><i class="fa fa-user"></i></div>
-                                <div class="verif-info">
-                                    <div class="verif-name">Flores, Dan K.</div>
-                                    <div class="verif-meta">
-                                        <span><b>Email </b>df0000000020@wmsu.edu.ph</span>
-                                        <span><b>Student No. </b>2022-00199</span>
-                                        <span><b>Course </b>BS Biology</span>
-                                        <span><b>Year Level </b>2nd Year</span>
-                                        <span><b>Department </b>College of Science</span>
-                                        <span><b>Section </b>BSBio 2-A</span>
-                                    </div>
-                                    <div class="verif-submitted">Rejected: Mar 17, 2026 &middot; Reason: COR unreadable</div>
-                                </div>
-                                <div class="verif-actions">
-                                    <span class="badge badge-rejected">Rejected</span>
-                                </div>
+                        <div class="group-card" data-status="verified">
+                            <div class="group-header">
+                                <div class="group-name">Bio Bees Support Hive</div>
+                                <span class="group-status status-verified">Verified</span>
+                            </div>
+                            <div class="group-owner"><i class="fa fa-user"></i>Maya Santos</div>
+                            <div class="group-meta">
+                                <div class="meta-item"><span class="meta-label">Members</span><br><span class="meta-value">32</span></div>
+                                <div class="meta-item"><span class="meta-label">Department</span><br><span class="meta-value">Science</span></div>
+                            </div>
+                            <div class="group-tags">
+                                <span class="tag">Biology</span>
+                                <span class="tag">Support Group</span>
+                            </div>
+                            <div class="group-footer">
+                                <button class="btn-view" onclick="openGroupModal(this)">View Details</button>
+                                <button class="btn-join" onclick="requestJoin(event)">Request Join</button>
                             </div>
                         </div>
 
+                        <!-- Pending Verification Groups -->
+                        <div class="group-card" data-status="pending">
+                            <div class="group-header">
+                                <div class="group-name">Physics Exam Blitz</div>
+                                <span class="group-status status-pending">Pending</span>
+                            </div>
+                            <div class="group-owner"><i class="fa fa-user"></i>Sam Reyes</div>
+                            <div class="group-meta">
+                                <div class="meta-item"><span class="meta-label">Members</span><br><span class="meta-value">15</span></div>
+                                <div class="meta-item"><span class="meta-label">Department</span><br><span class="meta-value">Science</span></div>
+                            </div>
+                            <div class="group-tags">
+                                <span class="tag">Physics</span>
+                                <span class="tag">Exam Prep</span>
+                            </div>
+                            <div class="group-footer">
+                                <button class="btn-view" onclick="openGroupModal(this)">View Details</button>
+                                <button class="btn-join" onclick="requestJoin(event)">Request Join</button>
+                            </div>
+                        </div>
+
+                        <div class="group-card" data-status="pending">
+                            <div class="group-header">
+                                <div class="group-name">History Cram Night</div>
+                                <span class="group-status status-pending">Pending</span>
+                            </div>
+                            <div class="group-owner"><i class="fa fa-user"></i>Lisa Wong</div>
+                            <div class="group-meta">
+                                <div class="meta-item"><span class="meta-label">Members</span><br><span class="meta-value">12</span></div>
+                                <div class="meta-item"><span class="meta-label">Department</span><br><span class="meta-value">Arts & Sciences</span></div>
+                            </div>
+                            <div class="group-tags">
+                                <span class="tag">History</span>
+                                <span class="tag">Study Session</span>
+                            </div>
+                            <div class="group-footer">
+                                <button class="btn-view" onclick="openGroupModal(this)">View Details</button>
+                                <button class="btn-join" onclick="requestJoin(event)">Request Join</button>
+                            </div>
+                        </div>
+
+                        <div class="group-card" data-status="pending">
+                            <div class="group-header">
+                                <div class="group-name">Literature & Lore</div>
+                                <span class="group-status status-pending">Pending</span>
+                            </div>
+                            <div class="group-owner"><i class="fa fa-user"></i>Emma Clark</div>
+                            <div class="group-meta">
+                                <div class="meta-item"><span class="meta-label">Members</span><br><span class="meta-value">9</span></div>
+                                <div class="meta-item"><span class="meta-label">Department</span><br><span class="meta-value">Arts & Sciences</span></div>
+                            </div>
+                            <div class="group-tags">
+                                <span class="tag">Literature</span>
+                                <span class="tag">Reading Club</span>
+                            </div>
+                            <div class="group-footer">
+                                <button class="btn-view" onclick="openGroupModal(this)">View Details</button>
+                                <button class="btn-join" onclick="requestJoin(event)">Request Join</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </main>
 
-        <div id="role-switcher">
-            <span class="switcher-label">View as</span>
-            <a href="../../pages/home/home_home-feed.html" class="switcher-btn">Student</a>
-            <a href="admin-dashboard.html" class="switcher-btn active">Admin</a>
+        <!-- Group Details Modal -->
+        <div id="groupModal" class="modal">
+            <div class="modal-content">
+                <button class="modal-close" onclick="closeGroupModal()">&times;</button>
+                <div class="modal-header">
+                    <div class="modal-title" id="modalTitle"></div>
+                    <div class="modal-owner"><i class="fa fa-user"></i><span id="modalOwner"></span></div>
+                </div>
+                <div class="modal-info">
+                    <div class="info-row">
+                        <span class="info-label">Members</span>
+                        <span class="info-value" id="modalMembers"></span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Department</span>
+                        <span class="info-value" id="modalDepartment"></span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Status</span>
+                        <span class="info-value" id="modalStatus"></span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Created Date</span>
+                        <span class="info-value" id="modalDate"></span>
+                    </div>
+                </div>
+                <div class="modal-description" id="modalDescription"></div>
+                <div class="modal-tags" id="modalTags"></div>
+                <div class="modal-actions">
+                    <button class="btn-primary" onclick="requestJoinFromModal()">Request to Join</button>
+                    <button class="btn-secondary" onclick="closeGroupModal()">Close</button>
+                </div>
+            </div>
         </div>
 
+        <div id="role-switcher">
+            <span class="switcher-label">View as</span>
+            <a href="hives.html" class="switcher-btn active">Student</a>
+            <a href="../../pages/admin/admin-dashboard.html" class="switcher-btn">Admin</a>
+        </div>
+
+        <script>
+            // Filter functionality
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const filter = this.dataset.filter;
+                    const cards = document.querySelectorAll('.group-card');
+                    
+                    cards.forEach(card => {
+                        if (filter === 'all') {
+                            card.style.display = '';
+                        } else {
+                            card.style.display = card.dataset.status === filter ? '' : 'none';
+                        }
+                    });
+                });
+            });
+
+            // Modal functionality
+            let currentGroupData = {};
+
+            function openGroupModal(btn) {
+                const card = btn.closest('.group-card');
+                const name = card.querySelector('.group-name').textContent;
+                const owner = card.querySelector('.group-owner').textContent.replace('Alex Rivera', '').replace('Jordan Chen', '').replace('Maya Santos', '').replace('Sam Reyes', '').replace('Lisa Wong', '').replace('Emma Clark', '').trim();
+                const meta = card.querySelectorAll('.meta-value');
+                const members = meta[0].textContent;
+                const department = meta[1].textContent;
+                const status = card.querySelector('.group-status').textContent;
+                const tags = Array.from(card.querySelectorAll('.tag')).map(t => t.textContent);
+                
+                const owners = {
+                    'Calculus Study Group': 'Alex Rivera',
+                    'Chemistry Wizards': 'Jordan Chen',
+                    'Bio Bees Support Hive': 'Maya Santos',
+                    'Physics Exam Blitz': 'Sam Reyes',
+                    'History Cram Night': 'Lisa Wong',
+                    'Literature & Lore': 'Emma Clark'
+                };
+
+                const descriptions = {
+                    'Calculus Study Group': 'A collaborative group dedicated to mastering calculus concepts. We meet weekly to discuss problem-solving techniques and prepare for exams together.',
+                    'Chemistry Wizards': 'Lab-focused study group for chemistry enthusiasts. Perfect for understanding molecular structures, reactions, and lab experiments.',
+                    'Bio Bees Support Hive': 'A supportive community for biology students. We help each other understand complex biological concepts and prepare for assessments.',
+                    'Physics Exam Blitz': 'Intensive exam preparation group. Focus on practice problems, formula review, and conceptual understanding.',
+                    'History Cram Night': 'Collaborative learning for history courses. We share notes, discuss events, and prepare essays together.',
+                    'Literature & Lore': 'A reading club focused on classic and contemporary literature. We discuss themes, analyze texts, and share interpretations.'
+                };
+
+                currentGroupData = { name, owner: owners[name], members, department, status, tags };
+
+                document.getElementById('modalTitle').textContent = name;
+                document.getElementById('modalOwner').textContent = owners[name];
+                document.getElementById('modalMembers').textContent = members;
+                document.getElementById('modalDepartment').textContent = department;
+                document.getElementById('modalStatus').textContent = status;
+                document.getElementById('modalDate').textContent = 'Feb 15, 2026';
+                document.getElementById('modalDescription').textContent = descriptions[name] || 'A vibrant group focused on collaborative learning and academic support.';
+                
+                const tagsHtml = tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+                document.getElementById('modalTags').innerHTML = tagsHtml;
+
+                document.getElementById('groupModal').classList.add('active');
+            }
+
+            function closeGroupModal() {
+                document.getElementById('groupModal').classList.remove('active');
+            }
+
+            function requestJoin(e) {
+                e.preventDefault();
+                alert('Join request sent! Awaiting group administrator approval.');
+            }
+
+            function requestJoinFromModal() {
+                alert(`Join request sent to ${currentGroupData.name}! Awaiting group administrator approval.`);
+                closeGroupModal();
+            }
+
+            // Close modal when clicking outside
+            document.getElementById('groupModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeGroupModal();
+                }
+            });
+        </script>
     </body>
 </html>
