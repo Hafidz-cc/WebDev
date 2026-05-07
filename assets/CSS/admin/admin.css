@@ -21,27 +21,28 @@ body #auth-links a                 { color: var(--amber) !important; font-weight
 /* ── Admin sidebar override ── */
 body #sidebar {
     background: var(--hive) !important;
-    border-right: 3px solid var(--amber-d) !important;
+    border-right: 3px solid var(--muted) !important;
+    color: var(--yellow-mid);
 }
 
 body #menu > p,
 body #my-hives > p       { color: var(--pale) !important; }
-body #sidebar hr         { border-top-color: var(--dark) !important; }
+body #sidebar hr         { border-top-color: var(--yellow-d) !important; }
 
 body #sidebar .sidebar-button p { color: var(--pale) !important; }
 
 body #sidebar .sidebar-button:hover {
-    background-color: var(--dark) !important;
+    background-color: var(--muted) !important;
     border-left: 5px solid var(--amber) !important;
 }
 body #sidebar .sidebar-button:hover p { color: var(--amber) !important; }
 
 body #sidebar .sidebar-button.active {
-    background-color: var(--amber) !important;
+    background-color: var(--muted) !important;
     border-left: 5px solid var(--amber-dk) !important;
 }
 body #sidebar .sidebar-button.active p {
-    color: var(--hive) !important;
+    color: var(--yellow-pale) !important;
     font-weight: bold;
 }
 

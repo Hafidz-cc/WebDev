@@ -1,15 +1,17 @@
 /* ═══════════════════════════════════════════
-   BASE.CSS
-   Reset · Typography · Design tokens · Reusable components
-   (.tag, .frequency-badge, .btn-*, .hex, .section-label)
+   BASE.CSS  —  HiveMinds Design System v2
+   Font pair: Plus Jakarta Sans (UI) + Fraunces (display/titles)
    ═══════════════════════════════════════════ */
+
+/* ── Google Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap');
 
 /* ── Reset ── */
 *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Belanosima', Arial, sans-serif;
+    font-family: 'Plus Jakarta Sans', Arial, sans-serif;
 }
 
 a {
@@ -17,21 +19,29 @@ a {
     color: inherit;
 }
 
-/* ── Design tokens ── */
+/* ═══════════════════════════════════════════
+   DESIGN TOKENS
+   ═══════════════════════════════════════════ */
 :root {
-    --amber:      #F5A800;
-    --amber-d:    #D48C00;
-    --amber-dk:   #B37200;
+    /* Brand colours */
+    --yellow:     #FFD400;
+    --yellow-d:   #E6BF00;
+    --yellow-pale:#FFFDF0;
+    --yellow-mid: #FFF3B0;
+    --orange:     #FF5F00;
+    --orange-d:   #E05500;
+
+    /* Neutrals */
     --wax:        #FEFAF0;
     --comb:       #FDF3D0;
-    --pale:       #F5E49A;
-    --accent:     #E8C84A;
     --hive:       #0D0B00;
     --dark:       #1A1600;
     --aged:       #6B5800;
-    --warmgray:   #8C8880;
-    --text:       #1A1600;
-    --muted:      #6B5800;
+    --muted:      #8C7A50;
+    --border:     rgba(0, 0, 0, 0.12);
+    --border-strong: rgba(0, 0, 0, 0.22);
+
+    /* Semantic */
     --success:    #059669;
     --warning:    #D97706;
     --danger:     #DC2626;
@@ -39,35 +49,113 @@ a {
     --warning-bg: #FEF3C7;
     --danger-bg:  #FEE2E2;
 
-    /* Student-side accent (orange) */
-    --orange:     #FF5F00;
-    --orange-d:   #e05500;
-    --yellow:     #FFD400;
-    --yellow-d:   #e6bf00;
+    /* Text hierarchy — THE key fix */
+    --text-title:   #0D0B00;   /* Fraunces — page titles, hive names */
+    --text-heading: #1A1600;   /* Jakarta Sans 700 — card headings */
+    --text-body:    #2C2400;   /* Jakarta Sans 400/500 — body copy */
+    --text-muted:   #6B5800;   /* Jakarta Sans 400 — meta, timestamps */
+    --text-faint:   #9A8A60;   /* Jakarta Sans 400 — placeholders, hints */
+
+    /* Elevation (box shadows) */
+    --shadow-sm:  -2px 3px 0 rgba(0, 0, 0, 0.30);
+    --shadow-md:  -3px 4px 0 rgba(0, 0, 0, 0.28);
+    --shadow-lg:   4px 4px 0 #1A1600;
+
+    /* Radius */
+    --radius-sm:  6px;
+    --radius-md:  10px;
+    --radius-lg:  14px;
+
+    /* Transitions */
+    --ease: 0.2s ease;
 }
 
+/* ── Base body ── */
 body {
     background: var(--wax);
-    color: var(--text);
+    color: var(--text-body);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
 }
 
-/* ── Shared layout shell ──
-   Pages that use #container/#sidebar/#content include layout.css,
-   but these base rules ensure body stretches correctly. */
 main {
     display: flex;
     flex-direction: column;
     flex: 1;
 }
 
+/* ═══════════════════════════════════════════
+   TYPOGRAPHY  — the hierarchy fix
+   ═══════════════════════════════════════════ */
 
-/* ════════════════════════════════
+/* Display / Page title (Fraunces) */
+.display-title,
+.hive-title,
+.content-title,
+#settings-body > .content-title,
+#schedule-body .content-title,
+.profile-name {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 600;
+    color: var(--text-title);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+}
+
+/* Sizing scale */
+.hive-title        { font-size: 1.75em; }
+.content-title     { font-size: 1.4em;  }
+.profile-name      { font-size: 1.8em;  }
+
+/* Card / section heading (Jakarta Sans heavy) */
+.card-heading,
+.person-name,
+.comment-name,
+.member-name,
+.hive-browse-name,
+.session-box {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    color: var(--text-heading);
+    font-size: 1em;
+    line-height: 1.3;
+}
+
+/* Meta / secondary text */
+.comment-time,
+.card-meta,
+.hive-meta,
+.hive-browse-meta,
+.member-meta,
+.details,
+.topic,
+.schedule-topic,
+.hive-browse-stats {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 400;
+    color: var(--text-muted);
+    font-size: 0.82em;
+}
+
+/* Body / comment text */
+.card-text,
+.comment-text,
+.hive-browse-desc,
+.profile-bio {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 400;
+    color: var(--text-body);
+    font-size: 0.92em;
+    line-height: 1.65;
+}
+
+/* ═══════════════════════════════════════════
    SHARED COMPONENTS
-   Used on both student & admin sides
-   ════════════════════════════════ */
+   ═══════════════════════════════════════════ */
 
 /* ── Hex bullet ── */
 .hex {
@@ -80,30 +168,33 @@ main {
 
 /* ── Section label ── */
 .section-label {
-    font-size: 0.85em;
-    font-weight: bold;
-    letter-spacing: 0.12em;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.72em;
+    font-weight: 800;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: gray;
+    color: var(--muted);
     padding: 4px 0;
-    border-bottom: 1.5px solid rgba(0, 0, 0, 0.1);
-    margin-bottom: 12px;
+    border-bottom: 1.5px solid rgba(0, 0, 0, 0.09);
+    margin-bottom: 14px;
 }
 
 /* ── Subject tag ── */
 .tag {
     display: inline-flex;
+    align-items: center;
     background: var(--yellow);
     color: #000;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 9px;
-    font-weight: 900;
-    letter-spacing: 0.12em;
+    font-weight: 800;
+    letter-spacing: 0.13em;
     text-transform: uppercase;
-    padding: 3px 8px;
+    padding: 3px 9px;
     border: 1.5px solid #000;
     border-radius: 3px;
     white-space: nowrap;
-    align-self: flex-start;
+    flex-shrink: 0;
 }
 
 /* ── Frequency badge ── */
@@ -111,16 +202,17 @@ main {
     display: inline-flex;
     align-items: center;
     gap: 5px;
-    padding: 4px 10px;
+    padding: 4px 11px;
     border-radius: 20px;
-    font-size: 0.78em;
-    font-weight: bold;
-    letter-spacing: 0.05em;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.75em;
+    font-weight: 600;
+    letter-spacing: 0.04em;
     white-space: nowrap;
 }
 
 .frequency-badge.recurring {
-    background-color: #fff3b0;
+    background-color: var(--yellow-mid);
     border: 1.5px solid var(--yellow);
     color: #7a6000;
 }
@@ -141,137 +233,281 @@ main {
 .frequency-badge.recurring .dot { background-color: var(--yellow); }
 .frequency-badge.one-time  .dot { background-color: var(--orange); }
 
-/* ── Generic card (student side) ── */
+/* ── Generic card ── */
 .card {
     width: 100%;
-    padding: 15px;
+    background: white;
+    border: 1.5px solid #E8C84A;
+    box-shadow: 3px 3px 0 #E8C84A;
+    border-radius: var(--radius-lg);
+    padding: 16px 18px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
-
-    background: white;
-    border: 1.5px solid var(--accent);
-    box-shadow: 3px 3px 0 var(--accent);
-    border-radius: 14px;
-    overflow: hidden;
+    gap: 16px;
 }
-
-/* ── Shared button styles ── */
-.btn {
-    padding: 8px 20px;
-    font-size: 0.85em;
-    font-weight: bold;
-    border-radius: 6px;
-    cursor: pointer;
-    border: 2px solid #000;
-    font-family: 'Bricolage Grotesque', 'Belanosima', sans-serif;
-    transition: 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    text-decoration: none;
-}
-
-.btn-primary {
-    background-color: var(--yellow);
-    color: #000;
-}
-.btn-primary:hover { background-color: var(--yellow-d); }
-
-.btn-danger {
-    background-color: white;
-    color: #c0392b;
-    border-color: #c0392b;
-}
-.btn-danger:hover { background-color: #fff0ee; }
-
-/* ── Shared content title ── */
-.content-title {
-    font-size: 1.5em;
-}
-
-.content-link {
-    transition: 0.4s ease;
-    color: inherit;
-}
-.content-link:hover { color: var(--yellow); }
 
 /* ── QOTD banner ── */
 #qotd {
     width: 100%;
-    background-color: #ffd50075;
-    border: 3.5px dashed var(--yellow);
-    border-radius: 10px;
-    padding: 30px;
+    background: linear-gradient(135deg, var(--yellow-mid) 0%, var(--comb) 100%);
+    border: 2px dashed var(--yellow);
+    border-radius: var(--radius-md);
+    padding: 20px 28px;
     display: flex;
     align-items: center;
     flex-direction: column;
-    font-size: 1.3em;
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.05em;
+    font-weight: 500;
+    color: var(--dark);
+    font-style: italic;
+    line-height: 1.6;
+    letter-spacing: 0.01em;
 }
 
-#qotd span {
-    align-self: flex-start;
+#qotd span { align-self: flex-start; }
+
+/* ── Content link ── */
+.content-link {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.85em;
+    font-weight: 600;
+    color: var(--orange);
+    transition: var(--ease);
+}
+.content-link:hover {
+    color: var(--orange-d);
+    text-decoration: underline;
 }
 
-/* ── Footer (minimal) ── */
-footer {
-    background-color: rgb(12, 12, 12);
-    border-top: 0.1px solid var(--yellow);
+/* ═══════════════════════════════════════════
+   BUTTONS  — unified system
+   ═══════════════════════════════════════════ */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 9px 20px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.85em;
+    font-weight: 700;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    border: 2px solid #000;
+    transition: var(--ease);
+    text-decoration: none;
+    line-height: 1;
+    white-space: nowrap;
+    letter-spacing: 0.01em;
+}
+
+.btn-primary {
+    background: var(--yellow);
+    color: #000;
+    box-shadow: 2px 2px 0 rgba(0,0,0,0.25);
+}
+.btn-primary:hover {
+    background: var(--yellow-d);
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0 rgba(0,0,0,0.25);
+}
+
+.btn-ghost {
+    background: white;
+    color: #000;
+    border-color: rgba(0,0,0,0.25);
+    box-shadow: 2px 2px 0 rgba(0,0,0,0.10);
+}
+.btn-ghost:hover {
+    background: var(--yellow-pale);
+    border-color: var(--yellow);
+}
+
+.btn-danger {
+    background: white;
+    color: var(--danger);
+    border-color: var(--danger);
+}
+.btn-danger:hover {
+    background: var(--danger-bg);
+}
+
+.btn-orange {
+    background: var(--orange);
+    color: white;
+    border-color: #000;
+    box-shadow: 2px 2px 0 rgba(0,0,0,0.25);
+}
+.btn-orange:hover {
+    background: var(--orange-d);
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0 rgba(0,0,0,0.25);
+}
+
+.btn-sm {
+    padding: 6px 14px;
+    font-size: 0.78em;
+}
+
+.btn-lg {
+    padding: 12px 28px;
+    font-size: 0.95em;
+}
+
+/* ═══════════════════════════════════════════
+   MODAL  — shared base styles
+   All modals: .modal-overlay > .modal-box
+   ═══════════════════════════════════════════ */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(13, 11, 0, 0.50);
+    backdrop-filter: blur(3px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    padding: 20px;
+}
+
+.modal-overlay.open,
+#leave-toggle:checked ~ .leave-modal,
+#report-toggle:checked ~ .report-modal {
+    display: flex;
+}
+
+/* ── Leave modal (checkbox-powered) ── */
+.leave-modal,
+.report-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(13, 11, 0, 0.50);
+    backdrop-filter: blur(3px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+#leave-toggle:checked ~ .leave-modal  { display: flex; }
+#report-toggle:checked ~ .report-modal { display: flex; }
+
+.leave-box,
+.report-box,
+.modal-box {
+    background: white;
+    border: 2px solid #000;
+    border-radius: var(--radius-lg);
+    box-shadow: -4px 6px 0 rgba(0, 0, 0, 0.30);
+    overflow: hidden;
+    animation: modalIn 0.2s ease;
     width: 100%;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .card {
-        padding: 12px;
-        gap: 15px;
-    }
+.leave-box   { max-width: 360px; padding: 28px 28px 24px; text-align: center; }
+.report-box  { max-width: 380px; padding: 28px 28px 24px; }
+.modal-box   { max-width: 520px; }
 
-    .content-title {
-        font-size: 1.3em;
-    }
-
-    .btn {
-        padding: 10px 16px;
-        font-size: 0.9em;
-    }
-
-    #qotd {
-        padding: 20px;
-        font-size: 1.1em;
-    }
+@keyframes modalIn {
+    from { opacity: 0; transform: translateY(14px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0)   scale(1);    }
 }
 
-@media (max-width: 480px) {
-    .card {
-        padding: 10px;
-        gap: 12px;
-        box-shadow: 2px 2px 0 var(--accent);
-    }
+/* Modal header stripe */
+.modal-head,
+.leave-box > p:first-child,
+.report-box > p:first-child {
+    font-family: 'Fraunces', serif;
+    font-size: 1.05em;
+    font-weight: 600;
+    color: var(--text-title);
+    margin-bottom: 16px;
+}
 
-    .content-title {
-        font-size: 1.1em;
-    }
+.leave-box > p:first-child,
+.report-box > p:first-child {
+    font-size: 1em;
+}
 
-    .btn {
-        padding: 12px 14px;
-        font-size: 0.95em;
-        width: 100%;
-        justify-content: center;
-    }
+.leave-actions,
+.report-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 18px;
+}
 
-    .tag {
-        font-size: 8px;
-        padding: 2px 6px;
-    }
+/* Shared modal buttons */
+.confirm-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 9px 20px;
+    background: var(--danger);
+    color: white;
+    border: 2px solid #000;
+    border-radius: var(--radius-sm);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.85em;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--ease);
+    text-decoration: none;
+}
+.confirm-btn:hover { opacity: 0.88; }
 
-    .frequency-badge {
-        font-size: 0.75em;
-        padding: 3px 8px;
-    }
+.cancel-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 9px 20px;
+    background: white;
+    color: #444;
+    border: 2px solid rgba(0,0,0,0.20);
+    border-radius: var(--radius-sm);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.85em;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--ease);
+}
+.cancel-btn:hover { background: #f5f5f5; }
 
-    #qotd {
-        padding: 15px;
-        font-size: 1em;
-    }
+.report-select {
+    width: 100%;
+    padding: 9px 12px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.9em;
+    border: 2px solid rgba(0,0,0,0.15);
+    border-radius: var(--radius-sm);
+    background: var(--yellow-pale);
+    outline: none;
+    transition: border-color var(--ease);
+    margin-top: 8px;
+}
+.report-select:focus { border-color: var(--yellow); }
+
+/* ── Footer ── */
+footer {
+    background: rgb(12, 12, 12);
+    border-top: 1px solid var(--yellow);
+    width: 100%;
+    padding: 9px 12px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.9em;
+    border: 2px solid rgba(0,0,0,0.15);
+    border-radius: var(--radius-sm);
+    background: var(--yellow-pale);
+    outline: none;
+    transition: border-color var(--ease);
+    margin-top: 8px;
+}
+.report-select:focus { border-color: var(--yellow); }
+
+/* ── Footer ── */
+footer {
+    background: rgb(12, 12, 12);
+    border-top: 1px solid var(--yellow);
+    width: 100%;
 }
