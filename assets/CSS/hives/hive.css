@@ -1,20 +1,26 @@
+/* ═══════════════════════════════════════════
+   HIVE.CSS  —  HiveMinds v2
+   Individual hive page styles
+   ═══════════════════════════════════════════ */
+
 #hive-body {
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: 22px;
 }
 
-/* hive header */
+/* ══ HIVE HEADER ══ */
 .hive-header {
-    background-color: white;
-    border: 2px solid #FFD400;
-    box-shadow: -2px 3px rgba(0, 0, 0, 0.384);
-    border-radius: 10px;
-    padding: 25px 30px;
+    background: white;
+    border: 1.5px solid #E8C84A;
+    box-shadow: -2px 3px 0 rgba(0, 0, 0, 0.22);
+    border-radius: 12px;
+    padding: 22px 26px;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     gap: 20px;
+    flex-wrap: wrap;
 }
 
 .hive-header-left {
@@ -23,248 +29,218 @@
     gap: 8px;
 }
 
+/* Title uses Fraunces via base.css .hive-title */
 .hive-title {
-    font-size: 2em;
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.7em;
+    font-weight: 600;
+    color: #0D0B00;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
 }
 
 .hive-meta {
     display: flex;
     align-items: center;
-    gap: 12px;
-    font-size: 0.9em;
-    color: rgb(117, 117, 117);
-}
-
-.hive-meta .tag {
-    display: flex;
-    background: #FFD400;
-    color: #000;
-    font-size: 9px;
-    font-weight: 900;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    padding: 3px 8px;
-    border: 1.5px solid #000;
+    gap: 10px;
+    flex-wrap: wrap;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.85em;
+    color: #6B5800;
 }
 
 .hive-owner {
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 0.9em;
-    color: rgb(117, 117, 117);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.85em;
+    color: #6B5800;
 }
 
 .hive-owner img {
-    width: 28px;
-    height: 28px;
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
     object-fit: cover;
+    border: 1.5px solid rgba(0,0,0,0.12);
 }
 
-.frequency-badge {
+.hive-owner strong { color: #1A1600; font-weight: 700; }
+
+/* Header action buttons */
+.hive-header-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+}
+
+/* Report button */
+.btn-report {
+    padding: 8px 18px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.82em;
+    font-weight: 700;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 2px solid #e67e22;
+    background: white;
+    color: #e67e22;
+    transition: 0.2s ease;
     display: inline-flex;
     align-items: center;
-    gap: 5px;
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 0.78em;
-    font-weight: bold;
-    letter-spacing: 0.05em;
+    gap: 6px;
 }
+.btn-report:hover { background: #fff8f0; }
 
-.frequency-badge.recurring {
-    background-color: #fff3b0;
-    border: 1.5px solid #FFD400;
-    color: #7a6000;
-}
-
-.frequency-badge.one-time {
-    background-color: #ffe8d6;
-    border: 1.5px solid #FF5F00;
-    color: #7a2e00;
-}
-
-.frequency-badge .dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    flex-shrink: 0;
-}
-
-.frequency-badge.recurring .dot {
-    background-color: #FFD400;
-}
-
-.frequency-badge.one-time .dot {
-    background-color: #FF5F00;
-}
-
+/* Leave button */
 .btn-leave {
-    padding: 9px 22px;
-    font-size: 0.85em;
-    font-weight: bold;
+    padding: 8px 18px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.82em;
+    font-weight: 700;
     border-radius: 6px;
     cursor: pointer;
     border: 2px solid #c0392b;
-    background-color: white;
+    background: white;
     color: #c0392b;
-    font-family: 'Bricolage Grotesque', sans-serif;
-    transition: 0.3s ease;
-    flex-shrink: 0;
+    transition: 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
 }
+.btn-leave:hover { background: #fff0ee; }
 
-.btn-leave:hover {
-    background-color: #fff0ee;
-}
-
-/* main two-column layout */
+/* ══ TWO-COLUMN LAYOUT ══ */
 .hive-columns {
     display: flex;
     gap: 20px;
     align-items: flex-start;
 }
 
-.hive-left {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    width: 55%;
-}
+.hive-left  { display: flex; flex-direction: column; gap: 20px; width: 55%; }
+.hive-right { display: flex; flex-direction: column; gap: 20px; width: 45%; }
 
-.hive-right {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    width: 45%;
-}
-
-/* shared section label */
-.section-label {
-    font-size: 0.85em;
-    font-weight: bold;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: gray;
-    padding: 4px 0;
-    border-bottom: 1.5px solid rgba(0,0,0,0.1);
-    margin-bottom: 12px;
-}
-
-/* details card */
+/* ══ DETAILS CARD ══ */
 .details-card {
-    background-color: white;
-    border: 2px solid #FFD400;
-    box-shadow: -2px 3px rgba(0, 0, 0, 0.384);
-    border-radius: 10px;
-    padding: 20px 25px;
+    background: white;
+    border: 1.5px solid #E8C84A;
+    box-shadow: -2px 3px 0 rgba(0,0,0,0.18);
+    border-radius: 12px;
+    padding: 6px 0;
     display: flex;
     flex-direction: column;
-    gap: 0;
 }
 
 .detail-row {
     display: flex;
     align-items: flex-start;
     gap: 12px;
-    padding: 11px 0;
+    padding: 11px 20px;
     border-bottom: 1px solid rgba(0,0,0,0.06);
 }
-
-.detail-row:last-child {
-    border-bottom: none;
-}
+.detail-row:last-child { border-bottom: none; }
 
 .detail-icon {
-    font-size: 1em;
-    width: 20px;
+    font-size: 0.9em;
+    width: 18px;
     text-align: center;
-    color: #FF5F00;
+    color: var(--orange, #FF5F00);
     flex-shrink: 0;
     padding-top: 2px;
 }
 
 .detail-key {
-    width: 110px;
-    font-size: 0.85em;
-    color: rgb(117, 117, 117);
+    width: 90px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.8em;
+    font-weight: 600;
+    color: #8C7A50;
     flex-shrink: 0;
 }
 
 .detail-value {
-    font-size: 0.95em;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.88em;
+    font-weight: 500;
+    color: #1A1600;
     flex: 1;
+    line-height: 1.4;
 }
 
-/* schedule card for recurring */
+/* ══ SCHEDULE CARD ══ */
 .schedule-card {
-    background-color: white;
-    border: 2px solid #FFD400;
-    box-shadow: -2px 3px rgba(0, 0, 0, 0.384);
-    border-radius: 10px;
-    padding: 20px 25px;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
+    background: white;
+    border: 1.5px solid #E8C84A;
+    box-shadow: -2px 3px 0 rgba(0,0,0,0.18);
+    border-radius: 12px;
+    padding: 6px 0;
 }
 
 .schedule-row {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 10px 0;
+    gap: 14px;
+    padding: 11px 20px;
     border-bottom: 1px solid rgba(0,0,0,0.06);
-    font-size: 0.95em;
+    font-size: 0.88em;
 }
-
-.schedule-row:last-child {
-    border-bottom: none;
-}
+.schedule-row:last-child { border-bottom: none; }
 
 .schedule-day {
-    width: 100px;
-    font-weight: bold;
+    width: 88px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    color: #1A1600;
     flex-shrink: 0;
 }
 
 .schedule-time {
+    font-family: 'Plus Jakarta Sans', sans-serif;
     color: #FF5F00;
-    font-size: 0.9em;
+    font-size: 0.88em;
+    font-weight: 600;
 }
 
 .schedule-topic {
-    color: rgb(117, 117, 117);
-    font-size: 0.85em;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: #8C7A50;
+    font-size: 0.82em;
     margin-left: auto;
 }
 
-/* rules card */
+/* ══ RULES CARD ══ */
 .rules-card {
-    background-color: white;
-    border: 2px solid #FFD400;
-    box-shadow: -2px 3px rgba(0, 0, 0, 0.384);
-    border-radius: 10px;
-    padding: 20px 25px;
+    background: white;
+    border: 1.5px solid #E8C84A;
+    box-shadow: -2px 3px 0 rgba(0,0,0,0.18);
+    border-radius: 12px;
+    padding: 16px 20px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
 }
 
 .rule-item {
     display: flex;
     gap: 12px;
     align-items: flex-start;
-    font-size: 0.95em;
-    line-height: 1.5;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.88em;
+    color: #2C2400;
+    line-height: 1.55;
 }
 
 .rule-num {
     width: 22px;
     height: 22px;
-    background-color: #FFD400;
+    background: #FFD400;
     border: 1.5px solid #000;
-    border-radius: 3px;
-    font-size: 0.75em;
+    border-radius: 4px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.72em;
     font-weight: 900;
     display: flex;
     align-items: center;
@@ -273,16 +249,16 @@
     margin-top: 1px;
 }
 
-/* comments */
+/* ══ COMMENTS CARD ══ */
 .comments-card {
-    background-color: white;
-    border: 2px solid #FFD400;
-    box-shadow: -2px 3px rgba(0, 0, 0, 0.384);
-    border-radius: 10px;
-    padding: 20px 25px;
+    background: white;
+    border: 1.5px solid #E8C84A;
+    box-shadow: -2px 3px 0 rgba(0,0,0,0.18);
+    border-radius: 12px;
+    padding: 18px 20px;
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 16px;
 }
 
 .comment {
@@ -292,16 +268,13 @@
 }
 
 .comment img {
-    width: 38px;
-    height: 38px;
-    min-width: 38px;
-    min-height: 38px;
-    max-width: 38px;
-    max-height: 38px;
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
     border-radius: 50%;
     object-fit: cover;
+    border: 1.5px solid rgba(0,0,0,0.10);
     flex-shrink: 0;
-    display: block;
 }
 
 .comment-body {
@@ -312,125 +285,121 @@
 }
 
 .comment-name {
-    font-size: 0.95em;
-    font-weight: bold;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.88em;
+    font-weight: 700;
+    color: #1A1600;
 }
 
 .comment-text {
-    font-size: 0.9em;
-    color: #333;
-    line-height: 1.5;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.88em;
+    color: #2C2400;
+    line-height: 1.55;
 }
 
 .comment-time {
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 0.75em;
-    color: rgb(117, 117, 117);
+    color: #9A8A60;
 }
 
 .comment-divider {
     border: none;
     border-top: 1px solid rgba(0,0,0,0.07);
+    margin: 0;
 }
 
+/* Comment input row */
 .comment-input-row {
     display: flex;
     gap: 10px;
     align-items: center;
+    margin-top: 4px;
 }
 
 .comment-input {
     flex: 1;
     padding: 9px 14px;
-    font-size: 0.9em;
-    font-family: 'Bricolage Grotesque', sans-serif;
-    border: 2px solid rgba(0,0,0,0.15);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.88em;
+    border: 1.5px solid rgba(0,0,0,0.15);
     border-radius: 6px;
-    background-color: #fffdf5;
+    background: #FFFDF5;
     outline: none;
     transition: 0.2s ease;
+    color: #1A1600;
 }
-
-.comment-input:focus {
-    border-color: #FFD400;
-}
+.comment-input:focus { border-color: #FFD400; box-shadow: 0 0 0 3px rgba(255,212,0,0.15); }
+.comment-input::placeholder { color: #B0A070; }
 
 .btn-comment {
     padding: 9px 18px;
-    font-size: 0.85em;
-    font-weight: bold;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.82em;
+    font-weight: 700;
     border-radius: 6px;
     cursor: pointer;
     border: 2px solid #000;
-    background-color: #FFD400;
+    background: #FFD400;
     color: #000;
-    font-family: 'Bricolage Grotesque', sans-serif;
-    transition: 0.3s ease;
-    flex-shrink: 0;
+    transition: 0.2s ease;
 }
+.btn-comment:hover { background: #E6BF00; }
 
-.btn-comment:hover {
-    background-color: #e6bf00;
-}
-
-/* ── OWNER MANAGEMENT ── */
+/* ══ OWNER MANAGEMENT ══ */
 .owner-actions {
     display: flex;
     gap: 8px;
     flex-wrap: wrap;
-    margin-top: 5px;
+    align-items: center;
+    flex-shrink: 0;
 }
 
 .btn-owner {
-    padding: 6px 14px;
-    font-size: 0.78em;
-    font-weight: bold;
-    border-radius: 5px;
+    padding: 8px 16px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.80em;
+    font-weight: 700;
+    border-radius: 6px;
     cursor: pointer;
-    font-family: 'Bricolage Grotesque', sans-serif;
-    transition: 0.2s ease;
     border: 2px solid #000;
     background: white;
     color: #000;
+    transition: 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
 }
-
 .btn-owner:hover { background: #f5f5f5; }
 
-.btn-owner.edit {
-    background: #FFD400;
-    border-color: #000;
-}
+.btn-owner.edit { background: #FFD400; }
+.btn-owner.edit:hover { background: #E6BF00; }
 
-.btn-owner.edit:hover { background: #e6bf00; }
+.btn-owner.delete { border-color: #c0392b; color: #c0392b; background: #fff0ee; }
+.btn-owner.delete:hover { background: #c0392b; color: white; }
 
-.btn-owner.delete {
-    border-color: #c0392b;
-    color: #c0392b;
-    background: #fff0ee;
-}
-
-.btn-owner.delete:hover {
-    background: #c0392b;
-    color: white;
-}
-
+/* Owner banner */
 .owner-banner {
-    background: #ffd50060;
-    border: 2px dashed #FFD400;
+    background: rgba(255, 212, 0, 0.20);
+    border: 1.5px dashed #FFD400;
     border-radius: 8px;
-    padding: 10px 16px;
-    font-size: 0.85em;
+    padding: 10px 18px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.82em;
+    font-weight: 600;
     color: #7a6000;
-    font-weight: bold;
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
+/* ══ MEMBERS CARD ══ */
 .members-card {
-    background-color: white;
-    border: 2px solid #FFD400;
-    box-shadow: -2px 3px rgba(0, 0, 0, 0.384);
-    border-radius: 10px;
+    background: white;
+    border: 1.5px solid #E8C84A;
+    box-shadow: -2px 3px 0 rgba(0,0,0,0.18);
+    border-radius: 12px;
     overflow: hidden;
 }
 
@@ -438,25 +407,21 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 12px 15px;
+    padding: 11px 16px;
     border-bottom: 1px solid rgba(0,0,0,0.06);
+    transition: background 0.15s;
 }
-
 .member-row:last-child { border-bottom: none; }
-
-.member-row:hover { background: #fffdf5; }
+.member-row:hover { background: #FFFDF5; }
 
 .member-avatar {
-    width: 36px;
-    height: 36px;
-    min-width: 36px;
-    min-height: 36px;
-    max-width: 36px;
-    max-height: 36px;
+    width: 34px;
+    height: 34px;
+    min-width: 34px;
     border-radius: 50%;
     object-fit: cover;
+    border: 1.5px solid rgba(0,0,0,0.10);
     flex-shrink: 0;
-    display: block;
 }
 
 .member-info {
@@ -467,13 +432,16 @@
 }
 
 .member-name {
-    font-size: 0.95em;
-    font-weight: bold;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.88em;
+    font-weight: 700;
+    color: #1A1600;
 }
 
 .member-meta {
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 0.75em;
-    color: rgb(117, 117, 117);
+    color: #8C7A50;
 }
 
 .member-actions {
@@ -484,13 +452,16 @@
 
 .btn-member {
     padding: 4px 10px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 0.72em;
-    font-weight: bold;
+    font-weight: 700;
     border-radius: 4px;
     cursor: pointer;
-    font-family: 'Bricolage Grotesque', sans-serif;
     transition: 0.2s ease;
     border: 1.5px solid;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
 }
 
 .btn-member.kick {
@@ -498,25 +469,18 @@
     color: #c0392b;
     background: #fff0ee;
 }
-
-.btn-member.kick:hover {
-    background: #c0392b;
-    color: white;
-}
+.btn-member.kick:hover { background: #c0392b; color: white; }
 
 .btn-member.report {
     border-color: #e67e22;
     color: #e67e22;
     background: #fff8f0;
 }
-
-.btn-member.report:hover {
-    background: #e67e22;
-    color: white;
-}
+.btn-member.report:hover { background: #e67e22; color: white; }
 
 .owner-badge {
-    font-size: 0.68em;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.65em;
     font-weight: 900;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -525,478 +489,6 @@
     border: 1.5px solid #000;
     padding: 2px 7px;
     border-radius: 3px;
-}
-
-/* Modal background */
-.leave-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0,0,0,0.4);
-    
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 999;
-}
-
-/* Show modal when checked */
-#leave-toggle:checked ~ .leave-modal {
-    display: flex;
-}
-
-/* Modal box */
-.leave-box {
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    text-align: center;
-    width: 300px;
-}
-
-/* Buttons */
-.leave-actions {
-    margin-top: 15px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.confirm-btn {
-    background: #ff4d4d;
-    color: white;
-    padding: 8px 12px;
-    border-radius: 6px;
-    text-decoration: none;
-}
-
-.cancel-btn {
-    background: #ccc;
-    padding: 8px 12px;
-    border-radius: 6px;
-    cursor: pointer;
-}
-/* ── Discussion card wrapper ── */
-.discussion-card {
-    background: #fff;
-    border: 1px solid #e8e8e8;
-    border-radius: 10px;
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-}
-
-/* ── Thread container ── */
-.disc-thread {
-    position: relative;
-}
-
-/* ── Collapse: hide replies + line when checkbox is checked ── */
-.collapse-toggle:checked ~ .disc-comment .disc-line,
-.collapse-toggle:checked ~ .disc-replies {
-    display: none;
-}
-.collapse-toggle:checked ~ .disc-comment .disc-collapse-hint {
-    color: #e87722;
-}
-.collapse-toggle:checked ~ .disc-comment .disc-collapse-hint::after {
-    content: " [+]";
-}
-.collapse-toggle:checked ~ .disc-comment .disc-collapse-hint {
-    font-size: 11px;
-}
-
-/* ── Reply box: hidden by default, shown when reply-toggle checked ── */
-.reply-toggle ~ .disc-comment .reply-box {
-    display: none;
-}
-.reply-toggle:checked ~ .disc-comment .reply-box {
-    display: flex;
-}
-
-/* ── Individual comment row ── */
-.disc-comment {
-    display: flex;
-    gap: 10px;
-    padding: 6px 0;
-}
-
-/* ── Left column: avatar + vertical line ── */
-.disc-left-col {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex-shrink: 0;
-}
-
-.disc-avatar {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background: #d6e4f7;
-    color: #1a5fa8;
-    font-size: 11px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    user-select: none;
-    flex-shrink: 0;
-    transition: opacity .15s;
-}
-.disc-avatar:hover { opacity: .75; }
-.disc-avatar.av-warn  { background: #fef0d6; color: #a86a00; }
-.disc-avatar.av-purple{ background: #eeedfe; color: #534ab7; }
-.disc-avatar.av-green { background: #e0f5ea; color: #1a7a45; cursor: default; }
-
-.disc-line {
-    width: 2px;
-    flex: 1;
-    min-height: 12px;
-    background: #e3e3e3;
-    border-radius: 2px;
-    margin-top: 4px;
-    cursor: pointer;
-    transition: background .15s;
-}
-.disc-line:hover { background: #bbb; }
-
-/* ── Comment body ── */
-.disc-body {
-    flex: 1;
-    min-width: 0;
-    padding-bottom: 6px;
-}
-
-.disc-meta {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 3px;
-}
-
-.disc-name {
-    font-size: 13px;
-    font-weight: 600;
-    color: #1a1a1a;
-}
-
-.disc-time {
-    font-size: 11px;
-    color: #999;
-}
-
-.disc-collapse-hint {
-    font-size: 11px;
-    color: #bbb;
-    cursor: pointer;
-    margin-left: auto;
-    user-select: none;
-    transition: color .15s;
-}
-.disc-collapse-hint:hover { color: #e87722; }
-
-.disc-text {
-    font-size: 13px;
-    line-height: 1.55;
-    color: #333;
-    margin-bottom: 6px;
-}
-
-/* ── Action bar ── */
-.disc-actions {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 6px;
-}
-
-/* Vote buttons (label wrapping hidden checkbox) */
-.vote-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 12px;
-    padding: 3px 10px;
-    border-radius: 20px;
-    border: 1px solid #e0e0e0;
-    cursor: pointer;
-    color: #666;
-    user-select: none;
-    transition: all .15s;
-    background: #fafafa;
-}
-.vote-btn:hover { border-color: #bbb; color: #333; background: #f0f0f0; }
-
-/* Helpful active state */
-.helpful-cb:checked ~ .disc-body .helpful-btn,
-.helpful-cb:checked + .disc-body .helpful-btn {
-    background: #e6f4ec;
-    border-color: #5ab87a;
-    color: #1a7a45;
-}
-
-/* Not helpful active state */
-.nothelpful-cb:checked ~ .disc-body .nothelpful-btn,
-.nothelpful-cb:checked + .disc-body .nothelpful-btn {
-    background: #fdecea;
-    border-color: #e07070;
-    color: #a83030;
-}
-
-/* Since checkboxes are siblings inside .disc-thread, 
-   we use the general sibling combinator on .disc-comment */
-.helpful-cb:checked ~ .disc-comment .helpful-btn {
-    background: #e6f4ec;
-    border-color: #5ab87a;
-    color: #1a7a45;
-}
-.nothelpful-cb:checked ~ .disc-comment .nothelpful-btn {
-    background: #fdecea;
-    border-color: #e07070;
-    color: #a83030;
-}
-
-.vote-count {
-    font-weight: 600;
-}
-
-.disc-reply-btn {
-    font-size: 12px;
-    color: #888;
-    cursor: pointer;
-    padding: 3px 8px;
-    border-radius: 4px;
-    user-select: none;
-    transition: all .15s;
-}
-.disc-reply-btn:hover { background: #f0f0f0; color: #333; }
-
-/* ── Reply input box ── */
-.reply-box {
-    display: flex;
-    gap: 8px;
-    margin-top: 8px;
-    align-items: center;
-}
-
-.reply-input {
-    flex: 1;
-    font-size: 13px;
-    padding: 7px 11px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background: #f9f9f9;
-    color: #222;
-    outline: none;
-    transition: border-color .15s;
-}
-.reply-input:focus { border-color: #e87722; background: #fff; }
-
-.reply-post-btn {
-    font-size: 12px;
-    padding: 7px 14px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background: #fff;
-    color: #555;
-    cursor: pointer;
-    transition: all .15s;
-    white-space: nowrap;
-}
-.reply-post-btn:hover { background: #e87722; border-color: #e87722; color: #fff; }
-
-/* ── Nested replies indent ── */
-.disc-replies {
-    padding-left: 20px;
-}
-
-/* ── Divider between top-level threads ── */
-.disc-divider {
-    border: none;
-    border-top: 1px solid #f0f0f0;
-    margin: 4px 0;
-}
-
-/* ── New comment row at bottom ── */
-.disc-new-comment {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 12px;
-    padding-top: 12px;
-    border-top: 1px solid #f0f0f0;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .hive-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 15px;
-        padding: 20px;
-    }
-
-    .hive-title {
-        font-size: 1.5em;
-    }
-
-    .hive-columns {
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .hive-left,
-    .hive-right {
-        width: 100%;
-    }
-
-    .details-card,
-    .schedule-card,
-    .rules-card,
-    .comments-card {
-        padding: 15px 20px;
-    }
-
-    .detail-row,
-    .schedule-row {
-        padding: 8px 0;
-    }
-
-    .comment {
-        gap: 10px;
-    }
-
-    .comment img {
-        width: 32px;
-        height: 32px;
-        min-width: 32px;
-        min-height: 32px;
-        max-width: 32px;
-        max-height: 32px;
-    }
-
-    .discussion-card {
-        padding: 12px;
-    }
-
-    .disc-comment {
-        gap: 8px;
-    }
-
-    .disc-avatar {
-        width: 26px;
-        height: 26px;
-        font-size: 10px;
-    }
-}
-
-@media (max-width: 480px) {
-    .hive-header {
-        padding: 15px;
-    }
-
-    .hive-title {
-        font-size: 1.3em;
-    }
-
-    .hive-meta {
-        flex-wrap: wrap;
-        gap: 8px;
-    }
-
-    .details-card,
-    .schedule-card,
-    .rules-card,
-    .comments-card {
-        padding: 12px 15px;
-    }
-
-    .detail-row,
-    .schedule-row {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 4px;
-        padding: 6px 0;
-    }
-
-    .detail-key {
-        width: auto;
-        font-weight: bold;
-    }
-
-    .comment {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
-    }
-
-    .comment img {
-        width: 28px;
-        height: 28px;
-        min-width: 28px;
-        min-height: 28px;
-        max-width: 28px;
-        max-height: 28px;
-    }
-
-    .comment-body {
-        width: 100%;
-    }
-
-    .discussion-card {
-        padding: 10px;
-    }
-
-    .disc-comment {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 6px;
-    }
-
-    .disc-left-col {
-        flex-direction: row;
-        align-items: center;
-        width: 100%;
-    }
-
-    .disc-line {
-        width: 20px;
-        height: 2px;
-        min-height: auto;
-        margin-top: 0;
-        margin-left: 8px;
-    }
-
-    .disc-body {
-        width: 100%;
-    }
-
-    .disc-actions {
-        gap: 8px;
-    }
-
-    .vote-btn {
-        font-size: 11px;
-        padding: 4px 8px;
-    }
-
-    .reply-box {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 6px;
-    }
-
-    .reply-input {
-        width: 100%;
-    }
-
-    .disc-new-comment {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 8px;
-    }
+    vertical-align: middle;
+    margin-left: 5px;
 }
