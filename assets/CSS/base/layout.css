@@ -122,3 +122,50 @@
 #content.full-width {
     width: 100%;
 }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #container {
+        flex-direction: column;
+    }
+
+    #sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 3px solid rgba(0, 0, 0, 0.118);
+        padding: 20px 15px;
+        gap: 30px;
+    }
+
+    #content {
+        width: 100%;
+        padding: 20px 15px;
+    }
+
+    .sidebar-button p,
+    .created-hive-btn {
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 480px) {
+    #sidebar {
+        padding: 15px 10px;
+        gap: 20px;
+    }
+
+    #content {
+        padding: 15px 10px;
+        gap: 15px;
+    }
+
+    .sidebar-button,
+    .created-hive-btn {
+        padding: 12px 8px;
+    }
+
+    .sidebar-button p,
+    .created-hive-btn {
+        font-size: 0.85em;
+    }
+}
