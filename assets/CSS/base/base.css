@@ -493,4 +493,21 @@ footer {
     background: rgb(12, 12, 12);
     border-top: 1px solid var(--yellow);
     width: 100%;
+    padding: 9px 12px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.9em;
+    border: 2px solid rgba(0,0,0,0.15);
+    border-radius: var(--radius-sm);
+    background: var(--yellow-pale);
+    outline: none;
+    transition: border-color var(--ease);
+    margin-top: 8px;
+}
+.report-select:focus { border-color: var(--yellow); }
+
+/* ── Footer ── */
+footer {
+    background: rgb(12, 12, 12);
+    border-top: 1px solid var(--yellow);
+    width: 100%;
 }
