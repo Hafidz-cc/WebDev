@@ -8,6 +8,69 @@
         <link rel="stylesheet" href="../../assets/CSS/base/layout.css">
         <link rel="stylesheet" href="../../assets/CSS/hives/hive.css">
 
+        <style>
+            #content.archived .hive-header {
+                opacity: 0.95;
+            }
+            .archive-banner {
+                border: 2px solid #FF5F00;
+                background: #FFF3CD;
+                border-radius: 14px;
+                padding: 18px 22px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 16px;
+                margin-bottom: 22px;
+                color: #6B4A00;
+                box-shadow: 0 8px 20px rgba(255, 149, 0, 0.12);
+            }
+            .archive-banner .archive-title {
+                font-size: 1em;
+                font-weight: 800;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                margin-bottom: 6px;
+            }
+            .archive-banner .archive-text {
+                font-size: 0.95em;
+                line-height: 1.5;
+                margin: 0;
+            }
+            .archive-banner .archive-status {
+                color: #A43F0A;
+                font-weight: 800;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                white-space: nowrap;
+            }
+            #content.archived .btn-leave,
+            #content.archived .disc-actions,
+            #content.archived .reply-box,
+            #content.archived .reply-input,
+            #content.archived .reply-post-btn,
+            #content.archived .vote-btn,
+            #content.archived .disc-collapse-hint {
+                display: none !important;
+            }
+            #content.archived .disc-comment {
+                pointer-events: none;
+            }
+            #content.archived .disc-text,
+            #content.archived .disc-name,
+            #content.archived .disc-time {
+                color: #4d4d4d;
+            }
+            #content.archived .tag {
+                background: #e6e0c5;
+                color: #4d4d2a;
+                border-color: #c9b775;
+            }
+            #content.archived .hive-owner img {
+                filter: grayscale(70%);
+            }
+        </style>
+
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -54,8 +117,15 @@
                     </div>
                 </div>
 
-                <div id="content">
+                <div id="content" class="archived">
                     <div id="hive-body">
+                        <div class="archive-banner">
+                            <div>
+                                <div class="archive-title">Archived group</div>
+                                <p class="archive-text">This group was archived due to inactivity. The page is view-only and no new interaction is allowed.</p>
+                            </div>
+                            <div class="archive-status">Inactive</div>
+                        </div>
                         <div class="hive-header">
                             <div class="hive-header-left">
                                 <div class="hive-title">Biology Study Group</div>
