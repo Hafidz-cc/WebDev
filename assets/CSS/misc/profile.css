@@ -81,3 +81,65 @@
     border: 1.5px solid #000;
     margin-left: auto;
 }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .profile-top {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .profile-top img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .profile-name {
+        font-size: 1.5em;
+    }
+
+    .profile-bio {
+        font-size: 0.95em;
+    }
+
+    .hive-row {
+        padding: 10px 12px;
+        font-size: 1em;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-top {
+        padding: 15px;
+        gap: 15px;
+    }
+
+    .profile-top img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .profile-name {
+        font-size: 1.2em;
+    }
+
+    .profile-bio {
+        font-size: 0.9em;
+    }
+
+    .hive-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 12px;
+        font-size: 0.95em;
+    }
+
+    .hive-row .tag {
+        margin-left: 0;
+        align-self: flex-end;
+    }
+}
