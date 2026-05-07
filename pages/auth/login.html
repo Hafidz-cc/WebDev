@@ -3,95 +3,404 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - HiveMinds</title>
-    <link rel="stylesheet" href="../../assets/CSS/base/base.css">
-    <link rel="stylesheet" href="../../assets/CSS/misc/auth.css">
+    <title>Login — HiveMinds</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+
     <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --yellow:   #FFD400;
+            --yellow-d: #E6BF00;
+            --orange:   #FF5F00;
+            --dark:     #1A1600;
+            --wax:      #FEFAF0;
+            --comb:     #FDF3D0;
+            --aged:     #6B5800;
+            --border:   #E8C84A;
+            --radius:   10px;
+            --danger:   #DC2626;
+        }
+
         @keyframes bgCycle {
             0%,  30% { background-image: url('../../assets/images/backgroundimg1.png'); }
             33%, 63% { background-image: url('../../assets/images/backgroundimg2.png'); }
             66%, 96% { background-image: url('../../assets/images/backgroundimg3.jpg'); }
-            100%      { background-image: url('../../assets/images/backgroundimg1.png'); }
+            100%     { background-image: url('../../assets/images/backgroundimg1.png'); }
         }
 
-        body.auth-page {
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 16px;
             animation: bgCycle 15s infinite;
             background-size: cover;
             background-position: center;
+            background-repeat: no-repeat;
+            background-color: #2a2000;
         }
 
-        .error-msg {
-            color: red;
-            font-size: 0.85rem;
-            margin-top: -8px;
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 8, 0, 0.55);
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
+            z-index: 0;
+        }
+
+        /* ── Card ── */
+        .login-card {
+            position: relative;
+            z-index: 1;
+            background: rgba(254, 250, 240, 0.97);
+            border: 2.5px solid var(--border);
+            border-radius: 20px;
+            box-shadow: 8px 8px 0 rgba(0,0,0,0.35);
+            width: min(420px, 96vw);
+            padding: 40px 36px 32px;
+            animation: fadeUp 0.45s ease-out both;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(22px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Close */
+        .close-btn {
+            position: absolute;
+            top: 16px; right: 18px;
+            font-size: 22px;
+            color: #888;
+            font-weight: 700;
+            text-decoration: none;
+            line-height: 1;
+            transition: color 0.2s;
+        }
+        .close-btn:hover { color: var(--orange); }
+
+        /* Header */
+        .card-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .logo {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.6em;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            color: #0D0B00;
             margin-bottom: 8px;
-            display: none;
+        }
+        .logo span { color: var(--orange); }
+        .card-header h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 4px;
+        }
+        .card-header p {
+            font-size: 0.88rem;
+            color: var(--aged);
         }
 
-     
-            #content {
-                margin-left:230px;
-                margin-top:-680px;
-                }
-        
+        /* ── Fields ── */
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-bottom: 14px;
+        }
+        .field label {
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--dark);
+            letter-spacing: 0.01em;
+        }
+        .field input {
+            width: 100%;
+            padding: 11px 13px;
+            border-radius: var(--radius);
+            border: 1.5px solid #ddd;
+            font-size: 0.92rem;
+            font-family: inherit;
+            color: var(--dark);
+            background: #fff;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none;
+        }
+        .field input:focus {
+            border-color: var(--yellow);
+            box-shadow: 0 0 0 3px rgba(255, 212, 0, 0.2);
+        }
+        .field input.invalid {
+            border-color: var(--danger);
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12);
+        }
+        .field input::placeholder { color: #bbb; }
+
+        /* Password row */
+        .pw-wrapper {
+            position: relative;
+        }
+        .pw-wrapper input {
+            padding-right: 42px;
+        }
+        .pw-toggle {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            color: #aaa;
+            padding: 0;
+            line-height: 1;
+            transition: color 0.2s;
+        }
+        .pw-toggle:hover { color: var(--dark); }
+
+        /* Error */
+        .error-msg {
+            display: none;
+            align-items: center;
+            gap: 7px;
+            background: #FEE2E2;
+            border: 1.5px solid #FCA5A5;
+            border-radius: 8px;
+            padding: 9px 12px;
+            font-size: 0.84rem;
+            font-weight: 600;
+            color: var(--danger);
+            margin-bottom: 14px;
+            animation: shake 0.35s ease;
+        }
+        .error-msg.visible { display: flex; }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%       { transform: translateX(-5px); }
+            40%       { transform: translateX(5px); }
+            60%       { transform: translateX(-4px); }
+            80%       { transform: translateX(4px); }
+        }
+
+        /* Submit */
+        .submit-btn {
+            width: 100%;
+            padding: 13px;
+            background: var(--yellow);
+            color: #000;
+            border: 2px solid #000;
+            border-radius: var(--radius);
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: 800;
+            cursor: pointer;
+            letter-spacing: 0.02em;
+            box-shadow: 3px 3px 0 #000;
+            transition: all 0.2s ease;
+            margin-top: 4px;
+        }
+        .submit-btn:hover {
+            background: var(--orange);
+            color: #fff;
+            transform: translate(-1px, -1px);
+            box-shadow: 4px 4px 0 #000;
+        }
+        .submit-btn:active {
+            transform: translate(1px, 1px);
+            box-shadow: 1px 1px 0 #000;
+        }
+
+        /* Signup link */
+        .signup-link {
+            text-align: center;
+            font-size: 0.88rem;
+            color: var(--aged);
+            margin-top: 20px;
+        }
+        .signup-link a {
+            color: var(--orange);
+            font-weight: 700;
+            text-decoration: none;
+        }
+        .signup-link a:hover { text-decoration: underline; }
+
+        /* Dev hint (collapsible) */
+        .dev-hint {
+            margin-top: 20px;
+            border: 1.5px dashed #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .dev-hint summary {
+            padding: 8px 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #aaa;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            cursor: pointer;
+            list-style: none;
+            user-select: none;
+        }
+        .dev-hint summary:hover { color: #888; }
+        .dev-hint-body {
+            padding: 0 12px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .quick-login {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 7px 10px;
+            border-radius: 7px;
+            border: 1.5px solid #eee;
+            background: #fafafa;
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s;
+        }
+        .quick-login:hover {
+            border-color: var(--yellow);
+            background: var(--comb);
+        }
+        .quick-login .ql-role {
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+        .quick-login .ql-email {
+            font-size: 0.75rem;
+            color: #aaa;
+            font-family: monospace;
+        }
     </style>
 </head>
-<body class="auth-page">
 
-<div class="login-container">
-    <div class="login-card">
-        <a href="/WebDev/index.html" class="close-page">×</a>
-        <h1>Login</h1>
+<body>
 
-        <form id="loginForm">
-            <input type="email" id="email" name="email" 
-                title="Please use your @wmsu.edu.ph email address" 
-                pattern="[a-zA-Z0-9._%+\-]+@wmsu\.edu\.ph" 
-                placeholder="Email" required>
-            <input type="password" id="password" name="password" placeholder="Password" required>
-            <p class="error-msg" id="errorMsg">Incorrect email or password.</p>
-            <button type="submit">Login</button>
-        </form>
+<div class="login-card">
+    <a href="/WebDev/index.html" class="close-btn" aria-label="Close">×</a>
 
-        <p class="signup-link">
-            Don't have an account? <a href="signup.html">Sign up</a>
-        </p>
+    <div class="card-header">
+        <div class="logo"><span>Hive</span>Minds</div>
+        <h1>Welcome back</h1>
+        <p>Sign in with your school email</p>
     </div>
+
+    <form id="loginForm" novalidate>
+
+        <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email"
+                pattern="[a-zA-Z0-9._%+\-]+@wmsu\.edu\.ph"
+                placeholder="yourname@wmsu.edu.ph"
+                title="Use your @wmsu.edu.ph email"
+                required>
+        </div>
+
+        <div class="field">
+            <label for="password">Password</label>
+            <div class="pw-wrapper">
+                <input type="password" id="password" name="password"
+                    placeholder="Enter your password" required>
+                <button type="button" class="pw-toggle" id="pwToggle" aria-label="Toggle password visibility">👁</button>
+            </div>
+        </div>
+
+        <div class="error-msg" id="errorMsg">
+            <span>⚠</span> Incorrect email or password.
+        </div>
+
+        <button type="submit" class="submit-btn">Log In →</button>
+    </form>
+
+    <p class="signup-link">Don't have an account? <a href="signup.html">Sign up</a></p>
+
+    <!-- Dev quick-login -->
+    <details class="dev-hint">
+        <summary>🛠 Dev — quick login</summary>
+        <div class="dev-hint-body">
+            <div class="quick-login" data-email="student@wmsu.edu.ph" data-pw="student123">
+                <span class="ql-role">Student</span>
+                <span class="ql-email">student@wmsu.edu.ph</span>
+            </div>
+            <div class="quick-login" data-email="misto@wmsu.edu.ph" data-pw="misto123">
+                <span class="ql-role">MISTO</span>
+                <span class="ql-email">misto@wmsu.edu.ph</span>
+            </div>
+            <div class="quick-login" data-email="registrar@wmsu.edu.ph" data-pw="registrar123">
+                <span class="ql-role">Registrar</span>
+                <span class="ql-email">registrar@wmsu.edu.ph</span>
+            </div>
+            <div class="quick-login" data-email="dean@wmsu.edu.ph" data-pw="dean123">
+                <span class="ql-role">Dean / Admin</span>
+                <span class="ql-email">dean@wmsu.edu.ph</span>
+            </div>
+        </div>
+    </details>
 </div>
 
 <script>
-    // --- Credentials ---
-    const ADMIN = {
-        email: "admin@wmsu.edu.ph",
-        password: "admin123"
+    const USERS = {
+        "misto@wmsu.edu.ph":      { password: "misto123",      redirect: "../../pages/misto/misto-dashboard.html" },
+        "registrar@wmsu.edu.ph":  { password: "registrar123",  redirect: "../../pages/registrar/registrar-dashboard.html" },
+        "dean@wmsu.edu.ph":       { password: "dean123",       redirect: "../../pages/adminDean/Dean-admin-dashboard.html" },
+        "student@wmsu.edu.ph":    { password: "student123",    redirect: "../../pages/home/home_home-feed.html" }
     };
 
-    const USER = {
-        email: "user@wmsu.edu.ph",
-        password: "user123"
-    };
-
-    // --- Redirect destinations ---
-    const ADMIN_PAGE = "../../pages/admin/admin-dashboard.html";
-    const USER_PAGE  = "../../pages/home/home_home-feed.html";
-
-    // --- Login logic ---
+    // Login logic
     document.getElementById("loginForm").addEventListener("submit", function(e) {
         e.preventDefault();
-
-        const email    = document.getElementById("email").value.trim();
+        const email    = document.getElementById("email").value.trim().toLowerCase();
         const password = document.getElementById("password").value;
-        const errorMsg = document.getElementById("errorMsg");
+        const errEl    = document.getElementById("errorMsg");
+        const emailIn  = document.getElementById("email");
+        const pwIn     = document.getElementById("password");
 
-        if (email === ADMIN.email && password === ADMIN.password) {
-            window.location.href = ADMIN_PAGE;
+        errEl.classList.remove("visible");
+        emailIn.classList.remove("invalid");
+        pwIn.classList.remove("invalid");
 
-        } else if (email === USER.email && password === USER.password) {
-            window.location.href = USER_PAGE;
-
+        if (USERS[email] && USERS[email].password === password) {
+            window.location.href = USERS[email].redirect;
         } else {
-            errorMsg.style.display = "block";
+            errEl.classList.add("visible");
+            emailIn.classList.add("invalid");
+            pwIn.classList.add("invalid");
+            // re-trigger shake
+            void errEl.offsetWidth;
         }
+    });
+
+    // Password toggle
+    document.getElementById("pwToggle").addEventListener("click", function() {
+        const inp = document.getElementById("password");
+        const isHidden = inp.type === "password";
+        inp.type = isHidden ? "text" : "password";
+        this.textContent = isHidden ? "🙈" : "👁";
+    });
+
+    // Quick-login buttons
+    document.querySelectorAll(".quick-login").forEach(btn => {
+        btn.addEventListener("click", function() {
+            document.getElementById("email").value    = this.dataset.email;
+            document.getElementById("password").value = this.dataset.pw;
+            document.getElementById("loginForm").dispatchEvent(new Event("submit"));
+        });
     });
 </script>
 
