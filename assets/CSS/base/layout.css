@@ -1,8 +1,6 @@
 /* ═══════════════════════════════════════════
-   LAYOUT.CSS
+   LAYOUT.CSS  —  HiveMinds v2
    #container · #sidebar · #content
-   Shared by all student-side pages that use the sidebar shell.
-   Also includes created-hives sidebar additions.
    ═══════════════════════════════════════════ */
 
 /* ── Shell ── */
@@ -10,115 +8,137 @@
     width: 100vw;
     display: flex;
     align-items: stretch;
-    min-height: calc(100vh - 60px); /* navbar is 60px */
+    min-height: calc(100vh - 62px);
 }
 
 /* ── Sidebar ── */
 #sidebar {
-    width: 20%;
+    width: 220px;
+    min-width: 220px;
     min-height: 100%;
-    height: auto !important;
-    background-color: #fffdf5;
-    border-right: 3px solid rgba(0, 0, 0, 0.118);
+    background: #FFFDF5;
+    border-right: 1.5px solid rgba(0, 0, 0, 0.10);
     display: flex;
-    padding: 30px 10px 0 30px;
     flex-direction: column;
-    gap: 50px;
+    padding: 24px 10px 24px 16px;
+    gap: 32px;
+    position: sticky;
+    top: 62px;
+    height: calc(100vh - 62px);
+    overflow-y: auto;
 }
 
+/* ── Sidebar section groups ── */
 #menu,
 #my-hives,
 #created-hives {
     display: flex;
     flex-direction: column;
-    gap: 7px;
+    gap: 4px;
 }
-
-#menu        { gap: 10px; }
-#my-hives    { gap: 7px;  }
-#created-hives { gap: 7px; }
 
 #menu > p,
 #my-hives > p,
 #created-hives > p {
-    font-size: 0.9em;
-    color: gray;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.68em;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #9A8A60;
+    padding: 0 10px 6px;
 }
 
 #sidebar hr {
     border: none;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    margin-bottom: 4px;
 }
 
-/* ── Sidebar buttons ── */
+/* ── Sidebar nav buttons ── */
 .sidebar-button {
     width: 100%;
     display: flex;
-    padding: 10px;
-    justify-content: flex-start;
     align-items: center;
-    gap: 5px;
-    transition: 0.3s ease;
+    gap: 8px;
+    padding: 9px 12px;
+    border-radius: 7px;
+    transition: 0.18s ease;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+}
+
+.sidebar-button p {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.88em;
+    font-weight: 500;
+    color: #3A2E00;
+    line-height: 1;
 }
 
 .sidebar-button:hover {
-    background-color: #ffd50096;
-    border-left: 5px solid #FFD400;
+    background: rgba(255, 212, 0, 0.14);
+    border-left-color: rgba(255, 212, 0, 0.5);
 }
 
 .sidebar-button.active {
-    background-color: #ffd50096;
-    border-left: 5px solid #FFD400;
+    background: rgba(255, 212, 0, 0.22);
+    border-left-color: #FFD400;
+    border-left-width: 3px;
 }
 
-.sidebar-button p { font-size: 1em; }
+.sidebar-button.active p { font-weight: 700; color: #1A1600; }
 
 /* ── Created-hive owner button ── */
 .created-hive-btn {
     width: 100%;
     display: flex;
-    padding: 10px;
-    justify-content: flex-start;
     align-items: center;
-    gap: 5px;
-    transition: 0.3s ease;
-    font-size: 1em;
+    gap: 8px;
+    padding: 9px 12px;
+    border-radius: 7px;
+    transition: 0.18s ease;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.88em;
+    font-weight: 500;
+    color: #3A2E00;
 }
 
 .created-hive-btn:hover {
-    background-color: #ffd50096;
-    border-left: 5px solid #FFD400;
+    background: rgba(255, 212, 0, 0.14);
+    border-left-color: rgba(255, 212, 0, 0.5);
 }
 
 .created-hive-btn.active {
-    background-color: #ffd50096;
-    border-left: 5px solid #FFD400;
+    background: rgba(255, 212, 0, 0.22);
+    border-left-color: #FFD400;
+    font-weight: 700;
+    color: #1A1600;
 }
 
-/* Owner hex (yellow, vs orange for joined hives) */
+/* Owner hex (yellow) */
 .hex-owner {
     height: 10px;
     width: 12px;
-    background-color: #FFD400;
+    background: #FFD400;
     clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
     flex-shrink: 0;
 }
 
 /* ── Content area ── */
 #content {
-    width: 80%;
+    flex: 1;
     min-height: 100%;
-    padding: 30px;
+    padding: 28px 30px;
     background:
-        repeating-linear-gradient(60deg,  transparent, transparent 28px, rgba(0,0,0,0.08) 28px, rgba(0,0,0,0.02) 30px),
-        repeating-linear-gradient(-60deg, transparent, transparent 28px, rgba(0,0,0,0.08) 28px, rgba(0,0,0,0.02) 30px),
-        #fffdf5;
+        repeating-linear-gradient(60deg,  transparent, transparent 28px, rgba(0,0,0,0.025) 28px, rgba(0,0,0,0.025) 30px),
+        repeating-linear-gradient(-60deg, transparent, transparent 28px, rgba(0,0,0,0.025) 28px, rgba(0,0,0,0.025) 30px),
+        #FFFDF5;
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-/* Full-width content (no sidebar, e.g. hives.html, create-hive.html) */
-#content.full-width {
-    width: 100%;
-}
+#content.full-width { width: 100%; }
