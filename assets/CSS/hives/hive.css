@@ -577,3 +577,256 @@
     border-radius: 6px;
     cursor: pointer;
 }
+/* ── Discussion card wrapper ── */
+.discussion-card {
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    border-radius: 10px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+/* ── Thread container ── */
+.disc-thread {
+    position: relative;
+}
+
+/* ── Collapse: hide replies + line when checkbox is checked ── */
+.collapse-toggle:checked ~ .disc-comment .disc-line,
+.collapse-toggle:checked ~ .disc-replies {
+    display: none;
+}
+.collapse-toggle:checked ~ .disc-comment .disc-collapse-hint {
+    color: #e87722;
+}
+.collapse-toggle:checked ~ .disc-comment .disc-collapse-hint::after {
+    content: " [+]";
+}
+.collapse-toggle:checked ~ .disc-comment .disc-collapse-hint {
+    font-size: 11px;
+}
+
+/* ── Reply box: hidden by default, shown when reply-toggle checked ── */
+.reply-toggle ~ .disc-comment .reply-box {
+    display: none;
+}
+.reply-toggle:checked ~ .disc-comment .reply-box {
+    display: flex;
+}
+
+/* ── Individual comment row ── */
+.disc-comment {
+    display: flex;
+    gap: 10px;
+    padding: 6px 0;
+}
+
+/* ── Left column: avatar + vertical line ── */
+.disc-left-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.disc-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #d6e4f7;
+    color: #1a5fa8;
+    font-size: 11px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    user-select: none;
+    flex-shrink: 0;
+    transition: opacity .15s;
+}
+.disc-avatar:hover { opacity: .75; }
+.disc-avatar.av-warn  { background: #fef0d6; color: #a86a00; }
+.disc-avatar.av-purple{ background: #eeedfe; color: #534ab7; }
+.disc-avatar.av-green { background: #e0f5ea; color: #1a7a45; cursor: default; }
+
+.disc-line {
+    width: 2px;
+    flex: 1;
+    min-height: 12px;
+    background: #e3e3e3;
+    border-radius: 2px;
+    margin-top: 4px;
+    cursor: pointer;
+    transition: background .15s;
+}
+.disc-line:hover { background: #bbb; }
+
+/* ── Comment body ── */
+.disc-body {
+    flex: 1;
+    min-width: 0;
+    padding-bottom: 6px;
+}
+
+.disc-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 3px;
+}
+
+.disc-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+.disc-time {
+    font-size: 11px;
+    color: #999;
+}
+
+.disc-collapse-hint {
+    font-size: 11px;
+    color: #bbb;
+    cursor: pointer;
+    margin-left: auto;
+    user-select: none;
+    transition: color .15s;
+}
+.disc-collapse-hint:hover { color: #e87722; }
+
+.disc-text {
+    font-size: 13px;
+    line-height: 1.55;
+    color: #333;
+    margin-bottom: 6px;
+}
+
+/* ── Action bar ── */
+.disc-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+/* Vote buttons (label wrapping hidden checkbox) */
+.vote-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    border: 1px solid #e0e0e0;
+    cursor: pointer;
+    color: #666;
+    user-select: none;
+    transition: all .15s;
+    background: #fafafa;
+}
+.vote-btn:hover { border-color: #bbb; color: #333; background: #f0f0f0; }
+
+/* Helpful active state */
+.helpful-cb:checked ~ .disc-body .helpful-btn,
+.helpful-cb:checked + .disc-body .helpful-btn {
+    background: #e6f4ec;
+    border-color: #5ab87a;
+    color: #1a7a45;
+}
+
+/* Not helpful active state */
+.nothelpful-cb:checked ~ .disc-body .nothelpful-btn,
+.nothelpful-cb:checked + .disc-body .nothelpful-btn {
+    background: #fdecea;
+    border-color: #e07070;
+    color: #a83030;
+}
+
+/* Since checkboxes are siblings inside .disc-thread, 
+   we use the general sibling combinator on .disc-comment */
+.helpful-cb:checked ~ .disc-comment .helpful-btn {
+    background: #e6f4ec;
+    border-color: #5ab87a;
+    color: #1a7a45;
+}
+.nothelpful-cb:checked ~ .disc-comment .nothelpful-btn {
+    background: #fdecea;
+    border-color: #e07070;
+    color: #a83030;
+}
+
+.vote-count {
+    font-weight: 600;
+}
+
+.disc-reply-btn {
+    font-size: 12px;
+    color: #888;
+    cursor: pointer;
+    padding: 3px 8px;
+    border-radius: 4px;
+    user-select: none;
+    transition: all .15s;
+}
+.disc-reply-btn:hover { background: #f0f0f0; color: #333; }
+
+/* ── Reply input box ── */
+.reply-box {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+    align-items: center;
+}
+
+.reply-input {
+    flex: 1;
+    font-size: 13px;
+    padding: 7px 11px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #f9f9f9;
+    color: #222;
+    outline: none;
+    transition: border-color .15s;
+}
+.reply-input:focus { border-color: #e87722; background: #fff; }
+
+.reply-post-btn {
+    font-size: 12px;
+    padding: 7px 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fff;
+    color: #555;
+    cursor: pointer;
+    transition: all .15s;
+    white-space: nowrap;
+}
+.reply-post-btn:hover { background: #e87722; border-color: #e87722; color: #fff; }
+
+/* ── Nested replies indent ── */
+.disc-replies {
+    padding-left: 20px;
+}
+
+/* ── Divider between top-level threads ── */
+.disc-divider {
+    border: none;
+    border-top: 1px solid #f0f0f0;
+    margin: 4px 0;
+}
+
+/* ── New comment row at bottom ── */
+.disc-new-comment {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #f0f0f0;
+}
