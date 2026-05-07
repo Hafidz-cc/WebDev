@@ -26,7 +26,7 @@
                     <a class="hover" href="../misc/profile.html">Profile</a>
                 </div>
                 <div id="auth-links">
-                    <a class="hover" href="../misc/profile.html">Rick Buzztley</a>
+                    <a class="hover" href="../misc/profile.html">Student</a>
                 </div>
             </div>
         </nav>
@@ -66,7 +66,7 @@
                                 </div>
                                 <div class="hive-owner">
                                     <img src="../../assets/images/person-profile.jpg">
-                                    Owned by <strong>Rick Buzztley</strong>
+                                    Owned by <strong>Shane doss</strong>
                                 </div>
                             </div>
                             <label for="leave-toggle" class="btn-leave">Leave Hive</label>
@@ -84,22 +84,223 @@
 
                         <div class="hive-columns">
                             <div class="hive-left">
-                                <div>
-                                    <div class="section-label">Comments</div>
-                                    <div class="comments-card">
-                                        <div class="comment"><img src="../../assets/images/person-profile.jpg"><div class="comment-body"><div class="comment-name">Rick Buzztley</div><div class="comment-text">Hey everyone, reminder that tonight's session is at 7 PM sharp. We're covering related rates so please review chapter 4 beforehand!</div><div class="comment-time">2 hours ago</div></div></div>
-                                        <hr class="comment-divider">
-                                        <div class="comment"><img src="../../assets/images/person-profile.jpg"><div class="comment-body"><div class="comment-name">Milky</div><div class="comment-text">Got it! Should we bring the problem sets from last week too?</div><div class="comment-time">1 hour ago</div></div></div>
-                                        <hr class="comment-divider">
-                                        <div class="comment"><img src="../../assets/images/person-profile.jpg"><div class="comment-body"><div class="comment-name">Sam Uy</div><div class="comment-text">Yes bring them! We still have 3 unsolved ones from last session 😭</div><div class="comment-time">45 minutes ago</div></div></div>
-                                        <hr class="comment-divider">
-                                        <div class="comment-input-row">
-                                            <input class="comment-input" type="text" placeholder="Write a comment...">
-                                            <button class="btn-comment">Post</button>
+    <div>
+        <div class="section-label">Discussion</div>
+        <div class="discussion-card">
+
+            <!-- ── COMMENT 1 (top-level) ── -->
+            <div class="disc-thread">
+                <input type="checkbox" id="col-1" class="collapse-toggle" hidden>
+                <input type="checkbox" id="rep-1" class="reply-toggle" hidden>
+
+                <div class="disc-comment">
+                    <div class="disc-left-col">
+                        <label for="col-1" class="disc-avatar" title="Collapse">RB</label>
+                        <label for="col-1" class="disc-line"></label>
+                    </div>
+                    <div class="disc-body">
+                        <div class="disc-meta">
+                            <span class="disc-name">Rick Buzztley</span>
+                            <span class="disc-time">2 hours ago</span>
+                            <label for="col-1" class="disc-collapse-hint">[–]</label>
+                        </div>
+                        <div class="disc-text">Hey everyone, reminder that tonight's session is at 7 PM sharp. We're covering related rates so please review chapter 4 beforehand!</div>
+                        <div class="disc-actions">
+                            <input type="checkbox" id="h-1" class="vote-cb helpful-cb" hidden>
+                            <input type="checkbox" id="n-1" class="vote-cb nothelpful-cb" hidden>
+                            <label for="h-1" class="vote-btn helpful-btn">👍 Helpful <span class="vote-count">5</span></label>
+                            <label for="n-1" class="vote-btn nothelpful-btn">👎 Not helpful</label>
+                            <label for="rep-1" class="disc-reply-btn">↩ Reply</label>
+                        </div>
+                        <div class="reply-box">
+                            <input class="reply-input" type="text" placeholder="Write a reply…">
+                            <button class="reply-post-btn">Post</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- replies to comment 1 -->
+                <div class="disc-replies">
+
+                    <!-- reply 1a -->
+                    <div class="disc-thread">
+                        <input type="checkbox" id="col-1a" class="collapse-toggle" hidden>
+                        <input type="checkbox" id="rep-1a" class="reply-toggle" hidden>
+                        <div class="disc-comment">
+                            <div class="disc-left-col">
+                                <label for="col-1a" class="disc-avatar av-warn" title="Collapse">MI</label>
+                                <label for="col-1a" class="disc-line"></label>
+                            </div>
+                            <div class="disc-body">
+                                <div class="disc-meta">
+                                    <span class="disc-name">Milky</span>
+                                    <span class="disc-time">1 hour ago</span>
+                                    <label for="col-1a" class="disc-collapse-hint">[–]</label>
+                                </div>
+                                <div class="disc-text">Got it! Should we bring the problem sets from last week too?</div>
+                                <div class="disc-actions">
+                                    <input type="checkbox" id="h-1a" class="vote-cb helpful-cb" hidden>
+                                    <input type="checkbox" id="n-1a" class="vote-cb nothelpful-cb" hidden>
+                                    <label for="h-1a" class="vote-btn helpful-btn">👍 Helpful <span class="vote-count">3</span></label>
+                                    <label for="n-1a" class="vote-btn nothelpful-btn">👎 Not helpful</label>
+                                    <label for="rep-1a" class="disc-reply-btn">↩ Reply</label>
+                                </div>
+                                <div class="reply-box">
+                                    <input class="reply-input" type="text" placeholder="Write a reply…">
+                                    <button class="reply-post-btn">Post</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- reply to reply -->
+                        <div class="disc-replies">
+                            <div class="disc-thread">
+                                <input type="checkbox" id="col-1b" class="collapse-toggle" hidden>
+                                <input type="checkbox" id="rep-1b" class="reply-toggle" hidden>
+                                <div class="disc-comment">
+                                    <div class="disc-left-col">
+                                        <label for="col-1b" class="disc-avatar av-purple" title="Collapse">SU</label>
+                                        <label for="col-1b" class="disc-line"></label>
+                                    </div>
+                                    <div class="disc-body">
+                                        <div class="disc-meta">
+                                            <span class="disc-name">Sam Uy</span>
+                                            <span class="disc-time">45 mins ago</span>
+                                            <label for="col-1b" class="disc-collapse-hint">[–]</label>
+                                        </div>
+                                        <div class="disc-text">Yes bring them! We still have 3 unsolved ones from last session 😭</div>
+                                        <div class="disc-actions">
+                                            <input type="checkbox" id="h-1b" class="vote-cb helpful-cb" hidden>
+                                            <input type="checkbox" id="n-1b" class="vote-cb nothelpful-cb" hidden>
+                                            <label for="h-1b" class="vote-btn helpful-btn">👍 Helpful <span class="vote-count">6</span></label>
+                                            <label for="n-1b" class="vote-btn nothelpful-btn">👎 Not helpful</label>
+                                            <label for="rep-1b" class="disc-reply-btn">↩ Reply</label>
+                                        </div>
+                                        <div class="reply-box">
+                                            <input class="reply-input" type="text" placeholder="Write a reply…">
+                                            <button class="reply-post-btn">Post</button>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="disc-replies"></div>
                             </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <hr class="disc-divider">
+
+            <!-- ── COMMENT 2 ── -->
+            <div class="disc-thread">
+                <input type="checkbox" id="col-2" class="collapse-toggle" hidden>
+                <input type="checkbox" id="rep-2" class="reply-toggle" hidden>
+                <div class="disc-comment">
+                    <div class="disc-left-col">
+                        <label for="col-2" class="disc-avatar av-purple" title="Collapse">SU</label>
+                        <label for="col-2" class="disc-line"></label>
+                    </div>
+                    <div class="disc-body">
+                        <div class="disc-meta">
+                            <span class="disc-name">Sam Uy</span>
+                            <span class="disc-time">3 hours ago</span>
+                            <label for="col-2" class="disc-collapse-hint">[–]</label>
+                        </div>
+                        <div class="disc-text">Does anyone have a good resource for related rates? The textbook examples are kinda hard to follow.</div>
+                        <div class="disc-actions">
+                            <input type="checkbox" id="h-2" class="vote-cb helpful-cb" hidden>
+                            <input type="checkbox" id="n-2" class="vote-cb nothelpful-cb" hidden>
+                            <label for="h-2" class="vote-btn helpful-btn">👍 Helpful <span class="vote-count">4</span></label>
+                            <label for="n-2" class="vote-btn nothelpful-btn">👎 Not helpful</label>
+                            <label for="rep-2" class="disc-reply-btn">↩ Reply</label>
+                        </div>
+                        <div class="reply-box">
+                            <input class="reply-input" type="text" placeholder="Write a reply…">
+                            <button class="reply-post-btn">Post</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="disc-replies">
+                    <div class="disc-thread">
+                        <input type="checkbox" id="col-2a" class="collapse-toggle" hidden>
+                        <input type="checkbox" id="rep-2a" class="reply-toggle" hidden>
+                        <div class="disc-comment">
+                            <div class="disc-left-col">
+                                <label for="col-2a" class="disc-avatar" title="Collapse">RB</label>
+                                <label for="col-2a" class="disc-line"></label>
+                            </div>
+                            <div class="disc-body">
+                                <div class="disc-meta">
+                                    <span class="disc-name">Rick Buzztley</span>
+                                    <span class="disc-time">2 hours ago</span>
+                                    <label for="col-2a" class="disc-collapse-hint">[–]</label>
+                                </div>
+                                <div class="disc-text">Professor Leonard on YouTube is really good for this. His related rates playlist saved me last sem!</div>
+                                <div class="disc-actions">
+                                    <input type="checkbox" id="h-2a" class="vote-cb helpful-cb" hidden>
+                                    <input type="checkbox" id="n-2a" class="vote-cb nothelpful-cb" hidden>
+                                    <label for="h-2a" class="vote-btn helpful-btn">👍 Helpful <span class="vote-count">7</span></label>
+                                    <label for="n-2a" class="vote-btn nothelpful-btn">👎 Not helpful</label>
+                                    <label for="rep-2a" class="disc-reply-btn">↩ Reply</label>
+                                </div>
+                                <div class="reply-box">
+                                    <input class="reply-input" type="text" placeholder="Write a reply…">
+                                    <button class="reply-post-btn">Post</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="disc-replies"></div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="disc-divider">
+
+            <!-- ── COMMENT 3 ── -->
+            <div class="disc-thread">
+                <input type="checkbox" id="col-3" class="collapse-toggle" hidden>
+                <input type="checkbox" id="rep-3" class="reply-toggle" hidden>
+                <div class="disc-comment">
+                    <div class="disc-left-col">
+                        <label for="col-3" class="disc-avatar av-warn" title="Collapse">MI</label>
+                        <label for="col-3" class="disc-line"></label>
+                    </div>
+                    <div class="disc-body">
+                        <div class="disc-meta">
+                            <span class="disc-name">Milky</span>
+                            <span class="disc-time">30 mins ago</span>
+                            <label for="col-3" class="disc-collapse-hint">[–]</label>
+                        </div>
+                        <div class="disc-text">Quick question — are we doing the Discord voice channel or the Zoom link from last week?</div>
+                        <div class="disc-actions">
+                            <input type="checkbox" id="h-3" class="vote-cb helpful-cb" hidden>
+                            <input type="checkbox" id="n-3" class="vote-cb nothelpful-cb" hidden>
+                            <label for="h-3" class="vote-btn helpful-btn">👍 Helpful <span class="vote-count">2</span></label>
+                            <label for="n-3" class="vote-btn nothelpful-btn">👎 Not helpful</label>
+                            <label for="rep-3" class="disc-reply-btn">↩ Reply</label>
+                        </div>
+                        <div class="reply-box">
+                            <input class="reply-input" type="text" placeholder="Write a reply…">
+                            <button class="reply-post-btn">Post</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="disc-replies"></div>
+            </div>
+
+            <!-- ── NEW COMMENT ROW ── -->
+            <div class="disc-new-comment">
+                <div class="disc-avatar av-green" style="cursor:default">YO</div>
+                <input class="reply-input" type="text" placeholder="Write a comment…">
+                <button class="reply-post-btn">Post</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 
                             <div class="hive-right">
                                 <div>
@@ -108,8 +309,6 @@
                                         <div class="detail-row"><div class="detail-icon"><i class="fa-regular fa-calendar"></i></div><div class="detail-key">Date</div><div class="detail-value">Monday, March 23</div></div>
                                         <div class="detail-row"><div class="detail-icon"><i class="fa-regular fa-clock"></i></div><div class="detail-key">Time</div><div class="detail-value">6:00 PM – 7:00 PM</div></div>
                                         <div class="detail-row"><div class="detail-icon"><i class="fa-solid fa-location-dot"></i></div><div class="detail-key">Location</div><div class="detail-value">Discord — #calculus-voice</div></div>
-                                        <div class="detail-row"><div class="detail-icon"><i class="fa-solid fa-wifi"></i></div><div class="detail-key">Mode</div><div class="detail-value">Online</div></div>
-                                        <div class="detail-row"><div class="detail-icon"><i class="fa-solid fa-book"></i></div><div class="detail-key">Topic</div><div class="detail-value">Linear algebra basics review</div></div>
                                         <div class="detail-row"><div class="detail-icon"><i class="fa-solid fa-users"></i></div><div class="detail-key">Members</div><div class="detail-value">18 members</div></div>
                                     </div>
                                 </div>

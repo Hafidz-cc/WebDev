@@ -238,6 +238,186 @@
     color: var(--aged);
 }
 
+/* ── Group detail modal ── */
+#group-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 9999;
+}
+
+#group-modal.open {
+    display: flex;
+}
+
+#group-modal .modal-panel {
+    width: min(920px, 100%);
+    max-height: 90vh;
+    overflow: auto;
+    background: white;
+    border-radius: 22px;
+    padding: 28px;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.18);
+    position: relative;
+}
+
+#group-modal .modal-close {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    border: none;
+    background: transparent;
+    font-size: 1.6rem;
+    cursor: pointer;
+    color: var(--hive);
+}
+
+#group-modal .modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 18px;
+}
+
+#group-modal .modal-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+#group-modal .modal-status {
+    padding: 6px 14px;
+    border-radius: 999px;
+    border: 1.5px solid var(--amber);
+    background: var(--comb);
+    color: var(--hive);
+    font-size: 0.8em;
+    font-weight: 700;
+}
+
+#group-modal .modal-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+}
+
+#group-modal .modal-tab {
+    border: 1px solid rgba(0,0,0,0.12);
+    background: #f7f3e9;
+    color: var(--hive);
+    padding: 10px 16px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: 0.2s ease;
+    font-weight: 700;
+}
+
+#group-modal .modal-tab.active {
+    background: var(--amber);
+    color: #000;
+    border-color: var(--amber);
+}
+
+#group-modal .modal-tab-content {
+    display: none;
+}
+
+#group-modal .modal-tab-content.active {
+    display: block;
+}
+
+#group-modal .modal-row {
+    display: grid;
+    grid-template-columns: 160px minmax(0, 1fr);
+    gap: 12px;
+    margin-bottom: 12px;
+    align-items: start;
+}
+
+#group-modal .modal-row span {
+    text-transform: uppercase;
+    font-size: 0.78em;
+    color: gray;
+    letter-spacing: 0.08em;
+}
+
+#group-modal .modal-row p,
+#group-modal .modal-row strong {
+    margin: 0;
+    font-size: 0.95em;
+    line-height: 1.6;
+}
+
+#group-modal .activity-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+#group-modal .activity-card {
+    padding: 18px;
+    border-radius: 14px;
+    border: 1px solid rgba(255,181,0,0.3);
+    background: #fff7e0;
+    box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+}
+
+#group-modal .activity-card h4 {
+    margin: 0 0 8px;
+    font-size: 1rem;
+}
+
+#group-modal .activity-card p {
+    margin: 0;
+    color: #4a4031;
+    line-height: 1.55;
+}
+
+#group-modal .activity-metrics {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+}
+
+#group-modal .metric-card {
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 12px;
+    padding: 14px;
+}
+
+#group-modal .metric-card span {
+    display: block;
+    font-size: 0.78em;
+    color: gray;
+    margin-bottom: 6px;
+}
+
+#group-modal .metric-card strong {
+    font-size: 1.1em;
+}
+
+@media (max-width: 768px) {
+    #group-modal .modal-panel {
+        width: min(100%, 680px);
+        padding: 22px;
+    }
+
+    #group-modal .modal-row {
+        grid-template-columns: 1fr;
+    }
+
+    #group-modal .activity-metrics {
+        grid-template-columns: 1fr;
+    }
+}
+
 .pagination-btns { display: flex; gap: 6px; }
 
 .pg-btn {

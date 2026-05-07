@@ -125,3 +125,99 @@
     font-size: 0.7em;
     color: #515151;
 }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 3px solid rgba(0, 0, 0, 0.118);
+        padding: 20px 15px;
+        gap: 30px;
+    }
+
+    #content-body {
+        flex-direction: column;
+    }
+
+    #whats-buzzin,
+    #upcoming {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .profile {
+        width: 100%;
+    }
+
+    .person-info {
+        width: 100%;
+    }
+
+    .person-name {
+        font-size: 1.2em;
+    }
+
+    .card-text {
+        font-size: 1em;
+        padding: 0;
+    }
+
+    .session {
+        font-size: 1.1em;
+        gap: 10px;
+    }
+
+    .session .topic {
+        font-size: 0.8em;
+    }
+}
+
+@media (max-width: 480px) {
+    #sidebar {
+        padding: 15px 10px;
+        gap: 20px;
+    }
+
+    #whats-buzzin,
+    #upcoming,
+    #trending {
+        padding: 8px;
+        gap: 15px;
+    }
+
+    .profile img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .person-name {
+        font-size: 1em;
+    }
+
+    .details {
+        font-size: 0.9em;
+    }
+
+    .card-text {
+        font-size: 0.95em;
+    }
+
+    .session {
+        font-size: 1em;
+        padding: 8px;
+        gap: 8px;
+    }
+
+    .session .topic {
+        font-size: 0.75em;
+        margin-left: 8px;
+        margin-top: 3px;
+    }
+}
