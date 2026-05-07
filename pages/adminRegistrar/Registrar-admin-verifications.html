@@ -36,18 +36,24 @@
             .btn-approve { padding: 6px 14px; background: #22c55e; color: #fff; border: none; border-radius: 7px; font-size: 0.81rem; font-weight: 600; cursor: pointer; }
             .btn-reject { padding: 6px 14px; background: #fff; color: #ef4444; border: 1.5px solid #ef4444; border-radius: 7px; font-size: 0.81rem; font-weight: 600; cursor: pointer; }
 
+            #container {
+                display: flex;
+                align-items: flex-start;
+            }
+            #sidebar {
+                width: 230px;
+                flex-shrink: 0;
+            }
             #content {
-                margin-left:230px;
-                margin-top:-680px;
-                }
-        
+                flex: 1;
+            }
         </style>
     </head>
 
     <body>
                 <nav>
             <div id="nav-container">
-                <a href="../../index.html">
+                 <a href="/WebDev/pages/home/homepage.html">
                     <div class="logo">
                         <span class="black">Hive</span><span class="orange">Minds</span>
                     </div>
@@ -76,7 +82,7 @@
                      
                         <a href="/WebDev/pages/adminRegistrar/Registrar-admin-verifications.html">
                             <div class="sidebar-button menu">
-                                <p>Verifications</p>
+                                <p>User-Verifications</p>
                             </div>
                         </a>
                        
@@ -279,12 +285,13 @@
             </div>
         </main>
 
-        <div id="role-switcher">
+                      <div id="role-switcher">
             <span class="switcher-label">View as</span>
-            <a href="../../pages/home/home_home-feed.html" class="switcher-btn">Student</a>
-            <a href="../admin/admin-dashboard.html" class="switcher-btn active">Admin</a>
-            <a href="/WebDev/pages/adminRegistrar/Registrar-admin-dashboard.html" class="switcher-btn active">Registrar-Admin</a>
-            <a href="../adminDean/Dean-admin-dashboard.html" class="switcher-btn">Dean</a>
+        
+             <a href="/WebDev/pages/admin/admin-dashboard.html" class="switcher-btn">Super-Admin</a>
+            <a href="/WebDev/pages/adminRegistrar/Registrar-admin-verifications.html" class="switcher-btn">Registrar-Admin</a>
+            <a href="/WebDev/pages/adminDean/Dean-admin-dashboard.html" class="switcher-btn">Dean</a>
+            <a href="/WebDev/pages/adminAdviser/Adviser_dashboard.html" class="switcher-btn">Adviser</a>
         </div>
 
         <script>

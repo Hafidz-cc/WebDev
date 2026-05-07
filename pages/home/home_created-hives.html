@@ -666,11 +666,7 @@
             .att-chip.n { background: #f0f0f0; color: #777; }
 
   
-            #content {
-                margin-left:230px;
-                margin-top:-680px;
-                }
-    
+          
         </style>
     </head>
 
@@ -733,8 +729,10 @@
 
         <nav>
             <div id="nav-container">
-                <a href="../../index.html">
-                    <div class="logo"><span class="black">Hive</span><span class="orange">Minds</span></div>
+                  <a href="/WebDev/pages/home/homepage.html">
+                    <div class="logo">
+                        <span class="black">Hive</span><span class="orange">Minds</span>
+                    </div>
                 </a>
                 <div id="nav-links">
                     <a class="hover active-nav" href="home_home-feed.html">Home</a>
@@ -771,346 +769,208 @@
                 </div>
 
                 <div id="content">
-                    <div id="hive-body">
-
-                        <div class="owner-banner">
-                            <i class="fa-solid fa-crown"></i>
-                            You are the owner of this hive &mdash; you can log sessions and mark attendance below.
+                
+                    <div class="disc-body">
+                        <div class="disc-meta">
+                            <span class="disc-name">Rick Buzztley</span>
+                            <span class="disc-time">2 hours ago</span>
+                            <label for="col-1" class="disc-collapse-hint">[–]</label>
                         </div>
+                        <div class="disc-text">Hey everyone, reminder that tonight's session is at 7 PM sharp. We're covering related rates so please review chapter 4 beforehand!</div>
+                        <div class="disc-actions">
+                            <input type="checkbox" id="h-1" class="vote-cb helpful-cb" hidden>
+                            <input type="checkbox" id="n-1" class="vote-cb nothelpful-cb" hidden>
+                            <label for="h-1" class="vote-btn helpful-btn">👍 Helpful <span class="vote-count">5</span></label>
+                            <label for="n-1" class="vote-btn nothelpful-btn">👎 Not helpful</label>
+                            <label for="rep-1" class="disc-reply-btn">↩ Reply</label>
+                        </div>
+                        <div class="reply-box">
+                            <input class="reply-input" type="text" placeholder="Write a reply…">
+                            <button class="reply-post-btn">Post</button>
+                        </div>
+                    </div>
+                </div>
 
-                        <!-- ══════════════════════════════════════
-                             ACTIVITY OVERVIEW — new section
-                        ══════════════════════════════════════ -->
-                        <div class="activity-overview">
-                            <div class="activity-overview-top">
-                                <div class="activity-title">
-                                    <span class="live-dot"></span>
-                                    Hive Activity Tracker
-                                </div>
-                                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-                                    <span class="streak-badge"><i class="fa-solid fa-fire"></i> 3-week streak</span>
-                                    <button class="btn-log-session" onclick="openModal()">
-                                        <i class="fa-solid fa-plus"></i> Log session
-                                    </button>
-                                </div>
+                <!-- replies to comment 1 -->
+                <div class="disc-replies">
+
+                    <!-- reply 1a -->
+                    <div class="disc-thread">
+                        <input type="checkbox" id="col-1a" class="collapse-toggle" hidden>
+                        <input type="checkbox" id="rep-1a" class="reply-toggle" hidden>
+                        <div class="disc-comment">
+                            <div class="disc-left-col">
+                                <label for="col-1a" class="disc-avatar av-warn" title="Collapse">MI</label>
+                                <label for="col-1a" class="disc-line"></label>
                             </div>
-
-                            <!-- Key stats -->
-                            <div class="activity-stats-row">
-                                <div class="act-stat">
-                                    <span class="asv" id="statSessions">3</span>
-                                    <span class="asl">Sessions held</span>
+                            <div class="disc-body">
+                                <div class="disc-meta">
+                                    <span class="disc-name">Milky</span>
+                                    <span class="disc-time">1 hour ago</span>
+                                    <label for="col-1a" class="disc-collapse-hint">[–]</label>
                                 </div>
-                                <div class="act-stat">
-                                    <span class="asv" id="statAvgAtt">87%</span>
-                                    <span class="asl">Avg attendance</span>
+                                <div class="disc-text">Got it! Should we bring the problem sets from last week too?</div>
+                                <div class="disc-actions">
+                                    <input type="checkbox" id="h-1a" class="vote-cb helpful-cb" hidden>
+                                    <input type="checkbox" id="n-1a" class="vote-cb nothelpful-cb" hidden>
+                                    <label for="h-1a" class="vote-btn helpful-btn">👍 Helpful <span class="vote-count">3</span></label>
+                                    <label for="n-1a" class="vote-btn nothelpful-btn">👎 Not helpful</label>
+                                    <label for="rep-1a" class="disc-reply-btn">↩ Reply</label>
                                 </div>
-                                <div class="act-stat">
-                                    <span class="asv" id="statHours">6h</span>
-                                    <span class="asl">Total study hrs</span>
+                                <div class="reply-box">
+                                    <input class="reply-input" type="text" placeholder="Write a reply…">
+                                    <button class="reply-post-btn">Post</button>
                                 </div>
-                                <div class="act-stat">
-                                    <span class="asv" id="statTopMember">Maya S.</span>
-                                    <span class="asl">Most consistent</span>
-                                </div>
-                            </div>
-
-                            <!-- Master attendance progress bar -->
-                            <div class="master-bar-wrap">
-                                <div class="master-bar-labels">
-                                    <span>Overall group attendance</span>
-                                    <span id="masterBarPct">87%</span>
-                                </div>
-                                <div class="master-bar-track">
-                                    <div class="master-bar-fill" id="masterBarFill" style="width:87%"></div>
-                                </div>
-                            </div>
-
-                            <!-- Session dot history strip -->
-                            <div class="session-dots-row">
-                                <span class="session-dots-label">Sessions:</span>
-                                <div class="s-dot held"><i class="fa-solid fa-check" style="font-size:8px"></i><div class="s-dot-tip">Mar 14 — 7/8 attended</div></div>
-                                <div class="s-dot held"><i class="fa-solid fa-check" style="font-size:8px"></i><div class="s-dot-tip">Mar 21 — 8/8 attended</div></div>
-                                <div class="s-dot held"><i class="fa-solid fa-check" style="font-size:8px"></i><div class="s-dot-tip">Mar 28 — 6/8 attended</div></div>
-                                <div class="s-dot upcoming" id="upcomingDot1">4<div class="s-dot-tip">Apr 4 — Upcoming</div></div>
-                                <div class="s-dot upcoming">5<div class="s-dot-tip">Apr 11 — Upcoming</div></div>
-                                <div class="s-dot upcoming">6<div class="s-dot-tip">Apr 18 — Upcoming</div></div>
-                                <span style="font-size:0.75em;color:rgb(117,117,117);margin-left:4px">
-                                    <span style="margin-right:8px"><span class="s-dot held" style="display:inline-flex;width:12px;height:12px;font-size:7px;margin-right:3px;vertical-align:middle"><i class="fa-solid fa-check" style="font-size:6px"></i></span>Held</span>
-                                    <span><span class="s-dot upcoming" style="display:inline-flex;width:12px;height:12px;font-size:7px;margin-right:3px;vertical-align:middle"></span>Upcoming</span>
-                                </span>
                             </div>
                         </div>
 
-                        <!-- ══════════════════════════════════════
-                             HIVE HEADER (original)
-                        ══════════════════════════════════════ -->
-                        <div class="hive-header">
-                            <div class="hive-header-left">
-                                <div class="hive-title">Rick's Study Circle</div>
-                                <div class="hive-meta">
-                                    <span class="tag">Mathematics</span>
-                                    <span class="frequency-badge recurring"><span class="dot"></span> Recurring</span>
-                                    <span>&bull; 8 members</span>
-                                </div>
-                                <div class="hive-owner">
-                                    <img src="../../assets/images/person-profile.jpg">
-                                    Owned by <strong>Rick Buzztley</strong>
-                                </div>
-                            </div>
-                            <div class="owner-actions">
-                                <a href="../hives/create-hive.html"><button class="btn-owner edit"><i class="fa-solid fa-pen"></i> Edit Details</button></a>
-                                <button class="btn-owner delete"><i class="fa-solid fa-trash"></i> Delete Hive</button>
-                            </div>
-                        </div>
-
-                        <!-- ══════════════════════════════════════
-                             MAIN COLUMNS
-                        ══════════════════════════════════════ -->
-                        <div class="hive-columns">
-                            <div class="hive-left">
-
-                                <!-- SESSION LOG HISTORY — new section -->
-                                <div>
-                                    <div class="section-label">Session History &amp; Attendance</div>
-                                    <div class="session-log-card">
-                                        <div class="slc-header">
-                                            <h4><i class="fa-solid fa-clipboard-list"></i>&nbsp; Session logs — Rick's Study Circle</h4>
-                                            <button class="btn-log-session" style="font-size:0.78em;padding:6px 14px" onclick="openModal()">
-                                                <i class="fa-solid fa-plus"></i> Log session
-                                            </button>
+                        <!-- reply to reply -->
+                        <div class="disc-replies">
+                            <div class="disc-thread">
+                                <input type="checkbox" id="col-1b" class="collapse-toggle" hidden>
+                                <input type="checkbox" id="rep-1b" class="reply-toggle" hidden>
+                                <div class="disc-comment">
+                                    <div class="disc-left-col">
+                                        <label for="col-1b" class="disc-avatar av-purple" title="Collapse">SU</label>
+                                        <label for="col-1b" class="disc-line"></label>
+                                    </div>
+                                    <div class="disc-body">
+                                        <div class="disc-meta">
+                                            <span class="disc-name">Sam Uy</span>
+                                            <span class="disc-time">45 mins ago</span>
+                                            <label for="col-1b" class="disc-collapse-hint">[–]</label>
                                         </div>
-
-                                        <!-- Session entries -->
-                                        <div id="sessionLogContainer">
-
-                                            <!-- SESSION 3 -->
-                                            <div class="session-entry" id="entry-3">
-                                                <div class="session-entry-header" onclick="toggleEntry('entry-3')">
-                                                    <div class="seh-left">
-                                                        <div class="seh-num">3</div>
-                                                        <div class="seh-info">
-                                                            <div class="seh-date">Friday, March 28, 2025</div>
-                                                            <div class="seh-topic">Intro to algebraic fractions &mdash; 2 hrs &mdash; Online</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="seh-right">
-                                                        <div class="mini-att-bar">
-                                                            <div class="mini-att-track"><div class="mini-att-fill att-mid" style="width:75%"></div></div>
-                                                            <span style="font-weight:800;font-size:0.85em">6/8</span>
-                                                        </div>
-                                                        <span class="att-saved-badge show"><i class="fa-solid fa-check"></i> Saved</span>
-                                                        <i class="fa-solid fa-chevron-down seh-chevron"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="session-att-body">
-                                                    <div class="att-body-top">
-                                                        <span class="abt-label"><i class="fa-solid fa-users"></i>&nbsp; Attendance &mdash; click to mark</span>
-                                                        <span class="att-summary" id="sum-3">6 present &bull; 1 absent &bull; 1 late</span>
-                                                    </div>
-                                                    <!-- attendance rows for session 3 -->
-                                                    <div class="att-member-row">
-                                                        <img class="att-avatar" src="../../assets/images/person-profile.jpg">
-                                                        <span class="att-name">Rick Buzztley <span style="font-size:0.75em;opacity:.6">(You)</span></span>
-                                                        <div class="att-toggle">
-                                                            <button class="att-btn present active" onclick="markAtt(this,'entry-3','Rick Buzztley','present')"><i class="fa-solid fa-check"></i> Present</button>
-                                                            <button class="att-btn late"    onclick="markAtt(this,'entry-3','Rick Buzztley','late')"><i class="fa-solid fa-clock"></i> Late</button>
-                                                            <button class="att-btn absent"  onclick="markAtt(this,'entry-3','Rick Buzztley','absent')"><i class="fa-solid fa-xmark"></i> Absent</button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="att-member-row">
-                                                        <img class="att-avatar" src="../../assets/images/person-profile.jpg">
-                                                        <span class="att-name">Maya Santos</span>
-                                                        <div class="att-toggle">
-                                                            <button class="att-btn present active" onclick="markAtt(this,'entry-3','Maya Santos','present')"><i class="fa-solid fa-check"></i> Present</button>
-                                                            <button class="att-btn late"    onclick="markAtt(this,'entry-3','Maya Santos','late')"><i class="fa-solid fa-clock"></i> Late</button>
-                                                            <button class="att-btn absent"  onclick="markAtt(this,'entry-3','Maya Santos','absent')"><i class="fa-solid fa-xmark"></i> Absent</button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="att-member-row">
-                                                        <img class="att-avatar" src="../../assets/images/person-profile.jpg">
-                                                        <span class="att-name">Sam Uy</span>
-                                                        <div class="att-toggle">
-                                                            <button class="att-btn present active" onclick="markAtt(this,'entry-3','Sam Uy','present')"><i class="fa-solid fa-check"></i> Present</button>
-                                                            <button class="att-btn late"    onclick="markAtt(this,'entry-3','Sam Uy','late')"><i class="fa-solid fa-clock"></i> Late</button>
-                                                            <button class="att-btn absent"  onclick="markAtt(this,'entry-3','Sam Uy','absent')"><i class="fa-solid fa-xmark"></i> Absent</button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="att-member-row">
-                                                        <img class="att-avatar" src="../../assets/images/person-profile.jpg">
-                                                        <span class="att-name">Milky</span>
-                                                        <div class="att-toggle">
-                                                            <button class="att-btn present active" onclick="markAtt(this,'entry-3','Milky','present')"><i class="fa-solid fa-check"></i> Present</button>
-                                                            <button class="att-btn late"    onclick="markAtt(this,'entry-3','Milky','late')"><i class="fa-solid fa-clock"></i> Late</button>
-                                                            <button class="att-btn absent"  onclick="markAtt(this,'entry-3','Milky','absent')"><i class="fa-solid fa-xmark"></i> Absent</button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="att-member-row">
-                                                        <img class="att-avatar" src="../../assets/images/person-profile.jpg">
-                                                        <span class="att-name">Carla Mendez</span>
-                                                        <div class="att-toggle">
-                                                            <button class="att-btn present" onclick="markAtt(this,'entry-3','Carla Mendez','present')"><i class="fa-solid fa-check"></i> Present</button>
-                                                            <button class="att-btn late"    onclick="markAtt(this,'entry-3','Carla Mendez','late')"><i class="fa-solid fa-clock"></i> Late</button>
-                                                            <button class="att-btn absent active"  onclick="markAtt(this,'entry-3','Carla Mendez','absent')"><i class="fa-solid fa-xmark"></i> Absent</button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="att-member-row">
-                                                        <img class="att-avatar" src="../../assets/images/person-profile.jpg">
-                                                        <span class="att-name">Leo Reyes</span>
-                                                        <div class="att-toggle">
-                                                            <button class="att-btn present active" onclick="markAtt(this,'entry-3','Leo Reyes','present')"><i class="fa-solid fa-check"></i> Present</button>
-                                                            <button class="att-btn late"    onclick="markAtt(this,'entry-3','Leo Reyes','late')"><i class="fa-solid fa-clock"></i> Late</button>
-                                                            <button class="att-btn absent"  onclick="markAtt(this,'entry-3','Leo Reyes','absent')"><i class="fa-solid fa-xmark"></i> Absent</button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="att-member-row">
-                                                        <img class="att-avatar" src="../../assets/images/person-profile.jpg">
-                                                        <span class="att-name">Anthony</span>
-                                                        <div class="att-toggle">
-                                                            <button class="att-btn present" onclick="markAtt(this,'entry-3','Anthony','present')"><i class="fa-solid fa-check"></i> Present</button>
-                                                            <button class="att-btn late active" onclick="markAtt(this,'entry-3','Anthony','late')"><i class="fa-solid fa-clock"></i> Late</button>
-                                                            <button class="att-btn absent"  onclick="markAtt(this,'entry-3','Anthony','absent')"><i class="fa-solid fa-xmark"></i> Absent</button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="att-member-row">
-                                                        <img class="att-avatar" src="../../assets/images/person-profile.jpg">
-                                                        <span class="att-name">Nina Cruz</span>
-                                                        <div class="att-toggle">
-                                                            <button class="att-btn present active" onclick="markAtt(this,'entry-3','Nina Cruz','present')"><i class="fa-solid fa-check"></i> Present</button>
-                                                            <button class="att-btn late"    onclick="markAtt(this,'entry-3','Nina Cruz','late')"><i class="fa-solid fa-clock"></i> Late</button>
-                                                            <button class="att-btn absent"  onclick="markAtt(this,'entry-3','Nina Cruz','absent')"><i class="fa-solid fa-xmark"></i> Absent</button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="session-note-row">
-                                                        <label><i class="fa-solid fa-note-sticky"></i>&nbsp; Session notes</label>
-                                                        <textarea>Covered algebraic fractions — good participation. Carla was absent, will catch up async. Anthony arrived 15 mins late but engaged well.</textarea>
-                                                    </div>
-                                                    <div class="session-att-actions">
-                                                        <button class="btn-cancel-att">Undo changes</button>
-                                                        <button class="btn-save-att" onclick="saveAtt('entry-3')"><i class="fa-solid fa-floppy-disk"></i> Save attendance</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <!-- SESSION 2 -->
-                                            <div class="session-entry" id="entry-2">
-                                                <div class="session-entry-header" onclick="toggleEntry('entry-2')">
-                                                    <div class="seh-left">
-                                                        <div class="seh-num">2</div>
-                                                        <div class="seh-info">
-                                                            <div class="seh-date">Friday, March 21, 2025</div>
-                                                            <div class="seh-topic">Solving quadratic equations &mdash; 2 hrs &mdash; Online</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="seh-right">
-                                                        <div class="mini-att-bar">
-                                                            <div class="mini-att-track"><div class="mini-att-fill att-high" style="width:100%"></div></div>
-                                                            <span style="font-weight:800;font-size:0.85em">8/8</span>
-                                                        </div>
-                                                        <span class="att-saved-badge show"><i class="fa-solid fa-check"></i> Saved</span>
-                                                        <i class="fa-solid fa-chevron-down seh-chevron"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="session-att-body">
-                                                    <div class="att-body-top">
-                                                        <span class="abt-label"><i class="fa-solid fa-users"></i>&nbsp; Attendance</span>
-                                                        <span class="att-summary" id="sum-2">8 present &bull; 0 absent &bull; 0 late</span>
-                                                    </div>
-                                                    <div class="att-member-row"><img class="att-avatar" src="../../assets/images/person-profile.jpg"><span class="att-name">Rick Buzztley</span><div class="att-toggle"><button class="att-btn present active" onclick="markAtt(this,'entry-2','Rick Buzztley','present')"><i class="fa-solid fa-check"></i> Present</button><button class="att-btn late" onclick="markAtt(this,'entry-2','Rick Buzztley','late')"><i class="fa-solid fa-clock"></i> Late</button><button class="att-btn absent" onclick="markAtt(this,'entry-2','Rick Buzztley','absent')"><i class="fa-solid fa-xmark"></i> Absent</button></div></div>
-                                                    <div class="att-member-row"><img class="att-avatar" src="../../assets/images/person-profile.jpg"><span class="att-name">Maya Santos</span><div class="att-toggle"><button class="att-btn present active" onclick="markAtt(this,'entry-2','Maya Santos','present')"><i class="fa-solid fa-check"></i> Present</button><button class="att-btn late" onclick="markAtt(this,'entry-2','Maya Santos','late')"><i class="fa-solid fa-clock"></i> Late</button><button class="att-btn absent" onclick="markAtt(this,'entry-2','Maya Santos','absent')"><i class="fa-solid fa-xmark"></i> Absent</button></div></div>
-                                                    <div class="att-member-row"><img class="att-avatar" src="../../assets/images/person-profile.jpg"><span class="att-name">Sam Uy</span><div class="att-toggle"><button class="att-btn present active" onclick="markAtt(this,'entry-2','Sam Uy','present')"><i class="fa-solid fa-check"></i> Present</button><button class="att-btn late" onclick="markAtt(this,'entry-2','Sam Uy','late')"><i class="fa-solid fa-clock"></i> Late</button><button class="att-btn absent" onclick="markAtt(this,'entry-2','Sam Uy','absent')"><i class="fa-solid fa-xmark"></i> Absent</button></div></div>
-                                                    <div class="att-member-row"><img class="att-avatar" src="../../assets/images/person-profile.jpg"><span class="att-name">Milky</span><div class="att-toggle"><button class="att-btn present active" onclick="markAtt(this,'entry-2','Milky','present')"><i class="fa-solid fa-check"></i> Present</button><button class="att-btn late" onclick="markAtt(this,'entry-2','Milky','late')"><i class="fa-solid fa-clock"></i> Late</button><button class="att-btn absent" onclick="markAtt(this,'entry-2','Milky','absent')"><i class="fa-solid fa-xmark"></i> Absent</button></div></div>
-                                                    <div class="att-member-row"><img class="att-avatar" src="../../assets/images/person-profile.jpg"><span class="att-name">Carla Mendez</span><div class="att-toggle"><button class="att-btn present active" onclick="markAtt(this,'entry-2','Carla Mendez','present')"><i class="fa-solid fa-check"></i> Present</button><button class="att-btn late" onclick="markAtt(this,'entry-2','Carla Mendez','late')"><i class="fa-solid fa-clock"></i> Late</button><button class="att-btn absent" onclick="markAtt(this,'entry-2','Carla Mendez','absent')"><i class="fa-solid fa-xmark"></i> Absent</button></div></div>
-                                                    <div class="att-member-row"><img class="att-avatar" src="../../assets/images/person-profile.jpg"><span class="att-name">Leo Reyes</span><div class="att-toggle"><button class="att-btn present active" onclick="markAtt(this,'entry-2','Leo Reyes','present')"><i class="fa-solid fa-check"></i> Present</button><button class="att-btn late" onclick="markAtt(this,'entry-2','Leo Reyes','late')"><i class="fa-solid fa-clock"></i> Late</button><button class="att-btn absent" onclick="markAtt(this,'entry-2','Leo Reyes','absent')"><i class="fa-solid fa-xmark"></i> Absent</button></div></div>
-                                                    <div class="att-member-row"><img class="att-avatar" src="../../assets/images/person-profile.jpg"><span class="att-name">Anthony</span><div class="att-toggle"><button class="att-btn present active" onclick="markAtt(this,'entry-2','Anthony','present')"><i class="fa-solid fa-check"></i> Present</button><button class="att-btn late" onclick="markAtt(this,'entry-2','Anthony','late')"><i class="fa-solid fa-clock"></i> Late</button><button class="att-btn absent" onclick="markAtt(this,'entry-2','Anthony','absent')"><i class="fa-solid fa-xmark"></i> Absent</button></div></div>
-                                                    <div class="att-member-row"><img class="att-avatar" src="../../assets/images/person-profile.jpg"><span class="att-name">Nina Cruz</span><div class="att-toggle"><button class="att-btn present active" onclick="markAtt(this,'entry-2','Nina Cruz','present')"><i class="fa-solid fa-check"></i> Present</button><button class="att-btn late" onclick="markAtt(this,'entry-2','Nina Cruz','late')"><i class="fa-solid fa-clock"></i> Late</button><button class="att-btn absent" onclick="markAtt(this,'entry-2','Nina Cruz','absent')"><i class="fa-solid fa-xmark"></i> Absent</button></div></div>
-                                                    <div class="session-note-row">
-                                                        <label><i class="fa-solid fa-note-sticky"></i>&nbsp; Session notes</label>
-                                                        <textarea>Full attendance — great energy! Everyone participated in the factoring exercises. Maya had the best explanation of the quadratic formula.</textarea>
-                                                    </div>
-                                                    <div class="session-att-actions">
-                                                        <button class="btn-cancel-att">Undo changes</button>
-                                                        <button class="btn-save-att" onclick="saveAtt('entry-2')"><i class="fa-solid fa-floppy-disk"></i> Save attendance</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <!-- SESSION 1 -->
-                                            <div class="session-entry" id="entry-1">
-                                                <div class="session-entry-header" onclick="toggleEntry('entry-1')">
-                                                    <div class="seh-left">
-                                                        <div class="seh-num">1</div>
-                                                        <div class="seh-info">
-                                                            <div class="seh-date">Friday, March 14, 2025</div>
-                                                            <div class="seh-topic">Intro session — topic planning &mdash; 2 hrs &mdash; Discord</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="seh-right">
-                                                        <div class="mini-att-bar">
-                                                            <div class="mini-att-track"><div class="mini-att-fill att-mid" style="width:87.5%"></div></div>
-                                                            <span style="font-weight:800;font-size:0.85em">7/8</span>
-                                                        </div>
-                                                        <span class="att-saved-badge show"><i class="fa-solid fa-check"></i> Saved</span>
-                                                        <i class="fa-solid fa-chevron-down seh-chevron"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="session-att-body">
-                                                    <div class="att-body-top">
-                                                        <span class="abt-label"><i class="fa-solid fa-users"></i>&nbsp; Attendance</span>
-                                                        <span class="att-summary" id="sum-1">7 present &bull; 1 absent &bull; 0 late</span>
-                                                    </div>
-                                                    <div class="att-member-row"><img class="att-avatar" src="../../assets/images/person-profile.jpg"><span class="att-name">Rick Buzztley</span><div class="att-toggle"><button class="att-btn present active" onclick="markAtt(this,'entry-1','Rick Buzztley','present')"><i class="fa-solid fa-check"></i> Present</button><button class="att-btn late" onclick="markAtt(this,'entry-1','Rick Buzztley','late')"><i class="fa-solid fa-clock"></i> Late</button><button class="att-btn absent" onclick="markAtt(this,'entry-1','Rick Buzztley','absent')"><i class="fa-solid fa-xmark"></i> Absent</button></div></div>
-                                                    <div class="att-member-row"><img class="att-avatar" src="../../assets/images/person-profile.jpg"><span class="att-name">Maya Santos</span><div class="att-toggle"><button class="att-btn present active" onclick="markAtt(this,'entry-1','Maya Santos','present')"><i class="fa-solid fa-check"></i> Present</button><button class="att-btn late" onclick="markAtt(this,'entry-1','Maya Santos','late')"><i class="fa-solid fa-clock"></i> Late</button><button class="att-btn absent" onclick="markAtt(this,'entry-1','Maya Santos','absent')"><i class="fa-solid fa-xmark"></i> Absent</button></div></div>
-                                                    <div class="att-member-row"><img class="att-avatar" src="../../assets/images/person-profile.jpg"><span class="att-name">Sam Uy</span><div class="att-toggle"><button class="att-btn present active" onclick="markAtt(this,'entry-1','Sam Uy','present')"><i class="fa-solid fa-check"></i> Present</button><button class="att-btn late" onclick="markAtt(this,'entry-1','Sam Uy','late')"><i class="fa-solid fa-clock"></i> Late</button><button class="att-btn absent" onclick="markAtt(this,'entry-1','Sam Uy','absent')"><i class="fa-solid fa-xmark"></i> Absent</button></div></div>
-                                                    <div class="att-member-row"><img class="att-avatar" src="../../assets/images/person-profile.jpg"><span class="att-name">Milky</span><div class="att-toggle"><button class="att-btn present active" onclick="markAtt(this,'entry-1','Milky','present')"><i class="fa-solid fa-check"></i> Present</button><button class="att-btn late" onclick="markAtt(this,'entry-1','Milky','late')"><i class="fa-solid fa-clock"></i> Late</button><button class="att-btn absent" onclick="markAtt(this,'entry-1','Milky','absent')"><i class="fa-solid fa-xmark"></i> Absent</button></div></div>
-                                                    <div class="att-member-row"><img class="att-avatar" src="../../assets/images/person-profile.jpg"><span class="att-name">Carla Mendez</span><div class="att-toggle"><button class="att-btn present" onclick="markAtt(this,'entry-1','Carla Mendez','present')"><i class="fa-solid fa-check"></i> Present</button><button class="att-btn late" onclick="markAtt(this,'entry-1','Carla Mendez','late')"><i class="fa-solid fa-clock"></i> Late</button><button class="att-btn absent active" onclick="markAtt(this,'entry-1','Carla Mendez','absent')"><i class="fa-solid fa-xmark"></i> Absent</button></div></div>
-                                                    <div class="att-member-row"><img class="att-avatar" src="../../assets/images/person-profile.jpg"><span class="att-name">Leo Reyes</span><div class="att-toggle"><button class="att-btn present active" onclick="markAtt(this,'entry-1','Leo Reyes','present')"><i class="fa-solid fa-check"></i> Present</button><button class="att-btn late" onclick="markAtt(this,'entry-1','Leo Reyes','late')"><i class="fa-solid fa-clock"></i> Late</button><button class="att-btn absent" onclick="markAtt(this,'entry-1','Leo Reyes','absent')"><i class="fa-solid fa-xmark"></i> Absent</button></div></div>
-                                                    <div class="att-member-row"><img class="att-avatar" src="../../assets/images/person-profile.jpg"><span class="att-name">Anthony</span><div class="att-toggle"><button class="att-btn present active" onclick="markAtt(this,'entry-1','Anthony','present')"><i class="fa-solid fa-check"></i> Present</button><button class="att-btn late" onclick="markAtt(this,'entry-1','Anthony','late')"><i class="fa-solid fa-clock"></i> Late</button><button class="att-btn absent" onclick="markAtt(this,'entry-1','Anthony','absent')"><i class="fa-solid fa-xmark"></i> Absent</button></div></div>
-                                                    <div class="att-member-row"><img class="att-avatar" src="../../assets/images/person-profile.jpg"><span class="att-name">Nina Cruz</span><div class="att-toggle"><button class="att-btn present active" onclick="markAtt(this,'entry-1','Nina Cruz','present')"><i class="fa-solid fa-check"></i> Present</button><button class="att-btn late" onclick="markAtt(this,'entry-1','Nina Cruz','late')"><i class="fa-solid fa-clock"></i> Late</button><button class="att-btn absent" onclick="markAtt(this,'entry-1','Nina Cruz','absent')"><i class="fa-solid fa-xmark"></i> Absent</button></div></div>
-                                                    <div class="session-note-row">
-                                                        <label><i class="fa-solid fa-note-sticky"></i>&nbsp; Session notes</label>
-                                                        <textarea>First session — introduced everyone and mapped out the topics for the next 8 weeks. Carla missed this one but confirmed she's still in.</textarea>
-                                                    </div>
-                                                    <div class="session-att-actions">
-                                                        <button class="btn-cancel-att">Undo changes</button>
-                                                        <button class="btn-save-att" onclick="saveAtt('entry-1')"><i class="fa-solid fa-floppy-disk"></i> Save attendance</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div><!-- /sessionLogContainer -->
-                                    </div>
-                                </div>
-
-                                <!-- MEMBERS (original, with attendance chips added) -->
-                                <div>
-                                    <div class="section-label">Members &amp; attendance record</div>
-                                    <div class="members-card">
-                                        <div class="member-row"><img class="member-avatar" src="../../assets/images/person-profile.jpg"><div class="member-info"><div class="member-name">Rick Buzztley <span class="owner-badge">Owner</span></div><div class="member-meta">Joined Mar 20 &mdash; <strong>3/3</strong> sessions &mdash; <span style="color:#2ecc71;font-weight:700">100%</span></div></div><div class="member-actions"><span class="att-chip p">3 Present</span></div></div>
-                                        <div class="member-row"><img class="member-avatar" src="../../assets/images/person-profile.jpg"><div class="member-info"><div class="member-name">Maya Santos</div><div class="member-meta">Joined Mar 21 &mdash; <strong>3/3</strong> sessions &mdash; <span style="color:#2ecc71;font-weight:700">100%</span></div></div><div class="member-actions"><span class="att-chip p">3 Present</span><button class="btn-member report"><i class="fa-solid fa-flag"></i> Report</button></div></div>
-                                        <div class="member-row"><img class="member-avatar" src="../../assets/images/person-profile.jpg"><div class="member-info"><div class="member-name">Sam Uy</div><div class="member-meta">Joined Mar 21 &mdash; <strong>3/3</strong> sessions &mdash; <span style="color:#2ecc71;font-weight:700">100%</span></div></div><div class="member-actions"><span class="att-chip p">3 Present</span><button class="btn-member report"><i class="fa-solid fa-flag"></i> Report</button><button class="btn-member kick"><i class="fa-solid fa-user-minus"></i> Kick</button></div></div>
-                                        <div class="member-row"><img class="member-avatar" src="../../assets/images/person-profile.jpg"><div class="member-info"><div class="member-name">Milky</div><div class="member-meta">Joined Mar 22 &mdash; <strong>3/3</strong> sessions &mdash; <span style="color:#2ecc71;font-weight:700">100%</span></div></div><div class="member-actions"><span class="att-chip p">3 Present</span><button class="btn-member report"><i class="fa-solid fa-flag"></i> Report</button><button class="btn-member kick"><i class="fa-solid fa-user-minus"></i> Kick</button></div></div>
-                                        <div class="member-row"><img class="member-avatar" src="../../assets/images/person-profile.jpg"><div class="member-info"><div class="member-name">Carla Mendez</div><div class="member-meta">Joined Mar 22 &mdash; <strong>1/3</strong> sessions &mdash; <span style="color:#FF5F00;font-weight:700">33%</span></div></div><div class="member-actions"><span class="att-chip a">2 Absent</span><span class="att-chip p" style="margin-left:2px">1 Present</span><button class="btn-member report"><i class="fa-solid fa-flag"></i> Report</button><button class="btn-member kick"><i class="fa-solid fa-user-minus"></i> Kick</button></div></div>
-                                        <div class="member-row"><img class="member-avatar" src="../../assets/images/person-profile.jpg"><div class="member-info"><div class="member-name">Leo Reyes</div><div class="member-meta">Joined Mar 23 &mdash; <strong>3/3</strong> sessions &mdash; <span style="color:#2ecc71;font-weight:700">100%</span></div></div><div class="member-actions"><span class="att-chip p">3 Present</span><button class="btn-member report"><i class="fa-solid fa-flag"></i> Report</button><button class="btn-member kick"><i class="fa-solid fa-user-minus"></i> Kick</button></div></div>
-                                        <div class="member-row"><img class="member-avatar" src="../../assets/images/person-profile.jpg"><div class="member-info"><div class="member-name">Anthony</div><div class="member-meta">Joined Mar 23 &mdash; <strong>2/3</strong> sessions &mdash; <span style="color:#FFD400;font-weight:700">67%</span></div></div><div class="member-actions"><span class="att-chip p">2 Present</span><span class="att-chip l" style="margin-left:2px">1 Late</span><button class="btn-member report"><i class="fa-solid fa-flag"></i> Report</button><button class="btn-member kick"><i class="fa-solid fa-user-minus"></i> Kick</button></div></div>
-                                        <div class="member-row"><img class="member-avatar" src="../../assets/images/person-profile.jpg"><div class="member-info"><div class="member-name">Nina Cruz</div><div class="member-meta">Joined Mar 23 &mdash; <strong>3/3</strong> sessions &mdash; <span style="color:#2ecc71;font-weight:700">100%</span></div></div><div class="member-actions"><span class="att-chip p">3 Present</span><button class="btn-member report"><i class="fa-solid fa-flag"></i> Report</button><button class="btn-member kick"><i class="fa-solid fa-user-minus"></i> Kick</button></div></div>
-                                    </div>
-                                </div>
-
-                                <!-- COMMENTS (original) -->
-                                <div>
-                                    <div class="section-label">Comments</div>
-                                    <div class="comments-card">
-                                        <div class="comment"><img src="../../assets/images/person-profile.jpg"><div class="comment-body"><div class="comment-name">Rick Buzztley</div><div class="comment-text">Hey everyone, first session is this Friday at 6 PM. We'll be doing a quick intro and going over what topics to cover each week. See you all there!</div><div class="comment-time">1 day ago</div></div></div>
-                                        <hr class="comment-divider">
-                                        <div class="comment"><img src="../../assets/images/person-profile.jpg"><div class="comment-body"><div class="comment-name">Maya Santos</div><div class="comment-text">Excited! Should we prepare anything beforehand?</div><div class="comment-time">22 hours ago</div></div></div>
-                                        <hr class="comment-divider">
-                                        <div class="comment-input-row">
-                                            <input class="comment-input" type="text" placeholder="Write a comment...">
-                                            <button class="btn-comment">Post</button>
+                                        <div class="disc-text">Yes bring them! We still have 3 unsolved ones from last session 😭</div>
+                                        <div class="disc-actions">
+                                            <input type="checkbox" id="h-1b" class="vote-cb helpful-cb" hidden>
+                                            <input type="checkbox" id="n-1b" class="vote-cb nothelpful-cb" hidden>
+                                            <label for="h-1b" class="vote-btn helpful-btn">👍 Helpful <span class="vote-count">6</span></label>
+                                            <label for="n-1b" class="vote-btn nothelpful-btn">👎 Not helpful</label>
+                                            <label for="rep-1b" class="disc-reply-btn">↩ Reply</label>
+                                        </div>
+                                        <div class="reply-box">
+                                            <input class="reply-input" type="text" placeholder="Write a reply…">
+                                            <button class="reply-post-btn">Post</button>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="disc-replies"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <hr class="disc-divider">
+
+            <!-- ── COMMENT 2 ── -->
+            <div class="disc-thread">
+                <input type="checkbox" id="col-2" class="collapse-toggle" hidden>
+                <input type="checkbox" id="rep-2" class="reply-toggle" hidden>
+                <div class="disc-comment">
+                    <div class="disc-left-col">
+                        <label for="col-2" class="disc-avatar av-purple" title="Collapse">SU</label>
+                        <label for="col-2" class="disc-line"></label>
+                    </div>
+                    <div class="disc-body">
+                        <div class="disc-meta">
+                            <span class="disc-name">Sam Uy</span>
+                            <span class="disc-time">3 hours ago</span>
+                            <label for="col-2" class="disc-collapse-hint">[–]</label>
+                        </div>
+                        <div class="disc-text">Does anyone have a good resource for related rates? The textbook examples are kinda hard to follow.</div>
+                        <div class="disc-actions">
+                            <input type="checkbox" id="h-2" class="vote-cb helpful-cb" hidden>
+                            <input type="checkbox" id="n-2" class="vote-cb nothelpful-cb" hidden>
+                            <label for="h-2" class="vote-btn helpful-btn">👍 Helpful <span class="vote-count">4</span></label>
+                            <label for="n-2" class="vote-btn nothelpful-btn">👎 Not helpful</label>
+                            <label for="rep-2" class="disc-reply-btn">↩ Reply</label>
+                        </div>
+                        <div class="reply-box">
+                            <input class="reply-input" type="text" placeholder="Write a reply…">
+                            <button class="reply-post-btn">Post</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="disc-replies">
+                    <div class="disc-thread">
+                        <input type="checkbox" id="col-2a" class="collapse-toggle" hidden>
+                        <input type="checkbox" id="rep-2a" class="reply-toggle" hidden>
+                        <div class="disc-comment">
+                            <div class="disc-left-col">
+                                <label for="col-2a" class="disc-avatar" title="Collapse">RB</label>
+                                <label for="col-2a" class="disc-line"></label>
+                            </div>
+                            <div class="disc-body">
+                                <div class="disc-meta">
+                                    <span class="disc-name">Rick Buzztley</span>
+                                    <span class="disc-time">2 hours ago</span>
+                                    <label for="col-2a" class="disc-collapse-hint">[–]</label>
+                                </div>
+                                <div class="disc-text">Professor Leonard on YouTube is really good for this. His related rates playlist saved me last sem!</div>
+                                <div class="disc-actions">
+                                    <input type="checkbox" id="h-2a" class="vote-cb helpful-cb" hidden>
+                                    <input type="checkbox" id="n-2a" class="vote-cb nothelpful-cb" hidden>
+                                    <label for="h-2a" class="vote-btn helpful-btn">👍 Helpful <span class="vote-count">7</span></label>
+                                    <label for="n-2a" class="vote-btn nothelpful-btn">👎 Not helpful</label>
+                                    <label for="rep-2a" class="disc-reply-btn">↩ Reply</label>
+                                </div>
+                                <div class="reply-box">
+                                    <input class="reply-input" type="text" placeholder="Write a reply…">
+                                    <button class="reply-post-btn">Post</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="disc-replies"></div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="disc-divider">
+
+            <!-- ── COMMENT 3 ── -->
+            <div class="disc-thread">
+                <input type="checkbox" id="col-3" class="collapse-toggle" hidden>
+                <input type="checkbox" id="rep-3" class="reply-toggle" hidden>
+                <div class="disc-comment">
+                    <div class="disc-left-col">
+                        <label for="col-3" class="disc-avatar av-warn" title="Collapse">MI</label>
+                        <label for="col-3" class="disc-line"></label>
+                    </div>
+                    <div class="disc-body">
+                        <div class="disc-meta">
+                            <span class="disc-name">Milky</span>
+                            <span class="disc-time">30 mins ago</span>
+                            <label for="col-3" class="disc-collapse-hint">[–]</label>
+                        </div>
+                        <div class="disc-text">Quick question — are we doing the Discord voice channel or the Zoom link from last week?</div>
+                        <div class="disc-actions">
+                            <input type="checkbox" id="h-3" class="vote-cb helpful-cb" hidden>
+                            <input type="checkbox" id="n-3" class="vote-cb nothelpful-cb" hidden>
+                            <label for="h-3" class="vote-btn helpful-btn">👍 Helpful <span class="vote-count">2</span></label>
+                            <label for="n-3" class="vote-btn nothelpful-btn">👎 Not helpful</label>
+                            <label for="rep-3" class="disc-reply-btn">↩ Reply</label>
+                        </div>
+                        <div class="reply-box">
+                            <input class="reply-input" type="text" placeholder="Write a reply…">
+                            <button class="reply-post-btn">Post</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="disc-replies"></div>
+            </div>
+
+            <!-- ── NEW COMMENT ROW ── -->
+            <div class="disc-new-comment">
+                <div class="disc-avatar av-green" style="cursor:default">YO</div>
+                <input class="reply-input" type="text" placeholder="Write a comment…">
+                <button class="reply-post-btn">Post</button>
+            </div>
+
+        </div>
+    </div>
                             </div><!-- /hive-left -->
 
                             <!-- RIGHT COLUMN (original) -->

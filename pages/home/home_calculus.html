@@ -13,19 +13,28 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Belanosima&family=Bricolage+Grotesque:opsz,wght@12..96,420&family=Coiny&family=McLaren&family=Pacifico&family=Pangolin&display=swap" rel="stylesheet">
             <style>
+            #container {
+                display: flex;
+                align-items: flex-start;
+            }
+            #sidebar {
+                width: 230px;
+                flex-shrink: 0;
+            }
             #content {
-                margin-left:230px;
-                margin-top:-680px;
-                }
-                </style>
+                flex: 1;
+            }
+            </style>
     
     </head>
 
     <body>
         <nav>
             <div id="nav-container">
-                <a href="../../index.html">
-                    <div class="logo"><span class="black">Hive</span><span class="orange">Minds</span></div>
+                 <a href="/WebDev/pages/home/homepage.html">
+                    <div class="logo">
+                        <span class="black">Hive</span><span class="orange">Minds</span>
+                    </div>
                 </a>
                 <div id="nav-links">
                     <a class="hover active-nav" href="home_home-feed.html">Home</a>
@@ -55,8 +64,8 @@
                     <div id="my-hives">
                         <p>MY HIVES</p>
                         <hr>
-                        <a href="home_calculus.html"><div class="sidebar-button my-hives active"><span class="hex"></span><p>Calculus Study Group</p></div></a>
-                        <a href="home_biology.html"><div class="sidebar-button my-hives"><span class="hex"></span><p>Biology Study Group</p></div></a>
+                        <a href="home_calculus.html"><div class="sidebar-button my-hives active"><span class="hex"></span><p>ComprogStudy Group</p></div></a>
+                        <a href="home_biology.html"><div class="sidebar-button my-hives"><span class="hex"></span><p>Compsci seniors Study Group</p></div></a>
             
                     </div>
                 </div>
@@ -65,20 +74,18 @@
                     <div id="hive-body">
                         <div class="hive-header">
                             <div class="hive-header-left">
-                                <div class="hive-title">Calculus Study Group</div>
+                                <div class="hive-title">Comprog Study Group</div>
                                 <div class="hive-meta">
-                                    <span class="tag">Mathematics</span>
+                                    <span class="tag">Technology</span>
                       
                                     <span>&bull; 18 members</span>
                                 </div>
                                 <div class="hive-owner">
                                     <img src="../../assets/images/person-profile.jpg">
-                                    Owned by <strong>Shane doss</strong>
+                                    Owned by <strong>Shane Doss</strong>
                                 </div>
                             </div>
                             <label for="leave-toggle" class="btn-leave">Leave Hive</label>
-                            <input type="checkbox" id="leave-toggle" hidden>
-                                    <label for="leave-toggle" class="btn-leave">Leave Hive</label>
                             <input type="checkbox" id="leave-toggle" hidden>
                             <div class="leave-modal">
                                 <div class="leave-box">
@@ -113,7 +120,7 @@
                             <span class="disc-time">2 hours ago</span>
                             <label for="col-1" class="disc-collapse-hint">[–]</label>
                         </div>
-                        <div class="disc-text">Hey everyone, reminder that tonight's session is at 7 PM sharp. We're covering related rates so please review chapter 4 beforehand!</div>
+                        <div class="disc-text">Hey everyone, reminder that tonight's session is at 7 PM sharp. We're covering code Syntaxes</div>
                         <div class="disc-actions">
                             <input type="checkbox" id="h-1" class="vote-cb helpful-cb" hidden>
                             <input type="checkbox" id="n-1" class="vote-cb nothelpful-cb" hidden>
@@ -146,7 +153,7 @@
                                     <span class="disc-time">1 hour ago</span>
                                     <label for="col-1a" class="disc-collapse-hint">[–]</label>
                                 </div>
-                                <div class="disc-text">Got it! Should we bring the problem sets from last week too?</div>
+                                <div class="disc-text">Got it! Should we will the problem sets from last week be included too?</div>
                                 <div class="disc-actions">
                                     <input type="checkbox" id="h-1a" class="vote-cb helpful-cb" hidden>
                                     <input type="checkbox" id="n-1a" class="vote-cb nothelpful-cb" hidden>
@@ -177,7 +184,7 @@
                                             <span class="disc-time">45 mins ago</span>
                                             <label for="col-1b" class="disc-collapse-hint">[–]</label>
                                         </div>
-                                        <div class="disc-text">Yes bring them! We still have 3 unsolved ones from last session 😭</div>
+                                        <div class="disc-text">Yes they will ! We still have 3 unsolved ones from last session 😭</div>
                                         <div class="disc-actions">
                                             <input type="checkbox" id="h-1b" class="vote-cb helpful-cb" hidden>
                                             <input type="checkbox" id="n-1b" class="vote-cb nothelpful-cb" hidden>
@@ -216,7 +223,7 @@
                             <span class="disc-time">3 hours ago</span>
                             <label for="col-2" class="disc-collapse-hint">[–]</label>
                         </div>
-                        <div class="disc-text">Does anyone have a good resource for related rates? The textbook examples are kinda hard to follow.</div>
+                        <div class="disc-text">Does anyone have a good resource for c++ arrays? The textbook examples are kinda hard to follow.</div>
                         <div class="disc-actions">
                             <input type="checkbox" id="h-2" class="vote-cb helpful-cb" hidden>
                             <input type="checkbox" id="n-2" class="vote-cb nothelpful-cb" hidden>
@@ -246,7 +253,7 @@
                                     <span class="disc-time">2 hours ago</span>
                                     <label for="col-2a" class="disc-collapse-hint">[–]</label>
                                 </div>
-                                <div class="disc-text">Professor Leonard on YouTube is really good for this. His related rates playlist saved me last sem!</div>
+                                <div class="disc-text">Professor Leonard on YouTube is really good for this. His c++ programmin playlist saved me last sem!</div>
                                 <div class="disc-actions">
                                     <input type="checkbox" id="h-2a" class="vote-cb helpful-cb" hidden>
                                     <input type="checkbox" id="n-2a" class="vote-cb nothelpful-cb" hidden>
@@ -317,7 +324,7 @@
                                     <div class="details-card">
                                         <div class="detail-row"><div class="detail-icon"><i class="fa-regular fa-calendar"></i></div><div class="detail-key">Date</div><div class="detail-value">Monday, March 23</div></div>
                                         <div class="detail-row"><div class="detail-icon"><i class="fa-regular fa-clock"></i></div><div class="detail-key">Time</div><div class="detail-value">6:00 PM – 7:00 PM</div></div>
-                                        <div class="detail-row"><div class="detail-icon"><i class="fa-solid fa-location-dot"></i></div><div class="detail-key">Location</div><div class="detail-value">Discord — #calculus-voice</div></div>
+                                        <div class="detail-row"><div class="detail-icon"><i class="fa-solid fa-location-dot"></i></div><div class="detail-key">Location</div><div class="detail-value">Discord — #comprog-voice</div></div>
                                         <div class="detail-row"><div class="detail-icon"><i class="fa-solid fa-users"></i></div><div class="detail-key">Members</div><div class="detail-value">18 members</div></div>
                                     </div>
                                 </div>

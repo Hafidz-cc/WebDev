@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+
+     <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../../assets/CSS/base/base.css">
+        <link rel="stylesheet" href="../../assets/CSS/base/navbar.css">
+        <link rel="stylesheet" href="../../assets/CSS/base/layout.css">
+        <link rel="stylesheet" href="../../assets/CSS/admin/admin.css">
+        <link rel="stylesheet" href="../../assets/CSS/admin/admin-pages.css">
+        <link rel="stylesheet" href="../../assets/CSS/misc/switcher.css">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Belanosima&family=Bricolage+Grotesque:opsz,wght@12..96,420&family=Coiny&family=McLaren&family=Pacifico&family=Pangolin&display=swap" rel="stylesheet">
+
+      
+    </head>
+
+<body>
+
+<!-- ══════════════════════ NAVBAR ══════════════════════ -->
+<nav>
+    <div id="nav-container">
+        <a href="/WebDev/pages/home/homepage.html">
+                    <div class="logo">
+                        <span class="black">Hive</span><span class="orange">Minds</span>
+                    </div>
+                </a>
+        <div id="nav-links">
+            <a class="active-nav" href="#">Dashboard</a>
+            <a href="#">My Group</a>
+            <a href="#">Requests <span class="notif-dot"></span></a>
+        </div>
+        <div id="auth-links">
+            <a href="#">Prof. Rivera</a>
+        </div>
+    </div>
+</nav>
+
+<!-- ══════════════════════ MAIN ══════════════════════ -->
+<main>
+    <div id="container">
+
+        <!-- ── SIDEBAR ── -->
+        <div id="sidebar">
+            <div id="menu">
+                <p>MENU</p>
+                <hr>
+                <a href="#" onclick="showTab('tab-overview'); return false;">
+                    <div class="sidebar-button menu active" id="sb-overview">
+                        
+                        <p>Overview</p>
+                    </div>
+                </a>
+                <a href="#" onclick="showTab('tab-requests'); return false;">
+                    <div class="sidebar-button menu" id="sb-requests">
+                       
+                        <p>Join Requests</p>
+                    </div>
+                </a>
+                <a href="#" onclick="showTab('tab-group'); return false;">
+                    <div class="sidebar-button menu" id="sb-group">
+                        
+                        <p>My Group</p>
+                    </div>
+                </a>
+                <a href="#" onclick="showTab('tab-members'); return false;">
+                    <div class="sidebar-button menu" id="sb-members">
+                       
+                        <p>Members</p>
+                    </div>
+                </a>
+            </div>
+
+            <div id="my-hives">
+                <p>QUICK STATS</p>
+                <hr>
+                <div class="stat-pill">
+                    <span class="hex"></span>
+                    <p>Pending requests</p>
+                    <span class="badge-num orange">4</span>
+                </div>
+                <div class="stat-pill">
+                    <span class="hex"></span>
+                    <p>Group members</p>
+                    <span class="badge-num">18</span>
+                </div>
+                <div class="stat-pill">
+                    <span class="hex"></span>
+                    <p>Active sessions</p>
+                    <span class="badge-num">2</span>
+                </div>
+                <div class="stat-pill">
+                    <span class="hex"></span>
+                    <p>Total approved</p>
+                    <span class="badge-num">31</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── CONTENT ── -->
+        <div id="content">
+
+            <div id="qotd">
+               
+                Adviser Dashboard — Prof. Rivera &nbsp;&mdash;&nbsp; <span style="font-weight:400;font-size:0.92em;font-style:italic;">Manage your hive group and member requests.</span>
+            </div>
+
+            <!-- ══════ TAB: OVERVIEW ══════ -->
+            <div class="admin-stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-label">Pending requests</div>
+                                <div class="stat-value">4</div>
+                                <div class="stat-sub">awaiting your review</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-label">Approved</div>
+                                <div class="stat-value">31</div>
+                                <div class="stat-sub">members accepted</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-label">current members</div>
+                                <div class="stat-value">18</div>
+                                <div class="stat-sub">in your group</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-label">Sessions This week</div>
+                                <div class="stat-value">2</div>
+                                <div class="stat-sub">upcoming</div>
+                            </div>
+                        </div>
+
+                <!-- Recent requests preview -->
+                <div class="admin-card">
+                    <div style="padding:14px 18px;border-bottom:1.5px solid var(--pale);display:flex;align-items:center;justify-content:space-between;">
+                        <span style="font-weight:800;font-size:0.88em;color:var(--aged);letter-spacing:0.06em;text-transform:uppercase;">Recent Join Requests</span>
+                        <button class="btn btn-sm btn-ghost" onclick="showTab('tab-requests')">See All →</button>
+                    </div>
+                    <table class="admin-table-full">
+                        <thead>
+                            <tr>
+                                <th>Student</th>
+                                <th>Group</th>
+                                <th>Submitted</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="td-user">
+                                        <img src="https://i.pravatar.cc/80?img=11" alt="">
+                                        <div>
+                                            <div class="td-name">Marco Dela Cruz</div>
+                                            <div class="td-sub">2nd Year — BSCS</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="tag">Physics Study</span></td>
+                                <td style="color:var(--muted);font-size:0.88em;">2 hours ago</td>
+                                <td><span class="tbl-badge badge-pending">Pending</span></td>
+                                <td>
+                                    <div class="td-actions">
+                                        <button class="tbl-btn view" onclick="openRequestModal('Marco Dela Cruz','2nd Year — BSCS','Physics Study Group','I want to improve my understanding of mechanics and wave problems before the finals. I believe joining this group will help me review more effectively and collaborate with peers.','https://i.pravatar.cc/80?img=11','marco.dc@email.com','BSCS','2nd Year','3.4 GWA')">View</button>
+                                        <button class="tbl-btn approve">Approve</button>
+                                        <button class="tbl-btn reject">Reject</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="td-user">
+                                        <img src="https://i.pravatar.cc/80?img=22" alt="">
+                                        <div>
+                                            <div class="td-name">Aisha Reyes</div>
+                                            <div class="td-sub">3rd Year — BSCE</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="tag">Programming Study</span></td>
+                                <td style="color:var(--muted);font-size:0.88em;">5 hours ago</td>
+                                <td><span class="tbl-badge badge-pending">Pending</span></td>
+                                <td>
+                                    <div class="td-actions">
+                                        <button class="tbl-btn view" onclick="openRequestModal('Aisha Reyes','3rd Year — BSCE','Physics Study Group','My professor recommended joining a study group to supplement lectures. I am particularly struggling with electromagnetism and hope to get peer explanations.','https://i.pravatar.cc/80?img=22','aisha.r@email.com','BSCE','3rd Year','3.1 GWA')">View</button>
+                                        <button class="tbl-btn approve">Approve</button>
+                                        <button class="tbl-btn reject">Reject</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ══════ TAB: JOIN REQUESTS ══════ -->
+            <div class="tab-panel" id="tab-requests">
+                <div class="page-topbar">
+                    <div class="page-topbar-title">Join Requests</div>
+                    <span class="tbl-badge badge-pending" style="font-size:0.85em;padding:6px 14px;">4 pending</span>
+                </div>
+
+                <div class="filter-bar">
+                    <input class="filter-input" type="text" placeholder="Search by name...">
+                    <select class="filter-select">
+                        <option value="">All statuses</option>
+                        <option value="pending">Pending</option>
+                        <option value="approved">Approved</option>
+                        <option value="rejected">Rejected</option>
+                    </select>
+                </div>
+
+                <div class="full-table-card">
+                    <table class="admin-table-full">
+                        <thead>
+                            <tr>
+                                <th>Student</th>
+                                <th>Group</th>
+                                <th>Reason</th>
+                                <th>Submitted</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="td-user">
+                                        <img src="https://i.pravatar.cc/80?img=11" alt="">
+                                        <div>
+                                            <div class="td-name">Marco Dela Cruz</div>
+                                            <div class="td-sub">2nd Year — BSCS</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="tag">Cyber Security Study</span></td>
+                                <td>
+                                    <div class="reason-snippet" onclick="openRequestModal('Marco Dela Cruz','2nd Year — BSCS','Physics Study Group','I want to improve my understanding of mechanics and wave problems before the finals. I believe joining this group will help me review more effectively and collaborate with peers.','https://i.pravatar.cc/80?img=11','marco.dc@email.com','BSCS','2nd Year','3.4 GWA')">
+                                        "I want to improve my understanding of mechanics..."
+                                    </div>
+                                </td>
+                                <td style="color:var(--muted);font-size:0.88em;">2 hrs ago</td>
+                                <td><span class="tbl-badge badge-pending">Pending</span></td>
+                                <td>
+                                    <div class="td-actions">
+                                        <button class="tbl-btn view" onclick="openRequestModal('Marco Dela Cruz','2nd Year — BSCS','Physics Study Group','I want to improve my understanding of mechanics and wave problems before the finals. I believe joining this group will help me review more effectively and collaborate with peers.','https://i.pravatar.cc/80?img=11','marco.dc@email.com','BSCS','2nd Year','3.4 GWA')">View</button>
+                                        <button class="tbl-btn approve">Approve</button>
+                                        <button class="tbl-btn reject">Reject</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="td-user">
+                                        <img src="https://i.pravatar.cc/80?img=22" alt="">
+                                        <div>
+                                            <div class="td-name">Aisha Reyes</div>
+                                            <div class="td-sub">3rd Year — BSCE</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="tag">Networking Study</span></td>
+                                <td>
+                                    <div class="reason-snippet" onclick="openRequestModal('Aisha Reyes','3rd Year — BSCE','Physics Study Group','My professor recommended joining a study group to supplement lectures. I am particularly struggling with electromagnetism and hope to get peer explanations.','https://i.pravatar.cc/80?img=22','aisha.r@email.com','BSCE','3rd Year','3.1 GWA')">
+                                        "My professor recommended joining a study group..."
+                                    </div>
+                                </td>
+                                <td style="color:var(--muted);font-size:0.88em;">5 hrs ago</td>
+                                <td><span class="tbl-badge badge-pending">Pending</span></td>
+                                <td>
+                                    <div class="td-actions">
+                                        <button class="tbl-btn view" onclick="openRequestModal('Aisha Reyes','3rd Year — BSCE','Physics Study Group','My professor recommended joining a study group to supplement lectures. I am particularly struggling with electromagnetism and hope to get peer explanations.','https://i.pravatar.cc/80?img=22','aisha.r@email.com','BSCE','3rd Year','3.1 GWA')">View</button>
+                                        <button class="tbl-btn approve">Approve</button>
+                                        <button class="tbl-btn reject">Reject</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="td-user">
+                                        <img src="https://i.pravatar.cc/80?img=33" alt="">
+                                        <div>
+                                            <div class="td-name">Paolo Tan</div>
+                                            <div class="td-sub">1st Year — BSIT</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="tag">Data Science Study</span></td>
+                                <td>
+                                    <div class="reason-snippet" onclick="openRequestModal('Paolo Tan','1st Year — BSIT','Physics Study Group','Physics is my weakest subject and I need structured peer-learning. I heard this group has a great track record helping first years pass their lab exams.','https://i.pravatar.cc/80?img=33','paolo.t@email.com','BSIT','1st Year','2.9 GWA')">
+                                        "Physics is my weakest subject and I need..."
+                                    </div>
+                                </td>
+                                <td style="color:var(--muted);font-size:0.88em;">Yesterday</td>
+                                <td><span class="tbl-badge badge-pending">Pending</span></td>
+                                <td>
+                                    <div class="td-actions">
+                                        <button class="tbl-btn view" onclick="openRequestModal('Paolo Tan','1st Year — BSIT','Physics Study Group','Physics is my weakest subject and I need structured peer-learning. I heard this group has a great track record helping first years pass their lab exams.','https://i.pravatar.cc/80?img=33','paolo.t@email.com','BSIT','1st Year','2.9 GWA')">View</button>
+                                        <button class="tbl-btn approve">Approve</button>
+                                        <button class="tbl-btn reject">Reject</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="td-user">
+                                        <img src="https://i.pravatar.cc/80?img=44" alt="">
+                                        <div>
+                                            <div class="td-name">Dana Villanueva</div>
+                                            <div class="td-sub">2nd Year — BSEd</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="tag">Programmin2 Study</span></td>
+                                <td>
+                                    <div class="reason-snippet" onclick="openRequestModal('Dana Villanueva','2nd Year — BSEd','Physics Study Group','As a future science teacher I want to deepen my conceptual understanding of physics topics. I plan to use what I learn here in my future classroom.','https://i.pravatar.cc/80?img=44','dana.v@email.com','BSEd','2nd Year','3.6 GWA')">
+                                        "As a future science teacher I want to deepen..."
+                                    </div>
+                                </td>
+                                <td style="color:var(--muted);font-size:0.88em;">2 days ago</td>
+                                <td><span class="tbl-badge badge-pending">Pending</span></td>
+                                <td>
+                                    <div class="td-actions">
+                                        <button class="tbl-btn view" onclick="openRequestModal('Dana Villanueva','2nd Year — BSEd','Physics Study Group','As a future science teacher I want to deepen my conceptual understanding of physics topics. I plan to use what I learn here in my future classroom.','https://i.pravatar.cc/80?img=44','dana.v@email.com','BSEd','2nd Year','3.6 GWA')">View</button>
+                                        <button class="tbl-btn approve">Approve</button>
+                                        <button class="tbl-btn reject">Reject</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Approved example -->
+                            <tr>
+                                <td>
+                                    <div class="td-user">
+                                        <img src="https://i.pravatar.cc/80?img=55" alt="">
+                                        <div>
+                                            <div class="td-name">Sam Uy</div>
+                                            <div class="td-sub">3rd Year — BSCS</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="tag">WebDEev Study</span></td>
+                                <td>
+                                    <div class="reason-snippet">
+                                        "I am excited to join and contribute my notes..."
+                                    </div>
+                                </td>
+                                <td style="color:var(--muted);font-size:0.88em;">3 days ago</td>
+                                <td><span class="tbl-badge badge-approved">Approved</span></td>
+                                <td>
+                                    <div class="td-actions">
+                                        <button class="tbl-btn view" onclick="openRequestModal('Sam Uy','3rd Year — BSCS','Physics Study Group','I am excited to join and contribute my notes and resources to the group. I have been studying ahead and would love a collaborative environment.','https://i.pravatar.cc/80?img=55','sam.u@email.com','BSCS','3rd Year','3.7 GWA')">View</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="pagination">
+                        <span>Showing 5 of 35 requests</span>
+                        <div class="pagination-btns">
+                            <button class="pg-btn active">1</button>
+                            <button class="pg-btn">2</button>
+                            <button class="pg-btn">3</button>
+                            <button class="pg-btn">→</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ══════ TAB: MY GROUP ══════ -->
+            <div class="tab-panel" id="tab-group">
+                <div class="page-topbar">
+                    <div class="page-topbar-title">My Group</div>
+                    <button class="btn btn-primary" onclick="openCreateModal()">
+                     Create Group
+                    </button>
+                </div>
+
+                <!-- Existing group -->
+                <div class="group-card">
+                    <div class="group-hex-icon">🐝</div>
+                    <div class="group-info">
+                        <div class="group-name">Programming Study Group</div>
+                        <div class="group-meta">
+                            <span>18 members</span>
+                            <span>Physics</span>
+                            <span> Created Mar 10, 2026</span>
+                            <span>By-request only</span>
+                        </div>
+                    </div>
+                    <div class="group-actions">
+                        <button class="btn btn-ghost btn-sm">Edit</button>
+                        <button class="btn btn-sm" style="background:var(--danger-bg);color:var(--danger);border-color:var(--danger);">Archive</button>
+                    </div>
+                </div>
+
+                <!-- Description card -->
+                <div class="card">
+                    <div class="section-label">Group Description</div>
+                    <p style="font-size:0.92em;color:var(--text);line-height:1.7;">
+                        A structured study environment for students enrolled in CS courses. 
+                        This group focuses on collaborative problem solving, peer tutoring, and 
+                        weekly review sessions .
+                    </p>
+                </div>
+
+                <!-- Sessions -->
+                <div class="card">
+                    <div class="section-label">Upcoming Sessions</div>
+                    <div style="display:flex;flex-direction:column;gap:12px;">
+                        <div style="display:flex;align-items:center;gap:14px;padding:10px;background:var(--wax);border-radius:8px;border:1px solid var(--pale);">
+                            <span class="hex"></span>
+                            <div>
+                                <div style="font-weight:700;font-size:0.9em;">Robotics Mechanics Review</div>
+                                <div style="font-size:0.78em;color:var(--muted);">Today &mdash; 4:00 PM to 6:00 PM &mdash; Room 301</div>
+                            </div>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:14px;padding:10px;background:var(--wax);border-radius:8px;border:1px solid var(--pale);">
+                            <span class="hex hex-orange"></span>
+                            <div>
+                                <div style="font-weight:700;font-size:0.9em;">Cyber security Deep Dive</div>
+                                <div style="font-size:0.78em;color:var(--muted);">Tomorrow &mdash; 10:00 AM to 12:00 PM &mdash; Online (Meet)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ══════ TAB: MEMBERS ══════ -->
+            <div class="tab-panel" id="tab-members">
+                <div class="page-topbar">
+                    <div class="page-topbar-title">Members</div>
+                    <span class="tbl-badge badge-active" style="font-size:0.85em;padding:6px 14px;">18 members</span>
+                </div>
+
+                <div class="filter-bar">
+                    <input class="filter-input" type="text" placeholder="Search members...">
+                    <select class="filter-select">
+                        <option>All years</option>
+                        <option>1st Year</option>
+                        <option>2nd Year</option>
+                        <option>3rd Year</option>
+                        <option>4th Year</option>
+                    </select>
+                </div>
+
+                <div class="full-table-card">
+                    <table class="admin-table-full">
+                        <thead>
+                            <tr>
+                                <th>Member</th>
+                                <th>Course</th>
+                                <th>Year</th>
+                                <th>Joined Group</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><div class="td-user"><img src="https://i.pravatar.cc/80?img=55" alt=""><div><div class="td-name">Sam Uy</div><div class="td-sub">sam.u@email.com</div></div></div></td>
+                                <td>BSCS</td>
+                                <td>3rd Year</td>
+                                <td style="color:var(--muted);font-size:0.88em;">Mar 15, 2026</td>
+                                <td><span class="tbl-badge badge-active">Active</span></td>
+                                <td><div class="td-actions"><button class="tbl-btn view">View Profile</button><button class="tbl-btn reject">Remove</button></div></td>
+                            </tr>
+                            <tr>
+                                <td><div class="td-user"><img src="https://i.pravatar.cc/80?img=12" alt=""><div><div class="td-name">Bianca Lim</div><div class="td-sub">bianca.l@email.com</div></div></div></td>
+                                <td>ACT</td>
+                                <td>2nd Year</td>
+                                <td style="color:var(--muted);font-size:0.88em;">Mar 16, 2026</td>
+                                <td><span class="tbl-badge badge-active">Active</span></td>
+                                <td><div class="td-actions"><button class="tbl-btn view">View Profile</button><button class="tbl-btn reject">Remove</button></div></td>
+                            </tr>
+                            <tr>
+                                <td><div class="td-user"><img src="https://i.pravatar.cc/80?img=32" alt=""><div><div class="td-name">Nico Fuentez</div><div class="td-sub">nico.f@email.com</div></div></div></td>
+                                <td>BSCS</td>
+                                <td>3rd Year</td>
+                                <td style="color:var(--muted);font-size:0.88em;">Mar 18, 2026</td>
+                                <td><span class="tbl-badge badge-active">Active</span></td>
+                                <td><div class="td-actions"><button class="tbl-btn view">View Profile</button><button class="tbl-btn reject">Remove</button></div></td>
+                            </tr>
+                            <tr>
+                                <td><div class="td-user"><img src="https://i.pravatar.cc/80?img=41" alt=""><div><div class="td-name">Trisha Gomez</div><div class="td-sub">trisha.g@email.com</div></div></div></td>
+                                <td>BSIT</td>
+                                <td>4th Year</td>
+                                <td style="color:var(--muted);font-size:0.88em;">Mar 20, 2026</td>
+                                <td><span class="tbl-badge badge-active">Active</span></td>
+                                <td><div class="td-actions"><button class="tbl-btn view">View Profile</button><button class="tbl-btn reject">Remove</button></div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="pagination">
+                        <span>Showing 4 of 18 members</span>
+                        <div class="pagination-btns">
+                            <button class="pg-btn active">1</button>
+                            <button class="pg-btn">2</button>
+                            <button class="pg-btn">→</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- end #content -->
+    </div><!-- end #container -->
+</main>
+
+<!-- ══════════════════════ MODAL: Request Detail ══════════════════════ -->
+<div class="modal-overlay" id="request-modal">
+    <div class="modal-box wide">
+        <div class="modal-head">
+            <h3>Join Request Details</h3>
+            <button class="modal-close-btn" onclick="closeModal('request-modal')"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-body">
+            <!-- Profile mini -->
+            <div class="profile-mini" id="modal-profile">
+                <img src="" alt="" id="modal-avatar">
+                <div class="profile-mini-info">
+                    <div class="name" id="modal-name"></div>
+                    <div class="meta">
+                        <span id="modal-email"></span>
+                    </div>
+                    <div class="meta" style="margin-top:4px;">
+                        <span id="modal-course"></span>
+                        <span id="modal-year"></span>
+                        <span id="modal-gwa"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile detail grid -->
+            <div class="profile-detail-grid">
+                <div class="profile-detail-item">
+                    <div class="label">Requesting to join</div>
+                    <div class="value" id="modal-group"></div>
+                </div>
+                <div class="profile-detail-item">
+                    <div class="label">Current Status</div>
+                    <div class="value"><span class="tbl-badge badge-pending">Pending</span></div>
+                </div>
+            </div>
+
+            <!-- Reason -->
+            <div class="reason-box">
+                <label>Reason for Joining</label>
+                <p id="modal-reason"></p>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-ghost btn-sm" onclick="closeModal('request-modal')">Close</button>
+            <button class="btn btn-sm" style="background:var(--danger-bg);color:var(--danger);border-color:var(--danger);font-weight:700;" onclick="closeModal('request-modal')">
+              Reject
+            </button>
+            <button class="btn btn-sm btn-primary" onclick="closeModal('request-modal')">
+           Approve
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ══════════════════════ MODAL: Create Group ══════════════════════ -->
+<div class="modal-overlay" id="create-modal">
+    <div class="modal-box">
+        <div class="modal-head">
+            <h3>Create a New Group</h3>
+            <button class="modal-close-btn" onclick="closeModal('create-modal')"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-field">
+                <label>Group Name</label>
+                <input type="text" placeholder="e.g. Advanced Physics Study Circle">
+            </div>
+            <div class="form-field">
+                <label>Subject / Category</label>
+                <select>
+                    <option value="">Select a subject</option>
+                    <option>Mathematics</option>
+                    <option>Physics</option>
+                    <option>Chemistry</option>
+                    <option>Biology</option>
+                    <option>History</option>
+                    <option>English</option>
+                    <option>Engineering</option>
+                    <option>Other</option>
+                </select>
+            </div>
+            <div class="form-field">
+                <label>Description</label>
+                <textarea placeholder="Describe the group's purpose, topics, and expectations..."></textarea>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                <div class="form-field">
+                    <label>Max Members</label>
+                    <input type="number" placeholder="e.g. 30" min="5" max="100">
+                </div>
+                <div class="form-field">
+                    <label>Join Mode</label>
+                    <select>
+                        <option>By-request (adviser approval)</option>
+                        <option>Open</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-ghost btn-sm" onclick="closeModal('create-modal')">Cancel</button>
+            <button class="btn btn-primary btn-sm" onclick="closeModal('create-modal')">
+              Create Group
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ══════════════════════ ROLE SWITCHER ══════════════════════ -->
+      <div id="role-switcher">
+            <span class="switcher-label">View as</span>
+          
+            <a href="/WebDev/pages/admin/admin-dashboard.html" class="switcher-btn">Super-Admin</a>
+            <a href="/WebDev/pages/adminRegistrar/Registrar-admin-verifications.html" class="switcher-btn">Registrar-Admin</a>
+            <a href="/WebDev/pages/adminDean/Dean-admin-dashboard.html" class="switcher-btn">Dean</a>
+            <a href="/WebDev/pages/adminAdviser/Adviser_dashboard.html" class="switcher-btn">Adviser</a>
+        </div>
+
+<script>
+    /* ── Tab navigation ── */
+    function showTab(tabId) {
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+
+        // Sync sidebar active state
+        const map = {
+            'tab-overview':  'sb-overview',
+            'tab-requests':  'sb-requests',
+            'tab-group':     'sb-group',
+            'tab-members':   'sb-members',
+        };
+        document.querySelectorAll('.sidebar-button.menu').forEach(b => b.classList.remove('active'));
+        if (map[tabId]) document.getElementById(map[tabId]).classList.add('active');
+    }
+
+    /* ── Request modal ── */
+    function openRequestModal(name, yearCourse, group, reason, avatar, email, course, year, gwa) {
+        document.getElementById('modal-name').textContent  = name;
+        document.getElementById('modal-avatar').src        = avatar;
+        document.getElementById('modal-email').textContent = email;
+        document.getElementById('modal-course').textContent = course + ' · ';
+        document.getElementById('modal-year').textContent  = year + ' · ';
+        document.getElementById('modal-gwa').textContent   = gwa;
+        document.getElementById('modal-group').textContent = group;
+        document.getElementById('modal-reason').textContent = reason;
+        openModal('request-modal');
+    }
+
+    /* ── Create group modal ── */
+    function openCreateModal() { openModal('create-modal'); }
+
+    /* ── Generic modal helpers ── */
+    function openModal(id) { document.getElementById(id).classList.add('open'); }
+    function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+    // Close on overlay click
+    document.querySelectorAll('.modal-overlay').forEach(overlay => {
+        overlay.addEventListener('click', e => {
+            if (e.target === overlay) overlay.classList.remove('open');
+        });
+    });
+</script>
+</body>
+</html>
