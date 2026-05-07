@@ -1,1211 +1,850 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../../assets/CSS/base/base.css">
-        <link rel="stylesheet" href="../../assets/CSS/base/navbar.css">
-        <link rel="stylesheet" href="../../assets/CSS/base/layout.css">
-        <link rel="stylesheet" href="../../assets/CSS/hives/hive.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Belanosima&family=Bricolage+Grotesque:opsz,wght@12..96,420&family=Coiny&family=McLaren&family=Pacifico&family=Pangolin&display=swap" rel="stylesheet">
-
-        <style>
-     
-            .activity-overview {
-                background: white;
-                border: 2px solid #FFD400;
-                box-shadow: -2px 3px rgba(0,0,0,.384);
-                border-radius: 10px;
-                padding: 20px 25px;
-                display: flex;
-                flex-direction: column;
-                gap: 14px;
-            }
-
-            .activity-overview-top {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                flex-wrap: wrap;
-                gap: 12px;
-            }
-
-            .activity-title {
-                font-size: 1em;
-                font-weight: 800;
-                display: flex;
-                align-items: center;
-                gap: 8px;
-            }
-
-            .activity-title .live-dot {
-                width: 9px;
-                height: 9px;
-                background: #2ecc71;
-                border-radius: 50%;
-                border: 1.5px solid #000;
-                animation: blink 1.6s infinite;
-                flex-shrink: 0;
-            }
-
-            @keyframes blink {
-                0%, 100% { opacity: 1; }
-                50%       { opacity: 0.25; }
-            }
-
-            .activity-stats-row {
-                display: flex;
-                gap: 20px;
-                flex-wrap: wrap;
-            }
-
-            .act-stat {
-                display: flex;
-                flex-direction: column;
-                gap: 1px;
-            }
-
-            .act-stat .asv {
-                font-size: 1.5em;
-                font-weight: 900;
-                line-height: 1;
-                letter-spacing: -0.03em;
-            }
-
-            .act-stat .asl {
-                font-size: 0.72em;
-                color: rgb(117, 117, 117);
-                font-weight: 600;
-                text-transform: uppercase;
-                letter-spacing: 0.06em;
-            }
-
-            /* Master progress bar */
-            .master-bar-wrap {
-                display: flex;
-                flex-direction: column;
-                gap: 6px;
-            }
-
-            .master-bar-labels {
-                display: flex;
-                justify-content: space-between;
-                font-size: 0.78em;
-                font-weight: 700;
-                color: rgb(117,117,117);
-            }
-
-            .master-bar-track {
-                width: 100%;
-                height: 14px;
-                background: #f0f0f0;
-                border: 1.5px solid #000;
-                border-radius: 4px;
-                overflow: hidden;
-                position: relative;
-            }
-
-            .master-bar-fill {
-                height: 100%;
-                background: #FFD400;
-                border-right: 1.5px solid #000;
-                transition: width 0.6s ease;
-                position: relative;
-            }
-
-            .master-bar-fill::after {
-                content: '';
-                position: absolute;
-                top: 0; left: 0; right: 0; bottom: 0;
-                background: repeating-linear-gradient(
-                    -45deg,
-                    transparent,
-                    transparent 5px,
-                    rgba(0,0,0,.07) 5px,
-                    rgba(0,0,0,.07) 10px
-                );
-            }
-
-            /* hex-dot session history strip */
-            .session-dots-row {
-                display: flex;
-                align-items: center;
-                gap: 6px;
-                flex-wrap: wrap;
-            }
-
-            .session-dots-label {
-                font-size: 0.72em;
-                font-weight: 800;
-                text-transform: uppercase;
-                letter-spacing: 0.08em;
-                color: rgb(117,117,117);
-                margin-right: 4px;
-            }
-
-            .s-dot {
-                width: 20px;
-                height: 20px;
-                border-radius: 4px;
-                border: 1.5px solid #000;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 9px;
-                font-weight: 900;
-                cursor: default;
-                position: relative;
-            }
-
-            .s-dot.held   { background: #FFD400; }
-            .s-dot.missed { background: #fde8e8; }
-            .s-dot.upcoming { background: #f0f0f0; border-style: dashed; }
-
-            .s-dot:hover .s-dot-tip {
-                display: block;
-            }
-
-            .s-dot-tip {
-                display: none;
-                position: absolute;
-                bottom: calc(100% + 6px);
-                left: 50%;
-                transform: translateX(-50%);
-                background: #000;
-                color: #FFD400;
-                font-size: 9px;
-                font-weight: 700;
-                padding: 4px 8px;
-                border-radius: 4px;
-                white-space: nowrap;
-                z-index: 10;
-                pointer-events: none;
-            }
-
-            /* ── LOG SESSION MODAL TRIGGER ── */
-            .btn-log-session {
-                padding: 9px 20px;
-                font-size: 0.85em;
-                font-weight: 800;
-                border-radius: 6px;
-                cursor: pointer;
-                border: 2px solid #000;
-                background: #FFD400;
-                color: #000;
-                font-family: 'Bricolage Grotesque', sans-serif;
-                transition: .2s ease;
-                display: flex;
-                align-items: center;
-                gap: 7px;
-                flex-shrink: 0;
-            }
-
-            .btn-log-session:hover { background: #e6bf00; }
-
-            /* ── SESSION LOG HISTORY CARD ── */
-            .session-log-card {
-                background: white;
-                border: 2px solid #FFD400;
-                box-shadow: -2px 3px rgba(0,0,0,.384);
-                border-radius: 10px;
-                overflow: hidden;
-            }
-
-            .slc-header {
-                background: #FFD400;
-                border-bottom: 2px solid #000;
-                padding: 12px 20px;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                gap: 12px;
-            }
-
-            .slc-header h4 {
-                font-size: 0.88em;
-                font-weight: 900;
-                text-transform: uppercase;
-                letter-spacing: 0.08em;
-            }
-
-            /* Individual session log entry */
-            .session-entry {
-                border-bottom: 1.5px solid rgba(0,0,0,.08);
-                padding: 0;
-                overflow: hidden;
-            }
-
-            .session-entry:last-child { border-bottom: none; }
-
-            .session-entry-header {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                padding: 13px 20px;
-                cursor: pointer;
-                gap: 12px;
-                transition: background .15s;
-                flex-wrap: wrap;
-            }
-
-            .session-entry-header:hover { background: #fffdf0; }
-
-            .seh-left { display: flex; align-items: center; gap: 12px; }
-
-            .seh-num {
-                width: 28px;
-                height: 28px;
-                background: #FFD400;
-                border: 1.5px solid #000;
-                border-radius: 5px;
-                font-size: 0.78em;
-                font-weight: 900;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                flex-shrink: 0;
-            }
-
-            .seh-info .seh-date { font-size: 0.92em; font-weight: 800; }
-            .seh-info .seh-topic { font-size: 0.78em; color: rgb(117,117,117); margin-top: 1px; }
-
-            .seh-right {
-                display: flex;
-                align-items: center;
-                gap: 10px;
-                flex-shrink: 0;
-            }
-
-            /* Mini attendance bar on each session entry */
-            .mini-att-bar {
-                display: flex;
-                align-items: center;
-                gap: 5px;
-                font-size: 0.78em;
-            }
-
-            .mini-att-track {
-                width: 80px;
-                height: 7px;
-                background: #eee;
-                border: 1px solid #ccc;
-                border-radius: 3px;
-                overflow: hidden;
-            }
-
-            .mini-att-fill {
-                height: 100%;
-                border-radius: 3px;
-                transition: width .5s ease;
-            }
-
-            .att-high  { background: #2ecc71; }
-            .att-mid   { background: #FFD400; }
-            .att-low   { background: #FF5F00; }
-
-            .seh-chevron {
-                font-size: 0.75em;
-                color: rgb(117,117,117);
-                transition: transform .2s;
-            }
-
-            .session-entry.open .seh-chevron { transform: rotate(180deg); }
-
-            /* Attendance body (expandable) */
-            .session-att-body {
-                display: none;
-                padding: 0 20px 16px;
-                background: #fffdf5;
-                border-top: 1px solid rgba(0,0,0,.07);
-            }
-
-            .session-entry.open .session-att-body { display: block; }
-
-            .att-body-top {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                padding: 10px 0 10px;
-                flex-wrap: wrap;
-                gap: 8px;
-            }
-
-            .att-body-top .abt-label {
-                font-size: 0.75em;
-                font-weight: 900;
-                text-transform: uppercase;
-                letter-spacing: 0.1em;
-                color: rgb(117,117,117);
-            }
-
-            .att-body-top .att-summary {
-                font-size: 0.82em;
-                font-weight: 700;
-            }
-
-            /* Attendance member row */
-            .att-member-row {
-                display: flex;
-                align-items: center;
-                gap: 12px;
-                padding: 8px 0;
-                border-bottom: 1px solid rgba(0,0,0,.06);
-            }
-
-            .att-member-row:last-child { border-bottom: none; }
-
-            .att-avatar {
-                width: 32px;
-                height: 32px;
-                min-width: 32px;
-                border-radius: 50%;
-                object-fit: cover;
-                border: 1.5px solid #000;
-                flex-shrink: 0;
-            }
-
-            .att-name { flex: 1; font-size: 0.88em; font-weight: 700; }
-
-            /* Attendance toggle buttons */
-            .att-toggle {
-                display: flex;
-                border: 1.5px solid #000;
-                border-radius: 5px;
-                overflow: hidden;
-                flex-shrink: 0;
-            }
-
-            .att-btn {
-                padding: 5px 12px;
-                font-size: 0.75em;
-                font-weight: 800;
-                cursor: pointer;
-                border: none;
-                background: #f0f0f0;
-                color: #777;
-                font-family: 'Bricolage Grotesque', sans-serif;
-                transition: .15s;
-                display: flex;
-                align-items: center;
-                gap: 4px;
-                border-right: 1.5px solid #000;
-            }
-
-            .att-btn:last-child { border-right: none; }
-
-            .att-btn.present.active {
-                background: #2ecc71;
-                color: #000;
-            }
-
-            .att-btn.absent.active {
-                background: #ff4d4d;
-                color: #fff;
-            }
-
-            .att-btn.late.active {
-                background: #FF5F00;
-                color: #fff;
-            }
-
-            .att-btn:hover { opacity: 0.8; }
-
-            /* Session note field */
-            .session-note-row {
-                margin-top: 10px;
-                display: flex;
-                flex-direction: column;
-                gap: 5px;
-            }
-
-            .session-note-row label {
-                font-size: 0.72em;
-                font-weight: 900;
-                text-transform: uppercase;
-                letter-spacing: 0.08em;
-                color: rgb(117,117,117);
-            }
-
-            .session-note-row textarea {
-                font-family: 'Bricolage Grotesque', sans-serif;
-                font-size: 0.88em;
-                padding: 8px 12px;
-                border: 1.5px solid rgba(0,0,0,.2);
-                border-radius: 6px;
-                background: white;
-                resize: none;
-                height: 60px;
-                outline: none;
-                transition: border-color .2s;
-            }
-
-            .session-note-row textarea:focus { border-color: #FFD400; }
-
-            .session-att-actions {
-                display: flex;
-                gap: 8px;
-                margin-top: 12px;
-                justify-content: flex-end;
-            }
-
-            .btn-save-att {
-                padding: 7px 18px;
-                font-size: 0.82em;
-                font-weight: 800;
-                border-radius: 6px;
-                cursor: pointer;
-                border: 2px solid #000;
-                background: #FFD400;
-                color: #000;
-                font-family: 'Bricolage Grotesque', sans-serif;
-                transition: .2s;
-                display: flex;
-                align-items: center;
-                gap: 6px;
-            }
-
-            .btn-save-att:hover { background: #e6bf00; }
-
-            .btn-cancel-att {
-                padding: 7px 18px;
-                font-size: 0.82em;
-                font-weight: 800;
-                border-radius: 6px;
-                cursor: pointer;
-                border: 2px solid rgba(0,0,0,.2);
-                background: white;
-                color: #333;
-                font-family: 'Bricolage Grotesque', sans-serif;
-                transition: .2s;
-            }
-
-            .btn-cancel-att:hover { background: #f5f5f5; }
-
-            /* saved state */
-            .att-saved-badge {
-                display: none;
-                font-size: 0.72em;
-                font-weight: 800;
-                background: #2ecc71;
-                color: #000;
-                border: 1.5px solid #000;
-                border-radius: 4px;
-                padding: 2px 8px;
-                align-items: center;
-                gap: 4px;
-            }
-
-            .att-saved-badge.show { display: inline-flex; }
-
-            /* ── LOG NEW SESSION MODAL ── */
-            .modal-overlay {
-                position: fixed;
-                inset: 0;
-                background: rgba(0,0,0,.45);
-                display: none;
-                align-items: center;
-                justify-content: center;
-                z-index: 999;
-                padding: 20px;
-            }
-
-            .modal-overlay.open { display: flex; }
-
-            .modal-box {
-                background: white;
-                border: 2px solid #000;
-                border-radius: 12px;
-                box-shadow: -4px 6px 0 rgba(0,0,0,.35);
-                width: 100%;
-                max-width: 520px;
-                animation: modalIn .2s ease;
-                overflow: hidden;
-            }
-
-            @keyframes modalIn {
-                from { opacity:0; transform:translateY(12px); }
-                to   { opacity:1; transform:translateY(0); }
-            }
-
-            .modal-head {
-                background: #FFD400;
-                border-bottom: 2px solid #000;
-                padding: 16px 22px;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-            }
-
-            .modal-head h3 { font-size: 1em; font-weight: 900; }
-
-            .modal-close-btn {
-                background: none;
-                border: none;
-                font-size: 1.3em;
-                cursor: pointer;
-                color: #000;
-                font-family: 'Bricolage Grotesque', sans-serif;
-                line-height: 1;
-            }
-
-            .modal-body {
-                padding: 20px 22px;
-                display: flex;
-                flex-direction: column;
-                gap: 14px;
-            }
-
-            .modal-field {
-                display: flex;
-                flex-direction: column;
-                gap: 5px;
-            }
-
-            .modal-field label {
-                font-size: 0.78em;
-                font-weight: 900;
-                text-transform: uppercase;
-                letter-spacing: 0.08em;
-            }
-
-            .modal-field input,
-            .modal-field select,
-            .modal-field textarea {
-                font-family: 'Bricolage Grotesque', sans-serif;
-                font-size: 0.9em;
-                padding: 9px 12px;
-                border: 1.5px solid rgba(0,0,0,.2);
-                border-radius: 6px;
-                background: #fffdf5;
-                outline: none;
-                transition: border-color .2s;
-                width: 100%;
-                box-sizing: border-box;
-            }
-
-            .modal-field input:focus,
-            .modal-field select:focus,
-            .modal-field textarea:focus { border-color: #FFD400; }
-
-            .modal-field textarea { resize: none; height: 70px; }
-
-            .modal-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-
-            .modal-footer {
-                padding: 14px 22px;
-                border-top: 1.5px solid rgba(0,0,0,.08);
-                display: flex;
-                justify-content: flex-end;
-                gap: 10px;
-            }
-
-            .btn-modal-cancel {
-                padding: 8px 18px;
-                font-size: 0.85em;
-                font-weight: 800;
-                border-radius: 6px;
-                cursor: pointer;
-                border: 1.5px solid rgba(0,0,0,.2);
-                background: white;
-                color: #333;
-                font-family: 'Bricolage Grotesque', sans-serif;
-                transition: .2s;
-            }
-
-            .btn-modal-cancel:hover { background: #f0f0f0; }
-
-            .btn-modal-confirm {
-                padding: 8px 20px;
-                font-size: 0.85em;
-                font-weight: 800;
-                border-radius: 6px;
-                cursor: pointer;
-                border: 2px solid #000;
-                background: #FFD400;
-                color: #000;
-                font-family: 'Bricolage Grotesque', sans-serif;
-                transition: .2s;
-                display: flex;
-                align-items: center;
-                gap: 7px;
-            }
-
-            .btn-modal-confirm:hover { background: #e6bf00; }
-
-            /* streak flame */
-            .streak-badge {
-                display: inline-flex;
-                align-items: center;
-                gap: 5px;
-                background: #fff3b0;
-                border: 1.5px solid #FFD400;
-                border-radius: 20px;
-                padding: 3px 10px;
-                font-size: 0.78em;
-                font-weight: 800;
-                color: #7a6000;
-            }
-
-            /* attendance chip on member list */
-            .att-chip {
-                font-size: 0.7em;
-                font-weight: 900;
-                padding: 2px 8px;
-                border-radius: 3px;
-                border: 1.5px solid #000;
-            }
-
- 
-
-            .att-chip.p { background: #2ecc71; color: #000; }
-            .att-chip.a { background: #ff4d4d; color: #fff; }
-            .att-chip.l { background: #FF5F00; color: #fff; }
-            .att-chip.n { background: #f0f0f0; color: #777; }
-
-  
-          
-        </style>
-    </head>
-
-    <body>
-
-        <!-- ══ LOG SESSION MODAL ══ -->
-        <div class="modal-overlay" id="logSessionModal">
-            <div class="modal-box">
-                <div class="modal-head">
-                    <h3><i class="fa-solid fa-clipboard-list"></i> &nbsp;Log a new session</h3>
-                    <button class="modal-close-btn" onclick="closeModal()">&#x2715;</button>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rick's Study Circle — HiveMinds</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --yellow:     #FFD400;
+            --yellow-d:   #E6BF00;
+            --yellow-pale:#FFFDF0;
+            --yellow-mid: #FFF3B0;
+            --orange:     #FF5F00;
+            --dark:       #1A1600;
+            --hive:       #0D0B00;
+            --aged:       #6B5800;
+            --muted:      #9A8A60;
+            --border:     rgba(0,0,0,0.09);
+            --border-y:   #E8C84A;
+            --wax:        #FEFAF0;
+            --comb:       #FDF3D0;
+            --nav-h:      62px;
+            --sidebar-w:  220px;
+            --radius:     12px;
+            --danger:     #DC2626;
+            --danger-bg:  #FEE2E2;
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Plus Jakarta Sans', Arial, sans-serif; background: var(--wax); color: var(--dark); min-height: 100vh; font-size: 14px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+        a { text-decoration: none; color: inherit; }
+
+        /* ══ NAVBAR ══ */
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
+        #nav-container { display: flex; align-items: center; justify-content: space-between; height: var(--nav-h); padding: 0 28px; gap: 24px; background: rgba(254,250,240,0.96); backdrop-filter: blur(14px); border-bottom: 1.5px solid var(--border-y); }
+        .logo span { font-family: 'Fraunces', Georgia, serif; font-size: 1.45em; font-weight: 700; letter-spacing: -0.03em; }
+        .black { color: #0D0B00; } .orange { color: var(--orange); }
+        #nav-links { display: flex; align-items: center; gap: 4px; flex: 1; justify-content: center; }
+        #nav-links a { font-size: 0.88em; font-weight: 600; color: #3A2E00; padding: 6px 14px; border-radius: 6px; transition: 0.18s ease; }
+        #nav-links a:hover { background: rgba(255,212,0,0.18); color: var(--dark); }
+        #nav-links a.active-nav { background: var(--yellow); color: var(--hive); font-weight: 700; border: 1.5px solid rgba(0,0,0,0.15); }
+        #user-pill { display: flex; align-items: center; gap: 9px; padding: 5px 12px 5px 6px; border-radius: 30px; border: 1.5px solid rgba(0,0,0,0.15); background: white; cursor: pointer; transition: 0.18s ease; }
+        #user-pill:hover { background: var(--yellow); }
+        #user-avatar { width: 30px; height: 30px; border-radius: 50%; background: var(--yellow-mid); border: 1.5px solid var(--border-y); display: flex; align-items: center; justify-content: center; font-size: 0.78em; font-weight: 800; color: var(--aged); flex-shrink: 0; }
+        #user-name { font-size: 0.84em; font-weight: 700; color: #3A2E00; }
+        #notif-btn { position: relative; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 8px; border: 1.5px solid rgba(0,0,0,0.15); background: white; cursor: pointer; color: #555; font-size: 1em; transition: 0.18s ease; flex-shrink: 0; }
+        #notif-btn:hover { background: var(--yellow); }
+        .notif-dot { position: absolute; top: 6px; right: 6px; width: 8px; height: 8px; background: var(--orange); border-radius: 50%; border: 1.5px solid white; }
+        #hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; flex-shrink: 0; }
+        #hamburger span { display: block; width: 20px; height: 2px; background: var(--dark); border-radius: 2px; }
+
+        /* ══ LAYOUT ══ */
+        #container { display: flex; min-height: calc(100vh - var(--nav-h)); margin-top: var(--nav-h); }
+        #sidebar { width: var(--sidebar-w); min-width: var(--sidebar-w); background: #FFFDF5; border-right: 1.5px solid var(--border); display: flex; flex-direction: column; padding: 24px 10px 24px 16px; gap: 28px; position: fixed; top: var(--nav-h); left: 0; height: calc(100vh - var(--nav-h)); overflow-y: auto; z-index: 10; }
+        .sidebar-section { display: flex; flex-direction: column; gap: 3px; }
+        .sidebar-label { font-size: 0.67em; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); padding: 0 10px 6px; }
+        .sidebar-hr { border: none; border-top: 1px solid var(--border); margin-bottom: 4px; }
+        .sidebar-btn { display: flex; align-items: center; gap: 9px; padding: 8px 12px; border-radius: 7px; transition: 0.16s ease; cursor: pointer; border-left: 3px solid transparent; font-size: 0.87em; font-weight: 500; color: #3A2E00; }
+        .sidebar-btn:hover { background: rgba(255,212,0,0.14); border-left-color: rgba(255,212,0,0.5); }
+        .sidebar-btn.active { background: rgba(255,212,0,0.22); border-left-color: var(--yellow); font-weight: 700; color: var(--dark); }
+        .sidebar-btn i { width: 16px; text-align: center; font-size: 0.9em; color: var(--aged); }
+        .sidebar-btn.active i { color: var(--dark); }
+        .hex { width: 10px; height: 11px; background: var(--orange); clip-path: polygon(25% 0%,75% 0%,100% 50%,75% 100%,25% 100%,0% 50%); flex-shrink: 0; }
+        .hex.owner { background: var(--yellow); }
+        #content { flex: 1; margin-left: var(--sidebar-w); padding: 24px 28px; background: repeating-linear-gradient(60deg,transparent,transparent 28px,rgba(0,0,0,0.018) 28px,rgba(0,0,0,0.018) 30px), repeating-linear-gradient(-60deg,transparent,transparent 28px,rgba(0,0,0,0.018) 28px,rgba(0,0,0,0.018) 30px), #FFFDF5; display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+
+        /* ══ SHARED CARD ══ */
+        .card { background: white; border: 1.5px solid var(--border-y); border-radius: var(--radius); padding: 16px 18px; box-shadow: 3px 3px 0 rgba(232,200,74,0.4); display: flex; flex-direction: column; gap: 12px; }
+
+        .tag { display: inline-flex; align-items: center; background: var(--yellow); color: #000; font-size: 9px; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase; padding: 3px 8px; border: 1.5px solid #000; border-radius: 3px; white-space: nowrap; flex-shrink: 0; }
+
+        .section-label { font-size: 0.67em; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); padding-bottom: 8px; border-bottom: 1.5px solid var(--border); margin-bottom: 2px; }
+
+        /* ══ HIVE HEADER ══ */
+        .hive-header { background: white; border: 1.5px solid var(--border-y); border-radius: var(--radius); padding: 20px 24px; box-shadow: 3px 3px 0 rgba(232,200,74,0.4); display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+        .hive-header-left { display: flex; flex-direction: column; gap: 7px; }
+        .hive-title { font-family: 'Fraunces', Georgia, serif; font-size: 1.7em; font-weight: 600; color: var(--hive); letter-spacing: -0.02em; line-height: 1.15; }
+        .hive-meta { display: flex; align-items: center; gap: 10px; font-size: 0.82em; color: var(--aged); }
+        .hive-owner { display: flex; align-items: center; gap: 8px; font-size: 0.82em; color: var(--aged); }
+        .hive-owner img { width: 24px; height: 24px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--border-y); }
+
+        /* Owner banner */
+        .owner-banner {
+            display: flex; align-items: center; gap: 8px;
+            background: var(--yellow-mid); border: 1.5px dashed var(--border-y);
+            border-radius: 8px; padding: 10px 16px;
+            font-size: 0.82em; font-weight: 700; color: var(--aged);
+        }
+
+        /* Owner action buttons */
+        .owner-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+        .btn { display: inline-flex; align-items: center; gap: 7px; padding: 8px 18px; font-family: inherit; font-size: 0.82em; font-weight: 700; border-radius: 6px; cursor: pointer; border: 1.5px solid #000; transition: 0.18s ease; }
+        .btn-primary { background: var(--yellow); color: #000; box-shadow: 2px 2px 0 rgba(0,0,0,0.18); }
+        .btn-primary:hover { background: var(--yellow-d); transform: translate(-1px,-1px); box-shadow: 3px 3px 0 rgba(0,0,0,0.18); }
+        .btn-ghost { background: white; color: #000; border-color: rgba(0,0,0,0.2); }
+        .btn-ghost:hover { background: var(--yellow-pale); border-color: var(--border-y); }
+        .btn-danger { background: white; color: var(--danger); border-color: var(--danger); }
+        .btn-danger:hover { background: var(--danger-bg); }
+
+        /* ══ TWO-COL ══ */
+        .hive-columns { display: grid; grid-template-columns: 1fr 0.8fr; gap: 20px; align-items: start; }
+        .hive-left, .hive-right { display: flex; flex-direction: column; gap: 16px; }
+
+        /* ══ ACTIVITY OVERVIEW ══ */
+        .activity-stats-row { display: flex; gap: 24px; flex-wrap: wrap; }
+        .act-stat { display: flex; flex-direction: column; gap: 1px; }
+        .act-stat .asv { font-size: 1.5em; font-weight: 900; line-height: 1; letter-spacing: -0.03em; color: var(--hive); }
+        .act-stat .asl { font-size: 0.7em; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; }
+
+        .live-badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: #e6f9ef; border: 1.5px solid #2ecc71;
+            border-radius: 20px; padding: 3px 10px;
+            font-size: 0.76em; font-weight: 700; color: #145a32;
+        }
+        .live-dot { width: 8px; height: 8px; background: #2ecc71; border-radius: 50%; animation: blink 1.6s infinite; }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.25} }
+
+        /* Master progress bar */
+        .bar-wrap { display: flex; flex-direction: column; gap: 5px; }
+        .bar-labels { display: flex; justify-content: space-between; font-size: 0.75em; font-weight: 700; color: var(--muted); }
+        .bar-track { width: 100%; height: 12px; background: #f0f0f0; border: 1.5px solid rgba(0,0,0,0.15); border-radius: 4px; overflow: hidden; }
+        .bar-fill { height: 100%; background: var(--yellow); border-right: 1.5px solid rgba(0,0,0,0.2); transition: width 0.6s ease; background-image: repeating-linear-gradient(-45deg,transparent,transparent 5px,rgba(0,0,0,.06) 5px,rgba(0,0,0,.06) 10px); }
+
+        /* Session dots */
+        .session-dots-row { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; }
+        .dots-label { font-size: 0.7em; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-right: 4px; }
+        .s-dot { width: 20px; height: 20px; border-radius: 4px; border: 1.5px solid #000; display: flex; align-items: center; justify-content: center; font-size: 9px; cursor: default; position: relative; }
+        .s-dot.held    { background: var(--yellow); }
+        .s-dot.missed  { background: #fde8e8; }
+        .s-dot.upcoming{ background: #f0f0f0; border-style: dashed; }
+        .s-dot:hover .s-tip { display: block; }
+        .s-tip { display: none; position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%); background: #000; color: var(--yellow); font-size: 9px; font-weight: 700; padding: 4px 8px; border-radius: 4px; white-space: nowrap; z-index: 10; pointer-events: none; }
+
+        /* ══ SESSION LOG ══ */
+        .slc-header { background: var(--yellow); border-bottom: 1.5px solid rgba(0,0,0,0.15); padding: 12px 18px; display: flex; align-items: center; justify-content: space-between; gap: 12px; border-radius: var(--radius) var(--radius) 0 0; }
+        .slc-header h4 { font-size: 0.82em; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; }
+
+        .session-log-card { background: white; border: 1.5px solid var(--border-y); border-radius: var(--radius); box-shadow: 3px 3px 0 rgba(232,200,74,0.4); overflow: hidden; }
+
+        .session-entry { border-bottom: 1px solid rgba(0,0,0,0.07); overflow: hidden; }
+        .session-entry:last-child { border-bottom: none; }
+
+        .session-entry-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 18px; cursor: pointer; gap: 12px; transition: background 0.15s; flex-wrap: wrap; }
+        .session-entry-header:hover { background: var(--yellow-pale); }
+
+        .seh-left { display: flex; align-items: center; gap: 12px; }
+        .seh-num { width: 28px; height: 28px; background: var(--yellow); border: 1.5px solid #000; border-radius: 5px; font-size: 0.78em; font-weight: 900; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .seh-date { font-size: 0.9em; font-weight: 700; color: var(--dark); }
+        .seh-topic { font-size: 0.76em; color: var(--muted); margin-top: 1px; }
+
+        .seh-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+
+        .mini-att-bar { display: flex; align-items: center; gap: 6px; font-size: 0.78em; font-weight: 700; }
+        .mini-att-track { width: 70px; height: 6px; background: #eee; border: 1px solid #ddd; border-radius: 3px; overflow: hidden; }
+        .mini-att-fill { height: 100%; border-radius: 3px; transition: width 0.5s ease; }
+        .att-high { background: #2ecc71; }
+        .att-mid  { background: var(--yellow); }
+        .att-low  { background: var(--orange); }
+
+        .seh-chevron { font-size: 0.72em; color: var(--muted); transition: transform 0.2s; }
+        .session-entry.open .seh-chevron { transform: rotate(180deg); }
+
+        /* Attendance body */
+        .session-att-body { display: none; padding: 0 18px 16px; background: var(--yellow-pale); border-top: 1px solid rgba(0,0,0,0.06); }
+        .session-entry.open .session-att-body { display: block; }
+
+        .att-body-top { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; flex-wrap: wrap; gap: 8px; }
+        .abt-label { font-size: 0.7em; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
+        .att-summary { font-size: 0.8em; font-weight: 700; color: var(--dark); }
+
+        .att-member-row { display: flex; align-items: center; gap: 12px; padding: 8px 0; border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .att-member-row:last-child { border-bottom: none; }
+        .att-avatar { width: 30px; height: 30px; min-width: 30px; border-radius: 50%; object-fit: cover; border: 1.5px solid rgba(0,0,0,0.12); flex-shrink: 0; }
+        .att-name { flex: 1; font-size: 0.86em; font-weight: 600; color: var(--dark); }
+
+        .att-toggle { display: flex; border: 1.5px solid rgba(0,0,0,0.15); border-radius: 5px; overflow: hidden; flex-shrink: 0; }
+        .att-btn { padding: 5px 10px; font-size: 0.72em; font-weight: 700; cursor: pointer; border: none; background: #f5f5f5; color: #888; font-family: inherit; transition: 0.15s; display: flex; align-items: center; gap: 4px; border-right: 1px solid rgba(0,0,0,0.12); }
+        .att-btn:last-child { border-right: none; }
+        .att-btn.present.active { background: #2ecc71; color: #000; }
+        .att-btn.late.active    { background: var(--orange); color: white; }
+        .att-btn.absent.active  { background: #e74c3c; color: white; }
+        .att-btn:hover { opacity: 0.8; }
+
+        .session-note-row { margin-top: 10px; display: flex; flex-direction: column; gap: 5px; }
+        .session-note-row label { font-size: 0.7em; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+        .session-note-row textarea { font-family: inherit; font-size: 0.86em; padding: 8px 12px; border: 1.5px solid rgba(0,0,0,0.12); border-radius: 6px; background: white; resize: none; height: 60px; outline: none; transition: border-color 0.18s; }
+        .session-note-row textarea:focus { border-color: var(--border-y); }
+
+        .session-att-actions { display: flex; gap: 8px; margin-top: 12px; justify-content: flex-end; }
+        .btn-save-att { padding: 7px 16px; font-size: 0.8em; font-weight: 700; border-radius: 6px; cursor: pointer; border: 1.5px solid #000; background: var(--yellow); color: #000; font-family: inherit; transition: 0.18s; display: flex; align-items: center; gap: 6px; }
+        .btn-save-att:hover { background: var(--yellow-d); }
+        .btn-cancel-att { padding: 7px 16px; font-size: 0.8em; font-weight: 700; border-radius: 6px; cursor: pointer; border: 1.5px solid rgba(0,0,0,0.15); background: white; color: #555; font-family: inherit; transition: 0.18s; }
+        .btn-cancel-att:hover { background: #f5f5f5; }
+
+        .att-saved-badge { display: none; font-size: 0.7em; font-weight: 800; background: #2ecc71; color: #000; border: 1.5px solid #000; border-radius: 4px; padding: 2px 8px; align-items: center; gap: 4px; }
+        .att-saved-badge.show { display: inline-flex; }
+
+        /* ══ LOG SESSION MODAL ══ */
+        .modal-overlay { position: fixed; inset: 0; background: rgba(13,11,0,0.50); backdrop-filter: blur(3px); display: none; align-items: center; justify-content: center; z-index: 999; padding: 20px; }
+        .modal-overlay.open { display: flex; }
+        .modal-box { background: white; border: 2px solid #000; border-radius: var(--radius); box-shadow: -4px 6px 0 rgba(0,0,0,0.25); width: 100%; max-width: 500px; overflow: hidden; animation: modalIn 0.2s ease; }
+        @keyframes modalIn { from{opacity:0;transform:translateY(12px) scale(0.97)} to{opacity:1;transform:none} }
+        .modal-head { background: var(--yellow); border-bottom: 2px solid #000; padding: 15px 20px; display: flex; align-items: center; justify-content: space-between; }
+        .modal-head h3 { font-size: 0.92em; font-weight: 800; }
+        .modal-close-btn { background: none; border: none; font-size: 1.2em; cursor: pointer; line-height: 1; }
+        .modal-body { padding: 18px 20px; display: flex; flex-direction: column; gap: 13px; }
+        .modal-field { display: flex; flex-direction: column; gap: 5px; }
+        .modal-field label { font-size: 0.72em; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: var(--dark); }
+        .modal-field input, .modal-field select, .modal-field textarea { font-family: inherit; font-size: 0.88em; padding: 9px 12px; border: 1.5px solid rgba(0,0,0,0.15); border-radius: 6px; background: var(--yellow-pale); outline: none; transition: border-color 0.18s; width: 100%; }
+        .modal-field input:focus, .modal-field select:focus, .modal-field textarea:focus { border-color: var(--border-y); }
+        .modal-field textarea { resize: none; height: 65px; }
+        .modal-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .modal-footer { padding: 13px 20px; border-top: 1px solid var(--border); display: flex; justify-content: flex-end; gap: 10px; }
+        .modal-info { background: var(--yellow-mid); border: 1.5px solid var(--border-y); border-radius: 6px; padding: 9px 13px; font-size: 0.8em; color: var(--aged); }
+
+        /* ══ DETAIL / SCHEDULE / RULES ══ */
+        .detail-row { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .detail-row:last-child { border-bottom: none; }
+        .detail-icon { width: 20px; text-align: center; color: var(--orange); flex-shrink: 0; padding-top: 2px; font-size: 0.95em; }
+        .detail-key { width: 90px; font-size: 0.8em; color: var(--muted); flex-shrink: 0; }
+        .detail-value { font-size: 0.9em; color: var(--dark); flex: 1; font-weight: 500; }
+
+        .schedule-row { display: flex; align-items: center; gap: 12px; padding: 9px 0; border-bottom: 1px solid rgba(0,0,0,0.05); font-size: 0.9em; }
+        .schedule-row:last-child { border-bottom: none; }
+        .schedule-day { width: 90px; font-weight: 700; flex-shrink: 0; }
+        .schedule-time { color: var(--orange); font-size: 0.85em; }
+        .schedule-topic { color: var(--muted); font-size: 0.82em; margin-left: auto; }
+
+        .rule-item { display: flex; gap: 12px; align-items: flex-start; font-size: 0.9em; line-height: 1.55; padding: 2px 0; }
+        .rule-num { width: 22px; height: 22px; background: var(--yellow); border: 1.5px solid #000; border-radius: 3px; font-size: 0.72em; font-weight: 900; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+
+        /* ══ MOBILE ══ */
+        #mob-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 9; }
+        #mob-toggle { display: none; }
+        @media (max-width: 900px) {
+            #hamburger { display: flex; } #nav-links { display: none; }
+            #sidebar { transform: translateX(-100%); transition: transform 0.28s ease; z-index: 50; }
+            #mob-toggle:checked ~ #mob-overlay { display: block; }
+            #mob-toggle:checked ~ #container #sidebar { transform: translateX(0); }
+            #content { margin-left: 0; }
+            .hive-columns { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 600px) {
+            #content { padding: 14px; }
+            .hive-header { padding: 14px 16px; }
+            .hive-title { font-size: 1.3em; }
+        }
+    </style>
+</head>
+<body>
+
+<input type="checkbox" id="mob-toggle" style="display:none;">
+
+<!-- ══ LOG SESSION MODAL ══ -->
+<div class="modal-overlay" id="logSessionModal">
+    <div class="modal-box">
+        <div class="modal-head">
+            <h3><i class="fa-solid fa-clipboard-list"></i>&nbsp; Log a new session</h3>
+            <button class="modal-close-btn" onclick="closeModal()">&#x2715;</button>
+        </div>
+        <div class="modal-body">
+            <div class="modal-row">
+                <div class="modal-field">
+                    <label>Session date</label>
+                    <input type="date" id="newSessionDate">
                 </div>
-                <div class="modal-body">
-                    <div class="modal-row">
-                        <div class="modal-field">
-                            <label>Session date</label>
-                            <input type="date" id="newSessionDate">
-                        </div>
-                        <div class="modal-field">
-                            <label>Duration</label>
-                            <select id="newSessionDuration">
-                                <option>1 hour</option>
-                                <option selected>2 hours</option>
-                                <option>3 hours</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="modal-field">
-                        <label>Topic covered</label>
-                        <input type="text" id="newSessionTopic" placeholder="e.g. Quadratic equations — factoring methods">
-                    </div>
-                    <div class="modal-row">
-                        <div class="modal-field">
-                            <label>Mode</label>
-                            <select id="newSessionMode">
-                                <option>Online</option>
-                                <option>In-person</option>
-                                <option>Hybrid</option>
-                            </select>
-                        </div>
-                        <div class="modal-field">
-                            <label>Location / Link</label>
-                            <input type="text" id="newSessionLoc" placeholder="e.g. Discord or Room 204">
-                        </div>
-                    </div>
-                    <div class="modal-field">
-                        <label>Notes (optional)</label>
-                        <textarea id="newSessionNotes" placeholder="Any takeaways, follow-ups, or reminders for the group..."></textarea>
-                    </div>
-                    <div style="background:#fffbea;border:1.5px solid #FFD400;border-radius:6px;padding:10px 14px;font-size:0.82em;color:#7a6000">
-                        <i class="fa-solid fa-circle-info"></i>&nbsp; After logging the session, you'll be able to mark attendance for each member directly in the session history below.
-                    </div>
+                <div class="modal-field">
+                    <label>Duration</label>
+                    <select id="newSessionDuration">
+                        <option>1 hour</option>
+                        <option selected>2 hours</option>
+                        <option>3 hours</option>
+                    </select>
                 </div>
-                <div class="modal-footer">
-                    <button class="btn-modal-cancel" onclick="closeModal()">Cancel</button>
-                    <button class="btn-modal-confirm" onclick="addSession()"><i class="fa-solid fa-plus"></i> Log session</button>
+            </div>
+            <div class="modal-field">
+                <label>Topic covered</label>
+                <input type="text" id="newSessionTopic" placeholder="e.g. Intro session — topic planning">
+            </div>
+            <div class="modal-row">
+                <div class="modal-field">
+                    <label>Mode</label>
+                    <select id="newSessionMode">
+                        <option>Online</option>
+                        <option>In-person</option>
+                        <option>Hybrid</option>
+                    </select>
                 </div>
+                <div class="modal-field">
+                    <label>Location / Link</label>
+                    <input type="text" id="newSessionLoc" placeholder="e.g. Discord or Room 204">
+                </div>
+            </div>
+            <div class="modal-field">
+                <label>Notes (optional)</label>
+                <textarea id="newSessionNotes" placeholder="Any takeaways, follow-ups, or reminders…"></textarea>
+            </div>
+            <div class="modal-info">
+                <i class="fa-solid fa-circle-info" style="color:var(--orange);margin-right:5px;"></i>
+                After logging, you can mark attendance for each member directly in the session history below.
             </div>
         </div>
-
-        <nav>
-            <div id="nav-container">
-                  <a href="/WebDev/pages/home/homepage.html">
-                    <div class="logo">
-                        <span class="black">Hive</span><span class="orange">Minds</span>
-                    </div>
-                </a>
-                <div id="nav-links">
-                    <a class="hover active-nav" href="home_home-feed.html">Home</a>
-                    <a class="hover" href="/WebDev/pages/hives/hives.html">Hives</a>
-                    <a class="hover" href="../misc/profile.html">Profile</a>
-                </div>
-                <div id="auth-links">
-                    <a class="hover" href="../misc/profile.html">Student</a>
-                </div>
-            </div>
-        </nav>
-
-        <main>
-            <div id="container">
-                <div id="sidebar">
-                    <div id="menu">
-                        <p>MENU</p>
-                        <hr>
-                        <a href="home_home-feed.html"><div class="sidebar-button menu"><p>Home Feed</p></div></a>
-                        <a href="home_my-schedule.html"><div class="sidebar-button menu"><p>My Schedule</p></div></a>
-                        <a href="home_settings.html"><div class="sidebar-button menu"><p>Settings</p></div></a>
-                    </div>
-                    <div id="created-hives">
-                        <p>CREATED HIVES</p>
-                        <hr>
-                        <a href="home_created-hives.html"><div class="created-hive-btn active"><span class="hex-owner"></span><p>Rick's Study Circle</p></div></a>
-                    </div>
-                    <div id="my-hives">
-                        <p>MY HIVES</p>
-                        <hr>
-                        <a href="home_calculus.html"><div class="sidebar-button my-hives"><span class="hex"></span><p>Calculus Study Group</p></div></a>
-                        <a href="home_biology.html"><div class="sidebar-button my-hives"><span class="hex"></span><p>Biology Study Group</p></div></a>
-                    </div>
-                </div>
-
-                <div id="content">
-                
-                    <div class="disc-body">
-                        <div class="disc-meta">
-                            <span class="disc-name">Rick Buzztley</span>
-                            <span class="disc-time">2 hours ago</span>
-                            <label for="col-1" class="disc-collapse-hint">[–]</label>
-                        </div>
-                        <div class="disc-text">Hey everyone, reminder that tonight's session is at 7 PM sharp. We're covering related rates so please review chapter 4 beforehand!</div>
-                        <div class="disc-actions">
-                            <input type="checkbox" id="h-1" class="vote-cb helpful-cb" hidden>
-                            <input type="checkbox" id="n-1" class="vote-cb nothelpful-cb" hidden>
-                            <label for="h-1" class="vote-btn helpful-btn">👍 Helpful <span class="vote-count">5</span></label>
-                            <label for="n-1" class="vote-btn nothelpful-btn">👎 Not helpful</label>
-                            <label for="rep-1" class="disc-reply-btn">↩ Reply</label>
-                        </div>
-                        <div class="reply-box">
-                            <input class="reply-input" type="text" placeholder="Write a reply…">
-                            <button class="reply-post-btn">Post</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- replies to comment 1 -->
-                <div class="disc-replies">
-
-                    <!-- reply 1a -->
-                    <div class="disc-thread">
-                        <input type="checkbox" id="col-1a" class="collapse-toggle" hidden>
-                        <input type="checkbox" id="rep-1a" class="reply-toggle" hidden>
-                        <div class="disc-comment">
-                            <div class="disc-left-col">
-                                <label for="col-1a" class="disc-avatar av-warn" title="Collapse">MI</label>
-                                <label for="col-1a" class="disc-line"></label>
-                            </div>
-                            <div class="disc-body">
-                                <div class="disc-meta">
-                                    <span class="disc-name">Milky</span>
-                                    <span class="disc-time">1 hour ago</span>
-                                    <label for="col-1a" class="disc-collapse-hint">[–]</label>
-                                </div>
-                                <div class="disc-text">Got it! Should we bring the problem sets from last week too?</div>
-                                <div class="disc-actions">
-                                    <input type="checkbox" id="h-1a" class="vote-cb helpful-cb" hidden>
-                                    <input type="checkbox" id="n-1a" class="vote-cb nothelpful-cb" hidden>
-                                    <label for="h-1a" class="vote-btn helpful-btn">👍 Helpful <span class="vote-count">3</span></label>
-                                    <label for="n-1a" class="vote-btn nothelpful-btn">👎 Not helpful</label>
-                                    <label for="rep-1a" class="disc-reply-btn">↩ Reply</label>
-                                </div>
-                                <div class="reply-box">
-                                    <input class="reply-input" type="text" placeholder="Write a reply…">
-                                    <button class="reply-post-btn">Post</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- reply to reply -->
-                        <div class="disc-replies">
-                            <div class="disc-thread">
-                                <input type="checkbox" id="col-1b" class="collapse-toggle" hidden>
-                                <input type="checkbox" id="rep-1b" class="reply-toggle" hidden>
-                                <div class="disc-comment">
-                                    <div class="disc-left-col">
-                                        <label for="col-1b" class="disc-avatar av-purple" title="Collapse">SU</label>
-                                        <label for="col-1b" class="disc-line"></label>
-                                    </div>
-                                    <div class="disc-body">
-                                        <div class="disc-meta">
-                                            <span class="disc-name">Sam Uy</span>
-                                            <span class="disc-time">45 mins ago</span>
-                                            <label for="col-1b" class="disc-collapse-hint">[–]</label>
-                                        </div>
-                                        <div class="disc-text">Yes bring them! We still have 3 unsolved ones from last session 😭</div>
-                                        <div class="disc-actions">
-                                            <input type="checkbox" id="h-1b" class="vote-cb helpful-cb" hidden>
-                                            <input type="checkbox" id="n-1b" class="vote-cb nothelpful-cb" hidden>
-                                            <label for="h-1b" class="vote-btn helpful-btn">👍 Helpful <span class="vote-count">6</span></label>
-                                            <label for="n-1b" class="vote-btn nothelpful-btn">👎 Not helpful</label>
-                                            <label for="rep-1b" class="disc-reply-btn">↩ Reply</label>
-                                        </div>
-                                        <div class="reply-box">
-                                            <input class="reply-input" type="text" placeholder="Write a reply…">
-                                            <button class="reply-post-btn">Post</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="disc-replies"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <hr class="disc-divider">
-
-            <!-- ── COMMENT 2 ── -->
-            <div class="disc-thread">
-                <input type="checkbox" id="col-2" class="collapse-toggle" hidden>
-                <input type="checkbox" id="rep-2" class="reply-toggle" hidden>
-                <div class="disc-comment">
-                    <div class="disc-left-col">
-                        <label for="col-2" class="disc-avatar av-purple" title="Collapse">SU</label>
-                        <label for="col-2" class="disc-line"></label>
-                    </div>
-                    <div class="disc-body">
-                        <div class="disc-meta">
-                            <span class="disc-name">Sam Uy</span>
-                            <span class="disc-time">3 hours ago</span>
-                            <label for="col-2" class="disc-collapse-hint">[–]</label>
-                        </div>
-                        <div class="disc-text">Does anyone have a good resource for related rates? The textbook examples are kinda hard to follow.</div>
-                        <div class="disc-actions">
-                            <input type="checkbox" id="h-2" class="vote-cb helpful-cb" hidden>
-                            <input type="checkbox" id="n-2" class="vote-cb nothelpful-cb" hidden>
-                            <label for="h-2" class="vote-btn helpful-btn">👍 Helpful <span class="vote-count">4</span></label>
-                            <label for="n-2" class="vote-btn nothelpful-btn">👎 Not helpful</label>
-                            <label for="rep-2" class="disc-reply-btn">↩ Reply</label>
-                        </div>
-                        <div class="reply-box">
-                            <input class="reply-input" type="text" placeholder="Write a reply…">
-                            <button class="reply-post-btn">Post</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="disc-replies">
-                    <div class="disc-thread">
-                        <input type="checkbox" id="col-2a" class="collapse-toggle" hidden>
-                        <input type="checkbox" id="rep-2a" class="reply-toggle" hidden>
-                        <div class="disc-comment">
-                            <div class="disc-left-col">
-                                <label for="col-2a" class="disc-avatar" title="Collapse">RB</label>
-                                <label for="col-2a" class="disc-line"></label>
-                            </div>
-                            <div class="disc-body">
-                                <div class="disc-meta">
-                                    <span class="disc-name">Rick Buzztley</span>
-                                    <span class="disc-time">2 hours ago</span>
-                                    <label for="col-2a" class="disc-collapse-hint">[–]</label>
-                                </div>
-                                <div class="disc-text">Professor Leonard on YouTube is really good for this. His related rates playlist saved me last sem!</div>
-                                <div class="disc-actions">
-                                    <input type="checkbox" id="h-2a" class="vote-cb helpful-cb" hidden>
-                                    <input type="checkbox" id="n-2a" class="vote-cb nothelpful-cb" hidden>
-                                    <label for="h-2a" class="vote-btn helpful-btn">👍 Helpful <span class="vote-count">7</span></label>
-                                    <label for="n-2a" class="vote-btn nothelpful-btn">👎 Not helpful</label>
-                                    <label for="rep-2a" class="disc-reply-btn">↩ Reply</label>
-                                </div>
-                                <div class="reply-box">
-                                    <input class="reply-input" type="text" placeholder="Write a reply…">
-                                    <button class="reply-post-btn">Post</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="disc-replies"></div>
-                    </div>
-                </div>
-            </div>
-
-            <hr class="disc-divider">
-
-            <!-- ── COMMENT 3 ── -->
-            <div class="disc-thread">
-                <input type="checkbox" id="col-3" class="collapse-toggle" hidden>
-                <input type="checkbox" id="rep-3" class="reply-toggle" hidden>
-                <div class="disc-comment">
-                    <div class="disc-left-col">
-                        <label for="col-3" class="disc-avatar av-warn" title="Collapse">MI</label>
-                        <label for="col-3" class="disc-line"></label>
-                    </div>
-                    <div class="disc-body">
-                        <div class="disc-meta">
-                            <span class="disc-name">Milky</span>
-                            <span class="disc-time">30 mins ago</span>
-                            <label for="col-3" class="disc-collapse-hint">[–]</label>
-                        </div>
-                        <div class="disc-text">Quick question — are we doing the Discord voice channel or the Zoom link from last week?</div>
-                        <div class="disc-actions">
-                            <input type="checkbox" id="h-3" class="vote-cb helpful-cb" hidden>
-                            <input type="checkbox" id="n-3" class="vote-cb nothelpful-cb" hidden>
-                            <label for="h-3" class="vote-btn helpful-btn">👍 Helpful <span class="vote-count">2</span></label>
-                            <label for="n-3" class="vote-btn nothelpful-btn">👎 Not helpful</label>
-                            <label for="rep-3" class="disc-reply-btn">↩ Reply</label>
-                        </div>
-                        <div class="reply-box">
-                            <input class="reply-input" type="text" placeholder="Write a reply…">
-                            <button class="reply-post-btn">Post</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="disc-replies"></div>
-            </div>
-
-            <!-- ── NEW COMMENT ROW ── -->
-            <div class="disc-new-comment">
-                <div class="disc-avatar av-green" style="cursor:default">YO</div>
-                <input class="reply-input" type="text" placeholder="Write a comment…">
-                <button class="reply-post-btn">Post</button>
-            </div>
-
+        <div class="modal-footer">
+            <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+            <button class="btn btn-primary" onclick="addSession()"><i class="fa-solid fa-plus"></i> Log session</button>
         </div>
     </div>
-                            </div><!-- /hive-left -->
+</div>
 
-                            <!-- RIGHT COLUMN (original) -->
-                            <div class="hive-right">
-                                <div>
-                                    <div class="section-label">Session Details</div>
-                                    <div class="details-card">
-                                        <div class="detail-row"><div class="detail-icon"><i class="fa-regular fa-calendar"></i></div><div class="detail-key">Date</div><div class="detail-value">Friday, March 28</div></div>
-                                        <div class="detail-row"><div class="detail-icon"><i class="fa-regular fa-clock"></i></div><div class="detail-key">Time</div><div class="detail-value">6:00 PM – 8:00 PM</div></div>
-                                        <div class="detail-row"><div class="detail-icon"><i class="fa-solid fa-location-dot"></i></div><div class="detail-key">Location</div><div class="detail-value">Discord — #ricks-circle</div></div>
-                                        <div class="detail-row"><div class="detail-icon"><i class="fa-solid fa-wifi"></i></div><div class="detail-key">Mode</div><div class="detail-value">Online</div></div>
-                                        <div class="detail-row"><div class="detail-icon"><i class="fa-solid fa-book"></i></div><div class="detail-key">Topic</div><div class="detail-value">Intro session — topic planning</div></div>
-                                        <div class="detail-row"><div class="detail-icon"><i class="fa-solid fa-users"></i></div><div class="detail-key">Members</div><div class="detail-value">8 / 20 members</div></div>
+<!-- ══ NAV ══ -->
+<nav>
+    <div id="nav-container">
+        <label for="mob-toggle" id="hamburger"><span></span><span></span><span></span></label>
+        <a href="/WebDev/pages/home/homepage.html">
+            <div class="logo"><span class="black">Hive</span><span class="orange">Minds</span></div>
+        </a>
+        <div id="nav-links">
+            <a class="active-nav" href="home_home-feed.html">Home</a>
+            <a href="../hives/hives.html">Hives</a>
+            <a href="../misc/profile.html">Profile</a>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+            <div id="notif-btn"><i class="fa-regular fa-bell"></i><span class="notif-dot"></span></div>
+            <a href="../misc/profile.html" id="user-pill">
+                <div id="user-avatar">RB</div>
+                <span id="user-name">Student</span>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<label for="mob-toggle" id="mob-overlay"></label>
+
+<div id="container">
+
+    <!-- Sidebar -->
+    <div id="sidebar">
+        <div class="sidebar-section">
+            <div class="sidebar-label">Menu</div>
+            <hr class="sidebar-hr">
+            <a href="home_home-feed.html"><div class="sidebar-btn"><i class="fa-solid fa-house"></i> Home Feed</div></a>
+            <a href="home_my-schedule.html"><div class="sidebar-btn"><i class="fa-regular fa-calendar"></i> My Schedule</div></a>
+            <a href="home_settings.html"><div class="sidebar-btn"><i class="fa-solid fa-gear"></i> Settings</div></a>
+        </div>
+        <div class="sidebar-section">
+            <div class="sidebar-label">Created Hives</div>
+            <hr class="sidebar-hr">
+            <a href="home_created-hives.html"><div class="sidebar-btn active"><span class="hex owner"></span> Rick's Study Circle</div></a>
+        </div>
+        <div class="sidebar-section">
+            <div class="sidebar-label">My Hives</div>
+            <hr class="sidebar-hr">
+            <a href="home_calculus.html"><div class="sidebar-btn"><span class="hex"></span> Calculus Study Group</div></a>
+            <a href="home_biology.html"><div class="sidebar-btn"><span class="hex"></span> Biology Study Group</div></a>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div id="content">
+
+        <!-- Hive Header -->
+        <div class="hive-header">
+            <div class="hive-header-left">
+                <div class="hive-title">Rick's Study Circle</div>
+                <div class="hive-meta">
+                    <div class="tag">General</div>
+                    <span>·</span>
+                    <span>8 members</span>
+                </div>
+                <div class="hive-owner">
+                    <img src="../../assets/images/person-profile.jpg" alt="Rick Buzztley">
+                    Owned by <strong>Rick Buzztley (You)</strong>
+                </div>
+            </div>
+            <div class="owner-actions">
+                <button class="btn btn-ghost"><i class="fa-solid fa-pen"></i> Edit Hive</button>
+                <button class="btn btn-primary" onclick="openModal()"><i class="fa-solid fa-clipboard-list"></i> Log Session</button>
+                <button class="btn btn-danger"><i class="fa-solid fa-trash"></i> Delete</button>
+            </div>
+        </div>
+
+        <!-- Owner banner -->
+        <div class="owner-banner">
+            <i class="fa-solid fa-crown" style="color:var(--orange);"></i>
+            You are the owner of this hive. You can log sessions, manage members, and edit hive details.
+        </div>
+
+        <!-- Two-column body -->
+        <div class="hive-columns">
+
+            <!-- LEFT -->
+            <div class="hive-left">
+
+                <!-- Activity overview -->
+                <div class="section-label">Activity Overview</div>
+                <div class="card">
+                    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+                        <div class="activity-stats-row">
+                            <div class="act-stat">
+                                <span class="asv" id="statSessions">3</span>
+                                <span class="asl">Sessions</span>
+                            </div>
+                            <div class="act-stat">
+                                <span class="asv" id="statHours">6h</span>
+                                <span class="asl">Study Hours</span>
+                            </div>
+                            <div class="act-stat">
+                                <span class="asv" id="statAvgAtt">—</span>
+                                <span class="asl">Avg Attendance</span>
+                            </div>
+                        </div>
+                        <div class="live-badge">
+                            <span class="live-dot"></span> Active
+                        </div>
+                    </div>
+
+                    <!-- Master bar -->
+                    <div class="bar-wrap">
+                        <div class="bar-labels">
+                            <span>Overall attendance</span>
+                            <span id="masterBarPct">—</span>
+                        </div>
+                        <div class="bar-track">
+                            <div class="bar-fill" id="masterBarFill" style="width:0%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Session dot strip -->
+                    <div class="session-dots-row">
+                        <span class="dots-label">Sessions</span>
+                        <div class="s-dot held"><i class="fa-solid fa-check" style="font-size:8px"></i><div class="s-tip">Mar 7 — 6/8 present</div></div>
+                        <div class="s-dot held"><i class="fa-solid fa-check" style="font-size:8px"></i><div class="s-tip">Mar 14 — 7/8 present</div></div>
+                        <div class="s-dot missed"><i class="fa-solid fa-xmark" style="font-size:8px"></i><div class="s-tip">Mar 21 — Missed</div></div>
+                        <div class="s-dot upcoming"><div class="s-tip">Mar 28 — Upcoming</div></div>
+                        <div class="s-dot upcoming"><div class="s-tip">Apr 4 — Upcoming</div></div>
+                    </div>
+                </div>
+
+                <!-- Session log -->
+                <div class="section-label" style="display:flex;align-items:center;justify-content:space-between;">
+                    <span>Session Log</span>
+                    <button class="btn btn-primary" style="padding:5px 12px;font-size:0.76em;" onclick="openModal()">
+                        <i class="fa-solid fa-plus"></i> Log Session
+                    </button>
+                </div>
+
+                <div class="session-log-card">
+                    <div id="sessionLogContainer">
+
+                        <!-- Session 3 -->
+                        <div class="session-entry" id="entry-3">
+                            <div class="session-entry-header" onclick="toggleEntry('entry-3')">
+                                <div class="seh-left">
+                                    <div class="seh-num">3</div>
+                                    <div>
+                                        <div class="seh-date">Friday, March 21, 2025</div>
+                                        <div class="seh-topic">Missed — no session held</div>
                                     </div>
                                 </div>
-                                <div>
-                                    <div class="section-label">Recurring Schedule</div>
-                                    <div class="schedule-card">
-                                        <div class="schedule-row"><div class="schedule-day">Friday</div><div class="schedule-time">6:00 PM – 8:00 PM</div><div class="schedule-topic">Weekly session</div></div>
+                                <div class="seh-right">
+                                    <span class="tag" style="background:#fde8e8;border-color:#e74c3c;color:#c0392b;">Missed</span>
+                                    <i class="fa-solid fa-chevron-down seh-chevron"></i>
+                                </div>
+                            </div>
+                            <div class="session-att-body">
+                                <div class="att-body-top">
+                                    <span class="abt-label">No session was held this week.</span>
+                                </div>
+                                <div class="session-note-row">
+                                    <label><i class="fa-solid fa-note-sticky"></i>&nbsp; Notes</label>
+                                    <textarea>Session skipped due to exam week conflict.</textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Session 2 -->
+                        <div class="session-entry" id="entry-2">
+                            <div class="session-entry-header" onclick="toggleEntry('entry-2')">
+                                <div class="seh-left">
+                                    <div class="seh-num">2</div>
+                                    <div>
+                                        <div class="seh-date">Friday, March 14, 2025</div>
+                                        <div class="seh-topic">Functions & scope — 2 hours — Discord</div>
                                     </div>
                                 </div>
-                                <div>
-                                    <div class="section-label">Group Rules</div>
-                                    <div class="rules-card">
-                                        <div class="rule-item"><div class="rule-num">1</div>Be on time — sessions start promptly at 6 PM.</div>
-                                        <div class="rule-item"><div class="rule-num">2</div>Come prepared with questions or topics you want to cover.</div>
-                                        <div class="rule-item"><div class="rule-num">3</div>Keep it respectful — everyone's here to learn.</div>
+                                <div class="seh-right">
+                                    <div class="mini-att-bar">
+                                        <div class="mini-att-track"><div class="mini-att-fill att-high" id="fill-2" style="width:87%"></div></div>
+                                        <span id="cnt-2" style="font-weight:700;font-size:.85em;">7/8</span>
+                                    </div>
+                                    <span class="att-saved-badge show"><i class="fa-solid fa-check"></i> Saved</span>
+                                    <i class="fa-solid fa-chevron-down seh-chevron"></i>
+                                </div>
+                            </div>
+                            <div class="session-att-body">
+                                <div class="att-body-top">
+                                    <span class="abt-label"><i class="fa-solid fa-users"></i>&nbsp; Attendance</span>
+                                    <span class="att-summary" id="sum-2">7 present · 1 absent · 0 late</span>
+                                </div>
+                                <div class="att-member-row">
+                                    <img class="att-avatar" src="../../assets/images/person-profile.jpg">
+                                    <span class="att-name">Rick Buzztley <span style="font-size:.75em;opacity:.6">(You)</span></span>
+                                    <div class="att-toggle">
+                                        <button class="att-btn present active" onclick="markAtt(this,'entry-2','Rick','present')"><i class="fa-solid fa-check"></i> Present</button>
+                                        <button class="att-btn late" onclick="markAtt(this,'entry-2','Rick','late')"><i class="fa-solid fa-clock"></i> Late</button>
+                                        <button class="att-btn absent" onclick="markAtt(this,'entry-2','Rick','absent')"><i class="fa-solid fa-xmark"></i> Absent</button>
                                     </div>
                                 </div>
-                            </div><!-- /hive-right -->
+                                <div class="att-member-row">
+                                    <img class="att-avatar" src="../../assets/images/person-profile.jpg">
+                                    <span class="att-name">Maya Santos</span>
+                                    <div class="att-toggle">
+                                        <button class="att-btn present active" onclick="markAtt(this,'entry-2','Maya','present')"><i class="fa-solid fa-check"></i> Present</button>
+                                        <button class="att-btn late" onclick="markAtt(this,'entry-2','Maya','late')"><i class="fa-solid fa-clock"></i> Late</button>
+                                        <button class="att-btn absent" onclick="markAtt(this,'entry-2','Maya','absent')"><i class="fa-solid fa-xmark"></i> Absent</button>
+                                    </div>
+                                </div>
+                                <div class="att-member-row">
+                                    <img class="att-avatar" src="../../assets/images/person-profile.jpg">
+                                    <span class="att-name">Sam Uy</span>
+                                    <div class="att-toggle">
+                                        <button class="att-btn present active" onclick="markAtt(this,'entry-2','Sam','present')"><i class="fa-solid fa-check"></i> Present</button>
+                                        <button class="att-btn late" onclick="markAtt(this,'entry-2','Sam','late')"><i class="fa-solid fa-clock"></i> Late</button>
+                                        <button class="att-btn absent" onclick="markAtt(this,'entry-2','Sam','absent')"><i class="fa-solid fa-xmark"></i> Absent</button>
+                                    </div>
+                                </div>
+                                <div class="att-member-row">
+                                    <img class="att-avatar" src="../../assets/images/person-profile.jpg">
+                                    <span class="att-name">Carla Mendez</span>
+                                    <div class="att-toggle">
+                                        <button class="att-btn present" onclick="markAtt(this,'entry-2','Carla','present')"><i class="fa-solid fa-check"></i> Present</button>
+                                        <button class="att-btn late" onclick="markAtt(this,'entry-2','Carla','late')"><i class="fa-solid fa-clock"></i> Late</button>
+                                        <button class="att-btn absent active" onclick="markAtt(this,'entry-2','Carla','absent')"><i class="fa-solid fa-xmark"></i> Absent</button>
+                                    </div>
+                                </div>
+                                <div class="session-note-row">
+                                    <label><i class="fa-solid fa-note-sticky"></i>&nbsp; Session notes</label>
+                                    <textarea>Good session — covered scope rules and function overloading. Carla missed but will review the recording.</textarea>
+                                </div>
+                                <div class="session-att-actions">
+                                    <button class="btn-cancel-att">Undo changes</button>
+                                    <button class="btn-save-att" onclick="saveAtt('entry-2')"><i class="fa-solid fa-floppy-disk"></i> Save attendance</button>
+                                </div>
+                            </div>
+                        </div>
 
-                        </div><!-- /hive-columns -->
-                    </div><!-- /hive-body -->
-                </div><!-- /content -->
-            </div><!-- /container -->
-        </main>
-        
-        <script>
-        // ── TOGGLE session entry open/close ──
-        function toggleEntry(id) {
-            const el = document.getElementById(id);
-            el.classList.toggle('open');
-        }
+                        <!-- Session 1 -->
+                        <div class="session-entry" id="entry-1">
+                            <div class="session-entry-header" onclick="toggleEntry('entry-1')">
+                                <div class="seh-left">
+                                    <div class="seh-num">1</div>
+                                    <div>
+                                        <div class="seh-date">Friday, March 7, 2025</div>
+                                        <div class="seh-topic">Intro session — topic planning — 2 hours — Discord</div>
+                                    </div>
+                                </div>
+                                <div class="seh-right">
+                                    <div class="mini-att-bar">
+                                        <div class="mini-att-track"><div class="mini-att-fill att-mid" id="fill-1" style="width:75%"></div></div>
+                                        <span id="cnt-1" style="font-weight:700;font-size:.85em;">6/8</span>
+                                    </div>
+                                    <span class="att-saved-badge show"><i class="fa-solid fa-check"></i> Saved</span>
+                                    <i class="fa-solid fa-chevron-down seh-chevron"></i>
+                                </div>
+                            </div>
+                            <div class="session-att-body">
+                                <div class="att-body-top">
+                                    <span class="abt-label"><i class="fa-solid fa-users"></i>&nbsp; Attendance</span>
+                                    <span class="att-summary" id="sum-1">6 present · 2 absent · 0 late</span>
+                                </div>
+                                <div class="att-member-row">
+                                    <img class="att-avatar" src="../../assets/images/person-profile.jpg">
+                                    <span class="att-name">Rick Buzztley <span style="font-size:.75em;opacity:.6">(You)</span></span>
+                                    <div class="att-toggle">
+                                        <button class="att-btn present active" onclick="markAtt(this,'entry-1','Rick','present')"><i class="fa-solid fa-check"></i> Present</button>
+                                        <button class="att-btn late" onclick="markAtt(this,'entry-1','Rick','late')"><i class="fa-solid fa-clock"></i> Late</button>
+                                        <button class="att-btn absent" onclick="markAtt(this,'entry-1','Rick','absent')"><i class="fa-solid fa-xmark"></i> Absent</button>
+                                    </div>
+                                </div>
+                                <div class="att-member-row">
+                                    <img class="att-avatar" src="../../assets/images/person-profile.jpg">
+                                    <span class="att-name">Maya Santos</span>
+                                    <div class="att-toggle">
+                                        <button class="att-btn present active" onclick="markAtt(this,'entry-1','Maya','present')"><i class="fa-solid fa-check"></i> Present</button>
+                                        <button class="att-btn late" onclick="markAtt(this,'entry-1','Maya','late')"><i class="fa-solid fa-clock"></i> Late</button>
+                                        <button class="att-btn absent" onclick="markAtt(this,'entry-1','Maya','absent')"><i class="fa-solid fa-xmark"></i> Absent</button>
+                                    </div>
+                                </div>
+                                <div class="att-member-row">
+                                    <img class="att-avatar" src="../../assets/images/person-profile.jpg">
+                                    <span class="att-name">Leo Reyes</span>
+                                    <div class="att-toggle">
+                                        <button class="att-btn present" onclick="markAtt(this,'entry-1','Leo','present')"><i class="fa-solid fa-check"></i> Present</button>
+                                        <button class="att-btn late" onclick="markAtt(this,'entry-1','Leo','late')"><i class="fa-solid fa-clock"></i> Late</button>
+                                        <button class="att-btn absent active" onclick="markAtt(this,'entry-1','Leo','absent')"><i class="fa-solid fa-xmark"></i> Absent</button>
+                                    </div>
+                                </div>
+                                <div class="att-member-row">
+                                    <img class="att-avatar" src="../../assets/images/person-profile.jpg">
+                                    <span class="att-name">Anthony</span>
+                                    <div class="att-toggle">
+                                        <button class="att-btn present" onclick="markAtt(this,'entry-1','Anthony','present')"><i class="fa-solid fa-check"></i> Present</button>
+                                        <button class="att-btn late" onclick="markAtt(this,'entry-1','Anthony','late')"><i class="fa-solid fa-clock"></i> Late</button>
+                                        <button class="att-btn absent active" onclick="markAtt(this,'entry-1','Anthony','absent')"><i class="fa-solid fa-xmark"></i> Absent</button>
+                                    </div>
+                                </div>
+                                <div class="session-note-row">
+                                    <label><i class="fa-solid fa-note-sticky"></i>&nbsp; Session notes</label>
+                                    <textarea>First session! Covered the semester plan and divided topics. Leo and Anthony couldn't make it.</textarea>
+                                </div>
+                                <div class="session-att-actions">
+                                    <button class="btn-cancel-att">Undo changes</button>
+                                    <button class="btn-save-att" onclick="saveAtt('entry-1')"><i class="fa-solid fa-floppy-disk"></i> Save attendance</button>
+                                </div>
+                            </div>
+                        </div>
 
-        // ── MARK ATTENDANCE button ──
-        function markAtt(btn, entryId, memberName, status) {
-            // Deactivate siblings
-            const siblings = btn.closest('.att-toggle').querySelectorAll('.att-btn');
-            siblings.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
+                    </div>
+                </div>
 
-            // Recalculate summary for this entry
-            recalcSummary(entryId);
-        }
+            </div><!-- /hive-left -->
 
-        function recalcSummary(entryId) {
-            const entry = document.getElementById(entryId);
-            const rows  = entry.querySelectorAll('.att-member-row');
-            let p = 0, a = 0, l = 0;
+            <!-- RIGHT -->
+            <div class="hive-right">
 
-            rows.forEach(row => {
-                const active = row.querySelector('.att-btn.active');
-                if (!active) return;
-                if (active.classList.contains('present')) p++;
-                else if (active.classList.contains('absent'))  a++;
-                else if (active.classList.contains('late'))    l++;
-            });
+                <div class="section-label">Session Details</div>
+                <div class="card">
+                    <div class="detail-row">
+                        <div class="detail-icon"><i class="fa-regular fa-calendar"></i></div>
+                        <div class="detail-key">Date</div>
+                        <div class="detail-value">Friday, March 28</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-icon"><i class="fa-regular fa-clock"></i></div>
+                        <div class="detail-key">Time</div>
+                        <div class="detail-value">6:00 PM – 8:00 PM</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-icon"><i class="fa-solid fa-location-dot"></i></div>
+                        <div class="detail-key">Location</div>
+                        <div class="detail-value">Discord — #ricks-circle</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-icon"><i class="fa-solid fa-wifi"></i></div>
+                        <div class="detail-key">Mode</div>
+                        <div class="detail-value">Online</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-icon"><i class="fa-solid fa-book"></i></div>
+                        <div class="detail-key">Topic</div>
+                        <div class="detail-value">Intro session — topic planning</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-icon"><i class="fa-solid fa-users"></i></div>
+                        <div class="detail-key">Members</div>
+                        <div class="detail-value">8 / 20 members</div>
+                    </div>
+                </div>
 
-            const total = p + a + l;
-            const sumEl = entry.querySelector('[id^="sum-"]');
-            if (sumEl) sumEl.textContent = `${p} present \u2022 ${a} absent \u2022 ${l} late`;
+                <div class="section-label">Recurring Schedule</div>
+                <div class="card">
+                    <div class="schedule-row">
+                        <div class="schedule-day">Friday</div>
+                        <div class="schedule-time">6:00 – 8:00 PM</div>
+                        <div class="schedule-topic">Weekly session</div>
+                    </div>
+                </div>
 
-            // Update mini bar
-            const pct = total > 0 ? Math.round(((p + l) / total) * 100) : 0;
-            const fill = entry.querySelector('.mini-att-fill');
-            const label = entry.querySelector('.seh-right span[style]');
-            if (fill) {
-                fill.style.width = pct + '%';
-                fill.className = 'mini-att-fill ' + (pct >= 90 ? 'att-high' : pct >= 60 ? 'att-mid' : 'att-low');
-            }
-            const countEl = entry.querySelector('.seh-right > div > span');
-            if (countEl) countEl.textContent = `${p+l}/${total}`;
-        }
+                <div class="section-label">Group Rules</div>
+                <div class="card">
+                    <div class="rule-item">
+                        <div class="rule-num">1</div>
+                        Be on time — sessions start promptly at 6 PM.
+                    </div>
+                    <div class="rule-item">
+                        <div class="rule-num">2</div>
+                        Come prepared with questions or topics you want to cover.
+                    </div>
+                    <div class="rule-item">
+                        <div class="rule-num">3</div>
+                        Keep it respectful — everyone's here to learn.
+                    </div>
+                </div>
 
-        // ── SAVE attendance ──
-        function saveAtt(entryId) {
-            const badge = document.querySelector(`#${entryId} .att-saved-badge`);
-            if (badge) {
-                badge.classList.add('show');
-                badge.style.background = '#2ecc71';
-            }
-            // flash feedback
-            const btn = event.currentTarget || document.querySelector(`#${entryId} .btn-save-att`);
-            const orig = btn ? btn.innerHTML : '';
-            if (btn) {
-                btn.innerHTML = '<i class="fa-solid fa-check"></i> Saved!';
-                setTimeout(() => { btn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Save attendance'; }, 1800);
-            }
-            recalcMasterBar();
-        }
+            </div><!-- /hive-right -->
 
-        // ── RECALCULATE master progress bar ──
-        function recalcMasterBar() {
-            const entries = document.querySelectorAll('.session-entry');
-            let totalPresent = 0, totalMembers = 0;
-            entries.forEach(entry => {
-                const rows = entry.querySelectorAll('.att-member-row');
-                rows.forEach(row => {
-                    totalMembers++;
-                    const active = row.querySelector('.att-btn.active');
-                    if (active && (active.classList.contains('present') || active.classList.contains('late'))) {
-                        totalPresent++;
-                    }
-                });
-            });
-            const pct = totalMembers > 0 ? Math.round((totalPresent / totalMembers) * 100) : 0;
-            document.getElementById('masterBarFill').style.width = pct + '%';
-            document.getElementById('masterBarPct').textContent  = pct + '%';
-            document.getElementById('statAvgAtt').textContent    = pct + '%';
-        }
+        </div><!-- /hive-columns -->
+    </div><!-- /content -->
+</div><!-- /container -->
 
-        // ── OPEN / CLOSE LOG SESSION MODAL ──
-        function openModal() {
-            // default date to today
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('newSessionDate').value = today;
-            document.getElementById('logSessionModal').classList.add('open');
-        }
+<script>
+    function toggleEntry(id) {
+        document.getElementById(id).classList.toggle('open');
+    }
 
-        function closeModal() {
-            document.getElementById('logSessionModal').classList.remove('open');
-        }
+    function markAtt(btn, entryId, memberName, status) {
+        btn.closest('.att-toggle').querySelectorAll('.att-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        recalcSummary(entryId);
+    }
 
-        // Close on backdrop click
-        document.getElementById('logSessionModal').addEventListener('click', function(e) {
-            if (e.target === this) closeModal();
+    function recalcSummary(entryId) {
+        const entry = document.getElementById(entryId);
+        const rows  = entry.querySelectorAll('.att-member-row');
+        let p = 0, a = 0, l = 0;
+        rows.forEach(row => {
+            const active = row.querySelector('.att-btn.active');
+            if (!active) return;
+            if (active.classList.contains('present')) p++;
+            else if (active.classList.contains('absent'))  a++;
+            else if (active.classList.contains('late'))    l++;
         });
-
-        // ── ADD NEW SESSION ──
-        let sessionCount = 3; // current count
-
-        function addSession() {
-            const date     = document.getElementById('newSessionDate').value;
-            const topic    = document.getElementById('newSessionTopic').value.trim() || 'Untitled session';
-            const duration = document.getElementById('newSessionDuration').value;
-            const mode     = document.getElementById('newSessionMode').value;
-            const loc      = document.getElementById('newSessionLoc').value.trim() || mode;
-            const notes    = document.getElementById('newSessionNotes').value.trim();
-
-            sessionCount++;
-
-            // Format date nicely
-            const d = date ? new Date(date + 'T00:00:00') : new Date();
-            const pretty = d.toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
-
-            const members = [
-                'Rick Buzztley','Maya Santos','Sam Uy','Milky',
-                'Carla Mendez','Leo Reyes','Anthony','Nina Cruz'
-            ];
-
-            const memberRows = members.map(name => `
-                <div class="att-member-row">
-                    <img class="att-avatar" src="../../assets/images/person-profile.jpg">
-                    <span class="att-name">${name}${name==='Rick Buzztley'?' <span style="font-size:.75em;opacity:.6">(You)</span>':''}</span>
-                    <div class="att-toggle">
-                        <button class="att-btn present" onclick="markAtt(this,'entry-${sessionCount}','${name}','present')"><i class="fa-solid fa-check"></i> Present</button>
-                        <button class="att-btn late"    onclick="markAtt(this,'entry-${sessionCount}','${name}','late')"><i class="fa-solid fa-clock"></i> Late</button>
-                        <button class="att-btn absent"  onclick="markAtt(this,'entry-${sessionCount}','${name}','absent')"><i class="fa-solid fa-xmark"></i> Absent</button>
-                    </div>
-                </div>`
-            ).join('');
-
-            const html = `
-            <div class="session-entry open" id="entry-${sessionCount}">
-                <div class="session-entry-header" onclick="toggleEntry('entry-${sessionCount}')">
-                    <div class="seh-left">
-                        <div class="seh-num">${sessionCount}</div>
-                        <div class="seh-info">
-                            <div class="seh-date">${pretty}</div>
-                            <div class="seh-topic">${topic} &mdash; ${duration} &mdash; ${loc}</div>
-                        </div>
-                    </div>
-                    <div class="seh-right">
-                        <div class="mini-att-bar">
-                            <div class="mini-att-track"><div class="mini-att-fill att-low" style="width:0%"></div></div>
-                            <span style="font-weight:800;font-size:.85em">0/${members.length}</span>
-                        </div>
-                        <span class="att-saved-badge"><i class="fa-solid fa-check"></i> Saved</span>
-                        <i class="fa-solid fa-chevron-down seh-chevron" style="transform:rotate(180deg)"></i>
-                    </div>
-                </div>
-                <div class="session-att-body" style="display:block">
-                    <div class="att-body-top">
-                        <span class="abt-label"><i class="fa-solid fa-users"></i>&nbsp; Mark attendance below</span>
-                        <span class="att-summary" id="sum-${sessionCount}">0 present &bull; 0 absent &bull; 0 late</span>
-                    </div>
-                    ${memberRows}
-                    <div class="session-note-row">
-                        <label><i class="fa-solid fa-note-sticky"></i>&nbsp; Session notes</label>
-                        <textarea>${notes}</textarea>
-                    </div>
-                    <div class="session-att-actions">
-                        <button class="btn-cancel-att">Undo changes</button>
-                        <button class="btn-save-att" onclick="saveAtt('entry-${sessionCount}')"><i class="fa-solid fa-floppy-disk"></i> Save attendance</button>
-                    </div>
-                </div>
-            </div>`;
-
-            // Prepend (newest first)
-            document.getElementById('sessionLogContainer').insertAdjacentHTML('afterbegin', html);
-
-            // Add a new green dot to the strip
-            const strip = document.querySelector('.session-dots-row');
-            const newDot = document.createElement('div');
-            newDot.className = 's-dot held';
-            newDot.innerHTML = `<i class="fa-solid fa-check" style="font-size:8px"></i><div class="s-dot-tip">${pretty.split(',')[0]} — 0/${members.length} marked</div>`;
-            // insert before first upcoming dot
-            const firstUpcoming = strip.querySelector('.s-dot.upcoming');
-            if (firstUpcoming) strip.insertBefore(newDot, firstUpcoming);
-            else strip.appendChild(newDot);
-
-            // Update session count stat
-            document.getElementById('statSessions').textContent = sessionCount;
-
-            // Update total study hours
-            const hrs = sessionCount * 2;
-            document.getElementById('statHours').textContent = hrs + 'h';
-
-            closeModal();
-            // Scroll to new entry
-            document.getElementById('entry-'+sessionCount).scrollIntoView({ behavior:'smooth', block:'center' });
+        const total = rows.length;
+        const sumEl = entry.querySelector('[id^="sum-"]');
+        if (sumEl) sumEl.textContent = `${p} present · ${a} absent · ${l} late`;
+        const pct = total > 0 ? Math.round(((p + l) / total) * 100) : 0;
+        const fill = entry.querySelector('.mini-att-fill');
+        if (fill) {
+            fill.style.width = pct + '%';
+            fill.className = 'mini-att-fill ' + (pct >= 85 ? 'att-high' : pct >= 60 ? 'att-mid' : 'att-low');
         }
+        const cntEl = entry.querySelector('[id^="cnt-"]');
+        if (cntEl) cntEl.textContent = `${p+l}/${total}`;
+    }
 
-        // Init recalc on load
+    function saveAtt(entryId) {
+        const entry = document.getElementById(entryId);
+        const badge = entry.querySelector('.att-saved-badge');
+        if (badge) badge.classList.add('show');
+        const btn = entry.querySelector('.btn-save-att');
+        if (btn) {
+            const orig = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-check"></i> Saved!';
+            setTimeout(() => { btn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Save attendance'; }, 1800);
+        }
         recalcMasterBar();
-        </script>
-    </body>
+    }
+
+    function recalcMasterBar() {
+        const entries = document.querySelectorAll('.session-entry');
+        let totalPresent = 0, totalMembers = 0;
+        entries.forEach(entry => {
+            entry.querySelectorAll('.att-member-row').forEach(row => {
+                totalMembers++;
+                const active = row.querySelector('.att-btn.active');
+                if (active && (active.classList.contains('present') || active.classList.contains('late'))) totalPresent++;
+            });
+        });
+        const pct = totalMembers > 0 ? Math.round((totalPresent / totalMembers) * 100) : 0;
+        document.getElementById('masterBarFill').style.width = pct + '%';
+        document.getElementById('masterBarPct').textContent  = pct + '%';
+        document.getElementById('statAvgAtt').textContent    = pct ? pct + '%' : '—';
+    }
+
+    function openModal() {
+        document.getElementById('newSessionDate').value = new Date().toISOString().split('T')[0];
+        document.getElementById('logSessionModal').classList.add('open');
+    }
+    function closeModal() {
+        document.getElementById('logSessionModal').classList.remove('open');
+    }
+    document.getElementById('logSessionModal').addEventListener('click', function(e) {
+        if (e.target === this) closeModal();
+    });
+
+    let sessionCount = 3;
+    function addSession() {
+        const date     = document.getElementById('newSessionDate').value;
+        const topic    = document.getElementById('newSessionTopic').value.trim() || 'Untitled session';
+        const duration = document.getElementById('newSessionDuration').value;
+        const mode     = document.getElementById('newSessionMode').value;
+        const loc      = document.getElementById('newSessionLoc').value.trim() || mode;
+        const notes    = document.getElementById('newSessionNotes').value.trim();
+        sessionCount++;
+        const d = date ? new Date(date + 'T00:00:00') : new Date();
+        const pretty = d.toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+        const members = ['Rick Buzztley','Maya Santos','Sam Uy','Carla Mendez','Leo Reyes','Anthony','Nina Cruz','Milky'];
+        const memberRows = members.map(name => `
+            <div class="att-member-row">
+                <img class="att-avatar" src="../../assets/images/person-profile.jpg">
+                <span class="att-name">${name}${name==='Rick Buzztley'?' <span style="font-size:.75em;opacity:.6">(You)</span>':''}</span>
+                <div class="att-toggle">
+                    <button class="att-btn present" onclick="markAtt(this,'entry-${sessionCount}','${name}','present')"><i class="fa-solid fa-check"></i> Present</button>
+                    <button class="att-btn late"    onclick="markAtt(this,'entry-${sessionCount}','${name}','late')"><i class="fa-solid fa-clock"></i> Late</button>
+                    <button class="att-btn absent"  onclick="markAtt(this,'entry-${sessionCount}','${name}','absent')"><i class="fa-solid fa-xmark"></i> Absent</button>
+                </div>
+            </div>`).join('');
+
+        const html = `
+        <div class="session-entry open" id="entry-${sessionCount}">
+            <div class="session-entry-header" onclick="toggleEntry('entry-${sessionCount}')">
+                <div class="seh-left">
+                    <div class="seh-num">${sessionCount}</div>
+                    <div>
+                        <div class="seh-date">${pretty}</div>
+                        <div class="seh-topic">${topic} — ${duration} — ${loc}</div>
+                    </div>
+                </div>
+                <div class="seh-right">
+                    <div class="mini-att-bar">
+                        <div class="mini-att-track"><div class="mini-att-fill att-low" id="fill-${sessionCount}" style="width:0%"></div></div>
+                        <span id="cnt-${sessionCount}" style="font-weight:700;font-size:.85em;">0/${members.length}</span>
+                    </div>
+                    <span class="att-saved-badge"><i class="fa-solid fa-check"></i> Saved</span>
+                    <i class="fa-solid fa-chevron-down seh-chevron" style="transform:rotate(180deg)"></i>
+                </div>
+            </div>
+            <div class="session-att-body" style="display:block;">
+                <div class="att-body-top">
+                    <span class="abt-label"><i class="fa-solid fa-users"></i>&nbsp; Mark attendance below</span>
+                    <span class="att-summary" id="sum-${sessionCount}">0 present · 0 absent · 0 late</span>
+                </div>
+                ${memberRows}
+                <div class="session-note-row">
+                    <label><i class="fa-solid fa-note-sticky"></i>&nbsp; Session notes</label>
+                    <textarea>${notes}</textarea>
+                </div>
+                <div class="session-att-actions">
+                    <button class="btn-cancel-att">Undo changes</button>
+                    <button class="btn-save-att" onclick="saveAtt('entry-${sessionCount}')"><i class="fa-solid fa-floppy-disk"></i> Save attendance</button>
+                </div>
+            </div>
+        </div>`;
+
+        document.getElementById('sessionLogContainer').insertAdjacentHTML('afterbegin', html);
+        const strip = document.querySelector('.session-dots-row');
+        const newDot = document.createElement('div');
+        newDot.className = 's-dot held';
+        newDot.innerHTML = `<i class="fa-solid fa-check" style="font-size:8px"></i><div class="s-tip">${pretty.split(',')[0]} — 0/${members.length} marked</div>`;
+        const firstUpcoming = strip.querySelector('.s-dot.upcoming');
+        if (firstUpcoming) strip.insertBefore(newDot, firstUpcoming);
+        else strip.appendChild(newDot);
+        document.getElementById('statSessions').textContent = sessionCount;
+        document.getElementById('statHours').textContent = (sessionCount * 2) + 'h';
+        closeModal();
+        document.getElementById('entry-' + sessionCount).scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    recalcMasterBar();
+</script>
+</body>
 </html>

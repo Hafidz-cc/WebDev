@@ -1,113 +1,343 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../../assets/CSS/base/base.css">
-        <link rel="stylesheet" href="../../assets/CSS/base/navbar.css">
-        <link rel="stylesheet" href="../../assets/CSS/base/layout.css">
-        <link rel="stylesheet" href="../../assets/CSS/home/home_settings.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Belanosima&family=Bricolage+Grotesque:opsz,wght@12..96,420&family=Coiny&family=McLaren&family=Pacifico&family=Pangolin&display=swap" rel="stylesheet">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings — HiveMinds</title>
 
-         <style>
-           
-        </style>
-    </head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet">
 
-    <body>
-        <nav>
-            <div id="nav-container">
-                <a href="/WebDev/pages/home/homepage.html">
-                    <div class="logo">
-                        <span class="black">Hive</span><span class="orange">Minds</span>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --yellow:     #FFD400;
+            --yellow-d:   #E6BF00;
+            --yellow-pale:#FFFDF0;
+            --yellow-mid: #FFF3B0;
+            --orange:     #FF5F00;
+            --dark:       #1A1600;
+            --hive:       #0D0B00;
+            --aged:       #6B5800;
+            --muted:      #9A8A60;
+            --border:     rgba(0,0,0,0.09);
+            --border-y:   #E8C84A;
+            --wax:        #FEFAF0;
+            --comb:       #FDF3D0;
+            --danger:     #DC2626;
+            --danger-bg:  #FEE2E2;
+            --nav-h:      62px;
+            --sidebar-w:  220px;
+            --radius:     12px;
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Plus Jakarta Sans', Arial, sans-serif; background: var(--wax); color: var(--dark); min-height: 100vh; font-size: 14px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+        a { text-decoration: none; color: inherit; }
+
+        /* ── Navbar ── */
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
+        #nav-container { display: flex; align-items: center; justify-content: space-between; height: var(--nav-h); padding: 0 28px; gap: 24px; background: rgba(254,250,240,0.96); backdrop-filter: blur(14px); border-bottom: 1.5px solid var(--border-y); }
+        .logo span { font-family: 'Fraunces', Georgia, serif; font-size: 1.45em; font-weight: 700; letter-spacing: -0.03em; }
+        .black { color: #0D0B00; } .orange { color: var(--orange); }
+        #nav-links { display: flex; align-items: center; gap: 4px; flex: 1; justify-content: center; }
+        #nav-links a { font-size: 0.88em; font-weight: 600; color: #3A2E00; padding: 6px 14px; border-radius: 6px; transition: 0.18s ease; }
+        #nav-links a:hover { background: rgba(255,212,0,0.18); }
+        #nav-links a.active-nav { background: var(--yellow); color: var(--hive); font-weight: 700; border: 1.5px solid rgba(0,0,0,0.15); }
+        #user-pill { display: flex; align-items: center; gap: 9px; padding: 5px 12px 5px 6px; border-radius: 30px; border: 1.5px solid rgba(0,0,0,0.15); background: white; cursor: pointer; transition: 0.18s ease; }
+        #user-pill:hover { background: var(--yellow); }
+        #user-avatar { width: 30px; height: 30px; border-radius: 50%; background: var(--yellow-mid); border: 1.5px solid var(--border-y); display: flex; align-items: center; justify-content: center; font-size: 0.78em; font-weight: 800; color: var(--aged); flex-shrink: 0; }
+        #user-name { font-size: 0.84em; font-weight: 700; color: #3A2E00; }
+        #notif-btn { position: relative; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 8px; border: 1.5px solid rgba(0,0,0,0.15); background: white; cursor: pointer; color: #555; font-size: 1em; transition: 0.18s ease; flex-shrink: 0; }
+        #notif-btn:hover { background: var(--yellow); }
+        .notif-dot { position: absolute; top: 6px; right: 6px; width: 8px; height: 8px; background: var(--orange); border-radius: 50%; border: 1.5px solid white; }
+        #hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; flex-shrink: 0; }
+        #hamburger span { display: block; width: 20px; height: 2px; background: var(--dark); border-radius: 2px; }
+
+        /* ── Layout ── */
+        #container { display: flex; min-height: calc(100vh - var(--nav-h)); margin-top: var(--nav-h); }
+        #sidebar { width: var(--sidebar-w); min-width: var(--sidebar-w); background: #FFFDF5; border-right: 1.5px solid var(--border); display: flex; flex-direction: column; padding: 24px 10px 24px 16px; gap: 28px; position: fixed; top: var(--nav-h); left: 0; height: calc(100vh - var(--nav-h)); overflow-y: auto; z-index: 10; transition: transform 0.28s ease; }
+        .sidebar-section { display: flex; flex-direction: column; gap: 3px; }
+        .sidebar-label { font-size: 0.67em; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); padding: 0 10px 6px; }
+        .sidebar-hr { border: none; border-top: 1px solid var(--border); margin-bottom: 4px; }
+        .sidebar-btn { display: flex; align-items: center; gap: 9px; padding: 8px 12px; border-radius: 7px; transition: 0.16s ease; cursor: pointer; border-left: 3px solid transparent; font-size: 0.87em; font-weight: 500; color: #3A2E00; }
+        .sidebar-btn:hover { background: rgba(255,212,0,0.14); border-left-color: rgba(255,212,0,0.5); }
+        .sidebar-btn.active { background: rgba(255,212,0,0.22); border-left-color: var(--yellow); font-weight: 700; color: var(--dark); }
+        .sidebar-btn i { width: 16px; text-align: center; font-size: 0.9em; color: var(--aged); }
+        .sidebar-btn.active i { color: var(--dark); }
+        .hex { width: 10px; height: 11px; background: var(--orange); clip-path: polygon(25% 0%,75% 0%,100% 50%,75% 100%,25% 100%,0% 50%); flex-shrink: 0; }
+        .hex.owner { background: var(--yellow); }
+        #content { flex: 1; margin-left: var(--sidebar-w); padding: 24px 28px; background: repeating-linear-gradient(60deg,transparent,transparent 28px,rgba(0,0,0,0.018) 28px,rgba(0,0,0,0.018) 30px), repeating-linear-gradient(-60deg,transparent,transparent 28px,rgba(0,0,0,0.018) 28px,rgba(0,0,0,0.018) 30px), #FFFDF5; display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+
+        /* ── QOTD ── */
+        #qotd { background: linear-gradient(135deg, var(--yellow-mid), var(--comb)); border: 2px dashed var(--border-y); border-radius: var(--radius); padding: 16px 22px; font-family: 'Fraunces', Georgia, serif; font-size: 0.95em; font-weight: 500; color: var(--dark); font-style: italic; line-height: 1.6; }
+
+        /* ── Settings ── */
+        .content-title { font-family: 'Fraunces', Georgia, serif; font-size: 1.4em; font-weight: 600; color: var(--dark); letter-spacing: -0.02em; }
+
+        #settings-body { display: flex; flex-direction: column; gap: 28px; max-width: 680px; }
+
+        .settings-section { display: flex; flex-direction: column; gap: 12px; }
+
+        .section-label { font-size: 0.67em; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); padding-bottom: 8px; border-bottom: 1.5px solid var(--border-y); }
+
+        .settings-card { background: white; border: 1.5px solid var(--border-y); border-radius: var(--radius); box-shadow: 3px 3px 0 rgba(232,200,74,0.35); overflow: hidden; }
+
+        /* Profile header inside card */
+        .profile-header {
+            display: flex; align-items: center; gap: 16px;
+            padding: 20px 22px;
+            border-bottom: 1px solid var(--border);
+            background: var(--yellow-pale);
+        }
+        .profile-avatar-wrap { position: relative; flex-shrink: 0; }
+        .profile-big-avatar {
+            width: 64px; height: 64px; border-radius: 50%;
+            background: var(--yellow-mid); border: 2px solid var(--border-y);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.3em; font-weight: 800; color: var(--aged);
+            overflow: hidden;
+        }
+        .profile-big-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .avatar-edit-btn {
+            position: absolute; bottom: 0; right: 0;
+            width: 22px; height: 22px; border-radius: 50%;
+            background: var(--yellow); border: 1.5px solid #000;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.65em; cursor: pointer; transition: 0.18s;
+        }
+        .avatar-edit-btn:hover { background: var(--orange); color: white; }
+        .profile-meta { flex: 1; }
+        .profile-meta .pname { font-size: 1em; font-weight: 800; color: var(--dark); }
+        .profile-meta .pemail { font-size: 0.8em; color: var(--aged); margin-top: 2px; }
+
+        /* Field rows */
+        .field-row {
+            display: flex; align-items: center; gap: 16px;
+            padding: 14px 22px;
+        }
+        .field-row + .field-row { border-top: 1px solid var(--border); }
+
+        .field-label {
+            font-size: 0.78em; font-weight: 700; color: var(--dark);
+            width: 140px; min-width: 140px; letter-spacing: 0.01em;
+        }
+        .field-label .field-sub { display: block; font-weight: 400; color: var(--aged); font-size: 0.9em; margin-top: 1px; }
+
+        .field-input {
+            flex: 1; padding: 9px 12px;
+            border-radius: 8px; border: 1.5px solid #ddd;
+            font-size: 0.9em; font-family: inherit; color: var(--dark);
+            background: var(--yellow-pale); outline: none;
+            transition: border-color 0.18s, box-shadow 0.18s;
+        }
+        .field-input:focus { border-color: var(--yellow); box-shadow: 0 0 0 3px rgba(255,212,0,0.15); }
+        .field-input:disabled { background: #f5f5f5; color: #aaa; cursor: not-allowed; }
+
+        textarea.field-input { resize: vertical; min-height: 70px; line-height: 1.5; }
+
+        .upload-note {
+            margin: 0 22px 16px;
+            font-size: 0.78em; color: var(--aged);
+            background: var(--comb); border: 1px solid var(--border-y);
+            border-radius: 7px; padding: 9px 12px;
+        }
+
+        .btn-row { padding: 14px 22px; border-top: 1px solid var(--border); display: flex; justify-content: flex-end; gap: 10px; }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex; align-items: center; gap: 7px;
+            padding: 9px 20px; font-family: inherit;
+            font-size: 0.85em; font-weight: 700;
+            border-radius: 7px; cursor: pointer;
+            border: 2px solid #000; transition: all 0.18s ease;
+        }
+        .btn-primary { background: var(--yellow); color: #000; box-shadow: 2px 2px 0 rgba(0,0,0,0.2); }
+        .btn-primary:hover { background: var(--yellow-d); transform: translate(-1px,-1px); box-shadow: 3px 3px 0 rgba(0,0,0,0.2); }
+        .btn-ghost { background: white; color: #333; border-color: rgba(0,0,0,0.18); }
+        .btn-ghost:hover { background: var(--yellow-pale); border-color: var(--border-y); }
+        .btn-danger { background: white; color: var(--danger); border-color: var(--danger); }
+        .btn-danger:hover { background: var(--danger-bg); }
+
+        /* Logout card */
+        .logout-card { background: white; border: 1.5px solid var(--border-y); border-radius: var(--radius); box-shadow: 3px 3px 0 rgba(232,200,74,0.35); }
+        .logout-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 18px 22px; flex-wrap: wrap; }
+        .logout-desc { font-size: 0.88em; color: var(--aged); }
+
+        /* Toast */
+        #toast {
+            position: fixed; bottom: 28px; right: 28px;
+            background: #1A1600; color: #FFD400;
+            border: 2px solid #FFD400; border-radius: 8px;
+            padding: 11px 18px; font-size: 0.85em; font-weight: 700;
+            display: flex; align-items: center; gap: 8px;
+            box-shadow: 3px 3px 0 rgba(0,0,0,0.3);
+            transform: translateY(80px); opacity: 0;
+            transition: all 0.3s ease; z-index: 200;
+        }
+        #toast.show { transform: translateY(0); opacity: 1; }
+
+        /* ── Mobile ── */
+        #mob-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 9; }
+        #mob-toggle { display: none; }
+        @media (max-width: 900px) {
+            #hamburger { display: flex; } #nav-links { display: none; }
+            #sidebar { transform: translateX(-100%); z-index: 50; }
+            #mob-toggle:checked ~ #mob-overlay { display: block; }
+            #mob-toggle:checked ~ #container #sidebar { transform: translateX(0); }
+            #content { margin-left: 0; padding: 16px; }
+            .field-row { flex-direction: column; align-items: flex-start; }
+            .field-label { width: auto; }
+        }
+    </style>
+</head>
+<body>
+
+<input type="checkbox" id="mob-toggle" style="display:none;">
+<nav>
+    <div id="nav-container">
+        <label for="mob-toggle" id="hamburger"><span></span><span></span><span></span></label>
+        <a href="/WebDev/pages/home/homepage.html">
+            <div class="logo"><span class="black">Hive</span><span class="orange">Minds</span></div>
+        </a>
+        <div id="nav-links">
+            <a href="home_home-feed.html" class="active-nav">Home</a>
+            <a href="../hives/hives.html">Hives</a>
+            <a href="../misc/profile.html">Profile</a>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+            <div id="notif-btn"><i class="fa-regular fa-bell"></i><span class="notif-dot"></span></div>
+            <a href="../misc/profile.html" id="user-pill">
+                <div id="user-avatar">RB</div>
+                <span id="user-name">Student</span>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<label for="mob-toggle" id="mob-overlay"></label>
+
+<div id="container">
+    <div id="sidebar">
+        <div class="sidebar-section">
+            <div class="sidebar-label">Menu</div>
+            <hr class="sidebar-hr">
+            <a href="home_home-feed.html"><div class="sidebar-btn"><i class="fa-solid fa-house"></i> Home Feed</div></a>
+            <a href="home_my-schedule.html"><div class="sidebar-btn"><i class="fa-regular fa-calendar"></i> My Schedule</div></a>
+            <a href="home_settings.html"><div class="sidebar-btn active"><i class="fa-solid fa-gear"></i> Settings</div></a>
+        </div>
+        <div class="sidebar-section">
+            <div class="sidebar-label">Created Hives</div>
+            <hr class="sidebar-hr">
+            <a href="home_created-hives.html"><div class="sidebar-btn"><span class="hex owner"></span> Rick's Study Circle</div></a>
+        </div>
+        <div class="sidebar-section">
+            <div class="sidebar-label">My Hives</div>
+            <hr class="sidebar-hr">
+            <a href="home_calculus.html"><div class="sidebar-btn"><span class="hex"></span> Calculus Study Group</div></a>
+            <a href="home_biology.html"><div class="sidebar-btn"><span class="hex"></span> Biology Study Group</div></a>
+        </div>
+    </div>
+
+    <div id="content">
+        <div id="qotd">"The secret of getting ahead is getting started." — Mark Twain</div>
+
+        <p class="content-title">Settings</p>
+
+        <div id="settings-body">
+
+            <!-- Account section -->
+            <div class="settings-section">
+                <div class="section-label">Account</div>
+                <div class="settings-card">
+
+                    <!-- Profile header -->
+                    <div class="profile-header">
+                        <div class="profile-avatar-wrap">
+                            <div class="profile-big-avatar">RB</div>
+                            <div class="avatar-edit-btn" title="Change photo"><i class="fa-solid fa-pen"></i></div>
+                        </div>
+                        <div class="profile-meta">
+                            <div class="pname">Rick Buzztley</div>
+                            <div class="pemail">ty202501130@wmsu.edu.ph</div>
+                        </div>
                     </div>
-                </a>
-                <div id="nav-links">
-                    <a class="hover" href="home_home-feed.html">Home</a>
-                    <a class="hover" href="/WebDev/pages/hives/hives.html">Hives</a>
-                    <a class="hover" href="../misc/profile.html">Profile</a>
-                </div>
-                <div id="auth-links">
-                    <a class="hover" href="../misc/profile.html">Student</a>
+
+                    <div class="field-row">
+                        <div class="field-label">Name</div>
+                        <input class="field-input" type="text" value="Rick Buzztley">
+                    </div>
+                    <div class="field-row">
+                        <div class="field-label">Email<span class="field-sub">Read-only</span></div>
+                        <input class="field-input" type="email" value="ty202501130@wmsu.edu.ph" disabled>
+                    </div>
+                    <div class="field-row">
+                        <div class="field-label">Password</div>
+                        <input class="field-input" type="password" value="placeholder">
+                    </div>
+                    <div class="field-row">
+                        <div class="field-label">Bio</div>
+                        <textarea class="field-input">Just a guy who loves math and staying on top of deadlines. Always down to share notes and help the hive out. 🐝</textarea>
+                    </div>
+
+                    <div class="field-row" style="border-top:1px solid var(--border);">
+                        <div class="field-label">
+                            COR
+                            <span class="field-sub">Enrollment verification</span>
+                        </div>
+                        <input class="field-input" type="file" accept=".jpg,.jpeg,.png,.pdf">
+                    </div>
+                    <div class="upload-note">
+                        <i class="fa-solid fa-circle-info" style="color:var(--orange);margin-right:5px;"></i>
+                        Upload your latest Certificate of Registration each semester to stay verified as an enrolled student.
+                    </div>
+
+                    <div class="btn-row">
+                        <button class="btn btn-ghost" onclick="resetForm()"><i class="fa-solid fa-rotate-left"></i> Reset</button>
+                        <button class="btn btn-primary" onclick="saveSettings()"><i class="fa-solid fa-floppy-disk"></i> Save Changes</button>
+                    </div>
                 </div>
             </div>
-        </nav>
 
-        <main>
-            <div id="container">
-                <div id="sidebar">
-                    <div id="menu">
-                        <p>MENU</p>
-                        <hr>
-                        <a href="home_home-feed.html"><div class="sidebar-button menu"><p>Home Feed</p></div></a>
-                        <a href="home_my-schedule.html"><div class="sidebar-button menu"><p>My Schedule</p></div></a>
-                        <a href="home_settings.html"><div class="sidebar-button menu active"><p>Settings</p></div></a>
-                    </div>
-                    <div id="created-hives">
-                        <p>CREATED HIVES</p>
-                        <hr>
-                        <a href="home_created-hives.html"><div class="created-hive-btn"><span class="hex-owner"></span><p>Rick's Study Circle</p></div></a>
-                    </div>
-                    <div id="my-hives">
-                        <p>MY HIVES</p>
-                        <hr>
-                        <a href="home_calculus.html"><div class="sidebar-button my-hives"><span class="hex"></span><p>Calculus Study Group</p></div></a>
-                        <a href="home_biology.html"><div class="sidebar-button my-hives"><span class="hex"></span><p>Biology Study Group</p></div></a>
-                    </div>
-                </div>
-
-                <div id="content">
-                    <div id="settings-body">
-                        <p class="content-title">Settings</p>
-
-                        <div class="settings-section">
-                            <div class="section-label">Account</div>
-                            <div class="settings-card">
-                                <div class="field-row">
-                                    <div class="field-label">Name</div>
-                                    <input class="field-input" type="text" value="Rick Buzztley">
-                                </div>
-                                <hr class="settings-divider">
-                                <div class="field-row">
-                                    <div class="field-label">Email</div>
-                                    <input class="field-input" type="email" value="ty202501130@wmsu.edu.ph">
-                                </div>
-                                <hr class="settings-divider">
-                                <div class="field-row">
-                                    <div class="field-label">Password</div>
-                                    <input class="field-input" type="password" value="placeholder">
-                                </div>
-                                <div class="field-row">
-                                    <div class="field-label">BIO</div>
-                                    <input class="field-input" type="text" value="Just a guy who loves math and staying on top of deadlines. Always down to share notes and help the hive out. 🐝">
-                                </div>
-                                <hr class="settings-divider">
-                                <div class="field-row">
-                                    <div class="field-label">Certificate of Registration</div>
-                                    <input class="field-input" type="file" accept=".jpg,.jpeg,.png,.pdf" disabled>
-                                </div>
-                                <div class="upload-note">Please upload the latest COR here for verification. (you will be prompted at the start of each semester, this is to verify if youre currently enrolled)</div>
-                                <div class="btn-row">
-                                    <button class="btn btn-primary">Save Changes</button>
-                                </div>
-                            </div>
+            <!-- Session section -->
+            <div class="settings-section">
+                <div class="section-label">Session</div>
+                <div class="logout-card">
+                    <div class="logout-row">
+                        <div>
+                            <div style="font-weight:700;font-size:0.9em;margin-bottom:3px;">Log out</div>
+                            <div class="logout-desc">End your current session and return to the login page.</div>
                         </div>
-
-                        <div class="settings-section">
-                            <div class="section-label">Session</div>
-                            <div class="settings-card">
-                                <div class="logout-row">
-                                    <div class="logout-desc">End your current session and return to the login page.</div>
-                                    <a href="/WebDev/pages/home/homepage.html"><button class="btn btn-danger">Log Out</button></a>
-                                </div>
-                            </div>
-                        </div>
+                        <a href="/WebDev/pages/auth/login.html">
+                            <button class="btn btn-danger"><i class="fa-solid fa-right-from-bracket"></i> Log Out</button>
+                        </a>
                     </div>
                 </div>
             </div>
-        </main>
-    </body>
+
+        </div>
+    </div>
+</div>
+
+<!-- Toast -->
+<div id="toast"><i class="fa-solid fa-check"></i> Changes saved!</div>
+
+<script>
+    function saveSettings() {
+        const toast = document.getElementById('toast');
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2800);
+    }
+    function resetForm() {
+        // no-op for demo — just visual feedback
+        const btn = event.currentTarget;
+        const orig = btn.innerHTML;
+        btn.innerHTML = '<i class="fa-solid fa-check"></i> Reset';
+        setTimeout(() => btn.innerHTML = orig, 1500);
+    }
+</script>
+
+</body>
 </html>
