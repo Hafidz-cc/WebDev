@@ -1,10 +1,4 @@
-/* ═══════════════════════════════════════════
-   ADMIN-PAGES.CSS
-   Shared styles for Users, Hives, and Settings admin pages.
-   Depends on: base.css, admin.css
-   ═══════════════════════════════════════════ */
 
-/* ── Page wrapper ── */
 .admin-page-body {
     display: flex;
     flex-direction: column;
