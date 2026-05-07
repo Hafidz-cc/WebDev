@@ -1,261 +1,344 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../../assets/CSS/base/base.css">
-        <link rel="stylesheet" href="../../assets/CSS/base/navbar.css">
-        <link rel="stylesheet" href="../../assets/CSS/base/layout.css">
-        <link rel="stylesheet" href="../../assets/CSS/hives/hive.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biology Study Group — HiveMinds</title>
 
-        <style>
-            #content.archived .hive-header {
-                opacity: 0.95;
-            }
-            .archive-banner {
-                border: 2px solid #FF5F00;
-                background: #FFF3CD;
-                border-radius: 14px;
-                padding: 18px 22px;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                gap: 16px;
-                margin-bottom: 22px;
-                color: #6B4A00;
-                box-shadow: 0 8px 20px rgba(255, 149, 0, 0.12);
-            }
-            .archive-banner .archive-title {
-                font-size: 1em;
-                font-weight: 800;
-                letter-spacing: 0.08em;
-                text-transform: uppercase;
-                margin-bottom: 6px;
-            }
-            .archive-banner .archive-text {
-                font-size: 0.95em;
-                line-height: 1.5;
-                margin: 0;
-            }
-            .archive-banner .archive-status {
-                color: #A43F0A;
-                font-weight: 800;
-                text-transform: uppercase;
-                letter-spacing: 0.1em;
-                white-space: nowrap;
-            }
-            #content.archived .btn-leave,
-            #content.archived .disc-actions,
-            #content.archived .reply-box,
-            #content.archived .reply-input,
-            #content.archived .reply-post-btn,
-            #content.archived .vote-btn,
-            #content.archived .disc-collapse-hint {
-                display: none !important;
-            }
-            #content.archived .disc-comment {
-                pointer-events: none;
-            }
-            #content.archived .disc-text,
-            #content.archived .disc-name,
-            #content.archived .disc-time {
-                color: #4d4d4d;
-            }
-            #content.archived .tag {
-                background: #e6e0c5;
-                color: #4d4d2a;
-                border-color: #c9b775;
-            }
-            #content.archived .hive-owner img {
-                filter: grayscale(70%);
-            }
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    
-           
-    
-        </style>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --yellow:     #FFD400;
+            --yellow-d:   #E6BF00;
+            --yellow-pale:#FFFDF0;
+            --yellow-mid: #FFF3B0;
+            --orange:     #FF5F00;
+            --dark:       #1A1600;
+            --hive:       #0D0B00;
+            --aged:       #6B5800;
+            --muted:      #9A8A60;
+            --border:     rgba(0,0,0,0.09);
+            --border-y:   #E8C84A;
+            --wax:        #FEFAF0;
+            --comb:       #FDF3D0;
+            --nav-h:      62px;
+            --sidebar-w:  220px;
+            --radius:     12px;
+            --danger:     #DC2626;
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Plus Jakarta Sans', Arial, sans-serif; background: var(--wax); color: var(--dark); min-height: 100vh; font-size: 14px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+        a { text-decoration: none; color: inherit; }
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Belanosima&family=Bricolage+Grotesque:opsz,wght@12..96,420&family=Coiny&family=McLaren&family=Pacifico&family=Pangolin&display=swap" rel="stylesheet">
-    </head>
+        /* ══ NAVBAR ══ */
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
+        #nav-container { display: flex; align-items: center; justify-content: space-between; height: var(--nav-h); padding: 0 28px; gap: 24px; background: rgba(254,250,240,0.96); backdrop-filter: blur(14px); border-bottom: 1.5px solid var(--border-y); }
+        .logo span { font-family: 'Fraunces', Georgia, serif; font-size: 1.45em; font-weight: 700; letter-spacing: -0.03em; }
+        .black { color: #0D0B00; } .orange { color: var(--orange); }
+        #nav-links { display: flex; align-items: center; gap: 4px; flex: 1; justify-content: center; }
+        #nav-links a { font-size: 0.88em; font-weight: 600; color: #3A2E00; padding: 6px 14px; border-radius: 6px; transition: 0.18s ease; }
+        #nav-links a:hover { background: rgba(255,212,0,0.18); color: var(--dark); }
+        #nav-links a.active-nav { background: var(--yellow); color: var(--hive); font-weight: 700; border: 1.5px solid rgba(0,0,0,0.15); }
+        #user-pill { display: flex; align-items: center; gap: 9px; padding: 5px 12px 5px 6px; border-radius: 30px; border: 1.5px solid rgba(0,0,0,0.15); background: white; cursor: pointer; transition: 0.18s ease; }
+        #user-pill:hover { background: var(--yellow); }
+        #user-avatar { width: 30px; height: 30px; border-radius: 50%; background: var(--yellow-mid); border: 1.5px solid var(--border-y); display: flex; align-items: center; justify-content: center; font-size: 0.78em; font-weight: 800; color: var(--aged); flex-shrink: 0; }
+        #user-name { font-size: 0.84em; font-weight: 700; color: #3A2E00; }
+        #notif-btn { position: relative; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 8px; border: 1.5px solid rgba(0,0,0,0.15); background: white; cursor: pointer; color: #555; font-size: 1em; transition: 0.18s ease; flex-shrink: 0; }
+        #notif-btn:hover { background: var(--yellow); }
+        .notif-dot { position: absolute; top: 6px; right: 6px; width: 8px; height: 8px; background: var(--orange); border-radius: 50%; border: 1.5px solid white; }
+        #hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; flex-shrink: 0; }
+        #hamburger span { display: block; width: 20px; height: 2px; background: var(--dark); border-radius: 2px; }
 
-    <body>
-        <nav>
-            <div id="nav-container">
-                  <a href="/WebDev/pages/home/homepage.html">
-                    <div class="logo">
-                        <span class="black">Hive</span><span class="orange">Minds</span>
-                    </div>
-                </a>
-                 <div id="nav-links">
-                    <a class="hover active-nav" href="home_home-feed.html">Home</a>
-                        <a class="hover" href="../hives/hives.html">Hives</a>
-                    <a class="hover" href="../misc/profile.html">Profile</a>
-                </div>
-                <div id="auth-links">
-                    <a class="hover" href="../misc/profile.html">Student</a>
+        /* ══ LAYOUT ══ */
+        #container { display: flex; min-height: calc(100vh - var(--nav-h)); margin-top: var(--nav-h); }
+        #sidebar { width: var(--sidebar-w); min-width: var(--sidebar-w); background: #FFFDF5; border-right: 1.5px solid var(--border); display: flex; flex-direction: column; padding: 24px 10px 24px 16px; gap: 28px; position: fixed; top: var(--nav-h); left: 0; height: calc(100vh - var(--nav-h)); overflow-y: auto; z-index: 10; }
+        .sidebar-section { display: flex; flex-direction: column; gap: 3px; }
+        .sidebar-label { font-size: 0.67em; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); padding: 0 10px 6px; }
+        .sidebar-hr { border: none; border-top: 1px solid var(--border); margin-bottom: 4px; }
+        .sidebar-btn { display: flex; align-items: center; gap: 9px; padding: 8px 12px; border-radius: 7px; transition: 0.16s ease; cursor: pointer; border-left: 3px solid transparent; font-size: 0.87em; font-weight: 500; color: #3A2E00; }
+        .sidebar-btn:hover { background: rgba(255,212,0,0.14); border-left-color: rgba(255,212,0,0.5); }
+        .sidebar-btn.active { background: rgba(255,212,0,0.22); border-left-color: var(--yellow); font-weight: 700; color: var(--dark); }
+        .sidebar-btn i { width: 16px; text-align: center; font-size: 0.9em; color: var(--aged); }
+        .sidebar-btn.active i { color: var(--dark); }
+        .hex { width: 10px; height: 11px; background: var(--orange); clip-path: polygon(25% 0%,75% 0%,100% 50%,75% 100%,25% 100%,0% 50%); flex-shrink: 0; }
+        .hex.owner { background: var(--yellow); }
+
+        /* ══ CONTENT ══ */
+        #content { flex: 1; margin-left: var(--sidebar-w); padding: 24px 28px; background: repeating-linear-gradient(60deg,transparent,transparent 28px,rgba(0,0,0,0.018) 28px,rgba(0,0,0,0.018) 30px), repeating-linear-gradient(-60deg,transparent,transparent 28px,rgba(0,0,0,0.018) 28px,rgba(0,0,0,0.018) 30px), #FFFDF5; display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+
+        /* ══ ARCHIVE BANNER ══ */
+        .archive-banner {
+            background: linear-gradient(135deg, #FFF3CD, #FFE8A0);
+            border: 1.5px solid #E8A800;
+            border-radius: var(--radius);
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            box-shadow: 3px 3px 0 rgba(232,168,0,0.3);
+        }
+        .archive-banner-left { display: flex; align-items: center; gap: 12px; }
+        .archive-icon { font-size: 1.2em; color: #B87800; flex-shrink: 0; }
+        .archive-title { font-size: 0.88em; font-weight: 800; color: #7A5000; letter-spacing: 0.04em; }
+        .archive-text { font-size: 0.8em; color: #9A6800; margin-top: 2px; }
+        .archive-badge { font-size: 0.72em; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; background: #E8A800; color: #000; border: 1.5px solid rgba(0,0,0,0.2); border-radius: 4px; padding: 3px 10px; white-space: nowrap; flex-shrink: 0; }
+
+        /* ══ SHARED CARD ══ */
+        .card { background: #FAFAF7; border: 1.5px solid #D8CC90; border-radius: var(--radius); padding: 16px 18px; box-shadow: 3px 3px 0 rgba(200,185,100,0.25); display: flex; flex-direction: column; gap: 12px; }
+
+        .tag { display: inline-flex; align-items: center; background: #e0d9b0; color: #5a5228; font-size: 9px; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase; padding: 3px 8px; border: 1.5px solid #b0a060; border-radius: 3px; white-space: nowrap; flex-shrink: 0; }
+
+        .section-label { font-size: 0.67em; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); padding-bottom: 8px; border-bottom: 1.5px solid var(--border); margin-bottom: 2px; }
+
+        /* ══ HIVE HEADER ══ */
+        .hive-header { background: #FAFAF7; border: 1.5px solid #D8CC90; border-radius: var(--radius); padding: 20px 24px; box-shadow: 3px 3px 0 rgba(200,185,100,0.25); display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+        .hive-header-left { display: flex; flex-direction: column; gap: 7px; }
+        .hive-title { font-family: 'Fraunces', Georgia, serif; font-size: 1.7em; font-weight: 600; color: #555; letter-spacing: -0.02em; line-height: 1.15; }
+        .hive-meta { display: flex; align-items: center; gap: 10px; font-size: 0.82em; color: var(--aged); }
+        .hive-owner { display: flex; align-items: center; gap: 8px; font-size: 0.82em; color: var(--aged); }
+        .hive-owner img { width: 24px; height: 24px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--border-y); filter: grayscale(60%); }
+
+        /* ══ TWO-COL ══ */
+        .hive-columns { display: grid; grid-template-columns: 1fr 0.8fr; gap: 20px; align-items: start; }
+        .hive-left, .hive-right { display: flex; flex-direction: column; gap: 16px; }
+
+        /* ══ DETAIL / RULES ══ */
+        .detail-row { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .detail-row:last-child { border-bottom: none; }
+        .detail-icon { width: 20px; text-align: center; color: #B0963C; flex-shrink: 0; padding-top: 2px; font-size: 0.95em; }
+        .detail-key { width: 90px; font-size: 0.8em; color: var(--muted); flex-shrink: 0; }
+        .detail-value { font-size: 0.9em; color: #555; flex: 1; font-weight: 500; }
+
+        .rule-item { display: flex; gap: 12px; align-items: flex-start; font-size: 0.9em; line-height: 1.55; padding: 2px 0; color: #555; }
+        .rule-num { width: 22px; height: 22px; background: #e0d9b0; border: 1.5px solid #b0a060; border-radius: 3px; font-size: 0.72em; font-weight: 900; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; color: #5a5228; }
+
+        /* ══ DISCUSSION ══ */
+        .collapse-toggle:checked ~ .disc-comment .disc-line { display: none; }
+        .collapse-toggle:checked ~ .disc-replies { display: none; }
+        .collapse-toggle:checked ~ .disc-comment .disc-collapse-hint { color: var(--muted); }
+
+        .disc-comment { display: flex; gap: 10px; padding: 6px 0; }
+        .disc-left-col { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+        .disc-avatar { width: 30px; height: 30px; border-radius: 50%; background: #e8e4d0; color: #7a7050; font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; cursor: pointer; }
+        .disc-avatar.av-warn   { background: #ede8d5; color: #8a7040; }
+        .disc-avatar.av-purple { background: #e8e5f5; color: #6860a0; }
+        .disc-line { width: 2px; flex: 1; min-height: 12px; background: #ddd; border-radius: 2px; margin-top: 4px; cursor: pointer; }
+        .disc-body { flex: 1; min-width: 0; padding-bottom: 6px; }
+        .disc-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 3px; }
+        .disc-name { font-size: 0.88em; font-weight: 700; color: #555; }
+        .disc-time { font-size: 0.76em; color: #aaa; }
+        .disc-collapse-hint { font-size: 0.72em; color: #ccc; cursor: pointer; margin-left: auto; user-select: none; }
+        .disc-text { font-size: 0.88em; line-height: 1.6; color: #666; margin-bottom: 6px; }
+        .disc-replies { padding-left: 20px; }
+        .disc-divider { border: none; border-top: 1px solid rgba(0,0,0,0.06); margin: 4px 0; }
+
+        /* Read-only notice */
+        .readonly-notice { display: flex; align-items: center; gap: 8px; padding: 10px 14px; background: #F5F3EB; border: 1px solid #D8CC90; border-radius: 7px; font-size: 0.78em; color: #8a7840; font-weight: 600; margin-top: 10px; }
+
+        /* ══ MOBILE ══ */
+        #mob-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 9; }
+        #mob-toggle { display: none; }
+        @media (max-width: 900px) {
+            #hamburger { display: flex; } #nav-links { display: none; }
+            #sidebar { transform: translateX(-100%); transition: transform 0.28s ease; z-index: 50; }
+            #mob-toggle:checked ~ #mob-overlay { display: block; }
+            #mob-toggle:checked ~ #container #sidebar { transform: translateX(0); }
+            #content { margin-left: 0; }
+            .hive-columns { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 600px) { #content { padding: 14px; } .hive-title { font-size: 1.3em; } }
+    </style>
+</head>
+<body>
+
+<input type="checkbox" id="mob-toggle" style="display:none;">
+
+<nav>
+    <div id="nav-container">
+        <label for="mob-toggle" id="hamburger"><span></span><span></span><span></span></label>
+        <a href="/WebDev/pages/home/homepage.html">
+            <div class="logo"><span class="black">Hive</span><span class="orange">Minds</span></div>
+        </a>
+        <div id="nav-links">
+            <a class="active-nav" href="home_home-feed.html">Home</a>
+            <a href="../hives/hives.html">Hives</a>
+            <a href="../misc/profile.html">Profile</a>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+            <div id="notif-btn"><i class="fa-regular fa-bell"></i><span class="notif-dot"></span></div>
+            <a href="../misc/profile.html" id="user-pill">
+                <div id="user-avatar">RB</div>
+                <span id="user-name">Student</span>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<label for="mob-toggle" id="mob-overlay"></label>
+
+<div id="container">
+
+    <!-- Sidebar -->
+    <div id="sidebar">
+        <div class="sidebar-section">
+            <div class="sidebar-label">Menu</div>
+            <hr class="sidebar-hr">
+            <a href="home_home-feed.html"><div class="sidebar-btn"><i class="fa-solid fa-house"></i> Home Feed</div></a>
+            <a href="home_my-schedule.html"><div class="sidebar-btn"><i class="fa-regular fa-calendar"></i> My Schedule</div></a>
+            <a href="home_settings.html"><div class="sidebar-btn"><i class="fa-solid fa-gear"></i> Settings</div></a>
+        </div>
+        <div class="sidebar-section">
+            <div class="sidebar-label">Created Hives</div>
+            <hr class="sidebar-hr">
+            <a href="home_created-hives.html"><div class="sidebar-btn"><span class="hex owner"></span> Rick's Study Circle</div></a>
+        </div>
+        <div class="sidebar-section">
+            <div class="sidebar-label">My Hives</div>
+            <hr class="sidebar-hr">
+            <a href="home_calculus.html"><div class="sidebar-btn"><span class="hex"></span> Comprog Study Group</div></a>
+            <a href="home_biology.html"><div class="sidebar-btn active"><span class="hex"></span> Biology Study Group</div></a>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div id="content">
+
+        <!-- Archive banner -->
+        <div class="archive-banner">
+            <div class="archive-banner-left">
+                <div class="archive-icon"><i class="fa-solid fa-box-archive"></i></div>
+                <div>
+                    <div class="archive-title">Archived group</div>
+                    <div class="archive-text">This group was archived due to inactivity. The page is view-only and no new interaction is allowed.</div>
                 </div>
             </div>
-        </nav>
-        <main>
-            <div id="container">
-                <div id="sidebar">
-                    <div id="menu">
-                        <p>MENU</p>
-                        <hr>
-                        <a href="home_home-feed.html"><div class="sidebar-button menu"><p>Home Feed</p></div></a>
-                        <a href="home_my-schedule.html"><div class="sidebar-button menu"><p>My Schedule</p></div></a>
-                        <a href="home_settings.html"><div class="sidebar-button menu"><p>Settings</p></div></a>
-                    </div>
-                    <div id="created-hives">
-                        <p>CREATED HIVES</p>
-                        <hr>
-                        <a href="home_created-hives.html"><div class="created-hive-btn"><span class="hex-owner"></span><p>Rick's Study Circle</p></div></a>
-                    </div>
-                    <div id="my-hives">
-                        <p>MY HIVES</p>
-                        <hr>
-                        <a href="home_calculus.html"><div class="sidebar-button my-hives"><span class="hex"></span><p>Comprog Study Group</p></div></a>
-                        <a href="home_biology.html"><div class="sidebar-button my-hives active"><span class="hex"></span><p>Compsci Seniors structures Study Group</p></div></a>
-                       
-                    </div>
-                </div>
+            <div class="archive-badge">Inactive</div>
+        </div>
 
-                <div id="content" class="archived">
-                    <div id="hive-body">
-                        <div class="archive-banner">
-                            <div>
-                                <div class="archive-title">Archived group</div>
-                                <p class="archive-text">This group was archived due to inactivity. The page is view-only and no new interaction is allowed.</p>
+        <!-- Hive Header -->
+        <div class="hive-header">
+            <div class="hive-header-left">
+                <div class="hive-title">Biology Study Group</div>
+                <div class="hive-meta">
+                    <div class="tag">Biology</div>
+                    <span>·</span>
+                    <span>12 members</span>
+                </div>
+                <div class="hive-owner">
+                    <img src="../../assets/images/person-profile.jpg" alt="Maya Santos">
+                    Owned by <strong>Maya Santos</strong>
+                </div>
+            </div>
+            <!-- No leave button on archived groups -->
+        </div>
+
+        <!-- Two-column body -->
+        <div class="hive-columns">
+
+            <!-- LEFT: Discussion (read-only) -->
+            <div class="hive-left">
+                <div class="section-label">Discussion</div>
+
+                <div class="card" style="gap:0;padding:14px 16px;">
+
+                    <!-- Comment 1 -->
+                    <div class="disc-thread">
+                        <input type="checkbox" id="col-1" class="collapse-toggle" hidden>
+                        <div class="disc-comment">
+                            <div class="disc-left-col">
+                                <label for="col-1" class="disc-avatar">MC</label>
+                                <label for="col-1" class="disc-line"></label>
                             </div>
-                            <div class="archive-status">Inactive</div>
+                            <div class="disc-body">
+                                <div class="disc-meta">
+                                    <span class="disc-name">Mico</span>
+                                    <span class="disc-time">8 months ago</span>
+                                    <label for="col-1" class="disc-collapse-hint">[–]</label>
+                                </div>
+                                <div class="disc-text">CONGRATS EVERYONE WE'RE GRADUATING ON TIME 🎓</div>
+                            </div>
                         </div>
-                        <div class="hive-header">
-                            <div class="hive-header-left">
-                                <div class="hive-title">Biology Study Group</div>
-                                <div class="hive-meta">
-                                    <span class="tag">Biology</span>
-                              
-                                    <span>&bull; 12 members</span>
+                        <div class="disc-replies">
+                            <div class="disc-thread">
+                                <input type="checkbox" id="col-1a" class="collapse-toggle" hidden>
+                                <div class="disc-comment">
+                                    <div class="disc-left-col">
+                                        <label for="col-1a" class="disc-avatar av-warn">CH</label>
+                                        <label for="col-1a" class="disc-line"></label>
+                                    </div>
+                                    <div class="disc-body">
+                                        <div class="disc-meta">
+                                            <span class="disc-name">Christopher</span>
+                                            <span class="disc-time">8 months ago</span>
+                                            <label for="col-1a" class="disc-collapse-hint">[–]</label>
+                                        </div>
+                                        <div class="disc-text">AMEN! 🙏</div>
+                                    </div>
                                 </div>
-                                <div class="hive-owner">
-                                    <img src="../../assets/images/person-profile.jpg">
-                                    Owned by <strong>Maya Santos</strong>
-                                </div>
-                            </div>
-                            <label for="leave-toggle" class="btn-leave">Leave Hive</label>
-                            <input type="checkbox" id="leave-toggle" hidden>
-                            <div class="leave-modal">
-                                <div class="leave-box">
-                                    <p>Are you sure you want to leave this hive?</p>
-                                    <div class="leave-actions">
-                                        <a href="home_home-feed.html" class="confirm-btn">Yes, Leave</a>
-                                        <label for="leave-toggle" class="cancel-btn">Cancel</label>
+                                <div class="disc-replies">
+                                    <div class="disc-thread">
+                                        <input type="checkbox" id="col-1b" class="collapse-toggle" hidden>
+                                        <div class="disc-comment">
+                                            <div class="disc-left-col">
+                                                <label for="col-1b" class="disc-avatar av-purple">MX</label>
+                                                <label for="col-1b" class="disc-line"></label>
+                                            </div>
+                                            <div class="disc-body">
+                                                <div class="disc-meta">
+                                                    <span class="disc-name">MariaXiel</span>
+                                                    <span class="disc-time">8 months ago</span>
+                                                    <label for="col-1b" class="disc-collapse-hint">[–]</label>
+                                                </div>
+                                                <div class="disc-text">See you all in the next life hahah 👋</div>
+                                            </div>
+                                        </div>
+                                        <div class="disc-replies"></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="hive-columns">
-                            <div class="hive-left">
-    <div>
-        <div class="section-label">Discussion</div>
-        <div class="discussion-card">
-
-            <!-- ── COMMENT 1 (top-level) ── -->
-            <div class="disc-thread">
-                <input type="checkbox" id="col-1" class="collapse-toggle" hidden>
-                <input type="checkbox" id="rep-1" class="reply-toggle" hidden>
-
-                <div class="disc-comment">
-                    <div class="disc-left-col">
-                        <label for="col-1" class="disc-avatar" title="Collapse">RB</label>
-                        <label for="col-1" class="disc-line"></label>
                     </div>
-                    <div class="disc-body">
-                        <div class="disc-meta">
-                            <span class="disc-name">Mico</span>
-                            <span class="disc-time">8 months  ago</span>
-                            <label for="col-1" class="disc-collapse-hint">[–]</label>
-                        </div>
-                        <div class="disc-text">CONGRATS EVERYONE WE'RE GRADUATING ONTIME</div>
-                        <div class="disc-actions">
-                            <input type="checkbox" id="h-1" class="vote-cb helpful-cb" hidden>
-                            <input type="checkbox" id="n-1" class="vote-cb nothelpful-cb" hidden>
-                            <label for="h-1" class="vote-btn helpful-btn">👍 Helpful <span class="vote-count">5</span></label>
-                            <label for="n-1" class="vote-btn nothelpful-btn">👎 Not helpful</label>
-                            <label for="rep-1" class="disc-reply-btn">↩ Reply</label>
-                        </div>
-                        <div class="reply-box">
-                            <input class="reply-input" type="text" placeholder="Write a reply…">
-                            <button class="reply-post-btn">Post</button>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- replies to comment 1 -->
-                <div class="disc-replies">
+                    <hr class="disc-divider">
 
-                    <!-- reply 1a -->
+                    <!-- Comment 2 -->
                     <div class="disc-thread">
-                        <input type="checkbox" id="col-1a" class="collapse-toggle" hidden>
-                        <input type="checkbox" id="rep-1a" class="reply-toggle" hidden>
+                        <input type="checkbox" id="col-2" class="collapse-toggle" hidden>
                         <div class="disc-comment">
                             <div class="disc-left-col">
-                                <label for="col-1a" class="disc-avatar av-warn" title="Collapse">MI</label>
-                                <label for="col-1a" class="disc-line"></label>
+                                <label for="col-2" class="disc-avatar av-purple">RD</label>
+                                <label for="col-2" class="disc-line"></label>
                             </div>
                             <div class="disc-body">
                                 <div class="disc-meta">
-                                    <span class="disc-name">christopher</span>
-                                    <span class="disc-time">8 months  ago</span>
-                                    <label for="col-1a" class="disc-collapse-hint">[–]</label>
+                                    <span class="disc-name">Ronald</span>
+                                    <span class="disc-time">8 months ago</span>
+                                    <label for="col-2" class="disc-collapse-hint">[–]</label>
                                 </div>
-                                <div class="disc-text">AMEN!</div>
-                                <div class="disc-actions">
-                                    <input type="checkbox" id="h-1a" class="vote-cb helpful-cb" hidden>
-                                    <input type="checkbox" id="n-1a" class="vote-cb nothelpful-cb" hidden>
-                                    <label for="h-1a" class="vote-btn helpful-btn">👍 Helpful <span class="vote-count">3</span></label>
-                                    <label for="n-1a" class="vote-btn nothelpful-btn">👎 Not helpful</label>
-                                    <label for="rep-1a" class="disc-reply-btn">↩ Reply</label>
-                                </div>
-                                <div class="reply-box">
-                                    <input class="reply-input" type="text" placeholder="Write a reply…">
-                                    <button class="reply-post-btn">Post</button>
-                                </div>
+                                <div class="disc-text">Gonna miss collaborating here 😢</div>
                             </div>
                         </div>
-
-                        <!-- reply to reply -->
                         <div class="disc-replies">
                             <div class="disc-thread">
-                                <input type="checkbox" id="col-1b" class="collapse-toggle" hidden>
-                                <input type="checkbox" id="rep-1b" class="reply-toggle" hidden>
+                                <input type="checkbox" id="col-2a" class="collapse-toggle" hidden>
                                 <div class="disc-comment">
                                     <div class="disc-left-col">
-                                        <label for="col-1b" class="disc-avatar av-purple" title="Collapse">SU</label>
-                                        <label for="col-1b" class="disc-line"></label>
+                                        <label for="col-2a" class="disc-avatar">MX</label>
+                                        <label for="col-2a" class="disc-line"></label>
                                     </div>
                                     <div class="disc-body">
                                         <div class="disc-meta">
                                             <span class="disc-name">MariaXiel</span>
-                                            <span class="disc-time">8 months  ago</span>
-                                            <label for="col-1b" class="disc-collapse-hint">[–]</label>
+                                            <span class="disc-time">8 months ago</span>
+                                            <label for="col-2a" class="disc-collapse-hint">[–]</label>
                                         </div>
-                                        <div class="disc-text">See you all in the next life hahah</div>
-                                        <div class="disc-actions">
-                                            <input type="checkbox" id="h-1b" class="vote-cb helpful-cb" hidden>
-                                            <input type="checkbox" id="n-1b" class="vote-cb nothelpful-cb" hidden>
-                                            <label for="h-1b" class="vote-btn helpful-btn">👍 Helpful <span class="vote-count">6</span></label>
-                                            <label for="n-1b" class="vote-btn nothelpful-btn">👎 Not helpful</label>
-                                            <label for="rep-1b" class="disc-reply-btn">↩ Reply</label>
-                                        </div>
-                                        <div class="reply-box">
-                                            <input class="reply-input" type="text" placeholder="Write a reply…">
-                                            <button class="reply-post-btn">Post</button>
-                                        </div>
+                                        <div class="disc-text">BYE BYE CCS 🫡</div>
                                     </div>
                                 </div>
                                 <div class="disc-replies"></div>
@@ -263,144 +346,75 @@
                         </div>
                     </div>
 
-                </div>
-            </div>
+                    <hr class="disc-divider">
 
-            <hr class="disc-divider">
-
-            <!-- ── COMMENT 2 ── -->
-            <div class="disc-thread">
-                <input type="checkbox" id="col-2" class="collapse-toggle" hidden>
-                <input type="checkbox" id="rep-2" class="reply-toggle" hidden>
-                <div class="disc-comment">
-                    <div class="disc-left-col">
-                        <label for="col-2" class="disc-avatar av-purple" title="Collapse">SU</label>
-                        <label for="col-2" class="disc-line"></label>
-                    </div>
-                    <div class="disc-body">
-                        <div class="disc-meta">
-                            <span class="disc-name">Ronald</span>
-                            <span class="disc-time">8 months  ago</span>
-                            <label for="col-2" class="disc-collapse-hint">[–]</label>
-                        </div>
-                        <div class="disc-text">Gonna miss collaborating here</div>
-                        <div class="disc-actions">
-                            <input type="checkbox" id="h-2" class="vote-cb helpful-cb" hidden>
-                            <input type="checkbox" id="n-2" class="vote-cb nothelpful-cb" hidden>
-                            <label for="h-2" class="vote-btn helpful-btn">👍 Helpful <span class="vote-count">4</span></label>
-                            <label for="n-2" class="vote-btn nothelpful-btn">👎 Not helpful</label>
-                            <label for="rep-2" class="disc-reply-btn">↩ Reply</label>
-                        </div>
-                        <div class="reply-box">
-                            <input class="reply-input" type="text" placeholder="Write a reply…">
-                            <button class="reply-post-btn">Post</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="disc-replies">
+                    <!-- Comment 3 -->
                     <div class="disc-thread">
-                        <input type="checkbox" id="col-2a" class="collapse-toggle" hidden>
-                        <input type="checkbox" id="rep-2a" class="reply-toggle" hidden>
+                        <input type="checkbox" id="col-3" class="collapse-toggle" hidden>
                         <div class="disc-comment">
                             <div class="disc-left-col">
-                                <label for="col-2a" class="disc-avatar" title="Collapse">RB</label>
-                                <label for="col-2a" class="disc-line"></label>
+                                <label for="col-3" class="disc-avatar av-warn">JM</label>
+                                <label for="col-3" class="disc-line"></label>
                             </div>
                             <div class="disc-body">
                                 <div class="disc-meta">
-                                    <span class="disc-name">MariaXiel</span>
-                                    <span class="disc-time">8 months  ago</span>
-                                    <label for="col-2a" class="disc-collapse-hint">[–]</label>
+                                    <span class="disc-name">JuneMar</span>
+                                    <span class="disc-time">8 months ago</span>
+                                    <label for="col-3" class="disc-collapse-hint">[–]</label>
                                 </div>
-                                <div class="disc-text">BYE BYE CCS</div>
-                                <div class="disc-actions">
-                                    <input type="checkbox" id="h-2a" class="vote-cb helpful-cb" hidden>
-                                    <input type="checkbox" id="n-2a" class="vote-cb nothelpful-cb" hidden>
-                                    <label for="h-2a" class="vote-btn helpful-btn">👍 Helpful <span class="vote-count">7</span></label>
-                                    <label for="n-2a" class="vote-btn nothelpful-btn">👎 Not helpful</label>
-                                    <label for="rep-2a" class="disc-reply-btn">↩ Reply</label>
-                                </div>
-                                <div class="reply-box">
-                                    <input class="reply-input" type="text" placeholder="Write a reply…">
-                                    <button class="reply-post-btn">Post</button>
-                                </div>
+                                <div class="disc-text">Who's in charge of this group again?</div>
                             </div>
                         </div>
                         <div class="disc-replies"></div>
                     </div>
+
+                    <!-- Read-only notice (replaces new comment input) -->
+                    <div class="readonly-notice">
+                        <i class="fa-solid fa-lock"></i>
+                        This group is archived. New comments and replies are disabled.
+                    </div>
                 </div>
             </div>
 
-            <hr class="disc-divider">
+            <!-- RIGHT: Details & Rules -->
+            <div class="hive-right">
 
-            <!-- ── COMMENT 3 ── -->
-            <div class="disc-thread">
-                <input type="checkbox" id="col-3" class="collapse-toggle" hidden>
-                <input type="checkbox" id="rep-3" class="reply-toggle" hidden>
-                <div class="disc-comment">
-                    <div class="disc-left-col">
-                        <label for="col-3" class="disc-avatar av-warn" title="Collapse">MI</label>
-                        <label for="col-3" class="disc-line"></label>
+                <div class="section-label">Session Details</div>
+                <div class="card">
+                    <div class="detail-row">
+                        <div class="detail-icon"><i class="fa-regular fa-calendar"></i></div>
+                        <div class="detail-key">Date</div>
+                        <div class="detail-value">Tuesday, March 24</div>
                     </div>
-                    <div class="disc-body">
-                        <div class="disc-meta">
-                            <span class="disc-name">JuneMAr</span>
-                            <span class="disc-time">8 months  ago</span>
-                            <label for="col-3" class="disc-collapse-hint">[–]</label>
-                        </div>
-                        <div class="disc-text">Whose in charge of this group again?</div>
-                        <div class="disc-actions">
-                            <input type="checkbox" id="h-3" class="vote-cb helpful-cb" hidden>
-                            <input type="checkbox" id="n-3" class="vote-cb nothelpful-cb" hidden>
-                            <label for="h-3" class="vote-btn helpful-btn">👍 Helpful <span class="vote-count">2</span></label>
-                            <label for="n-3" class="vote-btn nothelpful-btn">👎 Not helpful</label>
-                            <label for="rep-3" class="disc-reply-btn">↩ Reply</label>
-                        </div>
-                        <div class="reply-box">
-                            <input class="reply-input" type="text" placeholder="Write a reply…">
-                            <button class="reply-post-btn">Post</button>
-                        </div>
+                    <div class="detail-row">
+                        <div class="detail-icon"><i class="fa-regular fa-clock"></i></div>
+                        <div class="detail-key">Time</div>
+                        <div class="detail-value">9:00 AM – 11:00 AM</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-icon"><i class="fa-solid fa-book"></i></div>
+                        <div class="detail-key">Topic</div>
+                        <div class="detail-value">Data Science</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-icon"><i class="fa-solid fa-users"></i></div>
+                        <div class="detail-key">Members</div>
+                        <div class="detail-value">12 members</div>
                     </div>
                 </div>
-                <div class="disc-replies"></div>
-            </div>
 
-            <!-- ── NEW COMMENT ROW ── -->
-            <div class="disc-new-comment">
-                <div class="disc-avatar av-green" style="cursor:default">YO</div>
-                <input class="reply-input" type="text" placeholder="Write a comment…">
-                <button class="reply-post-btn">Post</button>
+                <div class="section-label">Group Rules</div>
+                <div class="card">
+                    <div class="rule-item"><div class="rule-num">1</div>Come prepared with your notes and textbook.</div>
+                    <div class="rule-item"><div class="rule-num">2</div>Be respectful and let everyone have a chance to speak.</div>
+                    <div class="rule-item"><div class="rule-num">3</div>Keep discussions on topic and make the most of each session.</div>
+                </div>
+
             </div>
 
         </div>
-    </div>
-</div>
+    </div><!-- /content -->
+</div><!-- /container -->
 
-
-                            <div class="hive-right">
-                                <div>
-                                    <div class="section-label">Session Details</div>
-                                    <div class="details-card">
-                                        <div class="detail-row"><div class="detail-icon"><i class="fa-regular fa-calendar"></i></div><div class="detail-key">Date</div><div class="detail-value">Tuesday, March 24</div></div>
-                                        <div class="detail-row"><div class="detail-icon"><i class="fa-regular fa-clock"></i></div><div class="detail-key">Time</div><div class="detail-value">9:00 AM – 11:00 AM</div></div>
-                                        <div class="detail-row"><div class="detail-icon"><i class="fa-solid fa-book"></i></div><div class="detail-key">Topic</div><div class="detail-value">Data Science</div></div>
-                                        <div class="detail-row"><div class="detail-icon"><i class="fa-solid fa-users"></i></div><div class="detail-key">Members</div><div class="detail-value">12 members</div></div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="section-label">Group Rules</div>
-                                    <div class="rules-card">
-                                        <div class="rule-item"><div class="rule-num">1</div>come prepared with your notes and textbook .</div>
-                                        <div class="rule-item"><div class="rule-num">2</div>Be respectful and let everyone have a chance to speak.</div>
-                                        <div class="rule-item"><div class="rule-num">3</div>Keep discussions on topic and let's make the most of it.</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
-    </body>
+</body>
 </html>

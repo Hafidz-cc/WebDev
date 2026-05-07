@@ -1,165 +1,303 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../../assets/CSS/base/base.css">
-        <link rel="stylesheet" href="../../assets/CSS/base/navbar.css">
-        <link rel="stylesheet" href="../../assets/CSS/base/layout.css">
-        <link rel="stylesheet" href="../../assets/CSS/hives/hive.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprog Study Group — HiveMinds</title>
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Belanosima&family=Bricolage+Grotesque:opsz,wght@12..96,420&family=Coiny&family=McLaren&family=Pacifico&family=Pangolin&display=swap" rel="stylesheet">
-            <style>
-            #container {
-                display: flex;
-                align-items: flex-start;
-            }
-            #sidebar {
-                width: 230px;
-                flex-shrink: 0;
-            }
-            #content {
-                flex: 1;
-            }
-            </style>
-    
-    </head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <body>
-        <nav>
-            <div id="nav-container">
-                 <a href="/WebDev/pages/home/homepage.html">
-                    <div class="logo">
-                        <span class="black">Hive</span><span class="orange">Minds</span>
-                    </div>
-                </a>
-                <div id="nav-links">
-                    <a class="hover active-nav" href="home_home-feed.html">Home</a>
-                        <a class="hover" href="../hives/hives.html">Hives</a>
-                    <a class="hover" href="../misc/profile.html">Profile</a>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --yellow:     #FFD400;
+            --yellow-d:   #E6BF00;
+            --yellow-pale:#FFFDF0;
+            --yellow-mid: #FFF3B0;
+            --orange:     #FF5F00;
+            --dark:       #1A1600;
+            --hive:       #0D0B00;
+            --aged:       #6B5800;
+            --muted:      #9A8A60;
+            --border:     rgba(0,0,0,0.09);
+            --border-y:   #E8C84A;
+            --wax:        #FEFAF0;
+            --nav-h:      62px;
+            --sidebar-w:  220px;
+            --radius:     12px;
+            --danger:     #DC2626;
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Plus Jakarta Sans', Arial, sans-serif; background: var(--wax); color: var(--dark); min-height: 100vh; font-size: 14px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+        a { text-decoration: none; color: inherit; }
+
+        /* ══ NAVBAR ══ */
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
+        #nav-container { display: flex; align-items: center; justify-content: space-between; height: var(--nav-h); padding: 0 28px; gap: 24px; background: rgba(254,250,240,0.96); backdrop-filter: blur(14px); border-bottom: 1.5px solid var(--border-y); }
+        .logo span { font-family: 'Fraunces', Georgia, serif; font-size: 1.45em; font-weight: 700; letter-spacing: -0.03em; }
+        .black { color: #0D0B00; } .orange-text { color: var(--orange); }
+        #nav-links { display: flex; align-items: center; gap: 4px; flex: 1; justify-content: center; }
+        #nav-links a { font-size: 0.88em; font-weight: 600; color: #3A2E00; padding: 6px 14px; border-radius: 6px; transition: 0.18s ease; }
+        #nav-links a:hover { background: rgba(255,212,0,0.18); color: var(--dark); }
+        #nav-links a.active-nav { background: var(--yellow); color: var(--hive); font-weight: 700; border: 1.5px solid rgba(0,0,0,0.15); }
+        #user-pill { display: flex; align-items: center; gap: 9px; padding: 5px 12px 5px 6px; border-radius: 30px; border: 1.5px solid rgba(0,0,0,0.15); background: white; cursor: pointer; transition: 0.18s ease; }
+        #user-pill:hover { background: var(--yellow); }
+        #user-avatar { width: 30px; height: 30px; border-radius: 50%; background: var(--yellow-mid); border: 1.5px solid var(--border-y); display: flex; align-items: center; justify-content: center; font-size: 0.78em; font-weight: 800; color: var(--aged); flex-shrink: 0; }
+        #user-name { font-size: 0.84em; font-weight: 700; color: #3A2E00; }
+        #notif-btn { position: relative; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 8px; border: 1.5px solid rgba(0,0,0,0.15); background: white; cursor: pointer; color: #555; font-size: 1em; transition: 0.18s ease; flex-shrink: 0; }
+        #notif-btn:hover { background: var(--yellow); }
+        .notif-dot { position: absolute; top: 6px; right: 6px; width: 8px; height: 8px; background: var(--orange); border-radius: 50%; border: 1.5px solid white; }
+        #hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; flex-shrink: 0; }
+        #hamburger span { display: block; width: 20px; height: 2px; background: var(--dark); border-radius: 2px; }
+
+        /* ══ LAYOUT ══ */
+        #container { display: flex; min-height: calc(100vh - var(--nav-h)); margin-top: var(--nav-h); }
+        #sidebar { width: var(--sidebar-w); min-width: var(--sidebar-w); background: #FFFDF5; border-right: 1.5px solid var(--border); display: flex; flex-direction: column; padding: 24px 10px 24px 16px; gap: 28px; position: fixed; top: var(--nav-h); left: 0; height: calc(100vh - var(--nav-h)); overflow-y: auto; z-index: 10; }
+        .sidebar-section { display: flex; flex-direction: column; gap: 3px; }
+        .sidebar-label { font-size: 0.67em; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); padding: 0 10px 6px; }
+        .sidebar-hr { border: none; border-top: 1px solid var(--border); margin-bottom: 4px; }
+        .sidebar-btn { display: flex; align-items: center; gap: 9px; padding: 8px 12px; border-radius: 7px; transition: 0.16s ease; cursor: pointer; border-left: 3px solid transparent; font-size: 0.87em; font-weight: 500; color: #3A2E00; }
+        .sidebar-btn:hover { background: rgba(255,212,0,0.14); border-left-color: rgba(255,212,0,0.5); }
+        .sidebar-btn.active { background: rgba(255,212,0,0.22); border-left-color: var(--yellow); font-weight: 700; color: var(--dark); }
+        .sidebar-btn i { width: 16px; text-align: center; font-size: 0.9em; color: var(--aged); }
+        .sidebar-btn.active i { color: var(--dark); }
+        .hex { width: 10px; height: 11px; background: var(--orange); clip-path: polygon(25% 0%,75% 0%,100% 50%,75% 100%,25% 100%,0% 50%); flex-shrink: 0; }
+        .hex.owner { background: var(--yellow); }
+        #content { flex: 1; margin-left: var(--sidebar-w); padding: 24px 28px; background: repeating-linear-gradient(60deg,transparent,transparent 28px,rgba(0,0,0,0.018) 28px,rgba(0,0,0,0.018) 30px), repeating-linear-gradient(-60deg,transparent,transparent 28px,rgba(0,0,0,0.018) 28px,rgba(0,0,0,0.018) 30px), #FFFDF5; display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+
+        /* ══ HIVE HEADER ══ */
+        .hive-header { background: white; border: 1.5px solid var(--border-y); border-radius: var(--radius); padding: 20px 24px; box-shadow: 3px 3px 0 rgba(232,200,74,0.4); display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+        .hive-header-left { display: flex; flex-direction: column; gap: 7px; }
+        .hive-title { font-family: 'Fraunces', Georgia, serif; font-size: 1.7em; font-weight: 600; color: var(--hive); letter-spacing: -0.02em; line-height: 1.15; }
+        .hive-meta { display: flex; align-items: center; gap: 10px; font-size: 0.82em; color: var(--aged); }
+        .hive-owner { display: flex; align-items: center; gap: 8px; font-size: 0.82em; color: var(--aged); }
+        .hive-owner img { width: 24px; height: 24px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--border-y); }
+        .tag { display: inline-flex; align-items: center; background: var(--yellow); color: #000; font-size: 9px; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase; padding: 3px 8px; border: 1.5px solid #000; border-radius: 3px; white-space: nowrap; flex-shrink: 0; }
+
+        /* Leave button */
+        .btn-leave { display: inline-flex; align-items: center; padding: 8px 18px; background: white; color: var(--danger); border: 1.5px solid var(--danger); border-radius: 7px; font-size: 0.82em; font-weight: 700; cursor: pointer; transition: 0.18s ease; white-space: nowrap; flex-shrink: 0; }
+        .btn-leave:hover { background: #FEF2F2; }
+
+        /* Leave modal */
+        .leave-modal { position: fixed; inset: 0; background: rgba(13,11,0,0.50); backdrop-filter: blur(3px); display: none; align-items: center; justify-content: center; z-index: 999; }
+        #leave-toggle:checked ~ .leave-modal { display: flex; }
+        .leave-box { background: white; border: 2px solid #000; border-radius: var(--radius); box-shadow: -4px 6px 0 rgba(0,0,0,0.25); padding: 28px; text-align: center; max-width: 340px; width: 90%; animation: modalIn 0.2s ease; }
+        @keyframes modalIn { from{opacity:0;transform:translateY(12px) scale(0.97)} to{opacity:1;transform:none} }
+        .leave-box p { font-family: 'Fraunces', serif; font-size: 1em; font-weight: 600; color: var(--dark); margin-bottom: 4px; }
+        .leave-box small { font-size: 0.78em; color: var(--muted); }
+        .leave-actions { display: flex; justify-content: center; gap: 10px; margin-top: 18px; }
+        .confirm-btn { display: inline-flex; align-items: center; justify-content: center; padding: 8px 20px; background: var(--danger); color: white; border: 2px solid #000; border-radius: 6px; font-family: inherit; font-size: 0.82em; font-weight: 700; text-decoration: none; transition: 0.18s; }
+        .confirm-btn:hover { opacity: 0.88; }
+        .cancel-btn { display: inline-flex; align-items: center; justify-content: center; padding: 8px 20px; background: white; color: #444; border: 1.5px solid rgba(0,0,0,0.20); border-radius: 6px; font-family: inherit; font-size: 0.82em; font-weight: 700; cursor: pointer; transition: 0.18s; }
+        .cancel-btn:hover { background: #f5f5f5; }
+
+        /* ══ TWO-COL ══ */
+        .hive-columns { display: grid; grid-template-columns: 1fr 0.8fr; gap: 20px; align-items: start; }
+        .hive-left, .hive-right { display: flex; flex-direction: column; gap: 16px; }
+
+        /* ══ SECTION LABEL ══ */
+        .section-label { font-size: 0.67em; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); padding-bottom: 8px; border-bottom: 1.5px solid var(--border); margin-bottom: 2px; }
+
+        /* ══ DISCUSSION CARD ══ */
+        .discussion-card { background: white; border: 1.5px solid var(--border-y); border-radius: var(--radius); padding: 14px 16px; box-shadow: 3px 3px 0 rgba(232,200,74,0.4); }
+
+        /* collapse/reply toggles */
+        .collapse-toggle:checked ~ .disc-comment .disc-line { display: none; }
+        .collapse-toggle:checked ~ .disc-replies { display: none; }
+        .reply-toggle ~ .disc-body .reply-box { display: none; }
+        .reply-toggle:checked ~ .disc-body .reply-box { display: flex; }
+
+        .disc-thread { position: relative; }
+        .disc-comment { display: flex; gap: 10px; padding: 6px 0; }
+        .disc-left-col { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+        .disc-avatar { width: 30px; height: 30px; border-radius: 50%; background: #e8e4d0; color: #7a7050; font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; cursor: pointer; }
+        .disc-avatar.av-warn   { background: #FFF3CD; color: #8a7040; }
+        .disc-avatar.av-purple { background: #EDE9FF; color: #6860a0; }
+        .disc-avatar.av-green  { background: #DCFCE7; color: #166534; }
+        .disc-line { width: 2px; flex: 1; min-height: 12px; background: #e0d9b0; border-radius: 2px; margin-top: 4px; cursor: pointer; }
+        .disc-body { flex: 1; min-width: 0; padding-bottom: 6px; }
+        .disc-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 3px; }
+        .disc-name { font-size: 0.88em; font-weight: 700; color: var(--dark); }
+        .disc-time { font-size: 0.76em; color: #aaa; }
+        .disc-collapse-hint { font-size: 0.72em; color: #ccc; cursor: pointer; margin-left: auto; user-select: none; }
+        .disc-text { font-size: 0.88em; line-height: 1.6; color: #444; margin-bottom: 6px; }
+        .disc-replies { padding-left: 20px; }
+        .disc-divider { border: none; border-top: 1px solid rgba(0,0,0,0.06); margin: 4px 0; }
+
+        /* Actions row */
+        .disc-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .vote-btn { display: inline-flex; align-items: center; gap: 4px; font-size: 0.76em; font-weight: 600; padding: 3px 9px; border-radius: 5px; border: 1.5px solid transparent; cursor: pointer; transition: 0.15s ease; color: #666; background: #f5f3ea; user-select: none; }
+        .vote-btn:hover { background: var(--yellow-mid); border-color: var(--border-y); }
+        .helpful-cb:checked ~ .disc-body .helpful-btn,
+        .helpful-cb:checked ~ * .helpful-btn { background: #FFF3B0; border-color: var(--border-y); color: var(--dark); }
+        .nothelpful-cb:checked ~ .disc-body .nothelpful-btn,
+        .nothelpful-cb:checked ~ * .nothelpful-btn { background: #FFE4E1; border-color: #FECACA; color: #991B1B; }
+        .vote-count { font-size: 0.9em; font-weight: 700; }
+        .disc-reply-btn { font-size: 0.76em; font-weight: 700; color: var(--aged); cursor: pointer; padding: 3px 8px; border-radius: 5px; transition: 0.15s; user-select: none; }
+        .disc-reply-btn:hover { background: rgba(255,212,0,0.18); color: var(--dark); }
+
+        /* Reply box */
+        .reply-box { display: none; align-items: center; gap: 8px; margin-top: 6px; }
+        .reply-input { flex: 1; padding: 7px 12px; border: 1.5px solid var(--border-y); border-radius: 7px; font-family: inherit; font-size: 0.84em; background: #FFFDF0; outline: none; color: var(--dark); }
+        .reply-input:focus { border-color: var(--yellow-d); box-shadow: 0 0 0 3px rgba(255,212,0,0.15); }
+        .reply-post-btn { padding: 7px 14px; background: var(--yellow); color: var(--hive); border: 1.5px solid rgba(0,0,0,0.2); border-radius: 7px; font-family: inherit; font-size: 0.82em; font-weight: 800; cursor: pointer; transition: 0.15s ease; white-space: nowrap; }
+        .reply-post-btn:hover { background: var(--yellow-d); }
+
+        /* New comment row */
+        .disc-new-comment { display: flex; align-items: center; gap: 10px; padding: 10px 0 4px; border-top: 1px solid rgba(0,0,0,0.06); margin-top: 6px; }
+
+        /* ══ RIGHT PANEL CARDS ══ */
+        .details-card, .schedule-card, .rules-card {
+            background: white; border: 1.5px solid var(--border-y); border-radius: var(--radius);
+            padding: 14px 16px; box-shadow: 3px 3px 0 rgba(232,200,74,0.4);
+        }
+        .detail-row { display: flex; align-items: flex-start; gap: 12px; padding: 9px 0; border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .detail-row:last-child { border-bottom: none; }
+        .detail-icon { width: 20px; text-align: center; color: var(--orange); flex-shrink: 0; padding-top: 2px; font-size: 0.95em; }
+        .detail-key { width: 80px; font-size: 0.8em; color: var(--muted); flex-shrink: 0; }
+        .detail-value { font-size: 0.9em; color: var(--dark); flex: 1; font-weight: 500; }
+
+        .schedule-row { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-bottom: 1px solid rgba(0,0,0,0.05); font-size: 0.87em; }
+        .schedule-row:last-child { border-bottom: none; }
+        .schedule-day { font-weight: 700; width: 90px; color: var(--dark); flex-shrink: 0; }
+        .schedule-time { color: var(--aged); flex: 1; }
+        .schedule-topic { font-size: 0.8em; background: var(--yellow-mid); border: 1px solid var(--border-y); border-radius: 4px; padding: 2px 8px; color: var(--aged); font-weight: 600; white-space: nowrap; }
+
+        .rule-item { display: flex; gap: 12px; align-items: flex-start; font-size: 0.88em; line-height: 1.55; padding: 5px 0; color: #555; border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .rule-item:last-child { border-bottom: none; }
+        .rule-num { width: 22px; height: 22px; background: var(--yellow-mid); border: 1.5px solid var(--border-y); border-radius: 3px; font-size: 0.72em; font-weight: 900; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; color: var(--aged); }
+
+        /* ══ MOBILE ══ */
+        #mob-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 9; }
+        #mob-toggle { display: none; }
+        @media (max-width: 900px) {
+            #hamburger { display: flex; } #nav-links { display: none; }
+            #sidebar { transform: translateX(-100%); transition: transform 0.28s ease; z-index: 50; }
+            #mob-toggle:checked ~ #mob-overlay { display: block; }
+            #mob-toggle:checked ~ #container #sidebar { transform: translateX(0); }
+            #content { margin-left: 0; }
+            .hive-columns { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 600px) { #content { padding: 14px; } .hive-title { font-size: 1.3em; } }
+    </style>
+</head>
+<body>
+
+<input type="checkbox" id="mob-toggle" style="display:none;">
+<input type="checkbox" id="leave-toggle" style="display:none;">
+
+<nav>
+    <div id="nav-container">
+        <label for="mob-toggle" id="hamburger"><span></span><span></span><span></span></label>
+        <a href="/WebDev/pages/home/homepage.html">
+            <div class="logo"><span class="black">Hive</span><span class="orange-text">Minds</span></div>
+        </a>
+        <div id="nav-links">
+            <a class="active-nav" href="home_home-feed.html">Home</a>
+            <a href="../hives/hives.html">Hives</a>
+            <a href="../misc/profile.html">Profile</a>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+            <div id="notif-btn"><i class="fa-regular fa-bell"></i><span class="notif-dot"></span></div>
+            <a href="../misc/profile.html" id="user-pill">
+                <div id="user-avatar">RB</div>
+                <span id="user-name">Student</span>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<label for="mob-toggle" id="mob-overlay"></label>
+
+<!-- Leave modal (sits outside container so backdrop covers everything) -->
+<div class="leave-modal">
+    <div class="leave-box">
+        <p>Leave Comprog Study Group?</p>
+        <small>You can rejoin later if the group is still open.</small>
+        <div class="leave-actions">
+            <a href="home_home-feed.html" class="confirm-btn">Yes, Leave</a>
+            <label for="leave-toggle" class="cancel-btn">Cancel</label>
+        </div>
+    </div>
+</div>
+
+<div id="container">
+
+    <!-- Sidebar -->
+    <div id="sidebar">
+        <div class="sidebar-section">
+            <div class="sidebar-label">Menu</div>
+            <hr class="sidebar-hr">
+            <a href="home_home-feed.html"><div class="sidebar-btn"><i class="fa-solid fa-house"></i> Home Feed</div></a>
+            <a href="home_my-schedule.html"><div class="sidebar-btn"><i class="fa-regular fa-calendar"></i> My Schedule</div></a>
+            <a href="home_settings.html"><div class="sidebar-btn"><i class="fa-solid fa-gear"></i> Settings</div></a>
+        </div>
+        <div class="sidebar-section">
+            <div class="sidebar-label">Created Hives</div>
+            <hr class="sidebar-hr">
+            <a href="home_created-hives.html"><div class="sidebar-btn"><span class="hex owner"></span> Rick's Study Circle</div></a>
+        </div>
+        <div class="sidebar-section">
+            <div class="sidebar-label">My Hives</div>
+            <hr class="sidebar-hr">
+            <a href="home_calculus.html"><div class="sidebar-btn active"><span class="hex"></span> Comprog Study Group</div></a>
+            <a href="home_biology.html"><div class="sidebar-btn"><span class="hex"></span> Biology Study Group</div></a>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div id="content">
+
+        <!-- Hive Header -->
+        <div class="hive-header">
+            <div class="hive-header-left">
+                <div class="hive-title">Comprog Study Group</div>
+                <div class="hive-meta">
+                    <span class="tag">Technology</span>
+                    <span>·</span>
+                    <span>18 members</span>
                 </div>
-                <div id="auth-links">
-                    <a class="hover" href="../misc/profile.html">Student</a>
+                <div class="hive-owner">
+                    <img src="../../assets/images/person-profile.jpg" alt="Shane Doss">
+                    Owned by <strong>Shane Doss</strong>
                 </div>
             </div>
-        </nav>
-        <main>
-            <div id="container">
-                <div id="sidebar">
-                    <div id="menu">
-                        <p>MENU</p>
-                        <hr>
-                        <a href="home_home-feed.html"><div class="sidebar-button menu"><p>Home Feed</p></div></a>
-                        <a href="home_my-schedule.html"><div class="sidebar-button menu"><p>My Schedule</p></div></a>
-                        <a href="home_settings.html"><div class="sidebar-button menu"><p>Settings</p></div></a>
-                    </div>
-                    <div id="created-hives">
-                        <p>CREATED HIVES</p>
-                        <hr>
-                        <a href="home_created-hives.html"><div class="created-hive-btn"><span class="hex-owner"></span><p>Rick's Study Circle</p></div></a>
-                    </div>
-                    <div id="my-hives">
-                        <p>MY HIVES</p>
-                        <hr>
-                        <a href="home_calculus.html"><div class="sidebar-button my-hives active"><span class="hex"></span><p>ComprogStudy Group</p></div></a>
-                        <a href="home_biology.html"><div class="sidebar-button my-hives"><span class="hex"></span><p>Compsci seniors Study Group</p></div></a>
-            
-                    </div>
-                </div>
+            <label for="leave-toggle" class="btn-leave"><i class="fa-solid fa-right-from-bracket" style="margin-right:6px;font-size:0.9em;"></i>Leave Hive</label>
+        </div>
 
-                <div id="content">
-                    <div id="hive-body">
-                        <div class="hive-header">
-                            <div class="hive-header-left">
-                                <div class="hive-title">Comprog Study Group</div>
-                                <div class="hive-meta">
-                                    <span class="tag">Technology</span>
-                      
-                                    <span>&bull; 18 members</span>
-                                </div>
-                                <div class="hive-owner">
-                                    <img src="../../assets/images/person-profile.jpg">
-                                    Owned by <strong>Shane Doss</strong>
-                                </div>
-                            </div>
-                            <label for="leave-toggle" class="btn-leave">Leave Hive</label>
-                            <input type="checkbox" id="leave-toggle" hidden>
-                            <div class="leave-modal">
-                                <div class="leave-box">
-                                    <p>Are you sure you want to leave this hive?</p>
-                                    <div class="leave-actions">
-                                        <a href="home_home-feed.html" class="confirm-btn">Yes, Leave</a>
-                                        <label for="leave-toggle" class="cancel-btn">Cancel</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+        <!-- Two-column body -->
+        <div class="hive-columns">
 
-                        <div class="hive-columns">
-                            <div class="hive-left">
-    <div>
-        <div class="section-label">Discussion</div>
-        <div class="discussion-card">
+            <!-- LEFT: Discussion -->
+            <div class="hive-left">
+                <div class="section-label">Discussion</div>
+                <div class="discussion-card">
 
-            <!-- ── COMMENT 1 (top-level) ── -->
-            <div class="disc-thread">
-                <input type="checkbox" id="col-1" class="collapse-toggle" hidden>
-                <input type="checkbox" id="rep-1" class="reply-toggle" hidden>
-
-                <div class="disc-comment">
-                    <div class="disc-left-col">
-                        <label for="col-1" class="disc-avatar" title="Collapse">RB</label>
-                        <label for="col-1" class="disc-line"></label>
-                    </div>
-                    <div class="disc-body">
-                        <div class="disc-meta">
-                            <span class="disc-name">Rick Buzztley</span>
-                            <span class="disc-time">2 hours ago</span>
-                            <label for="col-1" class="disc-collapse-hint">[–]</label>
-                        </div>
-                        <div class="disc-text">Hey everyone, reminder that tonight's session is at 7 PM sharp. We're covering code Syntaxes</div>
-                        <div class="disc-actions">
-                            <input type="checkbox" id="h-1" class="vote-cb helpful-cb" hidden>
-                            <input type="checkbox" id="n-1" class="vote-cb nothelpful-cb" hidden>
-                            <label for="h-1" class="vote-btn helpful-btn">👍 Helpful <span class="vote-count">5</span></label>
-                            <label for="n-1" class="vote-btn nothelpful-btn">👎 Not helpful</label>
-                            <label for="rep-1" class="disc-reply-btn">↩ Reply</label>
-                        </div>
-                        <div class="reply-box">
-                            <input class="reply-input" type="text" placeholder="Write a reply…">
-                            <button class="reply-post-btn">Post</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- replies to comment 1 -->
-                <div class="disc-replies">
-
-                    <!-- reply 1a -->
+                    <!-- ── COMMENT 1 ── -->
                     <div class="disc-thread">
-                        <input type="checkbox" id="col-1a" class="collapse-toggle" hidden>
-                        <input type="checkbox" id="rep-1a" class="reply-toggle" hidden>
+                        <input type="checkbox" id="col-1" class="collapse-toggle" hidden>
+                        <input type="checkbox" id="rep-1" class="reply-toggle" hidden>
                         <div class="disc-comment">
                             <div class="disc-left-col">
-                                <label for="col-1a" class="disc-avatar av-warn" title="Collapse">MI</label>
-                                <label for="col-1a" class="disc-line"></label>
+                                <label for="col-1" class="disc-avatar">RB</label>
+                                <label for="col-1" class="disc-line"></label>
                             </div>
                             <div class="disc-body">
                                 <div class="disc-meta">
-                                    <span class="disc-name">Milky</span>
-                                    <span class="disc-time">1 hour ago</span>
-                                    <label for="col-1a" class="disc-collapse-hint">[–]</label>
+                                    <span class="disc-name">Rick Buzztley</span>
+                                    <span class="disc-time">2 hours ago</span>
+                                    <label for="col-1" class="disc-collapse-hint">[–]</label>
                                 </div>
-                                <div class="disc-text">Got it! Should we will the problem sets from last week be included too?</div>
+                                <div class="disc-text">Hey everyone, reminder that tonight's session is at 7 PM sharp. We're covering code Syntaxes</div>
                                 <div class="disc-actions">
-                                    <input type="checkbox" id="h-1a" class="vote-cb helpful-cb" hidden>
-                                    <input type="checkbox" id="n-1a" class="vote-cb nothelpful-cb" hidden>
-                                    <label for="h-1a" class="vote-btn helpful-btn">👍 Helpful <span class="vote-count">3</span></label>
-                                    <label for="n-1a" class="vote-btn nothelpful-btn">👎 Not helpful</label>
-                                    <label for="rep-1a" class="disc-reply-btn">↩ Reply</label>
+                                    <input type="checkbox" id="h-1" class="vote-cb helpful-cb" hidden>
+                                    <input type="checkbox" id="n-1" class="vote-cb nothelpful-cb" hidden>
+                                    <label for="h-1" class="vote-btn helpful-btn">👍 Helpful <span class="vote-count">5</span></label>
+                                    <label for="n-1" class="vote-btn nothelpful-btn">👎 Not helpful</label>
+                                    <label for="rep-1" class="disc-reply-btn">↩ Reply</label>
                                 </div>
                                 <div class="reply-box">
                                     <input class="reply-input" type="text" placeholder="Write a reply…">
@@ -167,30 +305,125 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- reply to reply -->
                         <div class="disc-replies">
+                            <!-- reply 1a -->
                             <div class="disc-thread">
-                                <input type="checkbox" id="col-1b" class="collapse-toggle" hidden>
-                                <input type="checkbox" id="rep-1b" class="reply-toggle" hidden>
+                                <input type="checkbox" id="col-1a" class="collapse-toggle" hidden>
+                                <input type="checkbox" id="rep-1a" class="reply-toggle" hidden>
                                 <div class="disc-comment">
                                     <div class="disc-left-col">
-                                        <label for="col-1b" class="disc-avatar av-purple" title="Collapse">SU</label>
-                                        <label for="col-1b" class="disc-line"></label>
+                                        <label for="col-1a" class="disc-avatar av-warn">MI</label>
+                                        <label for="col-1a" class="disc-line"></label>
                                     </div>
                                     <div class="disc-body">
                                         <div class="disc-meta">
-                                            <span class="disc-name">Sam Uy</span>
-                                            <span class="disc-time">45 mins ago</span>
-                                            <label for="col-1b" class="disc-collapse-hint">[–]</label>
+                                            <span class="disc-name">Milky</span>
+                                            <span class="disc-time">1 hour ago</span>
+                                            <label for="col-1a" class="disc-collapse-hint">[–]</label>
                                         </div>
-                                        <div class="disc-text">Yes they will ! We still have 3 unsolved ones from last session 😭</div>
+                                        <div class="disc-text">Got it! Should the problem sets from last week be included too?</div>
                                         <div class="disc-actions">
-                                            <input type="checkbox" id="h-1b" class="vote-cb helpful-cb" hidden>
-                                            <input type="checkbox" id="n-1b" class="vote-cb nothelpful-cb" hidden>
-                                            <label for="h-1b" class="vote-btn helpful-btn">👍 Helpful <span class="vote-count">6</span></label>
-                                            <label for="n-1b" class="vote-btn nothelpful-btn">👎 Not helpful</label>
-                                            <label for="rep-1b" class="disc-reply-btn">↩ Reply</label>
+                                            <input type="checkbox" id="h-1a" class="vote-cb helpful-cb" hidden>
+                                            <input type="checkbox" id="n-1a" class="vote-cb nothelpful-cb" hidden>
+                                            <label for="h-1a" class="vote-btn helpful-btn">👍 Helpful <span class="vote-count">3</span></label>
+                                            <label for="n-1a" class="vote-btn nothelpful-btn">👎 Not helpful</label>
+                                            <label for="rep-1a" class="disc-reply-btn">↩ Reply</label>
+                                        </div>
+                                        <div class="reply-box">
+                                            <input class="reply-input" type="text" placeholder="Write a reply…">
+                                            <button class="reply-post-btn">Post</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="disc-replies">
+                                    <div class="disc-thread">
+                                        <input type="checkbox" id="col-1b" class="collapse-toggle" hidden>
+                                        <input type="checkbox" id="rep-1b" class="reply-toggle" hidden>
+                                        <div class="disc-comment">
+                                            <div class="disc-left-col">
+                                                <label for="col-1b" class="disc-avatar av-purple">SU</label>
+                                                <label for="col-1b" class="disc-line"></label>
+                                            </div>
+                                            <div class="disc-body">
+                                                <div class="disc-meta">
+                                                    <span class="disc-name">Sam Uy</span>
+                                                    <span class="disc-time">45 mins ago</span>
+                                                    <label for="col-1b" class="disc-collapse-hint">[–]</label>
+                                                </div>
+                                                <div class="disc-text">Yes they will! We still have 3 unsolved ones from last session 😭</div>
+                                                <div class="disc-actions">
+                                                    <input type="checkbox" id="h-1b" class="vote-cb helpful-cb" hidden>
+                                                    <input type="checkbox" id="n-1b" class="vote-cb nothelpful-cb" hidden>
+                                                    <label for="h-1b" class="vote-btn helpful-btn">👍 Helpful <span class="vote-count">6</span></label>
+                                                    <label for="n-1b" class="vote-btn nothelpful-btn">👎 Not helpful</label>
+                                                    <label for="rep-1b" class="disc-reply-btn">↩ Reply</label>
+                                                </div>
+                                                <div class="reply-box">
+                                                    <input class="reply-input" type="text" placeholder="Write a reply…">
+                                                    <button class="reply-post-btn">Post</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="disc-replies"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="disc-divider">
+
+                    <!-- ── COMMENT 2 ── -->
+                    <div class="disc-thread">
+                        <input type="checkbox" id="col-2" class="collapse-toggle" hidden>
+                        <input type="checkbox" id="rep-2" class="reply-toggle" hidden>
+                        <div class="disc-comment">
+                            <div class="disc-left-col">
+                                <label for="col-2" class="disc-avatar av-purple">SU</label>
+                                <label for="col-2" class="disc-line"></label>
+                            </div>
+                            <div class="disc-body">
+                                <div class="disc-meta">
+                                    <span class="disc-name">Sam Uy</span>
+                                    <span class="disc-time">3 hours ago</span>
+                                    <label for="col-2" class="disc-collapse-hint">[–]</label>
+                                </div>
+                                <div class="disc-text">Does anyone have a good resource for C++ arrays? The textbook examples are kinda hard to follow.</div>
+                                <div class="disc-actions">
+                                    <input type="checkbox" id="h-2" class="vote-cb helpful-cb" hidden>
+                                    <input type="checkbox" id="n-2" class="vote-cb nothelpful-cb" hidden>
+                                    <label for="h-2" class="vote-btn helpful-btn">👍 Helpful <span class="vote-count">4</span></label>
+                                    <label for="n-2" class="vote-btn nothelpful-btn">👎 Not helpful</label>
+                                    <label for="rep-2" class="disc-reply-btn">↩ Reply</label>
+                                </div>
+                                <div class="reply-box">
+                                    <input class="reply-input" type="text" placeholder="Write a reply…">
+                                    <button class="reply-post-btn">Post</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="disc-replies">
+                            <div class="disc-thread">
+                                <input type="checkbox" id="col-2a" class="collapse-toggle" hidden>
+                                <input type="checkbox" id="rep-2a" class="reply-toggle" hidden>
+                                <div class="disc-comment">
+                                    <div class="disc-left-col">
+                                        <label for="col-2a" class="disc-avatar">RB</label>
+                                        <label for="col-2a" class="disc-line"></label>
+                                    </div>
+                                    <div class="disc-body">
+                                        <div class="disc-meta">
+                                            <span class="disc-name">Rick Buzztley</span>
+                                            <span class="disc-time">2 hours ago</span>
+                                            <label for="col-2a" class="disc-collapse-hint">[–]</label>
+                                        </div>
+                                        <div class="disc-text">Professor Leonard on YouTube is really good for this. His C++ programming playlist saved me last sem!</div>
+                                        <div class="disc-actions">
+                                            <input type="checkbox" id="h-2a" class="vote-cb helpful-cb" hidden>
+                                            <input type="checkbox" id="n-2a" class="vote-cb nothelpful-cb" hidden>
+                                            <label for="h-2a" class="vote-btn helpful-btn">👍 Helpful <span class="vote-count">7</span></label>
+                                            <label for="n-2a" class="vote-btn nothelpful-btn">👎 Not helpful</label>
+                                            <label for="rep-2a" class="disc-reply-btn">↩ Reply</label>
                                         </div>
                                         <div class="reply-box">
                                             <input class="reply-input" type="text" placeholder="Write a reply…">
@@ -203,63 +436,30 @@
                         </div>
                     </div>
 
-                </div>
-            </div>
+                    <hr class="disc-divider">
 
-            <hr class="disc-divider">
-
-            <!-- ── COMMENT 2 ── -->
-            <div class="disc-thread">
-                <input type="checkbox" id="col-2" class="collapse-toggle" hidden>
-                <input type="checkbox" id="rep-2" class="reply-toggle" hidden>
-                <div class="disc-comment">
-                    <div class="disc-left-col">
-                        <label for="col-2" class="disc-avatar av-purple" title="Collapse">SU</label>
-                        <label for="col-2" class="disc-line"></label>
-                    </div>
-                    <div class="disc-body">
-                        <div class="disc-meta">
-                            <span class="disc-name">Sam Uy</span>
-                            <span class="disc-time">3 hours ago</span>
-                            <label for="col-2" class="disc-collapse-hint">[–]</label>
-                        </div>
-                        <div class="disc-text">Does anyone have a good resource for c++ arrays? The textbook examples are kinda hard to follow.</div>
-                        <div class="disc-actions">
-                            <input type="checkbox" id="h-2" class="vote-cb helpful-cb" hidden>
-                            <input type="checkbox" id="n-2" class="vote-cb nothelpful-cb" hidden>
-                            <label for="h-2" class="vote-btn helpful-btn">👍 Helpful <span class="vote-count">4</span></label>
-                            <label for="n-2" class="vote-btn nothelpful-btn">👎 Not helpful</label>
-                            <label for="rep-2" class="disc-reply-btn">↩ Reply</label>
-                        </div>
-                        <div class="reply-box">
-                            <input class="reply-input" type="text" placeholder="Write a reply…">
-                            <button class="reply-post-btn">Post</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="disc-replies">
+                    <!-- ── COMMENT 3 ── -->
                     <div class="disc-thread">
-                        <input type="checkbox" id="col-2a" class="collapse-toggle" hidden>
-                        <input type="checkbox" id="rep-2a" class="reply-toggle" hidden>
+                        <input type="checkbox" id="col-3" class="collapse-toggle" hidden>
+                        <input type="checkbox" id="rep-3" class="reply-toggle" hidden>
                         <div class="disc-comment">
                             <div class="disc-left-col">
-                                <label for="col-2a" class="disc-avatar" title="Collapse">RB</label>
-                                <label for="col-2a" class="disc-line"></label>
+                                <label for="col-3" class="disc-avatar av-warn">MI</label>
+                                <label for="col-3" class="disc-line"></label>
                             </div>
                             <div class="disc-body">
                                 <div class="disc-meta">
-                                    <span class="disc-name">Rick Buzztley</span>
-                                    <span class="disc-time">2 hours ago</span>
-                                    <label for="col-2a" class="disc-collapse-hint">[–]</label>
+                                    <span class="disc-name">Milky</span>
+                                    <span class="disc-time">30 mins ago</span>
+                                    <label for="col-3" class="disc-collapse-hint">[–]</label>
                                 </div>
-                                <div class="disc-text">Professor Leonard on YouTube is really good for this. His c++ programmin playlist saved me last sem!</div>
+                                <div class="disc-text">Quick question — are we doing the Discord voice channel or the Zoom link from last week?</div>
                                 <div class="disc-actions">
-                                    <input type="checkbox" id="h-2a" class="vote-cb helpful-cb" hidden>
-                                    <input type="checkbox" id="n-2a" class="vote-cb nothelpful-cb" hidden>
-                                    <label for="h-2a" class="vote-btn helpful-btn">👍 Helpful <span class="vote-count">7</span></label>
-                                    <label for="n-2a" class="vote-btn nothelpful-btn">👎 Not helpful</label>
-                                    <label for="rep-2a" class="disc-reply-btn">↩ Reply</label>
+                                    <input type="checkbox" id="h-3" class="vote-cb helpful-cb" hidden>
+                                    <input type="checkbox" id="n-3" class="vote-cb nothelpful-cb" hidden>
+                                    <label for="h-3" class="vote-btn helpful-btn">👍 Helpful <span class="vote-count">2</span></label>
+                                    <label for="n-3" class="vote-btn nothelpful-btn">👎 Not helpful</label>
+                                    <label for="rep-3" class="disc-reply-btn">↩ Reply</label>
                                 </div>
                                 <div class="reply-box">
                                     <input class="reply-input" type="text" placeholder="Write a reply…">
@@ -269,87 +469,75 @@
                         </div>
                         <div class="disc-replies"></div>
                     </div>
+
+                    <!-- New comment row -->
+                    <div class="disc-new-comment">
+                        <div class="disc-avatar av-green" style="cursor:default;flex-shrink:0;">RB</div>
+                        <input class="reply-input" type="text" placeholder="Write a comment…">
+                        <button class="reply-post-btn">Post</button>
+                    </div>
+
                 </div>
             </div>
 
-            <hr class="disc-divider">
+            <!-- RIGHT: Details, Schedule, Rules -->
+            <div class="hive-right">
 
-            <!-- ── COMMENT 3 ── -->
-            <div class="disc-thread">
-                <input type="checkbox" id="col-3" class="collapse-toggle" hidden>
-                <input type="checkbox" id="rep-3" class="reply-toggle" hidden>
-                <div class="disc-comment">
-                    <div class="disc-left-col">
-                        <label for="col-3" class="disc-avatar av-warn" title="Collapse">MI</label>
-                        <label for="col-3" class="disc-line"></label>
+                <div class="section-label">Next Session</div>
+                <div class="details-card">
+                    <div class="detail-row">
+                        <div class="detail-icon"><i class="fa-regular fa-calendar"></i></div>
+                        <div class="detail-key">Date</div>
+                        <div class="detail-value">Monday, March 23</div>
                     </div>
-                    <div class="disc-body">
-                        <div class="disc-meta">
-                            <span class="disc-name">Milky</span>
-                            <span class="disc-time">30 mins ago</span>
-                            <label for="col-3" class="disc-collapse-hint">[–]</label>
-                        </div>
-                        <div class="disc-text">Quick question — are we doing the Discord voice channel or the Zoom link from last week?</div>
-                        <div class="disc-actions">
-                            <input type="checkbox" id="h-3" class="vote-cb helpful-cb" hidden>
-                            <input type="checkbox" id="n-3" class="vote-cb nothelpful-cb" hidden>
-                            <label for="h-3" class="vote-btn helpful-btn">👍 Helpful <span class="vote-count">2</span></label>
-                            <label for="n-3" class="vote-btn nothelpful-btn">👎 Not helpful</label>
-                            <label for="rep-3" class="disc-reply-btn">↩ Reply</label>
-                        </div>
-                        <div class="reply-box">
-                            <input class="reply-input" type="text" placeholder="Write a reply…">
-                            <button class="reply-post-btn">Post</button>
-                        </div>
+                    <div class="detail-row">
+                        <div class="detail-icon"><i class="fa-regular fa-clock"></i></div>
+                        <div class="detail-key">Time</div>
+                        <div class="detail-value">6:00 PM – 7:00 PM</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-icon"><i class="fa-solid fa-location-dot"></i></div>
+                        <div class="detail-key">Location</div>
+                        <div class="detail-value">Discord — #comprog-voice</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-icon"><i class="fa-solid fa-users"></i></div>
+                        <div class="detail-key">Members</div>
+                        <div class="detail-value">18 members</div>
                     </div>
                 </div>
-                <div class="disc-replies"></div>
-            </div>
 
-            <!-- ── NEW COMMENT ROW ── -->
-            <div class="disc-new-comment">
-                <div class="disc-avatar av-green" style="cursor:default">YO</div>
-                <input class="reply-input" type="text" placeholder="Write a comment…">
-                <button class="reply-post-btn">Post</button>
-            </div>
+                <div class="section-label">Recurring Schedule</div>
+                <div class="schedule-card">
+                    <div class="schedule-row">
+                        <div class="schedule-day">Monday</div>
+                        <div class="schedule-time">6:00 PM – 7:00 PM</div>
+                        <div class="schedule-topic">Lecture review</div>
+                    </div>
+                    <div class="schedule-row">
+                        <div class="schedule-day">Wednesday</div>
+                        <div class="schedule-time">5:00 PM – 6:30 PM</div>
+                        <div class="schedule-topic">Problem sets</div>
+                    </div>
+                    <div class="schedule-row">
+                        <div class="schedule-day">Friday</div>
+                        <div class="schedule-time">7:00 PM – 8:30 PM</div>
+                        <div class="schedule-topic">Quiz prep</div>
+                    </div>
+                </div>
 
+                <div class="section-label">Group Rules</div>
+                <div class="rules-card">
+                    <div class="rule-item"><div class="rule-num">1</div>Be on time. Sessions start promptly — late joins are fine but don't disrupt.</div>
+                    <div class="rule-item"><div class="rule-num">2</div>Do the prep work before each session so everyone can move forward together.</div>
+                    <div class="rule-item"><div class="rule-num">3</div>Respect everyone's pace. No question is too basic here.</div>
+                    <div class="rule-item"><div class="rule-num">4</div>Keep it on topic during sessions. Side convos go in #off-topic.</div>
+                </div>
+
+            </div>
         </div>
-    </div>
-</div>
+    </div><!-- /content -->
+</div><!-- /container -->
 
-
-                            <div class="hive-right">
-                                <div>
-                                    <div class="section-label">Next Session</div>
-                                    <div class="details-card">
-                                        <div class="detail-row"><div class="detail-icon"><i class="fa-regular fa-calendar"></i></div><div class="detail-key">Date</div><div class="detail-value">Monday, March 23</div></div>
-                                        <div class="detail-row"><div class="detail-icon"><i class="fa-regular fa-clock"></i></div><div class="detail-key">Time</div><div class="detail-value">6:00 PM – 7:00 PM</div></div>
-                                        <div class="detail-row"><div class="detail-icon"><i class="fa-solid fa-location-dot"></i></div><div class="detail-key">Location</div><div class="detail-value">Discord — #comprog-voice</div></div>
-                                        <div class="detail-row"><div class="detail-icon"><i class="fa-solid fa-users"></i></div><div class="detail-key">Members</div><div class="detail-value">18 members</div></div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="section-label">Recurring Schedule</div>
-                                    <div class="schedule-card">
-                                        <div class="schedule-row"><div class="schedule-day">Monday</div><div class="schedule-time">6:00 PM – 7:00 PM</div><div class="schedule-topic">Lecture review</div></div>
-                                        <div class="schedule-row"><div class="schedule-day">Wednesday</div><div class="schedule-time">5:00 PM – 6:30 PM</div><div class="schedule-topic">Problem sets</div></div>
-                                        <div class="schedule-row"><div class="schedule-day">Friday</div><div class="schedule-time">7:00 PM – 8:30 PM</div><div class="schedule-topic">Quiz prep</div></div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="section-label">Group Rules</div>
-                                    <div class="rules-card">
-                                        <div class="rule-item"><div class="rule-num">1</div>Be on time. Sessions start promptly — late joins are fine but don't disrupt.</div>
-                                        <div class="rule-item"><div class="rule-num">2</div>Do the prep work before each session so everyone can move forward together.</div>
-                                        <div class="rule-item"><div class="rule-num">3</div>Respect everyone's pace. No question is too basic here.</div>
-                                        <div class="rule-item"><div class="rule-num">4</div>Keep it on topic during sessions. Side convos go in #off-topic.</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
-    </body>
+</body>
 </html>

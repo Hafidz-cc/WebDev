@@ -1,211 +1,788 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../../assets/CSS/base/base.css">
-        <link rel="stylesheet" href="../../assets/CSS/base/navbar.css">
-        <link rel="stylesheet" href="../../assets/CSS/base/layout.css">
-        <link rel="stylesheet" href="../../assets/CSS/misc/switcher.css">
-        <link rel="stylesheet" href="../../assets/CSS/home/home.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Feed — HiveMinds</title>
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Belanosima&family=Bricolage+Grotesque:opsz,wght@12..96,420&family=Coiny&family=McLaren&family=Pacifico&family=Pangolin&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-    </head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet">
 
-    <body>
-        <nav>
-            <div id="nav-container">
-                <a href="/WebDev/pages/home/homepage.html">
-                    <div class="logo">
-                        <span class="black">Hive</span><span class="orange">Minds</span>
+    <style>
+        /* ── Reset & tokens ── */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --yellow:     #FFD400;
+            --yellow-d:   #E6BF00;
+            --yellow-pale:#FFFDF0;
+            --yellow-mid: #FFF3B0;
+            --orange:     #FF5F00;
+            --dark:       #1A1600;
+            --hive:       #0D0B00;
+            --aged:       #6B5800;
+            --muted:      #9A8A60;
+            --border:     rgba(0,0,0,0.09);
+            --border-y:   #E8C84A;
+            --wax:        #FEFAF0;
+            --comb:       #FDF3D0;
+            --nav-h:      62px;
+            --sidebar-w:  220px;
+            --radius:     12px;
+        }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+            background: var(--wax);
+            color: var(--dark);
+            min-height: 100vh;
+            font-size: 14px;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        a { text-decoration: none; color: inherit; }
+
+        /* ══════════════════════════
+           NAVBAR
+        ══════════════════════════ */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+        }
+        #nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: var(--nav-h);
+            padding: 0 28px;
+            gap: 24px;
+            background: rgba(254,250,240,0.96);
+            backdrop-filter: blur(14px);
+            border-bottom: 1.5px solid var(--border-y);
+        }
+        .logo span {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.45em;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+        }
+        .black  { color: #0D0B00; }
+        .orange { color: var(--orange); }
+
+        #nav-links {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex: 1;
+            justify-content: center;
+        }
+        #nav-links a {
+            font-size: 0.88em;
+            font-weight: 600;
+            color: #3A2E00;
+            padding: 6px 14px;
+            border-radius: 6px;
+            transition: 0.18s ease;
+        }
+        #nav-links a:hover { background: rgba(255,212,0,0.18); color: var(--dark); }
+        #nav-links a.active-nav {
+            background: var(--yellow);
+            color: var(--hive);
+            font-weight: 700;
+            border: 1.5px solid rgba(0,0,0,0.15);
+        }
+
+        /* User pill */
+        #user-pill {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 5px 12px 5px 6px;
+            border-radius: 30px;
+            border: 1.5px solid rgba(0,0,0,0.15);
+            background: white;
+            cursor: pointer;
+            transition: 0.18s ease;
+            text-decoration: none;
+        }
+        #user-pill:hover { background: var(--yellow); border-color: rgba(0,0,0,0.2); }
+        #user-avatar {
+            width: 30px; height: 30px;
+            border-radius: 50%;
+            background: var(--yellow-mid);
+            border: 1.5px solid var(--border-y);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.78em; font-weight: 800; color: var(--aged);
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        #user-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        #user-name { font-size: 0.84em; font-weight: 700; color: #3A2E00; }
+
+        /* Notification bell */
+        #notif-btn {
+            position: relative;
+            width: 36px; height: 36px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 8px;
+            border: 1.5px solid rgba(0,0,0,0.15);
+            background: white;
+            cursor: pointer;
+            color: #555;
+            font-size: 1em;
+            transition: 0.18s ease;
+            flex-shrink: 0;
+        }
+        #notif-btn:hover { background: var(--yellow); border-color: rgba(0,0,0,0.2); }
+        .notif-dot {
+            position: absolute;
+            top: 6px; right: 6px;
+            width: 8px; height: 8px;
+            background: var(--orange);
+            border-radius: 50%;
+            border: 1.5px solid white;
+        }
+
+        /* ══════════════════════════
+           LAYOUT
+        ══════════════════════════ */
+        #container {
+            display: flex;
+            min-height: calc(100vh - var(--nav-h));
+            margin-top: var(--nav-h);
+        }
+
+        /* ── Sidebar ── */
+        #sidebar {
+            width: var(--sidebar-w);
+            min-width: var(--sidebar-w);
+            background: #FFFDF5;
+            border-right: 1.5px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            padding: 24px 10px 24px 16px;
+            gap: 28px;
+            position: fixed;
+            top: var(--nav-h);
+            left: 0;
+            height: calc(100vh - var(--nav-h));
+            overflow-y: auto;
+            z-index: 10;
+        }
+
+        .sidebar-section { display: flex; flex-direction: column; gap: 3px; }
+
+        .sidebar-label {
+            font-size: 0.67em;
+            font-weight: 800;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--muted);
+            padding: 0 10px 6px;
+        }
+        .sidebar-hr {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin-bottom: 4px;
+        }
+
+        .sidebar-btn {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 8px 12px;
+            border-radius: 7px;
+            transition: 0.16s ease;
+            cursor: pointer;
+            border-left: 3px solid transparent;
+            font-size: 0.87em;
+            font-weight: 500;
+            color: #3A2E00;
+        }
+        .sidebar-btn:hover {
+            background: rgba(255,212,0,0.14);
+            border-left-color: rgba(255,212,0,0.5);
+        }
+        .sidebar-btn.active {
+            background: rgba(255,212,0,0.22);
+            border-left-color: var(--yellow);
+            font-weight: 700;
+            color: var(--dark);
+        }
+        .sidebar-btn i { width: 16px; text-align: center; font-size: 0.9em; color: var(--aged); }
+        .sidebar-btn.active i { color: var(--dark); }
+
+        /* Hive hex dots */
+        .hex {
+            width: 10px; height: 11px;
+            background: var(--orange);
+            clip-path: polygon(25% 0%,75% 0%,100% 50%,75% 100%,25% 100%,0% 50%);
+            flex-shrink: 0;
+        }
+        .hex.owner { background: var(--yellow); }
+
+        /* ── Content area ── */
+        #content {
+            flex: 1;
+            margin-left: var(--sidebar-w);
+            padding: 24px 28px;
+            background:
+                repeating-linear-gradient(60deg,  transparent, transparent 28px, rgba(0,0,0,0.018) 28px, rgba(0,0,0,0.018) 30px),
+                repeating-linear-gradient(-60deg, transparent, transparent 28px, rgba(0,0,0,0.018) 28px, rgba(0,0,0,0.018) 30px),
+                #FFFDF5;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            min-width: 0;
+        }
+
+        /* ══════════════════════════
+           QOTD
+        ══════════════════════════ */
+        #qotd {
+            background: linear-gradient(135deg, var(--yellow-mid), var(--comb));
+            border: 2px dashed var(--border-y);
+            border-radius: var(--radius);
+            padding: 16px 22px;
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 0.95em;
+            font-weight: 500;
+            color: var(--dark);
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        /* ══════════════════════════
+           COMPOSE BOX
+        ══════════════════════════ */
+        #compose {
+            background: white;
+            border: 1.5px solid var(--border-y);
+            border-radius: var(--radius);
+            padding: 14px 16px;
+            box-shadow: 3px 3px 0 var(--border-y);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        #compose-avatar {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            background: var(--yellow-mid);
+            border: 1.5px solid var(--border-y);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.75em; font-weight: 800; color: var(--aged);
+            flex-shrink: 0;
+        }
+        #compose-input {
+            flex: 1;
+            background: #F7F5EE;
+            border: 1.5px solid #eee;
+            border-radius: 20px;
+            padding: 9px 16px;
+            font-size: 0.88em;
+            font-family: inherit;
+            color: var(--dark);
+            cursor: text;
+            transition: border-color 0.18s;
+        }
+        #compose-input:hover { border-color: var(--border-y); }
+
+        /* ══════════════════════════
+           TWO-COL FEED
+        ══════════════════════════ */
+        #content-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            align-items: start;
+        }
+
+        /* Section wrappers */
+        .feed-col {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2px;
+        }
+        .content-title {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.1em;
+            font-weight: 600;
+            color: var(--dark);
+            letter-spacing: -0.01em;
+        }
+        .content-link {
+            font-size: 0.8em;
+            font-weight: 700;
+            color: var(--orange);
+            transition: 0.18s;
+        }
+        .content-link:hover { color: #cc4b00; text-decoration: underline; }
+
+        /* ── Feed card ── */
+        .card {
+            background: white;
+            border: 1.5px solid var(--border-y);
+            border-radius: var(--radius);
+            padding: 16px 18px;
+            box-shadow: 3px 3px 0 rgba(232,200,74,0.4);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            transition: box-shadow 0.18s, transform 0.18s;
+        }
+        .card:hover {
+            transform: translate(-1px,-1px);
+            box-shadow: 4px 4px 0 rgba(232,200,74,0.6);
+        }
+
+        /* Post card header */
+        .post-header {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+        }
+        .post-avatar {
+            width: 38px; height: 38px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1.5px solid var(--border-y);
+            flex-shrink: 0;
+        }
+        .post-meta { flex: 1; min-width: 0; }
+        .person-name {
+            font-size: 0.92em;
+            font-weight: 700;
+            color: var(--dark);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .post-details {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.76em;
+            color: #888;
+            flex-wrap: wrap;
+        }
+        .post-details .group { color: var(--aged); font-weight: 600; }
+
+        /* Tag */
+        .tag {
+            display: inline-block;
+            background: var(--yellow);
+            color: #000;
+            font-size: 9px;
+            font-weight: 900;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 3px 8px;
+            border: 1.5px solid #000;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .card-text {
+            font-size: 0.9em;
+            color: #2C2400;
+            line-height: 1.65;
+        }
+        .card-text a { color: var(--orange); }
+        .card-text a:hover { text-decoration: underline; }
+
+        /* Card footer */
+        .card-footer {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-top: 1px solid rgba(0,0,0,0.06);
+            padding-top: 10px;
+        }
+        .like-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            border: 1.5px solid rgba(0,0,0,0.12);
+            background: white;
+            font-size: 0.8em;
+            font-weight: 600;
+            color: #888;
+            cursor: pointer;
+            transition: 0.18s ease;
+            font-family: inherit;
+        }
+        .like-btn:hover { border-color: var(--yellow); background: var(--yellow-mid); color: var(--dark); }
+        .like-btn.liked  { background: var(--yellow-mid); border-color: var(--yellow); color: var(--dark); }
+
+        /* ── Session / trending card ── */
+        .session-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 11px;
+            padding: 10px 0;
+        }
+        .session-row + .session-row {
+            border-top: 1px solid var(--border);
+        }
+        .session-info { flex: 1; min-width: 0; }
+        .session-name {
+            font-size: 0.88em;
+            font-weight: 700;
+            color: var(--dark);
+            line-height: 1.3;
+        }
+        .session-meta {
+            font-size: 0.76em;
+            color: var(--aged);
+            margin-top: 3px;
+        }
+        .session-time {
+            font-size: 0.72em;
+            font-weight: 700;
+            color: var(--orange);
+            background: #FFF0E6;
+            border: 1px solid rgba(255,95,0,0.25);
+            border-radius: 4px;
+            padding: 2px 7px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        /* ══════════════════════════
+           MOBILE
+        ══════════════════════════ */
+        #mob-overlay {
+            display: none;
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.4);
+            z-index: 9;
+        }
+        #mob-toggle { display: none; }
+        #hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+            flex-shrink: 0;
+        }
+        #hamburger span {
+            display: block; width: 20px; height: 2px;
+            background: var(--dark); border-radius: 2px;
+            transition: 0.3s ease;
+        }
+
+        @media (max-width: 900px) {
+            #hamburger { display: flex; }
+            #nav-links  { display: none; }
+
+            #sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.28s ease;
+                z-index: 50;
+            }
+            #mob-toggle:checked ~ #mob-overlay { display: block; }
+            #mob-toggle:checked ~ #container #sidebar { transform: translateX(0); }
+
+            #content { margin-left: 0; }
+
+            #content-body { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 480px) {
+            #content { padding: 16px; }
+            #compose { gap: 8px; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ── Nav ── -->
+    <input type="checkbox" id="mob-toggle" style="display:none;">
+    <nav>
+        <div id="nav-container">
+            <label for="mob-toggle" id="hamburger" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </label>
+
+            <a href="/WebDev/pages/home/homepage.html">
+                <div class="logo">
+                    <span class="black">Hive</span><span class="orange">Minds</span>
+                </div>
+            </a>
+
+            <div id="nav-links">
+                <a class="active-nav" href="home_home-feed.html">Home</a>
+                <a href="../hives/hives.html">Hives</a>
+                <a href="../misc/profile.html">Profile</a>
+            </div>
+
+            <div style="display:flex;align-items:center;gap:8px;">
+                <div id="notif-btn" title="Notifications">
+                    <i class="fa-regular fa-bell"></i>
+                    <span class="notif-dot"></span>
+                </div>
+                <a href="../misc/profile.html" id="user-pill">
+                    <div id="user-avatar">RB</div>
+                    <span id="user-name">Student</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <label for="mob-toggle" id="mob-overlay"></label>
+
+    <!-- ── Shell ── -->
+    <div id="container">
+
+        <!-- Sidebar -->
+        <div id="sidebar">
+
+            <div class="sidebar-section">
+                <div class="sidebar-label">Menu</div>
+                <hr class="sidebar-hr">
+                <a href="home_home-feed.html">
+                    <div class="sidebar-btn active">
+                        <i class="fa-solid fa-house"></i> Home Feed
                     </div>
                 </a>
-                <div id="nav-links">
-                    <a class="hover active-nav" href="home_home-feed.html">Home</a>
-                    <a class="hover" href="../hives/hives.html">Hives</a>
-                    <a class="hover" href="../misc/profile.html">Profile</a>
-                </div>
-                <div id="auth-links">
-                    <a class="hover" href="../misc/profile.html">Student</a>
-                </div>
+                <a href="home_my-schedule.html">
+                    <div class="sidebar-btn">
+                        <i class="fa-regular fa-calendar"></i> My Schedule
+                    </div>
+                </a>
+                <a href="home_settings.html">
+                    <div class="sidebar-btn">
+                        <i class="fa-solid fa-gear"></i> Settings
+                    </div>
+                </a>
             </div>
-        </nav>
 
-        <main>
-            <div id="container">
-                <div id="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-label">Created Hives</div>
+                <hr class="sidebar-hr">
+                <a href="home_created-hives.html">
+                    <div class="sidebar-btn">
+                        <span class="hex owner"></span> Rick's Study Circle
+                    </div>
+                </a>
+            </div>
 
-                    <div id="menu">
-                        <p>MENU</p>
-                        <hr>
-                        <a href="home_home-feed.html">
-                            <div class="sidebar-button menu active"><p>Home Feed</p></div>
-                        </a>
-                        <a href="home_my-schedule.html">
-                            <div class="sidebar-button menu"><p>My Schedule</p></div>
-                        </a>
-                        <a href="home_settings.html">
-                            <div class="sidebar-button menu"><p>Settings</p></div>
-                        </a>
+            <div class="sidebar-section">
+                <div class="sidebar-label">My Hives</div>
+                <hr class="sidebar-hr">
+                <a href="home_calculus.html">
+                    <div class="sidebar-btn">
+                        <span class="hex"></span> Calculus study group
+                    </div>
+                </a>
+                <a href="/WebDev/pages/home/home_biology.html">
+                    <div class="sidebar-btn">
+                        <span class="hex"></span> Biology study group
+                    </div>
+                </a>
+            </div>
+
+        </div>
+
+        <!-- Content -->
+        <div id="content">
+
+            <!-- QOTD -->
+            <div id="qotd">
+                "To be successful, one has to be one of three bees — the queen bee, the hardest working bee, or the bee that does not fit in." — Suzy Kassem
+            </div>
+
+            <!-- Compose box -->
+            <div id="compose">
+                <div id="compose-avatar">RB</div>
+                <div id="compose-input">Share something with your hives…</div>
+            </div>
+
+            <!-- Feed -->
+            <div id="content-body">
+
+                <!-- LEFT — What's Buzzin' -->
+                <div class="feed-col" id="whats-buzzin">
+                    <div class="section-header">
+                        <p class="content-title">What's Buzzin'</p>
+                        <a href="home_calculus.html" class="content-link">See More →</a>
                     </div>
 
-                    <div id="created-hives">
-                        <p>CREATED HIVES</p>
-                        <hr>
-                        <a href="home_created-hives.html">
-                            <div class="created-hive-btn">
-                                <span class="hex-owner"></span><p>Rick's Study Circle</p>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div id="my-hives">
-                        <p>MY HIVES</p>
-                        <hr>
-                        <a href="home_calculus.html"><div class="sidebar-button my-hives"><span class="hex"></span><p>Calculus study group</p></div></a>
-                        <a href="/WebDev/pages/home/home_biology.html"><div class="sidebar-button my-hives"><span class="hex"></span><p>Biology study group</p></div></a>
-                     
-                    </div>
-                </div>
-
-                <div id="content">
-                    <div id="qotd">
-                        "To be successful, one has to be one of three bees: the queen bee, the hardest working bee, or the bee that does not fit in." - Suzy Kassem
-                    </div>
-                    <div id="content-body">
-                        <div id="whats-buzzin">
-                            <div class="title">
-                                <p class="content-title">What's Buzzin'</p>
-                                <a href="home_calculus.html"><p class="content-link">See More →</p></a>
-                            </div>
-
-                            <div class="card">
-                                <div class="header">
-                                    <div class="profile"><img src="../../assets/images/person-profile.jpg"></div>
-                                    <div class="person-info">
-                                        <div class="person-name">Rick Buzztley</div>
-                                        <div class="details">
-                                            <div class="date">2 hours ago</div>
-                                            -
-                                            <div class="group">Calculus Study Group</div>
-                                        </div>
-                                    </div>
-                                    <div class="tag">Mathematics</div>
+                    <!-- Post 1 -->
+                    <div class="card">
+                        <div class="post-header">
+                            <img class="post-avatar" src="../../assets/images/person-profile.jpg" alt="Rick Buzztley">
+                            <div class="post-meta">
+                                <div class="person-name">Rick Buzztley</div>
+                                <div class="post-details">
+                                    <span>2 hours ago</span>
+                                    <span>·</span>
+                                    <span class="group">Calculus Study Group</span>
                                 </div>
-                                <div class="card-text">
-                                    Hey everyone! I found this amazing video breakdown of related rates problems — it finally made it click for me. We should go through these in our session tonight. Who's joining at 7 PM? 🐝
-                                    <br><br>
-                                    <a target="_blank" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1">https://www.youtube.com/watch?v=dQw4w9WgXcQ</a>
-                                </div>
-                                <div class="like"><span><i class="fa-regular fa-thumbs-up"></i> 12 Helpful</span></div>
                             </div>
-
-                            <div class="card">
-                                <div class="header">
-                                    <div class="profile"><img src="../../assets/images/person-profile.jpg"></div>
-                                    <div class="person-info">
-                                        <div class="person-name">Carla Mendez</div>
-                                        <div class="details">
-                                            <div class="date">4 hours ago</div>
-                                            -
-                                            <div class="group">History Study Group</div>
-                                        </div>
-                                    </div>
-                                    <div class="tag">History</div>
-                                </div>
-                                <div class="card-text">Just finished summarizing the causes of WW2 — dropping my notes here for everyone. Let me know if I missed anything before our session!</div>
-                                <div class="like"><span><i class="fa-regular fa-thumbs-up"></i> 24 Helpful</span></div>
-                            </div>
-
-                            <div class="card">
-                                <div class="header">
-                                    <div class="profile"><img src="../../assets/images/person-profile.jpg"></div>
-                                    <div class="person-info">
-                                        <div class="person-name">Sam Uy</div>
-                                        <div class="details">
-                                            <div class="date">7 hours ago</div>
-                                            -
-                                            <div class="group">Physics Study Group</div>
-                                        </div>
-                                    </div>
-                                    <div class="tag">Physics</div>
-                                </div>
-                                <div class="card-text">Can someone explain Newton's 3rd law in super simple terms? I keep mixing it up during problem sets 😭</div>
-                                <div class="like"><span><i class="fa-regular fa-thumbs-up"></i> 8 Helpful</span></div>
-                            </div>
+                            <div class="tag">Mathematics</div>
                         </div>
+                        <div class="card-text">
+                            Hey everyone! I found this amazing video breakdown of related rates problems — it finally made it click for me. We should go through these in our session tonight. Who's joining at 7 PM? 🐝
+                            <br><br>
+                            <a target="_blank" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">youtube.com/watch?v=dQw4w9WgXcQ</a>
+                        </div>
+                        <div class="card-footer">
+                            <button class="like-btn" onclick="toggleLike(this, 12)">
+                                <i class="fa-regular fa-thumbs-up"></i>
+                                <span>12 Helpful</span>
+                            </button>
+                        </div>
+                    </div>
 
-                        <div id="upcoming">
-                            <div class="title">
-                                <p class="content-title">Upcoming Sessions</p>
-                                <a href="home_my-schedule.html"><p class="content-link">See More →</p></a>
-                            </div>
-
-                            <div class="card">
-                                <div class="session">
-                                    <span class="hex"></span>
-                                    <div class="session-box">
-                                        Calculus Study Group | 6pm-7pm | Today
-                                        <div class="topic">Linear Algebra Basics Review</div>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="session">
-                                    <span class="hex"></span>
-                                    <div class="session-box">
-                                        Biology Study Group | 9am-11am | Tomorrow
-                                        <div class="topic">Human Anatomy</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div id="trending">
-                                <div class="title">
-                                    <p class="content-title">Trending Hives</p>
-                                    <a href="../hives/hives.html"><p class="content-link">See More →</p></a>
-                                </div>
-
-                                <div class="card">
-                                    <div class="session">
-                                        <span class="hex"></span>
-                                        <div class="session-box">Chemistry Wizards<div class="topic">42 Members &mdash; Very Active</div></div>
-                                        <div class="tag">Chemistry</div>
-                                    </div>
-                                    <hr>
-                                    <div class="session">
-                                        <span class="hex"></span>
-                                        <div class="session-box">Literature & Lore<div class="topic">38 Members &mdash; Active</div></div>
-                                        <div class="tag">English</div>
-                                    </div>
-                                    <hr>
-                                    <div class="session">
-                                        <span class="hex"></span>
-                                        <div class="session-box">Calc Crusaders<div class="topic">55 Members &mdash; Very Active</div></div>
-                                        <div class="tag">Mathematics</div>
-                                    </div>
-                                    <hr>
-                                    <div class="session">
-                                        <span class="hex"></span>
-                                        <div class="session-box">Bio Bees<div class="topic">29 Members &mdash; Active</div></div>
-                                        <div class="tag">Biology</div>
-                                    </div>
+                    <!-- Post 2 -->
+                    <div class="card">
+                        <div class="post-header">
+                            <img class="post-avatar" src="../../assets/images/person-profile.jpg" alt="Carla Mendez">
+                            <div class="post-meta">
+                                <div class="person-name">Carla Mendez</div>
+                                <div class="post-details">
+                                    <span>4 hours ago</span>
+                                    <span>·</span>
+                                    <span class="group">History Study Group</span>
                                 </div>
                             </div>
+                            <div class="tag">History</div>
+                        </div>
+                        <div class="card-text">
+                            Just finished summarizing the causes of WW2 — dropping my notes here for everyone. Let me know if I missed anything before our session!
+                        </div>
+                        <div class="card-footer">
+                            <button class="like-btn" onclick="toggleLike(this, 24)">
+                                <i class="fa-regular fa-thumbs-up"></i>
+                                <span>24 Helpful</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Post 3 -->
+                    <div class="card">
+                        <div class="post-header">
+                            <img class="post-avatar" src="../../assets/images/person-profile.jpg" alt="Sam Uy">
+                            <div class="post-meta">
+                                <div class="person-name">Sam Uy</div>
+                                <div class="post-details">
+                                    <span>7 hours ago</span>
+                                    <span>·</span>
+                                    <span class="group">Physics Study Group</span>
+                                </div>
+                            </div>
+                            <div class="tag">Physics</div>
+                        </div>
+                        <div class="card-text">
+                            Can someone explain Newton's 3rd law in super simple terms? I keep mixing it up during problem sets 😭
+                        </div>
+                        <div class="card-footer">
+                            <button class="like-btn" onclick="toggleLike(this, 8)">
+                                <i class="fa-regular fa-thumbs-up"></i>
+                                <span>8 Helpful</span>
+                            </button>
                         </div>
                     </div>
                 </div>
+
+                <!-- RIGHT — Upcoming + Trending -->
+                <div class="feed-col">
+
+                    <!-- Upcoming Sessions -->
+                    <div class="section-header">
+                        <p class="content-title">Upcoming Sessions</p>
+                        <a href="home_my-schedule.html" class="content-link">See More →</a>
+                    </div>
+
+                    <div class="card">
+                        <div class="session-row">
+                            <span class="hex" style="margin-top:4px;"></span>
+                            <div class="session-info">
+                                <div class="session-name">Calculus Study Group</div>
+                                <div class="session-meta">Linear Algebra Basics Review</div>
+                            </div>
+                            <div class="session-time">6–7 PM · Today</div>
+                        </div>
+                        <div class="session-row">
+                            <span class="hex" style="margin-top:4px;"></span>
+                            <div class="session-info">
+                                <div class="session-name">Biology Study Group</div>
+                                <div class="session-meta">Human Anatomy</div>
+                            </div>
+                            <div class="session-time">9–11 AM · Tomorrow</div>
+                        </div>
+                    </div>
+
+                    <!-- Trending Hives -->
+                    <div class="section-header" style="margin-top:6px;">
+                        <p class="content-title">Trending Hives</p>
+                        <a href="../hives/hives.html" class="content-link">See More →</a>
+                    </div>
+
+                    <div class="card">
+                        <div class="session-row">
+                            <span class="hex" style="margin-top:4px;"></span>
+                            <div class="session-info">
+                                <div class="session-name">Chemistry Wizards</div>
+                                <div class="session-meta">42 members · Very Active</div>
+                            </div>
+                            <div class="tag">Chemistry</div>
+                        </div>
+                        <div class="session-row">
+                            <span class="hex" style="margin-top:4px;"></span>
+                            <div class="session-info">
+                                <div class="session-name">Literature &amp; Lore</div>
+                                <div class="session-meta">38 members · Active</div>
+                            </div>
+                            <div class="tag">English</div>
+                        </div>
+                        <div class="session-row">
+                            <span class="hex" style="margin-top:4px;"></span>
+                            <div class="session-info">
+                                <div class="session-name">Calc Crusaders</div>
+                                <div class="session-meta">55 members · Very Active</div>
+                            </div>
+                            <div class="tag">Mathematics</div>
+                        </div>
+                        <div class="session-row">
+                            <span class="hex" style="margin-top:4px;"></span>
+                            <div class="session-info">
+                                <div class="session-name">Bio Bees</div>
+                                <div class="session-meta">29 members · Active</div>
+                            </div>
+                            <div class="tag">Biology</div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
-        </main>
-<<<<<<< HEAD
-=======
+        </div>
+    </div>
 
-        
+    <script>
+        function toggleLike(btn, base) {
+            const isLiked = btn.classList.toggle('liked');
+            const count = isLiked ? base + 1 : base;
+            const icon = btn.querySelector('i');
+            icon.className = isLiked ? 'fa-solid fa-thumbs-up' : 'fa-regular fa-thumbs-up';
+            btn.querySelector('span').textContent = count + ' Helpful';
+        }
+    </script>
 
->>>>>>> origin/main
-    </body>
+</body>
 </html>

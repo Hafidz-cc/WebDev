@@ -1,113 +1,394 @@
-    <!DOCTYPE html>
-    <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <link rel="stylesheet" href="../../assets/CSS/base/base.css">
-            <link rel="stylesheet" href="../../assets/CSS/base/navbar.css">
-            <link rel="stylesheet" href="../../assets/CSS/base/layout.css">
-            <link rel="stylesheet" href="../../assets/CSS/home/home_my-schedule.css">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Schedule — HiveMinds</title>
 
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-            <link rel="preconnect" href="https://fonts.googleapis.com">
-            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-            <link href="https://fonts.googleapis.com/css2?family=Belanosima&family=Bricolage+Grotesque:opsz,wght@12..96,420&family=Coiny&family=McLaren&family=Pacifico&family=Pangolin&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet">
 
-            <style>
-            #container {
-                display: flex;
-                align-items: flex-start;
-            }
-            #sidebar {
-                width: 230px;
-                flex-shrink: 0;
-            }
-          
-            
-            </style>
-        
-        </head>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --yellow:     #FFD400;
+            --yellow-d:   #E6BF00;
+            --yellow-pale:#FFFDF0;
+            --yellow-mid: #FFF3B0;
+            --orange:     #FF5F00;
+            --dark:       #1A1600;
+            --hive:       #0D0B00;
+            --aged:       #6B5800;
+            --muted:      #9A8A60;
+            --border:     rgba(0,0,0,0.09);
+            --border-y:   #E8C84A;
+            --wax:        #FEFAF0;
+            --comb:       #FDF3D0;
+            --nav-h:      62px;
+            --sidebar-w:  220px;
+            --radius:     12px;
+        }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+            background: var(--wax);
+            color: var(--dark);
+            min-height: 100vh;
+            font-size: 14px;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        a { text-decoration: none; color: inherit; }
 
-        <body>
-            <nav>
-                <div id="nav-container">
-                     <a href="/WebDev/pages/home/homepage.html">
-                    <div class="logo">
-                        <span class="black">Hive</span><span class="orange">Minds</span>
+        /* ── Navbar ── */
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
+        #nav-container {
+            display: flex; align-items: center; justify-content: space-between;
+            height: var(--nav-h); padding: 0 28px; gap: 24px;
+            background: rgba(254,250,240,0.96);
+            backdrop-filter: blur(14px);
+            border-bottom: 1.5px solid var(--border-y);
+        }
+        .logo span { font-family: 'Fraunces', Georgia, serif; font-size: 1.45em; font-weight: 700; letter-spacing: -0.03em; }
+        .black { color: #0D0B00; } .orange { color: var(--orange); }
+        #nav-links { display: flex; align-items: center; gap: 4px; flex: 1; justify-content: center; }
+        #nav-links a { font-size: 0.88em; font-weight: 600; color: #3A2E00; padding: 6px 14px; border-radius: 6px; transition: 0.18s ease; }
+        #nav-links a:hover { background: rgba(255,212,0,0.18); color: var(--dark); }
+        #nav-links a.active-nav { background: var(--yellow); color: var(--hive); font-weight: 700; border: 1.5px solid rgba(0,0,0,0.15); }
+        #user-pill {
+            display: flex; align-items: center; gap: 9px;
+            padding: 5px 12px 5px 6px; border-radius: 30px;
+            border: 1.5px solid rgba(0,0,0,0.15); background: white;
+            cursor: pointer; transition: 0.18s ease;
+        }
+        #user-pill:hover { background: var(--yellow); }
+        #user-avatar {
+            width: 30px; height: 30px; border-radius: 50%;
+            background: var(--yellow-mid); border: 1.5px solid var(--border-y);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.78em; font-weight: 800; color: var(--aged); flex-shrink: 0;
+        }
+        #user-name { font-size: 0.84em; font-weight: 700; color: #3A2E00; }
+        #notif-btn {
+            position: relative; width: 36px; height: 36px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 8px; border: 1.5px solid rgba(0,0,0,0.15);
+            background: white; cursor: pointer; color: #555; font-size: 1em;
+            transition: 0.18s ease; flex-shrink: 0;
+        }
+        #notif-btn:hover { background: var(--yellow); }
+        .notif-dot { position: absolute; top: 6px; right: 6px; width: 8px; height: 8px; background: var(--orange); border-radius: 50%; border: 1.5px solid white; }
+        #hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; flex-shrink: 0; }
+        #hamburger span { display: block; width: 20px; height: 2px; background: var(--dark); border-radius: 2px; }
+
+        /* ── Layout ── */
+        #container { display: flex; min-height: calc(100vh - var(--nav-h)); margin-top: var(--nav-h); }
+        #sidebar {
+            width: var(--sidebar-w); min-width: var(--sidebar-w);
+            background: #FFFDF5; border-right: 1.5px solid var(--border);
+            display: flex; flex-direction: column; padding: 24px 10px 24px 16px;
+            gap: 28px; position: fixed; top: var(--nav-h); left: 0;
+            height: calc(100vh - var(--nav-h)); overflow-y: auto; z-index: 10;
+            transition: transform 0.28s ease;
+        }
+        .sidebar-section { display: flex; flex-direction: column; gap: 3px; }
+        .sidebar-label { font-size: 0.67em; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); padding: 0 10px 6px; }
+        .sidebar-hr { border: none; border-top: 1px solid var(--border); margin-bottom: 4px; }
+        .sidebar-btn {
+            display: flex; align-items: center; gap: 9px; padding: 8px 12px;
+            border-radius: 7px; transition: 0.16s ease; cursor: pointer;
+            border-left: 3px solid transparent;
+            font-size: 0.87em; font-weight: 500; color: #3A2E00;
+        }
+        .sidebar-btn:hover { background: rgba(255,212,0,0.14); border-left-color: rgba(255,212,0,0.5); }
+        .sidebar-btn.active { background: rgba(255,212,0,0.22); border-left-color: var(--yellow); font-weight: 700; color: var(--dark); }
+        .sidebar-btn i { width: 16px; text-align: center; font-size: 0.9em; color: var(--aged); }
+        .sidebar-btn.active i { color: var(--dark); }
+        .hex { width: 10px; height: 11px; background: var(--orange); clip-path: polygon(25% 0%,75% 0%,100% 50%,75% 100%,25% 100%,0% 50%); flex-shrink: 0; }
+        .hex.owner { background: var(--yellow); }
+        #content {
+            flex: 1; margin-left: var(--sidebar-w); padding: 24px 28px;
+            background:
+                repeating-linear-gradient(60deg, transparent, transparent 28px, rgba(0,0,0,0.018) 28px, rgba(0,0,0,0.018) 30px),
+                repeating-linear-gradient(-60deg, transparent, transparent 28px, rgba(0,0,0,0.018) 28px, rgba(0,0,0,0.018) 30px),
+                #FFFDF5;
+            display: flex; flex-direction: column; gap: 20px; min-width: 0;
+        }
+
+        /* ── QOTD ── */
+        #qotd {
+            background: linear-gradient(135deg, var(--yellow-mid), var(--comb));
+            border: 2px dashed var(--border-y); border-radius: var(--radius);
+            padding: 16px 22px;
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 0.95em; font-weight: 500; color: var(--dark);
+            font-style: italic; line-height: 1.6;
+        }
+
+        /* ── Page title row ── */
+        .page-header {
+            display: flex; align-items: center; justify-content: space-between; gap: 12px;
+        }
+        .content-title {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.4em; font-weight: 600; color: var(--dark);
+            letter-spacing: -0.02em;
+        }
+
+        /* ── Schedule body ── */
+        #schedule-body { display: flex; flex-direction: column; gap: 28px; }
+
+        .schedule-section { display: flex; flex-direction: column; gap: 12px; }
+
+        .day-label {
+            font-size: 0.72em; font-weight: 800;
+            text-transform: uppercase; letter-spacing: 0.12em;
+            color: var(--muted);
+            padding: 6px 0 6px 4px;
+            border-bottom: 1.5px solid var(--border-y);
+        }
+        .day-label.today { color: var(--orange); border-color: var(--orange); }
+
+        /* ── Session card ── */
+        .sched-card {
+            background: white; border: 1.5px solid var(--border-y);
+            border-radius: var(--radius); overflow: hidden;
+            box-shadow: 3px 3px 0 rgba(232,200,74,0.4);
+        }
+
+        .session-row {
+            display: flex; align-items: center; gap: 14px;
+            padding: 14px 18px; transition: background 0.16s;
+        }
+        .session-row:hover { background: var(--yellow-pale); }
+        .session-row + .session-row { border-top: 1px solid var(--border); }
+
+        .session-left { display: flex; align-items: center; gap: 12px; flex: 1; min-width: 0; }
+        .session-info { flex: 1; min-width: 0; }
+        .session-name {
+            font-size: 0.92em; font-weight: 700; color: var(--dark);
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .session-topic {
+            font-size: 0.78em; color: var(--aged); margin-top: 2px;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .session-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+
+        .tag {
+            display: inline-block; background: var(--yellow); color: #000;
+            font-size: 9px; font-weight: 900; letter-spacing: 0.12em;
+            text-transform: uppercase; padding: 3px 8px;
+            border: 1.5px solid #000; white-space: nowrap;
+        }
+
+        .time-badge {
+            font-size: 0.75em; font-weight: 700; color: var(--orange);
+            background: #FFF0E6; border: 1px solid rgba(255,95,0,0.25);
+            border-radius: 5px; padding: 3px 9px; white-space: nowrap;
+        }
+        .time-badge.today-badge { background: #FFF0E6; border-color: var(--orange); }
+
+        /* Empty state */
+        .empty-day {
+            text-align: center; padding: 20px;
+            font-size: 0.85em; color: var(--muted);
+            background: white; border: 1.5px dashed var(--border-y);
+            border-radius: var(--radius);
+        }
+
+        /* ── Mobile ── */
+        #mob-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 9; }
+        #mob-toggle { display: none; }
+        @media (max-width: 900px) {
+            #hamburger { display: flex; }
+            #nav-links { display: none; }
+            #sidebar { transform: translateX(-100%); z-index: 50; }
+            #mob-toggle:checked ~ #mob-overlay { display: block; }
+            #mob-toggle:checked ~ #container #sidebar { transform: translateX(0); }
+            #content { margin-left: 0; padding: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+<input type="checkbox" id="mob-toggle" style="display:none;">
+<nav>
+    <div id="nav-container">
+        <label for="mob-toggle" id="hamburger" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </label>
+        <a href="/WebDev/pages/home/homepage.html">
+            <div class="logo"><span class="black">Hive</span><span class="orange">Minds</span></div>
+        </a>
+        <div id="nav-links">
+            <a href="home_home-feed.html" class="active-nav">Home</a>
+            <a href="../hives/hives.html">Hives</a>
+            <a href="../misc/profile.html">Profile</a>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+            <div id="notif-btn"><i class="fa-regular fa-bell"></i><span class="notif-dot"></span></div>
+            <a href="../misc/profile.html" id="user-pill">
+                <div id="user-avatar">RB</div>
+                <span id="user-name">Student</span>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<label for="mob-toggle" id="mob-overlay"></label>
+
+<div id="container">
+    <div id="sidebar">
+        <div class="sidebar-section">
+            <div class="sidebar-label">Menu</div>
+            <hr class="sidebar-hr">
+            <a href="home_home-feed.html"><div class="sidebar-btn"><i class="fa-solid fa-house"></i> Home Feed</div></a>
+            <a href="home_my-schedule.html"><div class="sidebar-btn active"><i class="fa-regular fa-calendar"></i> My Schedule</div></a>
+            <a href="home_settings.html"><div class="sidebar-btn"><i class="fa-solid fa-gear"></i> Settings</div></a>
+        </div>
+        <div class="sidebar-section">
+            <div class="sidebar-label">Created Hives</div>
+            <hr class="sidebar-hr">
+            <a href="home_created-hives.html"><div class="sidebar-btn"><span class="hex owner"></span> Rick's Study Circle</div></a>
+        </div>
+        <div class="sidebar-section">
+            <div class="sidebar-label">My Hives</div>
+            <hr class="sidebar-hr">
+            <a href="home_calculus.html"><div class="sidebar-btn"><span class="hex"></span> Calculus Study Group</div></a>
+            <a href="home_biology.html"><div class="sidebar-btn"><span class="hex"></span> Biology Study Group</div></a>
+        </div>
+    </div>
+
+    <div id="content">
+        <div id="qotd">"A bee is never as busy as it seems; it's just that it can't explain what it's doing." — Elbert Hubbard</div>
+
+        <div class="page-header">
+            <p class="content-title">My Schedule</p>
+        </div>
+
+        <div id="schedule-body">
+
+            <div class="schedule-section">
+                <div class="day-label today">Today — Monday, March 23</div>
+                <div class="sched-card">
+                    <div class="session-row">
+                        <div class="session-left">
+                            <span class="hex"></span>
+                            <div class="session-info">
+                                <div class="session-name">Calculus Study Group</div>
+                                <div class="session-topic">Linear Algebra Basics Review</div>
+                            </div>
+                        </div>
+                        <div class="session-right">
+                            <div class="tag">Mathematics</div>
+                            <div class="time-badge today-badge">6:00 – 7:00 PM</div>
+                        </div>
                     </div>
-                </a>
-                    <div id="nav-links">
-                        <a class="hover" href="home_home-feed.html">Home</a>
-                        <a class="hover" href="../hives/hives.html">Hives</a>
-                        <a class="hover" href="../misc/profile.html">Profile</a>
-                    </div>
-                    <div id="auth-links">
-                        <a class="hover" href="../misc/profile.html">Student</a>
+                    <div class="session-row">
+                        <div class="session-left">
+                            <span class="hex"></span>
+                            <div class="session-info">
+                                <div class="session-name">English Study Group</div>
+                                <div class="session-topic">Essay Writing Workshop — Argumentative Structure</div>
+                            </div>
+                        </div>
+                        <div class="session-right">
+                            <div class="tag">English</div>
+                            <div class="time-badge today-badge">8:00 – 9:00 PM</div>
+                        </div>
                     </div>
                 </div>
-            </nav>
+            </div>
 
-            <main>
-                <div id="container">
-                    <div id="sidebar">
-                        <div id="menu">
-                            <p>MENU</p>
-                            <hr>
-                            <a href="home_home-feed.html"><div class="sidebar-button menu"><p>Home Feed</p></div></a>
-                            <a href="home_my-schedule.html"><div class="sidebar-button menu active"><p>My Schedule</p></div></a>
-                            <a href="home_settings.html"><div class="sidebar-button menu"><p>Settings</p></div></a>
+            <div class="schedule-section">
+                <div class="day-label">Tomorrow — Tuesday, March 24</div>
+                <div class="sched-card">
+                    <div class="session-row">
+                        <div class="session-left">
+                            <span class="hex"></span>
+                            <div class="session-info">
+                                <div class="session-name">Biology Study Group</div>
+                                <div class="session-topic">Human Anatomy — Organ Systems Overview</div>
+                            </div>
                         </div>
-                        <div id="created-hives">
-                            <p>CREATED HIVES</p>
-                            <hr>
-                            <a href="home_created-hives.html"><div class="created-hive-btn"><span class="hex-owner"></span><p>Rick's Study Circle</p></div></a>
-                        </div>
-                        <div id="my-hives">
-                            <p>MY HIVES</p>
-                            <hr>
-                            <a href="home_calculus.html"><div class="sidebar-button my-hives"><span class="hex"></span><p>Calculus Study Group</p></div></a>
-                            <a href="home_biology.html"><div class="sidebar-button my-hives"><span class="hex"></span><p>Biology Study Group</p></div></a>
+                        <div class="session-right">
+                            <div class="tag">Biology</div>
+                            <div class="time-badge">9:00 – 11:00 AM</div>
                         </div>
                     </div>
-
-                    <div id="content">
-                        <div id="qotd">"A bee is never as busy as it seems; it's just that it can't explain what it's doing." - Elbert Hubbard</div>
-
-                        <div id="schedule-body">
-                            <div class="schedule-section">
-                                <p class="content-title">My Schedule</p>
-                                <div class="day-label">Today — Monday, March 23</div>
-                                <div class="card">
-                                    <div class="session"><span class="hex"></span><div class="session-box">Calculus Study Group<div class="topic">Linear Algebra Basics Review</div><span class="tag">Mathematics</span></div><div class="session-time">6:00 PM – 7:00 PM</div></div>
-                                    <hr>
-                                    <div class="session"><span class="hex"></span><div class="session-box">English Study Group<div class="topic">Essay Writing Workshop — Argumentative Structure</div><span class="tag">English</span></div><div class="session-time">8:00 PM – 9:00 PM</div></div>
-                                </div>
+                    <div class="session-row">
+                        <div class="session-left">
+                            <span class="hex"></span>
+                            <div class="session-info">
+                                <div class="session-name">Physics Study Group</div>
+                                <div class="session-topic">Newton's Laws and Problem Solving</div>
                             </div>
-                            <div class="schedule-section">
-                                <div class="day-label">Tomorrow — Tuesday, March 24</div>
-                                <div class="card">
-                                    <div class="session"><span class="hex"></span><div class="session-box">Biology Study Group<div class="topic">Human Anatomy — Organ Systems Overview</div><span class="tag">Biology</span></div><div class="session-time">9:00 AM – 11:00 AM</div></div>
-                                    <hr>
-                                    <div class="session"><span class="hex"></span><div class="session-box">Physics Study Group<div class="topic">Newton's Laws and Problem Solving</div><span class="tag">Physics</span></div><div class="session-time">3:00 PM – 4:30 PM</div></div>
-                                </div>
-                            </div>
-                            <div class="schedule-section">
-                                <div class="day-label">Wednesday, March 25</div>
-                                <div class="card">
-                                    <div class="session"><span class="hex"></span><div class="session-box">History Study Group<div class="topic">World War II — causes and key events</div><span class="tag">History</span></div><div class="session-time">5:00 PM – 6:30 PM</div></div>
-                                </div>
-                            </div>
-                            <div class="schedule-section">
-                                <div class="day-label">Friday, March 27</div>
-                                <div class="card">
-                                    <div class="session"><span class="hex"></span><div class="session-box">Calculus Study Group<div class="topic">Related rates — practice problems</div><span class="tag">Mathematics</span></div><div class="session-time">7:00 PM – 8:30 PM</div></div>
-                                    <hr>
-                                    <div class="session"><span class="hex"></span><div class="session-box">Biology Study Group<div class="topic">Cell division — mitosis vs meiosis</div><span class="tag">Biology</span></div><div class="session-time">9:00 PM – 10:00 PM</div></div>
-                                </div>
-                            </div>
+                        </div>
+                        <div class="session-right">
+                            <div class="tag">Physics</div>
+                            <div class="time-badge">3:00 – 4:30 PM</div>
                         </div>
                     </div>
                 </div>
-            </main>
-        </body>
-    </html>
+            </div>
+
+            <div class="schedule-section">
+                <div class="day-label">Wednesday, March 25</div>
+                <div class="sched-card">
+                    <div class="session-row">
+                        <div class="session-left">
+                            <span class="hex"></span>
+                            <div class="session-info">
+                                <div class="session-name">History Study Group</div>
+                                <div class="session-topic">World War II — Causes and Key Events</div>
+                            </div>
+                        </div>
+                        <div class="session-right">
+                            <div class="tag">History</div>
+                            <div class="time-badge">5:00 – 6:30 PM</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="schedule-section">
+                <div class="day-label">Friday, March 27</div>
+                <div class="sched-card">
+                    <div class="session-row">
+                        <div class="session-left">
+                            <span class="hex"></span>
+                            <div class="session-info">
+                                <div class="session-name">Calculus Study Group</div>
+                                <div class="session-topic">Related Rates — Practice Problems</div>
+                            </div>
+                        </div>
+                        <div class="session-right">
+                            <div class="tag">Mathematics</div>
+                            <div class="time-badge">7:00 – 8:30 PM</div>
+                        </div>
+                    </div>
+                    <div class="session-row">
+                        <div class="session-left">
+                            <span class="hex"></span>
+                            <div class="session-info">
+                                <div class="session-name">Biology Study Group</div>
+                                <div class="session-topic">Cell Division — Mitosis vs Meiosis</div>
+                            </div>
+                        </div>
+                        <div class="session-right">
+                            <div class="tag">Biology</div>
+                            <div class="time-badge">9:00 – 10:00 PM</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
