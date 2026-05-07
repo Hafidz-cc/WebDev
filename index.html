@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HiveMinds</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ── Reset ── */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+            background: #FEFAF0;
+            color: #2C2400;
+            overflow-x: hidden;
+        }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; height: auto; display: block; }
+
+        /* ── Tokens ── */
+        :root {
+            --yellow:      #FFD400;
+            --yellow-d:    #E6BF00;
+            --yellow-pale: #FFFDF0;
+            --yellow-mid:  #FFF3B0;
+            --orange:      #FF5F00;
+            --wax:         #FEFAF0;
+            --comb:        #FDF3D0;
+            --dark:        #1A1600;
+            --hive:        #0D0B00;
+            --aged:        #6B5800;
+            --muted:       #8C7A50;
+            --nav-h:       62px;
+        }
+
+        /* ══════════════════════════════
+           NAVBAR
+        ══════════════════════════════ */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+        }
+        #nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: var(--nav-h);
+            padding: 0 28px;
+            gap: 24px;
+            background: rgba(254, 250, 240, 0.94);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1.5px solid #E8C84A;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+        .logo span {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.45em;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1;
+        }
+        .black  { color: #0D0B00; }
+        .orange { color: #FF5F00; }
+
+        #nav-links {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex: 1;
+            justify-content: center;
+        }
+        #nav-links a {
+            font-size: 0.88em;
+            font-weight: 600;
+            color: #3A2E00;
+            padding: 6px 14px;
+            border-radius: 6px;
+            transition: 0.2s ease;
+        }
+        #nav-links a:hover {
+            background: rgba(255, 212, 0, 0.18);
+            color: #1A1600;
+        }
+
+        #auth-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+        #auth-links a {
+            font-size: 0.88em;
+            font-weight: 600;
+            color: #3A2E00;
+            padding: 7px 16px;
+            border-radius: 6px;
+            border: 1.5px solid rgba(0,0,0,0.18);
+            background: white;
+            transition: 0.2s ease;
+        }
+        #auth-links a:hover {
+            background: var(--yellow);
+            border-color: rgba(0,0,0,0.2);
+            color: #0D0B00;
+        }
+
+        /* Bee easter egg */
+        #bee {
+            position: relative;
+            display: inline-block;
+            cursor: default;
+            padding: 0 4px;
+            color: #888;
+        }
+        #bee::after {
+            content: "🐝";
+            position: absolute;
+            left: 50%; top: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        #bee:hover { color: transparent; }
+        #bee:hover::after { opacity: 1; }
+
+        /* Hamburger (mobile) */
+        #nav-toggle { display: none; }
+        #hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+            flex-shrink: 0;
+        }
+        #hamburger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: #1A1600;
+            border-radius: 2px;
+            transition: 0.3s ease;
+        }
+
+        /* ══════════════════════════════
+           HERO
+        ══════════════════════════════ */
+        #hero {
+            min-height: 100vh;
+            padding: calc(var(--nav-h) + 60px) 8% 80px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 60px;
+            background-image:
+                repeating-linear-gradient(60deg,  transparent, transparent 28px, rgba(0,0,0,0.04) 28px, rgba(0,0,0,0.04) 30px),
+                repeating-linear-gradient(-60deg, transparent, transparent 28px, rgba(0,0,0,0.04) 28px, rgba(0,0,0,0.04) 30px);
+            background-color: #FEFAF0;
+        }
+        #heading {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        #title h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: clamp(3.2rem, 6vw, 5.5rem);
+            color: #000;
+            line-height: 1.1;
+            text-shadow: 1px 2px rgba(0,0,0,0.12);
+        }
+        #title h1 span {
+            color: #FF5F00;
+            text-shadow: 1px 2px rgba(0,0,0,0.2);
+        }
+        #desc {
+            font-size: clamp(1rem, 1.6vw, 1.25em);
+            color: rgba(0,0,0,0.7);
+            line-height: 1.7;
+            max-width: 440px;
+        }
+        #cta-button {
+            margin-top: 12px;
+        }
+        #cta-button a {
+            display: inline-flex;
+        }
+
+        /* Hex button */
+        .hex-outer-btn {
+            clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+            background: #000;
+            width: 210px;
+            height: 54px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            animation: wobble 2.5s ease-in-out infinite;
+            transition: transform 0.2s ease;
+        }
+        #cta-button a:hover .hex-outer-btn {
+            animation: none;
+            transform: scale(1.08);
+        }
+        .hex-inner-btn {
+            clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+            background: #000;
+            width: calc(100% - 6px);
+            height: calc(100% - 6px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FFD400;
+            font-weight: 800;
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+        }
+        @keyframes wobble {
+            0%, 100% { transform: rotate(0deg); }
+            25%       { transform: rotate(-2deg); }
+            75%       { transform: rotate(2deg); }
+        }
+
+        #header-img {
+            width: 100%;
+            max-width: 500px;
+            aspect-ratio: 1 / 1;
+            justify-self: end;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 2.5px solid #000;
+            box-shadow: 8px 8px 0 #1A1600;
+        }
+        #header-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* ══════════════════════════════
+           SHARED SECTION STYLES
+        ══════════════════════════════ */
+        .section-wrap {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 88px 52px;
+        }
+        .section-intro {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: #D48C00;
+            margin-bottom: 14px;
+        }
+        .section-title {
+            font-weight: 800;
+            font-size: clamp(1.8rem, 3vw, 2.6rem);
+            color: #1A1600;
+            line-height: 1.15;
+            letter-spacing: -0.025em;
+            margin-bottom: 52px;
+        }
+
+        /* ══════════════════════════════
+           FEATURES
+        ══════════════════════════════ */
+        .features-wrap {
+            background: #F7F5F0;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-top: 0;
+        }
+        .feat-card {
+            background: #fff;
+            border: 2px solid #1A1600;
+            border-radius: 12px;
+            padding: 28px 24px;
+            transition: all 0.22s;
+            box-shadow: 4px 4px 0 #1A1600;
+        }
+        .feat-card:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0 #1A1600;
+        }
+        .feat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            background: #FDF3D0;
+            border: 2px solid #E8C84A;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            margin-bottom: 18px;
+        }
+        .feat-card h3 {
+            font-weight: 800;
+            font-size: 15px;
+            color: #1A1600;
+            margin-bottom: 8px;
+        }
+        .feat-card p {
+            font-size: 14px;
+            color: #6B5800;
+            line-height: 1.65;
+        }
+
+        /* ══════════════════════════════
+           HOW IT WORKS
+        ══════════════════════════════ */
+        .how-wrap {
+            background: #FDF3D0;
+        }
+        .how-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            position: relative;
+        }
+        .how-grid::before {
+            content: '';
+            position: absolute;
+            top: 44px;
+            left: 16.66%;
+            right: 16.66%;
+            height: 2px;
+            background: #E8C84A;
+            z-index: 0;
+        }
+        .how-card {
+            background: #fff;
+            border: 2px solid #1A1600;
+            border-radius: 12px;
+            padding: 32px 26px;
+            position: relative;
+            z-index: 1;
+            box-shadow: 4px 4px 0 #1A1600;
+            transition: all 0.22s;
+        }
+        .how-card:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0 #1A1600;
+        }
+        .how-step {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #F5A800;
+            border: 3px solid #1A1600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 800;
+            color: #1A1600;
+            margin-bottom: 20px;
+        }
+        .how-card h3 {
+            font-weight: 800;
+            font-size: 16px;
+            color: #1A1600;
+            margin-bottom: 10px;
+        }
+        .how-card p {
+            font-size: 14px;
+            color: #6B5800;
+            line-height: 1.7;
+        }
+
+        /* ══════════════════════════════
+           SEPARATOR
+        ══════════════════════════════ */
+        .separator {
+            width: 100%;
+            height: 30px;
+            background: #FFD400;
+        }
+
+        /* ══════════════════════════════
+           POPULAR HIVES
+        ══════════════════════════════ */
+        .groups-wrap {
+            background:
+                repeating-linear-gradient(60deg, transparent, transparent 28px, rgba(0,0,0,0.06) 28px, rgba(0,0,0,0.02) 30px),
+                repeating-linear-gradient(-60deg, transparent, transparent 28px, rgba(0,0,0,0.06) 28px, rgba(0,0,0,0.02) 30px),
+                #fffdf5;
+        }
+        .groups-wrap .section-title {
+            margin-bottom: 32px;
+        }
+        #hives-right {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+        .card {
+            background: #fff;
+            border: 2px solid #1A1600;
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.22s;
+            box-shadow: 4px 4px 0 #1A1600;
+        }
+        .card:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0 #1A1600;
+        }
+        .img-container {
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            overflow: hidden;
+            border-bottom: 2px solid #000;
+        }
+        .img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+        .card:hover .img-container img {
+            transform: scale(1.04);
+        }
+        .text-area {
+            padding: 16px 18px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .tag {
+            display: inline-block;
+            background: #FFD400;
+            color: #000;
+            font-size: 9px;
+            font-weight: 900;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 3px 8px;
+            border: 1.5px solid #000;
+            width: fit-content;
+        }
+        .card-title {
+            font-size: 16px;
+            font-weight: 900;
+            color: #000;
+            line-height: 1.25;
+            margin: 0;
+        }
+        .card-meta {
+            font-size: 12px;
+            color: #888;
+            margin: 0;
+        }
+
+        /* ══════════════════════════════
+           FOOTER / CTA
+        ══════════════════════════════ */
+        footer {
+            background: rgb(12, 12, 12);
+            border-top: 0.1px solid #FFD400;
+        }
+        #cta {
+            display: flex;
+            flex-direction: row;
+            background-color: rgb(12, 12, 12);
+            border-top: 3px dashed rgba(88, 88, 88, 0.67);
+            border-bottom: 1px solid #FFD400;
+            min-height: 320px;
+        }
+        #cta-text {
+            display: flex;
+            flex-direction: column;
+            width: 60%;
+            padding: 80px 120px;
+            gap: 24px;
+            justify-content: center;
+        }
+        #cta-title h1 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 900;
+            color: #fffdf5;
+            font-size: clamp(2.5rem, 5vw, 5rem);
+            line-height: 1.05;
+        }
+        #cta-title h1 span {
+            color: #ffcc00;
+            display: inline-block;
+        }
+        @keyframes shake {
+            0%   { transform: translateX(0); }
+            25%  { transform: translateX(-3px); }
+            75%  { transform: translateX(3px); }
+            100% { transform: translateX(0); }
+        }
+        #cta-title h1 span:hover {
+            animation: shake 0.1s ease infinite;
+        }
+        #cta-desc p {
+            color: #888;
+            font-size: 1.2em;
+        }
+        #cta-section-button {
+            width: fit-content;
+            padding: 12px 28px;
+            border: 3px dashed #ffcc00;
+            font-size: 1.4em;
+            font-weight: 700;
+            color: #ffcc00;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.2s ease;
+        }
+        #cta-section-button:hover {
+            border: 3px solid #ffcc00;
+            background-color: #ffcc00;
+            color: #000;
+        }
+        #ghost-text-thing {
+            width: 40%;
+            padding: 10px;
+            color: rgba(136,136,136,0.47);
+            font-size: clamp(2.5rem, 4vw, 5em);
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-weight: 900;
+            user-select: none;
+        }
+        #footer-inner {
+            padding: 16px 50px;
+        }
+        #footer-inner p {
+            color: rgba(255,255,255,0.25);
+            font-size: 0.85em;
+        }
+
+        /* ══════════════════════════════
+           RESPONSIVE
+        ══════════════════════════════ */
+        @media (max-width: 1100px) {
+            .feature-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            #hives-right {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 900px) {
+            #hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+                padding: calc(var(--nav-h) + 40px) 7% 60px;
+                gap: 36px;
+            }
+            #heading {
+                align-items: center;
+            }
+            #desc {
+                max-width: 100%;
+            }
+            #header-img {
+                max-width: 380px;
+                justify-self: center;
+            }
+            .how-grid {
+                grid-template-columns: 1fr;
+            }
+            .how-grid::before { display: none; }
+            .section-wrap {
+                padding: 64px 32px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            /* Hamburger nav */
+            #hamburger { display: flex; }
+            #nav-links, #auth-links {
+                display: none;
+                position: absolute;
+                top: var(--nav-h);
+                left: 0; right: 0;
+                background: rgba(254, 250, 240, 0.98);
+                border-bottom: 1.5px solid #E8C84A;
+                padding: 16px 20px;
+                flex-direction: column;
+                gap: 6px;
+            }
+            #nav-toggle:checked ~ #nav-links,
+            #nav-toggle:checked ~ #auth-links {
+                display: flex;
+            }
+            #auth-links {
+                padding-top: 0;
+                flex-direction: row;
+                justify-content: center;
+                border-bottom: none;
+                padding-bottom: 16px;
+            }
+            #bee { display: none; }
+
+            #hero {
+                gap: 28px;
+                min-height: auto;
+                padding-bottom: 50px;
+            }
+            .feature-grid {
+                grid-template-columns: 1fr;
+                gap: 14px;
+            }
+            #hives-right {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 14px;
+            }
+            #cta {
+                flex-direction: column;
+            }
+            #cta-text {
+                width: 100%;
+                padding: 50px 32px;
+                text-align: center;
+                align-items: center;
+            }
+            #ghost-text-thing {
+                width: 100%;
+                justify-content: center;
+                padding: 20px 32px 40px;
+                font-size: 2.5em;
+            }
+            .section-wrap {
+                padding: 52px 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #hives-right {
+                grid-template-columns: 1fr;
+            }
+            #header-img {
+                max-width: 280px;
+            }
+            #title h1 {
+                font-size: 2.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ── NAVBAR ── -->
+    <nav>
+        <input type="checkbox" id="nav-toggle" style="display:none;">
+        <div id="nav-container">
+            <a href="index.html">
+                <div class="logo">
+                    <span class="black">Hive</span><span class="orange">Minds</span>
+                </div>
+            </a>
+
+            <div id="nav-links">
+                <a href="#features">Features</a>
+                <a href="#how">How it works</a>
+                <a href="#popular-hives">Explore hives</a>
+            </div>
+
+            <div id="auth-links">
+                <a href="pages/auth/login.html">Login</a>
+                <span id="bee">|</span>
+                <a href="pages/auth/signup.html">Signup</a>
+            </div>
+
+            <label for="nav-toggle" id="hamburger" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+        </div>
+    </nav>
+
+    <!-- ── HERO ── -->
+    <header>
+        <div id="hero">
+            <div id="heading">
+                <div id="title">
+                    <h1>Hive<span>Minds</span></h1>
+                </div>
+                <p id="desc">
+                    Connect with other students, join study groups, and stay motivated while learning
+                </p>
+                <div id="cta-button">
+                    <a href="pages/auth/login.html">
+                        <div class="hex-outer-btn">
+                            <div class="hex-inner-btn">Join the Hive →</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div id="header-img">
+                <img src="assets/images/Group.jpg" alt="Students studying together">
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- ── FEATURES ── -->
+        <section class="features-wrap" id="features">
+            <div class="section-wrap">
+                <div class="section-intro">Why HiveMinds?</div>
+                <div class="section-title">Everything you need<br>to study smarter</div>
+
+                <div class="feature-grid">
+                    <div class="feat-card">
+                        <div class="feat-icon">🔍</div>
+                        <h3>Find groups</h3>
+                        <p>Filter through groups by subject, schedule, or study style to find your perfect match.</p>
+                    </div>
+                    <div class="feat-card">
+                        <div class="feat-icon">✏️</div>
+                        <h3>Join groups</h3>
+                        <p>Collaborate, share notes, and learn together with peers who get it.</p>
+                    </div>
+                    <div class="feat-card">
+                        <div class="feat-icon">🏫</div>
+                        <h3>Verified community</h3>
+                        <p>Only students from your school — a trusted space to learn and grow.</p>
+                    </div>
+                    <div class="feat-card">
+                        <div class="feat-icon">🌐</div>
+                        <h3>Online interaction</h3>
+                        <p>Chat, meet, and study together in real-time from anywhere.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── HOW IT WORKS ── -->
+        <section class="how-wrap" id="how">
+            <div class="section-wrap">
+                <div class="section-intro">How it works</div>
+                <div class="section-title">Three steps to your<br>perfect study hive</div>
+
+                <div class="how-grid">
+                    <div class="how-card">
+                        <div class="how-step">1</div>
+                        <h3>Create account</h3>
+                        <p>Sign up using your school email — takes less than a minute.</p>
+                    </div>
+                    <div class="how-card">
+                        <div class="how-step">2</div>
+                        <h3>Join groups</h3>
+                        <p>Pick your subject and jump into a group that fits your pace.</p>
+                    </div>
+                    <div class="how-card">
+                        <div class="how-step">3</div>
+                        <h3>Study together</h3>
+                        <p>Collaborate, share notes, and improve together over time.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="separator"></div>
+
+        <!-- ── POPULAR HIVES ── -->
+        <section class="groups-wrap" id="popular-hives">
+            <div class="section-wrap">
+                <div class="section-title">Popular hives</div>
+
+                <div id="hives-right">
+                    <div class="card">
+                        <div class="img-container">
+                            <img src="assets/images/calculus.jpg" alt="Calculus">
+                        </div>
+                        <div class="text-area">
+                            <span class="tag">Mathematics</span>
+                            <p class="card-title">Calculus Study Group</p>
+                            <p class="card-meta">142 members · Active daily</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="img-container">
+                            <img src="assets/images/biology.jpg" alt="Biology">
+                        </div>
+                        <div class="text-area">
+                            <span class="tag">Science</span>
+                            <p class="card-title">Biology Study Group</p>
+                            <p class="card-meta">98 members · Active daily</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="img-container">
+                            <img src="assets/images/compsci.jpg" alt="Computer Science">
+                        </div>
+                        <div class="text-area">
+                            <span class="tag">Technology</span>
+                            <p class="card-title">Computer Science Group</p>
+                            <p class="card-meta">214 members · Very active</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="img-container">
+                            <img src="assets/images/history.jpg" alt="History">
+                        </div>
+                        <div class="text-area">
+                            <span class="tag">Humanities</span>
+                            <p class="card-title">History Study Group</p>
+                            <p class="card-meta">76 members · Active weekly</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ── FOOTER ── -->
+    <footer>
+        <section id="cta">
+            <div id="cta-text">
+                <div id="cta-title">
+                    <h1>READY TO<br><span>BUZZ?</span></h1>
+                </div>
+                <div id="cta-desc">
+                    <p>Find your hive and enjoy studying again</p>
+                </div>
+                <a href="pages/auth/signup.html">
+                    <div id="cta-section-button">Sign Up Now</div>
+                </a>
+            </div>
+            <div id="ghost-text-thing">start now</div>
+        </section>
+
+        <div id="footer-inner">
+            <p>© 2026 HiveMinds</p>
+        </div>
+    </footer>
+
+</body>
+</html>

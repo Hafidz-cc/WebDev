@@ -685,7 +685,16 @@ footer {
         display: none;
     }
 
+    .groups-wrap {
+      display:flex;
+        justify-content: center;
+        align-items:  center;
+    }
+
     #popular-hives {
+        display:flex;
+        justify-content: center;
+        align-items:  center;
         flex-direction: column;
         gap: 3rem;
         padding: 4rem 2rem;
