@@ -15,11 +15,55 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Belanosima&family=Bricolage+Grotesque:opsz,wght@12..96,420&family=Coiny&family=McLaren&family=Pacifico&family=Pangolin&display=swap" rel="stylesheet">
 
-        
+        <style>
+            #sidebar {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+
+            .sidebar-logout {
+                padding: 12px 0 4px 0;
+            }
+
+            .sidebar-logout hr {
+                margin-bottom: 10px;
+                border: none;
+                border-top: 1px solid rgba(0,0,0,0.1);
+            }
+
+            .btn-logout {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                width: 100%;
+                padding: 10px 14px;
+                background-color: #fff0f0;
+                color: #c0392b;
+                border: 1.5px solid #f5c6c6;
+                border-radius: 8px;
+                font-size: 0.9rem;
+                font-weight: 600;
+                cursor: pointer;
+                text-decoration: none;
+                transition: background-color 0.2s ease, border-color 0.2s ease;
+                box-sizing: border-box;
+            }
+
+            .btn-logout:hover {
+                background-color: #c0392b;
+                color: #fff;
+                border-color: #c0392b;
+            }
+
+            .btn-logout i {
+                font-size: 0.85rem;
+            }
+        </style>
     </head>
 
     <body>
-                <nav>
+        <nav>
             <div id="nav-container">
                 <a href="/WebDev/pages/home/homepage.html">
                     <div class="logo">
@@ -32,59 +76,69 @@
                     <a class="hover" href="Dean-admin-hives.html">Hives</a>
                 </div>
                 <div id="auth-links">
-                    <a class="hover" href=""../adminDean/Dean-admin-settings.html"">Dean Admin</a>
+                    <a class="hover" href="Dean-admin-settings.html">Dean Admin</a>
                 </div>
             </div>
         </nav>
 
-
         <main>
             <div id="container">
                 <div id="sidebar">
-                    <div id="menu">
-                        <p>MENU</p>
-                        <hr>
-                        <a href="Dean-admin-dashboard.html">
-                            <div class="sidebar-button menu">
-                                <p>Dashboard</p>
+                    <div>
+                        <div id="menu">
+                            <p>MENU</p>
+                            <hr>
+                            <a href="Dean-admin-dashboard.html">
+                                <div class="sidebar-button menu">
+                                    <p>Dashboard</p>
+                                </div>
+                            </a>
+                            <a href="Dean-admin-users.html">
+                                <div class="sidebar-button menu">
+                                    <p>Users</p>
+                                </div>
+                            </a>
+                            <a href="Dean-admin-hives.html">
+                                <div class="sidebar-button menu">
+                                    <p>Hives</p>
+                                </div>
+                            </a>
+                            <a href="Dean-admin-verifications.html">
+                                <div class="sidebar-button menu">
+                                    <p>Group Verifications</p>
+                                </div>
+                            </a>
+                            <a href="Dean-admin-settings.html">
+                                <div class="sidebar-button menu active">
+                                    <p>Settings</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div id="my-hives">
+                            <p>QUICK STATS</p>
+                            <hr>
+                            <div class="sidebar-button my-hives">
+                                <span class="hex"></span><p>124 total users</p>
                             </div>
-                        </a>
-                        <a href="Dean-admin-users.html">
-                            <div class="sidebar-button menu">
-                                <p>Users</p>
+                            <div class="sidebar-button my-hives">
+                                <span class="hex"></span><p>38 active hives</p>
                             </div>
-                        </a>
-                        <a href="Dean-admin-hives.html">
-                            <div class="sidebar-button menu">
-                                <p>Hives</p>
+                            <div class="sidebar-button my-hives">
+                                <span class="hex"></span><p>3 flagged posts</p>
                             </div>
-                        </a>
-                         <a href="Dean-admin-verifications.html">
-                            <div class="sidebar-button menu">
-                                <p>Group Verifications</p>
+                            <div class="sidebar-button my-hives">
+                                <span class="hex"></span><p>12 new today</p>
                             </div>
-                        </a>
-                        <a href="Dean-admin-settings.html">
-                            <div class="sidebar-button menu active">
-                                <p>Settings</p>
-                            </div>
-                        </a>
+                        </div>
                     </div>
-                    <div id="my-hives">
-                        <p>QUICK STATS</p>
+
+                    <!-- Logout Button -->
+                    <div class="sidebar-logout">
                         <hr>
-                        <div class="sidebar-button my-hives">
-                            <span class="hex"></span><p>124 total users</p>
-                        </div>
-                        <div class="sidebar-button my-hives">
-                            <span class="hex"></span><p>38 active hives</p>
-                        </div>
-                        <div class="sidebar-button my-hives">
-                            <span class="hex"></span><p>3 flagged posts</p>
-                        </div>
-                        <div class="sidebar-button my-hives">
-                            <span class="hex"></span><p>12 new today</p>
-                        </div>
+                        <a href="../auth/login.html" class="btn-logout">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            Log Out
+                        </a>
                     </div>
                 </div>
 
@@ -152,4 +206,3 @@
         </main>
     </body>
 </html>
-

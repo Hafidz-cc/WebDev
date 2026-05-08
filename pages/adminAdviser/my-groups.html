@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Groups — HiveMinds</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --amber:#FFB500;--amber-d:#E6A000;--hive:#1A1400;--wax:#FEFAF0;--comb:#FDF3D0;
+      --accent:#EDD97A;--pale:#F0E6B8;--aged:#8C7A50;--warmgray:#6b7280;--text:#2D2410;--muted:#8C7A50;
+      --success:#166534;--success-bg:#dcfce7;--warning:#92400e;--warning-bg:#fef3c7;
+      --danger:#991b1b;--danger-bg:#fee2e2;--info:#1d4ed8;--info-bg:#dbeafe;
+      --purple:#6b21a8;--purple-bg:#f3e8ff;
+      --sidebar-w:240px;--nav-h:58px;--radius:10px;--radius-lg:14px;
+      --shadow-sm:0 1px 4px rgba(0,0,0,0.07);--shadow:0 2px 12px rgba(0,0,0,0.09);--shadow-lg:0 6px 24px rgba(0,0,0,0.13);
+    }
+    body { font-family:'Bricolage Grotesque',sans-serif; background:#F5EDD5; color:var(--text); min-height:100vh; overflow-x:hidden; }
+
+    /* NAVBAR */
+    .reg-nav { position:fixed;top:0;left:0;right:0;height:var(--nav-h);background:var(--hive);border-bottom:2.5px solid var(--amber);display:flex;align-items:center;padding:0 24px;z-index:100;gap:0; }
+    .reg-nav .logo { font-family:'Pacifico',cursive;font-size:1.25rem;color:#fff;text-decoration:none;flex-shrink:0;margin-right:32px; }
+    .reg-nav .logo span { color:var(--amber); }
+    .nav-links { display:flex;align-items:center;gap:2px;flex:1; }
+    .nav-links a { font-size:0.84rem;font-weight:600;color:rgba(255,255,255,0.62);text-decoration:none;padding:6px 14px;border-radius:7px;transition:all .18s;letter-spacing:.01em; }
+    .nav-links a:hover { color:#fff;background:rgba(255,255,255,0.08); }
+    .nav-links a.active { color:var(--hive);background:var(--amber); }
+    .nav-right { display:flex;align-items:center;gap:10px; }
+    .nav-user { font-size:0.83rem;font-weight:600;color:rgba(255,255,255,0.85);text-decoration:none;padding:6px 14px;border-radius:7px;border:1.5px solid rgba(255,212,0,0.4);transition:all .18s;cursor:pointer;display:flex;align-items:center;gap:7px;background:none; }
+    .nav-user:hover { border-color:var(--amber);color:var(--amber);background:rgba(255,181,0,0.08); }
+    .nav-user .avatar-dot { width:28px;height:28px;border-radius:50%;background:var(--amber);color:var(--hive);font-size:0.75rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0; }
+    .nav-logout { font-size:0.83rem;font-weight:700;color:rgba(255,255,255,0.55);text-decoration:none;padding:6px 13px;border-radius:7px;border:1.5px solid rgba(255,255,255,0.12);transition:all .18s; }
+    .nav-logout:hover { color:#fff;border-color:rgba(255,255,255,0.35); }
+
+    /* LAYOUT */
+    .reg-layout { display:flex;margin-top:var(--nav-h);min-height:calc(100vh - var(--nav-h)); }
+
+    /* SIDEBAR */
+    .reg-sidebar { width:var(--sidebar-w);flex-shrink:0;position:fixed;top:var(--nav-h);left:0;bottom:0;background:#fff;border-right:1.5px solid var(--accent);overflow-y:auto;padding:20px 14px 40px;display:flex;flex-direction:column;gap:24px; }
+    .sidebar-section-label { font-size:0.68rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--aged);padding:0 8px;margin-bottom:6px; }
+    .sidebar-divider { height:1px;background:var(--pale);margin:0 4px 10px; }
+    .sidebar-link { display:flex;align-items:center;gap:9px;padding:9px 12px;border-radius:9px;font-size:0.875rem;font-weight:600;color:var(--text);text-decoration:none;transition:all .16s;margin-bottom:2px;cursor:pointer; }
+    .sidebar-link .sico { width:18px;text-align:center;font-size:1rem;flex-shrink:0; }
+    .sidebar-link:hover { background:var(--comb);color:var(--amber-d); }
+    .sidebar-link.active { background:var(--amber);color:var(--hive);font-weight:700; }
+    .stat-pill { display:flex;align-items:center;gap:9px;padding:8px 12px;border-radius:9px;font-size:0.82rem;font-weight:500;color:var(--aged);background:var(--comb);border:1px solid var(--pale);margin-bottom:5px; }
+    .stat-pill .dot { width:7px;height:7px;border-radius:50%;background:var(--amber);flex-shrink:0; }
+    .sico-wrap { position:relative;display:inline-flex; }
+    .notif-dot { position:absolute;top:-3px;right:-4px;width:8px;height:8px;border-radius:50%;background:#ef4444;border:1.5px solid #fff; }
+
+    /* MAIN */
+    .reg-main { flex:1;margin-left:var(--sidebar-w);padding:28px 28px 48px; }
+    .page-header { margin-bottom:24px;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px; }
+    .page-header-left h1 { font-size:1.45rem;font-weight:800;color:var(--hive);letter-spacing:-.02em; }
+    .page-header-left p { font-size:0.87rem;color:var(--aged);margin-top:3px; }
+
+    /* PRIMARY BUTTON */
+    .btn-primary { display:inline-flex;align-items:center;gap:7px;padding:9px 18px;background:var(--amber);color:var(--hive);border:2px solid var(--hive);border-radius:var(--radius);font-family:'Bricolage Grotesque',sans-serif;font-size:0.85rem;font-weight:700;cursor:pointer;box-shadow:2px 2px 0 var(--hive);transition:all .15s; }
+    .btn-primary:hover { background:var(--amber-d);transform:translate(-1px,-1px);box-shadow:3px 3px 0 var(--hive); }
+    .btn-ghost { display:inline-flex;align-items:center;gap:7px;padding:8px 16px;background:#fff;color:var(--text);border:1.5px solid var(--accent);border-radius:var(--radius);font-family:'Bricolage Grotesque',sans-serif;font-size:0.84rem;font-weight:600;cursor:pointer;transition:all .15s; }
+    .btn-ghost:hover { background:var(--comb);border-color:var(--amber); }
+    .btn-danger { display:inline-flex;align-items:center;gap:7px;padding:8px 16px;background:#fff;color:var(--danger);border:1.5px solid var(--danger);border-radius:var(--radius);font-family:'Bricolage Grotesque',sans-serif;font-size:0.84rem;font-weight:700;cursor:pointer;transition:all .15s; }
+    .btn-danger:hover { background:var(--danger-bg); }
+
+    /* TABS */
+    .view-toggle { display:flex;gap:0;background:#fff;border:1.5px solid var(--accent);border-radius:9px;padding:3px;margin-bottom:20px;width:fit-content; }
+    .view-tab { padding:6px 16px;border-radius:7px;font-size:0.82rem;font-weight:700;cursor:pointer;border:none;background:none;font-family:'Bricolage Grotesque',sans-serif;color:var(--aged);transition:all .15s; }
+    .view-tab.active { background:var(--amber);color:var(--hive); }
+
+    /* GROUP CARD GRID */
+    .groups-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px;margin-bottom:28px; }
+    .group-card { background:#fff;border:1.5px solid var(--accent);border-radius:var(--radius-lg);box-shadow:3px 3px 0 var(--accent);overflow:hidden;cursor:pointer;transition:all .18s; }
+    .group-card:hover { transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--accent); }
+    .group-card.selected { border-color:var(--amber);box-shadow:3px 3px 0 var(--amber); }
+    .group-card-top { padding:18px 18px 14px;border-bottom:1px solid var(--pale);display:flex;align-items:flex-start;gap:12px; }
+    .group-icon { width:42px;height:42px;background:var(--comb);border:1.5px solid var(--accent);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0; }
+    .group-card-meta { flex:1;min-width:0; }
+    .group-card-name { font-size:0.97rem;font-weight:800;color:var(--hive);white-space:nowrap;overflow:hidden;text-overflow:ellipsis; }
+    .group-card-sub { font-size:0.76rem;color:var(--aged);margin-top:2px; }
+    .group-card-bottom { padding:12px 18px;display:flex;align-items:center;gap:8px;flex-wrap:wrap; }
+    .tbl-badge { display:inline-flex;padding:3px 10px;border-radius:100px;font-size:.75em;font-weight:700;white-space:nowrap;text-transform:uppercase;letter-spacing:.06em; }
+    .badge-active { background:var(--success-bg);color:var(--success); }
+    .badge-pending { background:var(--warning-bg);color:var(--warning); }
+    .badge-approved { background:var(--success-bg);color:var(--success); }
+    .badge-info { background:var(--info-bg);color:var(--info); }
+    .tbl-tag { display:inline-flex;background:var(--amber);color:var(--hive);font-size:9px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border:1.5px solid var(--hive);border-radius:3px;white-space:nowrap; }
+    .group-stat-chips { display:flex;gap:6px;flex:1;justify-content:flex-end;flex-wrap:wrap; }
+    .g-chip { font-size:0.74rem;font-weight:600;color:var(--aged);display:flex;align-items:center;gap:4px; }
+    .g-chip i { font-size:0.7rem;color:var(--amber-d); }
+
+    /* GROUP DETAIL PANEL */
+    .group-detail-wrap { display:none; }
+    .group-detail-wrap.open { display:block; }
+    .group-detail-back { display:inline-flex;align-items:center;gap:7px;font-size:0.83rem;font-weight:700;color:var(--aged);cursor:pointer;margin-bottom:18px;padding:6px 12px;border-radius:8px;border:1.5px solid var(--pale);background:#fff;transition:all .15s; }
+    .group-detail-back:hover { color:var(--amber-d);border-color:var(--amber); }
+
+    /* DETAIL HEADER */
+    .detail-header { background:#fff;border:1.5px solid var(--accent);border-radius:var(--radius-lg);box-shadow:3px 3px 0 var(--accent);padding:22px 24px;margin-bottom:20px;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap; }
+    .detail-header-left { display:flex;align-items:flex-start;gap:14px; }
+    .detail-icon-lg { width:52px;height:52px;background:var(--comb);border:2px solid var(--accent);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0; }
+    .detail-title { font-size:1.3rem;font-weight:800;color:var(--hive);letter-spacing:-.02em; }
+    .detail-sub { font-size:0.82rem;color:var(--aged);margin-top:4px;display:flex;align-items:center;gap:8px;flex-wrap:wrap; }
+    .detail-header-actions { display:flex;gap:8px;flex-wrap:wrap;align-items:flex-start; }
+
+    /* ADVISER BANNER */
+    .adviser-banner { display:flex;align-items:center;gap:8px;background:var(--comb);border:1.5px dashed var(--accent);border-radius:8px;padding:10px 16px;font-size:0.82rem;font-weight:700;color:var(--aged);margin-bottom:20px; }
+
+    /* STATS ROW */
+    .stats-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;margin-bottom:22px; }
+    .stat-card { background:#fff;border:1.5px solid var(--accent);border-radius:var(--radius-lg);box-shadow:3px 3px 0 var(--accent);padding:16px 18px;position:relative;overflow:hidden; }
+    .stat-card::before { content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--amber); }
+    .stat-card.green::before { background:#22c55e; }
+    .stat-card.blue::before { background:#3b82f6; }
+    .stat-card.red::before { background:#ef4444; }
+    .stat-label { font-size:.73rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--aged);margin-bottom:6px; }
+    .stat-value { font-size:1.7rem;font-weight:800;color:var(--hive);line-height:1;letter-spacing:-.03em; }
+    .stat-sub { font-size:.76rem;color:var(--aged);margin-top:4px; }
+
+    /* TWO COLS */
+    .detail-cols { display:grid;grid-template-columns:1fr 320px;gap:20px;align-items:start; }
+    .section-title { font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--aged);margin-bottom:10px; }
+
+    /* CARDS */
+    .dash-card { background:#fff;border:1.5px solid var(--accent);box-shadow:3px 3px 0 var(--accent);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:18px; }
+    .dash-card-header { padding:13px 16px;border-bottom:1px solid var(--pale);background:var(--comb);display:flex;align-items:center;justify-content:space-between; }
+    .dash-card-header h3 { font-size:.9rem;font-weight:700;color:var(--hive); }
+
+    /* SESSION LOG */
+    .session-log-card { background:#fff;border:1.5px solid var(--accent);border-radius:var(--radius-lg);box-shadow:3px 3px 0 var(--accent);overflow:hidden;margin-bottom:18px; }
+    .slc-header { background:var(--amber);border-bottom:1.5px solid var(--hive);padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px; }
+    .slc-header h4 { font-size:0.82rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--hive); }
+    .session-entry { border-bottom:1px solid var(--pale);overflow:hidden; }
+    .session-entry:last-child { border-bottom:none; }
+    .session-entry-header { display:flex;align-items:center;justify-content:space-between;padding:12px 16px;cursor:pointer;gap:12px;transition:background .15s;flex-wrap:wrap; }
+    .session-entry-header:hover { background:var(--wax); }
+    .seh-left { display:flex;align-items:center;gap:12px; }
+    .seh-num { width:28px;height:28px;background:var(--amber);border:1.5px solid var(--hive);border-radius:5px;font-size:0.78rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--hive); }
+    .seh-date { font-size:0.88rem;font-weight:700;color:var(--hive); }
+    .seh-topic { font-size:0.75rem;color:var(--aged);margin-top:1px; }
+    .seh-right { display:flex;align-items:center;gap:10px;flex-shrink:0; }
+    .mini-att-bar { display:flex;align-items:center;gap:6px;font-size:0.78rem;font-weight:700; }
+    .mini-att-track { width:70px;height:6px;background:#eee;border:1px solid #ddd;border-radius:3px;overflow:hidden; }
+    .mini-att-fill { height:100%;border-radius:3px;transition:width .5s ease; }
+    .att-high { background:#22c55e; }
+    .att-mid  { background:var(--amber); }
+    .att-low  { background:#ef4444; }
+    .seh-chevron { font-size:0.72rem;color:var(--aged);transition:transform .2s; }
+    .session-entry.open .seh-chevron { transform:rotate(180deg); }
+    .session-att-body { display:none;padding:0 16px 14px;background:var(--wax);border-top:1px solid var(--pale); }
+    .session-entry.open .session-att-body { display:block; }
+    .att-body-top { display:flex;align-items:center;justify-content:space-between;padding:10px 0;flex-wrap:wrap;gap:8px; }
+    .abt-label { font-size:0.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--aged); }
+    .att-summary { font-size:0.8rem;font-weight:700;color:var(--text); }
+    .att-member-row { display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--pale); }
+    .att-member-row:last-of-type { border-bottom:none; }
+    .att-avatar { width:30px;height:30px;min-width:30px;border-radius:50%;object-fit:cover;border:1.5px solid var(--pale);flex-shrink:0;background:var(--comb);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;color:var(--aged); }
+    .att-name { flex:1;font-size:0.86rem;font-weight:600;color:var(--text); }
+    .att-toggle { display:flex;border:1.5px solid var(--pale);border-radius:5px;overflow:hidden;flex-shrink:0; }
+    .att-btn { padding:5px 10px;font-size:0.72rem;font-weight:700;cursor:pointer;border:none;background:#f9f5ec;color:#888;font-family:'Bricolage Grotesque',sans-serif;transition:.15s;display:flex;align-items:center;gap:4px;border-right:1px solid var(--pale); }
+    .att-btn:last-child { border-right:none; }
+    .att-btn.present.active { background:#22c55e;color:#000; }
+    .att-btn.late.active    { background:#f97316;color:#fff; }
+    .att-btn.absent.active  { background:#ef4444;color:#fff; }
+    .att-btn:hover { opacity:0.8; }
+    .session-note-row { margin-top:10px;display:flex;flex-direction:column;gap:5px; }
+    .session-note-row label { font-size:0.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--aged); }
+    .session-note-row textarea { font-family:'Bricolage Grotesque',sans-serif;font-size:0.84rem;padding:8px 12px;border:1.5px solid var(--pale);border-radius:6px;background:#fff;resize:none;height:58px;outline:none;transition:border-color .18s;width:100%; }
+    .session-note-row textarea:focus { border-color:var(--amber); }
+    .session-att-actions { display:flex;gap:8px;margin-top:12px;justify-content:flex-end; }
+    .btn-save-att { padding:7px 16px;font-size:0.8rem;font-weight:700;border-radius:6px;cursor:pointer;border:2px solid var(--hive);background:var(--amber);color:var(--hive);font-family:'Bricolage Grotesque',sans-serif;transition:.18s;display:flex;align-items:center;gap:6px;box-shadow:2px 2px 0 var(--hive); }
+    .btn-save-att:hover { background:var(--amber-d); }
+    .btn-cancel-att { padding:7px 16px;font-size:0.8rem;font-weight:700;border-radius:6px;cursor:pointer;border:1.5px solid var(--pale);background:#fff;color:var(--aged);font-family:'Bricolage Grotesque',sans-serif;transition:.18s; }
+    .btn-cancel-att:hover { background:var(--comb); }
+    .att-saved-badge { display:none;font-size:0.7rem;font-weight:800;background:#22c55e;color:#000;border:1.5px solid var(--hive);border-radius:4px;padding:2px 8px;align-items:center;gap:4px; }
+    .att-saved-badge.show { display:inline-flex; }
+
+    /* ACTIVITY BAR */
+    .bar-wrap { display:flex;flex-direction:column;gap:5px; }
+    .bar-labels { display:flex;justify-content:space-between;font-size:0.75rem;font-weight:700;color:var(--aged); }
+    .bar-track { width:100%;height:12px;background:#f5edd5;border:1.5px solid var(--pale);border-radius:4px;overflow:hidden; }
+    .bar-fill { height:100%;background:var(--amber);border-right:1.5px solid var(--amber-d);transition:width .6s ease;background-image:repeating-linear-gradient(-45deg,transparent,transparent 5px,rgba(0,0,0,.05) 5px,rgba(0,0,0,.05) 10px); }
+
+    /* SESSION DOTS */
+    .session-dots-row { display:flex;align-items:center;gap:5px;flex-wrap:wrap; }
+    .dots-label { font-size:0.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--aged);margin-right:4px; }
+    .s-dot { width:20px;height:20px;border-radius:4px;border:1.5px solid var(--hive);display:flex;align-items:center;justify-content:center;font-size:9px;cursor:default;position:relative; }
+    .s-dot.held    { background:var(--amber); }
+    .s-dot.missed  { background:#fee2e2; }
+    .s-dot.upcoming{ background:#f5f0e8;border-style:dashed; }
+    .s-dot:hover .s-tip { display:block; }
+    .s-tip { display:none;position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:var(--hive);color:var(--amber);font-size:9px;font-weight:700;padding:4px 8px;border-radius:4px;white-space:nowrap;z-index:10;pointer-events:none; }
+
+    /* DETAIL INFO CARD */
+    .detail-row { display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--pale); }
+    .detail-row:last-child { border-bottom:none; }
+    .detail-icon-sm { width:20px;text-align:center;color:var(--amber-d);flex-shrink:0;padding-top:2px;font-size:0.9rem; }
+    .detail-key { width:90px;font-size:0.78rem;color:var(--aged);flex-shrink:0; }
+    .detail-value { font-size:0.88rem;color:var(--text);flex:1;font-weight:600; }
+
+    /* MEMBER LIST */
+    .member-row { display:flex;align-items:center;gap:10px;padding:10px 16px;border-bottom:1px solid var(--pale); }
+    .member-row:last-child { border-bottom:none; }
+    .member-avatar { width:34px;height:34px;border-radius:50%;background:var(--comb);border:2px solid var(--pale);display:flex;align-items:center;justify-content:center;font-size:0.82rem;font-weight:700;color:var(--aged);flex-shrink:0; }
+    .member-avatar img { width:34px;height:34px;border-radius:50%;object-fit:cover; }
+    .member-name { flex:1;font-weight:700;font-size:0.88rem;color:var(--hive); }
+    .member-sub { font-size:0.75rem;color:var(--aged);margin-top:1px; }
+    .tbl-btn { padding:4px 11px;font-size:.75em;font-weight:700;border-radius:6px;cursor:pointer;font-family:'Bricolage Grotesque',sans-serif;transition:.2s;border:1.5px solid;white-space:nowrap; }
+    .tbl-btn.view { border-color:var(--amber-d);color:var(--amber-d);background:var(--comb); }
+    .tbl-btn.view:hover { background:var(--amber);color:var(--hive);border-color:var(--amber); }
+    .tbl-btn.reject { background:#fff;color:var(--danger);border-color:var(--danger); }
+    .tbl-btn.reject:hover { background:var(--danger-bg); }
+
+    /* LIVE BADGE */
+    .live-badge { display:inline-flex;align-items:center;gap:6px;background:#dcfce7;border:1.5px solid #22c55e;border-radius:20px;padding:3px 10px;font-size:0.76rem;font-weight:700;color:var(--success); }
+    .live-dot { width:8px;height:8px;background:#22c55e;border-radius:50%;animation:blink 1.6s infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.25} }
+
+    /* MODALS */
+    .modal-overlay { position:fixed;inset:0;background:rgba(26,20,0,0.55);backdrop-filter:blur(3px);z-index:200;display:none;align-items:center;justify-content:center;padding:20px; }
+    .modal-overlay.open { display:flex; }
+    .modal-box { background:var(--wax);border:2px solid var(--accent);border-radius:var(--radius-lg);padding:28px 30px 24px;width:min(520px,96vw);position:relative;box-shadow:var(--shadow-lg),4px 4px 0 var(--hive);max-height:90vh;overflow-y:auto; }
+    .modal-close { position:absolute;top:14px;right:18px;background:none;border:none;font-size:1.4rem;color:var(--aged);cursor:pointer;transition:color .15s; }
+    .modal-close:hover { color:var(--amber-d); }
+    .modal-title { font-size:1.1rem;font-weight:800;color:var(--hive);margin-bottom:18px; }
+    .modal-field { display:flex;flex-direction:column;gap:5px;margin-bottom:13px; }
+    .modal-field label { font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--hive); }
+    .modal-field input, .modal-field select, .modal-field textarea { font-family:'Bricolage Grotesque',sans-serif;font-size:0.88rem;padding:9px 12px;border:1.5px solid var(--pale);border-radius:6px;background:#fff;outline:none;transition:border-color .18s;width:100%; }
+    .modal-field input:focus, .modal-field select:focus, .modal-field textarea:focus { border-color:var(--amber); }
+    .modal-field textarea { resize:none;height:65px; }
+    .modal-row { display:grid;grid-template-columns:1fr 1fr;gap:12px; }
+    .modal-footer { display:flex;justify-content:flex-end;gap:10px;margin-top:6px; }
+    .modal-info-box { background:var(--comb);border:1.5px solid var(--accent);border-radius:6px;padding:9px 13px;font-size:0.8rem;color:var(--aged);margin-bottom:13px; }
+    .modal-btn { padding:9px 22px;border-radius:var(--radius);font-family:'Bricolage Grotesque',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;border:2px solid transparent;transition:all .15s; }
+    .modal-btn.primary { background:var(--amber);color:var(--hive);border-color:var(--hive);box-shadow:2px 2px 0 var(--hive); }
+    .modal-btn.primary:hover { background:var(--amber-d);transform:translate(-1px,-1px);box-shadow:3px 3px 0 var(--hive); }
+    .modal-btn.secondary { background:#f3f4f6;color:var(--aged);border-color:#e5e7eb; }
+    .modal-btn.secondary:hover { background:#e5e7eb; }
+
+    /* EMPTY STATE */
+    .empty-state { text-align:center;padding:56px 24px;color:var(--aged); }
+    .empty-state .empty-icon { font-size:2.8rem;margin-bottom:12px;opacity:.4; }
+    .empty-state h3 { font-size:1rem;font-weight:700;color:var(--hive);margin-bottom:6px; }
+    .empty-state p { font-size:0.84rem;line-height:1.6; }
+
+    /* TOAST */
+    .toast { position:fixed;bottom:24px;right:24px;background:var(--hive);color:#fff;padding:12px 20px;border-radius:10px;font-size:.88rem;font-weight:600;z-index:999;transform:translateY(80px);opacity:0;transition:all .3s;border-left:4px solid var(--amber);box-shadow:var(--shadow-lg); }
+    .toast.show { transform:translateY(0);opacity:1; }
+    .toast.success { border-color:#22c55e; }
+    .toast.error { border-color:#ef4444; }
+    .toast.warn { border-color:var(--amber); }
+
+    @media (max-width:900px) { .detail-cols { grid-template-columns:1fr; } }
+    @media (max-width:768px) { .reg-sidebar { display:none; } .reg-main { margin-left:0;padding:20px 16px 40px; } }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="reg-nav">
+  <a href="Adviser_dashboard.html" class="logo"><span>Hive</span>Minds</a>
+  <div class="nav-links">
+    <a href="Adviser_dashboard.html">Dashboard</a>
+    <a href="join-requests.html">Join Requests</a>
+    <a href="my-groups.html" class="active">My Groups</a>
+    <a href="members.html">Members</a>
+  </div>
+  <div class="nav-right">
+    <button class="nav-user">
+      <div class="avatar-dot">PR</div>
+      Prof. Rivera
+      <i class="fa-solid fa-chevron-down" style="font-size:.65rem;opacity:.6;"></i>
+    </button>
+    <a href="../auth/login.html" class="nav-logout"><i class="fa-solid fa-arrow-right-from-bracket"></i> Log out</a>
+  </div>
+</nav>
+
+<div class="reg-layout">
+  <!-- SIDEBAR -->
+  <aside class="reg-sidebar">
+    <div>
+      <div class="sidebar-section-label">Menu</div>
+      <div class="sidebar-divider"></div>
+      <a class="sidebar-link" href="adviser_dashboard.html">
+        <span class="sico"><i class="fa-solid fa-gauge"></i></span> Dashboard
+      </a>
+      <a class="sidebar-link" href="join-requests.html">
+        <span class="sico sico-wrap"><i class="fa-solid fa-inbox"></i><span class="notif-dot"></span></span> Join Requests
+      </a>
+      <a class="sidebar-link active" href="my-groups.html">
+        <span class="sico"><i class="fa-solid fa-layer-group"></i></span> My Groups
+      </a>
+      <a class="sidebar-link" href="members.html">
+        <span class="sico"><i class="fa-solid fa-users"></i></span> Members
+      </a>
+    </div>
+    <div>
+      <div class="sidebar-section-label">My Groups</div>
+      <div class="sidebar-divider"></div>
+      <a class="sidebar-link" href="#" onclick="openGroupDetail('programming');return false;">
+        <span class="sico"><i class="fa-solid fa-code" style="font-size:.85rem;"></i></span> Programming Study
+      </a>
+      <a class="sidebar-link" href="#" onclick="openGroupDetail('networking');return false;">
+        <span class="sico"><i class="fa-solid fa-network-wired" style="font-size:.85rem;"></i></span> Networking Study
+      </a>
+    </div>
+    <div>
+      <div class="sidebar-section-label">Quick Stats</div>
+      <div class="sidebar-divider"></div>
+      <div class="stat-pill"><span class="dot"></span> 4 pending requests</div>
+      <div class="stat-pill"><span class="dot"></span> 18 group members</div>
+      <div class="stat-pill"><span class="dot"></span> 2 active groups</div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="reg-main">
+
+    <!-- === GROUPS LIST VIEW === -->
+    <div id="view-list">
+      <div class="page-header">
+        <div class="page-header-left">
+          <h1>My Groups</h1>
+          <p>Manage your advised study groups, log sessions, and track member attendance.</p>
+        </div>
+        <button class="btn-primary" onclick="openModal('modal-new-group')">
+          <i class="fa-solid fa-plus"></i> New Group
+        </button>
+      </div>
+
+      <div class="groups-grid">
+
+        <!-- Group Card: Programming -->
+        <div class="group-card" onclick="openGroupDetail('programming')">
+          <div class="group-card-top">
+            <div class="group-icon">🐝</div>
+            <div class="group-card-meta">
+              <div class="group-card-name">Programming Study Group</div>
+              <div class="group-card-sub">Recurring · Online · CS 201 / CS 301</div>
+            </div>
+            <span class="tbl-badge badge-pending">4 pending</span>
+          </div>
+          <div class="group-card-bottom">
+            <span class="tbl-tag">Programming</span>
+            <span class="tbl-badge badge-approved">Verified</span>
+            <div class="group-stat-chips">
+              <span class="g-chip"><i class="fa-solid fa-users"></i> 14</span>
+              <span class="g-chip"><i class="fa-solid fa-clipboard-list"></i> 3 sessions</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Group Card: Networking -->
+        <div class="group-card" onclick="openGroupDetail('networking')">
+          <div class="group-card-top">
+            <div class="group-icon">🌐</div>
+            <div class="group-card-meta">
+              <div class="group-card-name">Networking Study Group</div>
+              <div class="group-card-sub">One-time · In-person · CS 312</div>
+            </div>
+            <span class="tbl-badge badge-active">Open</span>
+          </div>
+          <div class="group-card-bottom">
+            <span class="tbl-tag">Networking</span>
+            <span class="tbl-badge badge-approved">Verified</span>
+            <div class="group-stat-chips">
+              <span class="g-chip"><i class="fa-solid fa-users"></i> 4</span>
+              <span class="g-chip"><i class="fa-solid fa-clipboard-list"></i> 1 session</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- === GROUP DETAIL VIEW === -->
+    <div id="view-detail" class="group-detail-wrap">
+
+      <div class="group-detail-back" onclick="closeGroupDetail()">
+        <i class="fa-solid fa-arrow-left"></i> Back to My Groups
+      </div>
+
+      <!-- Group data containers, filled by JS -->
+      <div class="detail-header">
+        <div class="detail-header-left">
+          <div class="detail-icon-lg" id="d-icon">🐝</div>
+          <div>
+            <div class="detail-title" id="d-title">Programming Study Group</div>
+            <div class="detail-sub">
+              <span id="d-tag" class="tbl-tag">Programming</span>
+              <span id="d-members">14 members</span>
+              <span>·</span>
+              <span id="d-type">Recurring · Online</span>
+              <span class="tbl-badge badge-approved" style="margin-left:2px;">Verified</span>
+            </div>
+          </div>
+        </div>
+        <div class="detail-header-actions">
+          <button class="btn-ghost" onclick="openModal('modal-edit-group')"><i class="fa-solid fa-pen"></i> Edit</button>
+          <button class="btn-primary" onclick="openModal('modal-log-session')"><i class="fa-solid fa-clipboard-list"></i> Log Session</button>
+          <button class="btn-danger"><i class="fa-solid fa-trash"></i></button>
+        </div>
+      </div>
+
+      <div class="adviser-banner">
+        <i class="fa-solid fa-chalkboard-user" style="color:var(--amber-d);"></i>
+        You are the adviser of this group. You can log sessions, track attendance, and manage membership.
+      </div>
+
+      <div class="stats-grid" id="d-stats">
+        <div class="stat-card">
+          <div class="stat-label">Members</div>
+          <div class="stat-value" id="ds-members">14</div>
+          <div class="stat-sub">Active students</div>
+        </div>
+        <div class="stat-card green">
+          <div class="stat-label">Sessions Held</div>
+          <div class="stat-value" id="ds-sessions">3</div>
+          <div class="stat-sub" id="ds-hours">6h total</div>
+        </div>
+        <div class="stat-card blue">
+          <div class="stat-label">Avg Attendance</div>
+          <div class="stat-value" id="ds-att">—</div>
+          <div class="stat-sub">Across all sessions</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Pending</div>
+          <div class="stat-value" id="ds-pending">4</div>
+          <div class="stat-sub">Awaiting approval</div>
+        </div>
+      </div>
+
+      <div class="detail-cols">
+        <!-- LEFT -->
+        <div>
+          <div class="section-title" style="display:flex;align-items:center;justify-content:space-between;">
+            <span>Activity Overview</span>
+            <div class="live-badge"><span class="live-dot"></span> Active</div>
+          </div>
+          <div class="dash-card" style="padding:16px 18px;margin-bottom:18px;">
+            <div class="bar-wrap" style="margin-bottom:14px;">
+              <div class="bar-labels">
+                <span>Overall attendance rate</span>
+                <span id="d-bar-pct">—</span>
+              </div>
+              <div class="bar-track">
+                <div class="bar-fill" id="d-bar-fill" style="width:0%"></div>
+              </div>
+            </div>
+            <div class="session-dots-row">
+              <span class="dots-label">Sessions</span>
+              <div id="d-dot-strip">
+                <!-- populated by JS -->
+              </div>
+            </div>
+          </div>
+
+          <div class="section-title" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+            <span>Session Log</span>
+            <button class="btn-primary" style="padding:5px 12px;font-size:.76rem;" onclick="openModal('modal-log-session')">
+              <i class="fa-solid fa-plus"></i> Log Session
+            </button>
+          </div>
+          <div class="session-log-card">
+            <div class="slc-header">
+              <h4><i class="fa-solid fa-clipboard-list"></i>&nbsp; Session History</h4>
+              <span id="d-session-count-badge" class="tbl-badge badge-active">3 sessions</span>
+            </div>
+            <div id="d-session-log">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT -->
+        <div>
+          <div class="section-title">Group Details</div>
+          <div class="dash-card" style="padding:4px 16px;">
+            <div class="detail-row">
+              <div class="detail-icon-sm"><i class="fa-solid fa-layer-group"></i></div>
+              <div class="detail-key">Group</div>
+              <div class="detail-value" id="dr-name">Programming Study Group</div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-icon-sm"><i class="fa-solid fa-tag"></i></div>
+              <div class="detail-key">Category</div>
+              <div class="detail-value" id="dr-cat">Programming</div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-icon-sm"><i class="fa-solid fa-wifi"></i></div>
+              <div class="detail-key">Mode</div>
+              <div class="detail-value" id="dr-mode">Online</div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-icon-sm"><i class="fa-regular fa-calendar"></i></div>
+              <div class="detail-key">Type</div>
+              <div class="detail-value" id="dr-type">Recurring</div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-icon-sm"><i class="fa-solid fa-clock"></i></div>
+              <div class="detail-key">Schedule</div>
+              <div class="detail-value" id="dr-schedule">Fridays · 4:00–6:00 PM</div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-icon-sm"><i class="fa-solid fa-location-dot"></i></div>
+              <div class="detail-key">Location</div>
+              <div class="detail-value" id="dr-location">Discord / Google Meet</div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-icon-sm"><i class="fa-solid fa-users"></i></div>
+              <div class="detail-key">Capacity</div>
+              <div class="detail-value" id="dr-capacity">14 / 20</div>
+            </div>
+          </div>
+
+          <div class="section-title">Members</div>
+          <div class="dash-card" style="overflow:hidden;">
+            <div class="dash-card-header">
+              <h3>Active Members</h3>
+              <a href="members.html" style="font-size:.78rem;color:var(--amber-d);text-decoration:none;font-weight:700;">See all →</a>
+            </div>
+            <div id="d-member-list">
+              <!-- populated by JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /view-detail -->
+
+  </main>
+</div>
+
+<!-- MODAL: Log Session -->
+<div class="modal-overlay" id="modal-log-session">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modal-log-session')"><i class="fa-solid fa-xmark"></i></button>
+    <div class="modal-title"><i class="fa-solid fa-clipboard-list" style="color:var(--amber-d);margin-right:8px;"></i>Log a New Session</div>
+    <div class="modal-row">
+      <div class="modal-field">
+        <label>Session Date</label>
+        <input type="date" id="ls-date">
+      </div>
+      <div class="modal-field">
+        <label>Duration</label>
+        <select id="ls-duration">
+          <option>1 hour</option>
+          <option selected>2 hours</option>
+          <option>3 hours</option>
+          <option>4 hours</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-field">
+      <label>Topic Covered</label>
+      <input type="text" id="ls-topic" placeholder="e.g. Recursion and backtracking">
+    </div>
+    <div class="modal-row">
+      <div class="modal-field">
+        <label>Mode</label>
+        <select id="ls-mode">
+          <option>Online</option>
+          <option>In-person</option>
+          <option>Hybrid</option>
+        </select>
+      </div>
+      <div class="modal-field">
+        <label>Location / Link</label>
+        <input type="text" id="ls-loc" placeholder="e.g. Discord or Room 301">
+      </div>
+    </div>
+    <div class="modal-field">
+      <label>Notes (optional)</label>
+      <textarea id="ls-notes" placeholder="Takeaways, follow-ups, or reminders…"></textarea>
+    </div>
+    <div class="modal-info-box">
+      <i class="fa-solid fa-circle-info" style="color:var(--amber-d);margin-right:5px;"></i>
+      After logging, mark attendance for each member directly in the session history.
+    </div>
+    <div class="modal-footer">
+      <button class="modal-btn secondary" onclick="closeModal('modal-log-session')">Cancel</button>
+      <button class="modal-btn primary" onclick="logSession()"><i class="fa-solid fa-plus"></i> Log Session</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: New Group -->
+<div class="modal-overlay" id="modal-new-group">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modal-new-group')"><i class="fa-solid fa-xmark"></i></button>
+    <div class="modal-title"><i class="fa-solid fa-plus" style="color:var(--amber-d);margin-right:8px;"></i>Create New Group</div>
+    <div class="modal-field">
+      <label>Group Name</label>
+      <input type="text" placeholder="e.g. Algorithms Review Circle">
+    </div>
+    <div class="modal-row">
+      <div class="modal-field">
+        <label>Category</label>
+        <select>
+          <option>Programming</option>
+          <option>Networking</option>
+          <option>Mathematics</option>
+          <option>Science</option>
+          <option>General</option>
+        </select>
+      </div>
+      <div class="modal-field">
+        <label>Type</label>
+        <select>
+          <option>Recurring</option>
+          <option>One-time</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-row">
+      <div class="modal-field">
+        <label>Mode</label>
+        <select>
+          <option>Online</option>
+          <option>In-person</option>
+          <option>Hybrid</option>
+        </select>
+      </div>
+      <div class="modal-field">
+        <label>Max Members</label>
+        <input type="number" value="20" min="2" max="50">
+      </div>
+    </div>
+    <div class="modal-field">
+      <label>Description (optional)</label>
+      <textarea placeholder="What will this group focus on?"></textarea>
+    </div>
+    <div class="modal-footer">
+      <button class="modal-btn secondary" onclick="closeModal('modal-new-group')">Cancel</button>
+      <button class="modal-btn primary" onclick="closeModal('modal-new-group');showToast('Group created successfully!','success')"><i class="fa-solid fa-plus"></i> Create Group</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Edit Group -->
+<div class="modal-overlay" id="modal-edit-group">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modal-edit-group')"><i class="fa-solid fa-xmark"></i></button>
+    <div class="modal-title"><i class="fa-solid fa-pen" style="color:var(--amber-d);margin-right:8px;"></i>Edit Group</div>
+    <div class="modal-field">
+      <label>Group Name</label>
+      <input type="text" id="edit-name" value="Programming Study Group">
+    </div>
+    <div class="modal-row">
+      <div class="modal-field">
+        <label>Mode</label>
+        <select>
+          <option selected>Online</option>
+          <option>In-person</option>
+          <option>Hybrid</option>
+        </select>
+      </div>
+      <div class="modal-field">
+        <label>Max Members</label>
+        <input type="number" value="20">
+      </div>
+    </div>
+    <div class="modal-field">
+      <label>Schedule</label>
+      <input type="text" value="Fridays · 4:00–6:00 PM">
+    </div>
+    <div class="modal-field">
+      <label>Location / Link</label>
+      <input type="text" value="Discord / Google Meet">
+    </div>
+    <div class="modal-footer">
+      <button class="modal-btn secondary" onclick="closeModal('modal-edit-group')">Cancel</button>
+      <button class="modal-btn primary" onclick="closeModal('modal-edit-group');showToast('Group updated.','success')"><i class="fa-solid fa-floppy-disk"></i> Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ─── DATA ─────────────────────────────────────────────────────────────────────
+const GROUPS = {
+  programming: {
+    icon: '🐝',
+    title: 'Programming Study Group',
+    tag: 'Programming',
+    members: 14,
+    capacity: 20,
+    type: 'Recurring',
+    mode: 'Online',
+    schedule: 'Fridays · 4:00–6:00 PM',
+    location: 'Discord / Google Meet',
+    pending: 4,
+    memberList: [
+      { initials:'MD', name:'Marco Dela Cruz', sub:'2nd Year · BSCS' },
+      { initials:'AR', name:'Aisha Reyes',     sub:'3rd Year · BSCE' },
+      { initials:'JS', name:'Juan Santos',     sub:'2nd Year · BSCS' },
+      { initials:'LC', name:'Lena Cruz',       sub:'1st Year · BSIT' },
+    ],
+    sessions: [
+      { num:3, date:'Friday, March 21, 2025', topic:'Recursion and backtracking — 2 hours — Discord', missed:false,
+        members: [{n:'Marco Dela Cruz',s:'present'},{n:'Aisha Reyes',s:'present'},{n:'Juan Santos',s:'present'},{n:'Lena Cruz',s:'late'}],
+        note:'Great energy. Covered recursive tree traversal and memoization intro.' },
+      { num:2, date:'Friday, March 14, 2025', topic:'Functions & scope — 2 hours — Discord', missed:false,
+        members: [{n:'Marco Dela Cruz',s:'present'},{n:'Aisha Reyes',s:'present'},{n:'Juan Santos',s:'absent'},{n:'Lena Cruz',s:'present'}],
+        note:'Covered scope rules and function overloading. Juan missed but reviewed recording.' },
+      { num:1, date:'Friday, March 7, 2025',  topic:'Intro session — topic planning — 2 hours — Discord', missed:false,
+        members: [{n:'Marco Dela Cruz',s:'present'},{n:'Aisha Reyes',s:'absent'},{n:'Juan Santos',s:'present'},{n:'Lena Cruz',s:'present'}],
+        note:'First session! Covered semester plan and divided topics.' },
+    ]
+  },
+  networking: {
+    icon: '🌐',
+    title: 'Networking Study Group',
+    tag: 'Networking',
+    members: 4,
+    capacity: 15,
+    type: 'One-time',
+    mode: 'In-person',
+    schedule: 'Saturdays · 10:00 AM–12:00 PM',
+    location: 'CCS Room 204',
+    pending: 0,
+    memberList: [
+      { initials:'BM', name:'Ben Morales',   sub:'3rd Year · BSCE' },
+      { initials:'NR', name:'Nina Ramos',    sub:'2nd Year · BSCS' },
+      { initials:'KT', name:'Karl Torres',   sub:'3rd Year · BSIT' },
+      { initials:'SV', name:'Sophia Villanueva', sub:'2nd Year · BSCE' },
+    ],
+    sessions: [
+      { num:1, date:'Saturday, March 15, 2025', topic:'Subnetting workshop — 2 hours — CCS Room 204', missed:false,
+        members: [{n:'Ben Morales',s:'present'},{n:'Nina Ramos',s:'present'},{n:'Karl Torres',s:'late'},{n:'Sophia Villanueva',s:'present'}],
+        note:'Covered CIDR notation and subnet mask exercises.' },
+    ]
+  }
+};
+
+let currentGroup = null;
+let sessionCounters = { programming: 3, networking: 1 };
+
+// ─── NAVIGATION ───────────────────────────────────────────────────────────────
+function openGroupDetail(key) {
+  currentGroup = key;
+  const g = GROUPS[key];
+
+  // Header
+  document.getElementById('d-icon').textContent = g.icon;
+  document.getElementById('d-title').textContent = g.title;
+  document.getElementById('d-tag').textContent = g.tag;
+  document.getElementById('d-members').textContent = g.members + ' members';
+  document.getElementById('d-type').textContent = g.type + ' · ' + g.mode;
+
+  // Stats
+  document.getElementById('ds-members').textContent = g.members;
+  document.getElementById('ds-sessions').textContent = g.sessions.length;
+  document.getElementById('ds-hours').textContent = (g.sessions.filter(s=>!s.missed).length * 2) + 'h total';
+  document.getElementById('ds-pending').textContent = g.pending;
+
+  // Right panel
+  document.getElementById('dr-name').textContent = g.title;
+  document.getElementById('dr-cat').textContent = g.tag;
+  document.getElementById('dr-mode').textContent = g.mode;
+  document.getElementById('dr-type').textContent = g.type;
+  document.getElementById('dr-schedule').textContent = g.schedule;
+  document.getElementById('dr-location').textContent = g.location;
+  document.getElementById('dr-capacity').textContent = g.members + ' / ' + g.capacity;
+
+  // Edit modal pre-fill
+  document.getElementById('edit-name').value = g.title;
+
+  // Members
+  const ml = document.getElementById('d-member-list');
+  ml.innerHTML = g.memberList.map(m => `
+    <div class="member-row">
+      <div class="member-avatar" style="background:var(--comb);">${m.initials}</div>
+      <div style="flex:1;">
+        <div class="member-name">${m.name}</div>
+        <div class="member-sub">${m.sub}</div>
+      </div>
+      <button class="tbl-btn view">View</button>
+    </div>
+  `).join('');
+
+  // Session log
+  renderSessionLog(key);
+
+  // Dot strip
+  renderDotStrip(key);
+
+  // Show detail view
+  document.getElementById('view-list').style.display = 'none';
+  document.getElementById('view-detail').classList.add('open');
+  recalcMasterBar();
+}
+
+function closeGroupDetail() {
+  document.getElementById('view-list').style.display = 'block';
+  document.getElementById('view-detail').classList.remove('open');
+  currentGroup = null;
+}
+
+// ─── SESSION LOG RENDER ───────────────────────────────────────────────────────
+function renderSessionLog(key) {
+  const g = GROUPS[key];
+  const container = document.getElementById('d-session-log');
+  container.innerHTML = '';
+
+  if (!g.sessions.length) {
+    container.innerHTML = `<div class="empty-state"><div class="empty-icon">📋</div><h3>No sessions logged yet</h3><p>Use "Log Session" to record your first group session.</p></div>`;
+    return;
+  }
+
+  document.getElementById('d-session-count-badge').textContent = g.sessions.length + ' session' + (g.sessions.length !== 1 ? 's' : '');
+
+  g.sessions.forEach(sess => {
+    const entryId = key + '-entry-' + sess.num;
+    const present = sess.members ? sess.members.filter(m=>m.s==='present').length : 0;
+    const absent  = sess.members ? sess.members.filter(m=>m.s==='absent').length : 0;
+    const late    = sess.members ? sess.members.filter(m=>m.s==='late').length : 0;
+    const total   = sess.members ? sess.members.length : 0;
+    const pct     = total > 0 ? Math.round(((present+late)/total)*100) : 0;
+    const fillClass = pct >= 85 ? 'att-high' : pct >= 60 ? 'att-mid' : 'att-low';
+
+    const memberRows = sess.missed ? '' : (sess.members || []).map(m => `
+      <div class="att-member-row">
+        <div class="att-avatar">${m.n.split(' ').map(w=>w[0]).join('').slice(0,2)}</div>
+        <span class="att-name">${m.n}</span>
+        <div class="att-toggle">
+          <button class="att-btn present ${m.s==='present'?'active':''}" onclick="markAtt(this,'${entryId}','${m.n}','present')"><i class="fa-solid fa-check"></i> Present</button>
+          <button class="att-btn late ${m.s==='late'?'active':''}"    onclick="markAtt(this,'${entryId}','${m.n}','late')"><i class="fa-solid fa-clock"></i> Late</button>
+          <button class="att-btn absent ${m.s==='absent'?'active':''}" onclick="markAtt(this,'${entryId}','${m.n}','absent')"><i class="fa-solid fa-xmark"></i> Absent</button>
+        </div>
+      </div>`).join('');
+
+    const attSection = sess.missed
+      ? `<div class="att-body-top"><span class="abt-label">No session was held.</span></div>`
+      : `<div class="att-body-top">
+           <span class="abt-label"><i class="fa-solid fa-users"></i>&nbsp; Attendance</span>
+           <span class="att-summary" id="sum-${entryId}">${present} present · ${absent} absent · ${late} late</span>
+         </div>
+         ${memberRows}
+         <div class="session-note-row">
+           <label><i class="fa-solid fa-note-sticky"></i>&nbsp; Session notes</label>
+           <textarea>${sess.note || ''}</textarea>
+         </div>
+         <div class="session-att-actions">
+           <button class="btn-cancel-att">Undo changes</button>
+           <button class="btn-save-att" onclick="saveAtt('${entryId}')"><i class="fa-solid fa-floppy-disk"></i> Save attendance</button>
+         </div>`;
+
+    const rightBadge = sess.missed
+      ? `<span class="tbl-badge" style="background:#fee2e2;color:#991b1b;">Missed</span>`
+      : `<div class="mini-att-bar">
+           <div class="mini-att-track"><div class="mini-att-fill ${fillClass}" id="fill-${entryId}" style="width:${pct}%"></div></div>
+           <span id="cnt-${entryId}" style="font-weight:700;font-size:.85em;">${present+late}/${total}</span>
+         </div>
+         <span class="att-saved-badge show" id="badge-${entryId}"><i class="fa-solid fa-check"></i> Saved</span>`;
+
+    container.insertAdjacentHTML('beforeend', `
+      <div class="session-entry" id="${entryId}">
+        <div class="session-entry-header" onclick="toggleEntry('${entryId}')">
+          <div class="seh-left">
+            <div class="seh-num">${sess.num}</div>
+            <div>
+              <div class="seh-date">${sess.date}</div>
+              <div class="seh-topic">${sess.missed ? 'Missed — no session held' : sess.topic}</div>
+            </div>
+          </div>
+          <div class="seh-right">
+            ${rightBadge}
+            <i class="fa-solid fa-chevron-down seh-chevron"></i>
+          </div>
+        </div>
+        <div class="session-att-body">
+          ${attSection}
+        </div>
+      </div>`);
+  });
+}
+
+function renderDotStrip(key) {
+  const g = GROUPS[key];
+  const strip = document.getElementById('d-dot-strip');
+  strip.innerHTML = '';
+  g.sessions.forEach(s => {
+    const d = document.createElement('div');
+    d.className = 's-dot ' + (s.missed ? 'missed' : 'held');
+    const present = s.members ? s.members.filter(m=>m.s==='present').length : 0;
+    const late    = s.members ? s.members.filter(m=>m.s==='late').length : 0;
+    const total   = s.members ? s.members.length : 0;
+    d.innerHTML = `${s.missed ? '<i class="fa-solid fa-xmark" style="font-size:8px"></i>' : '<i class="fa-solid fa-check" style="font-size:8px"></i>'}<div class="s-tip">${s.date.split(',')[0]} — ${s.missed ? 'Missed' : (present+late)+'/'+total+' present'}</div>`;
+    strip.appendChild(d);
+  });
+  // upcoming placeholders
+  for (let i = 0; i < 2; i++) {
+    const d = document.createElement('div');
+    d.className = 's-dot upcoming';
+    d.innerHTML = `<div class="s-tip">Upcoming</div>`;
+    strip.appendChild(d);
+  }
+}
+
+// ─── ATTENDANCE ───────────────────────────────────────────────────────────────
+function toggleEntry(id) { document.getElementById(id).classList.toggle('open'); }
+
+function markAtt(btn, entryId) {
+  btn.closest('.att-toggle').querySelectorAll('.att-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  recalcEntry(entryId);
+}
+
+function recalcEntry(entryId) {
+  const entry = document.getElementById(entryId);
+  if (!entry) return;
+  const rows = entry.querySelectorAll('.att-member-row');
+  let p=0, a=0, l=0;
+  rows.forEach(row => {
+    const active = row.querySelector('.att-btn.active');
+    if (!active) return;
+    if (active.classList.contains('present')) p++;
+    else if (active.classList.contains('absent')) a++;
+    else if (active.classList.contains('late'))   l++;
+  });
+  const total = rows.length;
+  const sumEl = document.getElementById('sum-'+entryId);
+  if (sumEl) sumEl.textContent = `${p} present · ${a} absent · ${l} late`;
+  const fill = document.getElementById('fill-'+entryId);
+  const pct = total > 0 ? Math.round(((p+l)/total)*100) : 0;
+  if (fill) {
+    fill.style.width = pct+'%';
+    fill.className = 'mini-att-fill '+(pct>=85?'att-high':pct>=60?'att-mid':'att-low');
+  }
+  const cnt = document.getElementById('cnt-'+entryId);
+  if (cnt) cnt.textContent = `${p+l}/${total}`;
+}
+
+function saveAtt(entryId) {
+  recalcEntry(entryId);
+  const badge = document.getElementById('badge-'+entryId);
+  if (badge) badge.classList.add('show');
+  const entry = document.getElementById(entryId);
+  const btn = entry.querySelector('.btn-save-att');
+  if (btn) {
+    const orig = btn.innerHTML;
+    btn.innerHTML = '<i class="fa-solid fa-check"></i> Saved!';
+    setTimeout(() => { btn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Save attendance'; }, 1800);
+  }
+  recalcMasterBar();
+  showToast('Attendance saved.','success');
+}
+
+function recalcMasterBar() {
+  let totalP=0, totalM=0;
+  document.querySelectorAll('#d-session-log .att-member-row').forEach(row => {
+    totalM++;
+    const active = row.querySelector('.att-btn.active');
+    if (active && (active.classList.contains('present') || active.classList.contains('late'))) totalP++;
+  });
+  const pct = totalM > 0 ? Math.round((totalP/totalM)*100) : 0;
+  const fill = document.getElementById('d-bar-fill');
+  const pctEl = document.getElementById('d-bar-pct');
+  const attEl = document.getElementById('ds-att');
+  if (fill) fill.style.width = pct+'%';
+  if (pctEl) pctEl.textContent = pct ? pct+'%' : '—';
+  if (attEl) attEl.textContent = pct ? pct+'%' : '—';
+}
+
+// ─── LOG SESSION ──────────────────────────────────────────────────────────────
+function logSession() {
+  if (!currentGroup) return;
+  const date     = document.getElementById('ls-date').value;
+  const topic    = document.getElementById('ls-topic').value.trim() || 'Untitled session';
+  const duration = document.getElementById('ls-duration').value;
+  const mode     = document.getElementById('ls-mode').value;
+  const loc      = document.getElementById('ls-loc').value.trim() || mode;
+  const notes    = document.getElementById('ls-notes').value.trim();
+
+  const g = GROUPS[currentGroup];
+  sessionCounters[currentGroup]++;
+  const num = sessionCounters[currentGroup];
+
+  const d = date ? new Date(date+'T00:00:00') : new Date();
+  const pretty = d.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+
+  const newSession = {
+    num,
+    date: pretty,
+    topic: `${topic} — ${duration} — ${loc}`,
+    missed: false,
+    members: g.memberList.map(m => ({ n: m.name, s: 'present' })),
+    note: notes
+  };
+
+  g.sessions.unshift(newSession);
+  g.sessions.forEach((s,i) => s.num = g.sessions.length - i);
+
+  // Update stats
+  document.getElementById('ds-sessions').textContent = g.sessions.length;
+  document.getElementById('ds-hours').textContent = (g.sessions.filter(s=>!s.missed).length * 2) + 'h total';
+  document.getElementById('d-session-count-badge').textContent = g.sessions.length + ' session' + (g.sessions.length !== 1 ? 's' : '');
+
+  renderSessionLog(currentGroup);
+  renderDotStrip(currentGroup);
+  recalcMasterBar();
+  closeModal('modal-log-session');
+  showToast('Session logged! Mark attendance below.','success');
+  setTimeout(() => {
+    const first = document.querySelector('#d-session-log .session-entry');
+    if (first) { first.classList.add('open'); first.scrollIntoView({behavior:'smooth',block:'center'}); }
+  }, 150);
+}
+
+// ─── MODALS ───────────────────────────────────────────────────────────────────
+function openModal(id) {
+  if (id === 'modal-log-session') {
+    document.getElementById('ls-date').value = new Date().toISOString().split('T')[0];
+    document.getElementById('ls-topic').value = '';
+    document.getElementById('ls-notes').value = '';
+  }
+  document.getElementById(id).classList.add('open');
+}
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+document.querySelectorAll('.modal-overlay').forEach(o => {
+  o.addEventListener('click', e => { if(e.target===o) o.classList.remove('open'); });
+});
+
+// ─── TOAST ────────────────────────────────────────────────────────────────────
+function showToast(msg, type='success') {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.className = 'toast '+type+' show';
+  clearTimeout(t._timer); t._timer = setTimeout(() => t.classList.remove('show'), 3000);
+}
+</script>
+</body>
+</html>
