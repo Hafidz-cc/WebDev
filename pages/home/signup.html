@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up — HiveMinds</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --yellow:   #FFD400;
+            --yellow-d: #E6BF00;
+            --orange:   #FF5F00;
+            --dark:     #1A1600;
+            --wax:      #FEFAF0;
+            --comb:     #FDF3D0;
+            --aged:     #6B5800;
+            --border:   #E8C84A;
+            --radius:   10px;
+        }
+
+        @keyframes bgCycle {
+            0%,  30% { background-image: url('../../assets/images/backgroundimg1.png'); }
+            33%, 63% { background-image: url('../../assets/images/backgroundimg2.png'); }
+            66%, 96% { background-image: url('../../assets/images/backgroundimg3.jpg'); }
+            100%     { background-image: url('../../assets/images/backgroundimg1.png'); }
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 16px;
+            animation: bgCycle 15s infinite;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: #2a2000;
+        }
+
+        /* Frosted overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 8, 0, 0.55);
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
+            z-index: 0;
+        }
+
+        /* ── Card ── */
+        .signup-card {
+            position: relative;
+            z-index: 1;
+            background: rgba(254, 250, 240, 0.97);
+            border: 2.5px solid var(--border);
+            border-radius: 20px;
+            box-shadow: 8px 8px 0 rgba(0,0,0,0.35);
+            width: min(680px, 96vw);
+            padding: 36px 40px 32px;
+            animation: fadeUp 0.45s ease-out both;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(22px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Close button */
+        .close-btn {
+            position: absolute;
+            top: 16px; right: 18px;
+            font-size: 22px;
+            color: #888;
+            font-weight: 700;
+            text-decoration: none;
+            line-height: 1;
+            transition: color 0.2s;
+        }
+        .close-btn:hover { color: var(--orange); }
+
+        /* Header */
+        .card-header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+        .logo {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.5em;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            color: #0D0B00;
+            margin-bottom: 6px;
+        }
+        .logo span { color: var(--orange); }
+        .card-header h1 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.55rem;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 4px;
+        }
+        .card-header p {
+            font-size: 0.88rem;
+            color: var(--aged);
+        }
+
+        /* ── Section dividers ── */
+        .form-section {
+            margin-bottom: 22px;
+        }
+        .section-label {
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--aged);
+            padding-bottom: 8px;
+            border-bottom: 1.5px solid var(--border);
+            margin-bottom: 14px;
+        }
+
+        /* ── Grid row ── */
+        .row {
+            display: grid;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        .row.cols-3 { grid-template-columns: 1fr 1fr 80px; }
+        .row.cols-2 { grid-template-columns: 1fr 1fr; }
+        .row.cols-1 { grid-template-columns: 1fr; }
+
+        /* ── Field ── */
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .field label {
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--dark);
+            letter-spacing: 0.01em;
+        }
+        .field label .opt {
+            font-weight: 400;
+            color: #aaa;
+            font-size: 0.9em;
+        }
+        .field input,
+        .field select {
+            width: 100%;
+            padding: 9px 11px;
+            border-radius: var(--radius);
+            border: 1.5px solid #ddd;
+            font-size: 0.9rem;
+            font-family: inherit;
+            color: var(--dark);
+            background: #fff;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none;
+        }
+        .field input:focus,
+        .field select:focus {
+            border-color: var(--yellow);
+            box-shadow: 0 0 0 3px rgba(255, 212, 0, 0.2);
+        }
+        .field input::placeholder { color: #bbb; }
+
+        /* File input */
+        .file-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 9px 14px;
+            border-radius: var(--radius);
+            border: 1.5px dashed #ccc;
+            cursor: pointer;
+            background: #fff;
+            font-size: 0.88rem;
+            color: #888;
+            transition: border-color 0.2s, background 0.2s;
+        }
+        .file-label:hover {
+            border-color: var(--yellow);
+            background: var(--comb);
+            color: var(--dark);
+        }
+        .file-label .file-icon {
+            font-size: 1.1rem;
+        }
+        #cor { display: none; }
+        #file-name {
+            font-size: 0.82rem;
+            color: var(--aged);
+            margin-top: 4px;
+            min-height: 18px;
+        }
+
+        /* Password strength */
+        #pw-strength-bar {
+            height: 3px;
+            border-radius: 2px;
+            background: #eee;
+            margin-top: 4px;
+            overflow: hidden;
+        }
+        #pw-strength-fill {
+            height: 100%;
+            width: 0%;
+            border-radius: 2px;
+            transition: width 0.3s, background 0.3s;
+        }
+        #pw-hint {
+            font-size: 0.75rem;
+            color: #aaa;
+            margin-top: 2px;
+        }
+
+        /* ── Terms ── */
+        .terms {
+            display: flex;
+            align-items: flex-start;
+            gap: 9px;
+            font-size: 0.85rem;
+            color: #555;
+            margin: 16px 0 20px;
+        }
+        .terms input[type="checkbox"] {
+            width: 15px;
+            height: 15px;
+            flex-shrink: 0;
+            margin-top: 2px;
+            accent-color: var(--yellow);
+            cursor: pointer;
+        }
+        .terms a {
+            color: var(--orange);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .terms a:hover { text-decoration: underline; }
+
+        /* ── Submit ── */
+        .submit-btn {
+            width: 100%;
+            padding: 13px;
+            background: var(--yellow);
+            color: #000;
+            border: 2px solid #000;
+            border-radius: var(--radius);
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: 800;
+            cursor: pointer;
+            letter-spacing: 0.02em;
+            box-shadow: 3px 3px 0 #000;
+            transition: all 0.2s ease;
+        }
+        .submit-btn:hover {
+            background: var(--orange);
+            color: #fff;
+            transform: translate(-1px, -1px);
+            box-shadow: 4px 4px 0 #000;
+        }
+        .submit-btn:active {
+            transform: translate(1px, 1px);
+            box-shadow: 1px 1px 0 #000;
+        }
+
+        /* Login link */
+        .login-link {
+            text-align: center;
+            font-size: 0.88rem;
+            color: var(--aged);
+            margin-top: 16px;
+        }
+        .login-link a {
+            color: var(--orange);
+            font-weight: 700;
+            text-decoration: none;
+        }
+        .login-link a:hover { text-decoration: underline; }
+
+        /* ── Mobile ── */
+        @media (max-width: 560px) {
+            .signup-card { padding: 28px 20px 24px; }
+            .row.cols-3 { grid-template-columns: 1fr 1fr; }
+            .row.cols-3 .field:last-child { grid-column: 1 / -1; }
+            .row.cols-2 { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="signup-card">
+    <a href="../../pages/home/homepage.html" class="close-btn" aria-label="Close">×</a>
+
+    <!-- Header -->
+    <div class="card-header">
+        <div class="logo"><span>Hive</span>Minds</div>
+        <h1>Create your account</h1>
+        <p>Join the hive using your school email</p>
+    </div>
+
+    <form id="form" action="verify-enrollment-success.html" method="get" novalidate>
+
+        <!-- Personal Info -->
+        <div class="form-section">
+            <div class="section-label">Personal info</div>
+
+            <div class="row cols-3">
+                <div class="field">
+                    <label for="lastName">Last Name</label>
+                    <input id="lastName" type="text" name="lastName" placeholder="Dela Cruz" required>
+                </div>
+                <div class="field">
+                    <label for="firstName">First Name</label>
+                    <input id="firstName" type="text" name="firstName" placeholder="Juan" required>
+                </div>
+                <div class="field">
+                    <label for="middleInitial">M.I. <span class="opt">(opt.)</span></label>
+                    <input id="middleInitial" type="text" name="middleInitial" placeholder="A." maxlength="2">
+                </div>
+            </div>
+
+            <div class="row cols-2">
+                <div class="field">
+                    <label for="birthdate">Birthdate</label>
+                    <input id="birthdate" type="date" name="birthdate" required>
+                </div>
+                <div class="field">
+                    <label for="number">Phone <span class="opt">(opt.)</span></label>
+                    <input id="number" type="tel" name="number" placeholder="09XXXXXXXXX" maxlength="11">
+                </div>
+            </div>
+        </div>
+
+        <!-- Account Details -->
+        <div class="form-section">
+            <div class="section-label">Account details</div>
+
+            <div class="row cols-1">
+                <div class="field">
+                    <label for="email">School Email</label>
+                    <input id="email" type="email" name="email"
+                        pattern="[a-zA-Z0-9._%+\-]+@wmsu\.edu\.ph"
+                        placeholder="ty0000000000@wmsu.edu.ph"
+                        title="Use your @wmsu.edu.ph email"
+                        required>
+                </div>
+            </div>
+
+            <div class="row cols-2">
+                <div class="field">
+                    <label for="password">Password</label>
+                    <input id="password" type="password" name="password"
+                        placeholder="Min. 8 characters" required minlength="8">
+                    <div id="pw-strength-bar"><div id="pw-strength-fill"></div></div>
+                    <div id="pw-hint">Enter a password</div>
+                </div>
+                <div class="field">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input id="confirmPassword" type="password" name="confirmPassword"
+                        placeholder="Repeat password" required>
+                    <div id="pw-hint2" style="font-size:0.75rem;color:#aaa;margin-top:6px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Academic Info -->
+        <div class="form-section">
+            <div class="section-label">Academic info</div>
+
+            <div class="row cols-2">
+                <div class="field">
+                    <label for="ID">Student ID</label>
+                    <input id="ID" type="text" name="ID" placeholder="202500087" required>
+                </div>
+                <div class="field">
+                    <label for="Year">Year Level</label>
+                    <input id="Year" type="number" name="Year" placeholder="1" min="1" max="6" required>
+                </div>
+            </div>
+
+            <div class="row cols-2">
+                <div class="field">
+                    <label for="course">Course</label>
+                    <input id="course" type="text" name="course" placeholder="BS Computer Science" required>
+                </div>
+                <div class="field">
+                    <label for="section">Section</label>
+                    <input id="section" type="text" name="section" placeholder="CS-3A" required>
+                </div>
+            </div>
+        </div>
+
+        <!-- Verification -->
+        <div class="form-section">
+            <div class="section-label">Enrollment verification</div>
+
+            <div class="field">
+                <label>Certificate of Registration (COR)</label>
+                <label for="cor" class="file-label">
+                    <span class="file-icon">📎</span>
+                    <span id="file-text">Click to upload COR image</span>
+                </label>
+                <input id="cor" type="file" name="cor" accept="image/*" required>
+                <div id="file-name"></div>
+            </div>
+        </div>
+
+        <!-- Terms -->
+        <div class="terms">
+            <input type="checkbox" id="terms" required>
+            <label for="terms">
+                I agree to the <a href="../misc/terms.html">Terms of Service</a>
+                and <a href="../misc/privacy.html">Privacy Policy</a>
+            </label>
+        </div>
+
+        <button type="submit" class="submit-btn">Create Account →</button>
+    </form>
+
+    <p class="login-link">Already have an account? <a href="login.html">Log in</a></p>
+</div>
+
+<script>
+    // File input label
+    const corInput = document.getElementById('cor');
+    const fileText = document.getElementById('file-text');
+    const fileName = document.getElementById('file-name');
+    corInput.addEventListener('change', () => {
+        const f = corInput.files[0];
+        if (f) {
+            fileText.textContent = 'File selected ✓';
+            fileName.textContent = f.name;
+            fileName.style.color = '#4a7c00';
+        }
+    });
+
+    // Password strength
+    const pw = document.getElementById('password');
+    const fill = document.getElementById('pw-strength-fill');
+    const hint = document.getElementById('pw-hint');
+    const levels = [
+        { label: 'Too short',  color: '#e24b4a', w: '20%' },
+        { label: 'Weak',       color: '#e24b4a', w: '35%' },
+        { label: 'Fair',       color: '#F5A800', w: '60%' },
+        { label: 'Good',       color: '#8ebb2a', w: '80%' },
+        { label: 'Strong 💪',  color: '#3a9c4e', w: '100%' },
+    ];
+    pw.addEventListener('input', () => {
+        const v = pw.value;
+        let score = 0;
+        if (v.length >= 8)  score++;
+        if (v.length >= 12) score++;
+        if (/[A-Z]/.test(v) && /[a-z]/.test(v)) score++;
+        if (/\d/.test(v))   score++;
+        if (/[^A-Za-z0-9]/.test(v)) score++;
+        const lvl = v.length === 0 ? null : levels[Math.min(score, 4)];
+        if (!lvl) { fill.style.width = '0%'; hint.textContent = 'Enter a password'; hint.style.color = '#aaa'; return; }
+        fill.style.width = lvl.w;
+        fill.style.background = lvl.color;
+        hint.textContent = lvl.label;
+        hint.style.color = lvl.color;
+    });
+
+    // Confirm password live check
+    const cpw = document.getElementById('confirmPassword');
+    const hint2 = document.getElementById('pw-hint2');
+    cpw.addEventListener('input', () => {
+        if (!cpw.value) { hint2.textContent = ''; return; }
+        if (cpw.value === pw.value) {
+            hint2.textContent = 'Passwords match ✓';
+            hint2.style.color = '#3a9c4e';
+        } else {
+            hint2.textContent = 'Passwords don\'t match';
+            hint2.style.color = '#e24b4a';
+        }
+    });
+
+    // Submit
+    document.getElementById('form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (!pw.value || !cpw.value) { alert('Please enter a password.'); return; }
+        if (pw.value !== cpw.value) { alert("Passwords don't match!"); return; }
+        this.submit();
+    });
+</script>
+
+</body>
+</html>
