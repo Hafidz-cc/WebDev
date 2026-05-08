@@ -1,376 +1,423 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Discover Groups — HiveMinds</title>
-        <link rel="stylesheet" href="../../assets/CSS/base/base.css">
-        <link rel="stylesheet" href="../../assets/CSS/base/navbar.css">
-        <link rel="stylesheet" href="../../assets/CSS/base/layout.css">
-        <link rel="stylesheet" href="../../assets/CSS/hives/hives.css">
-        <link rel="stylesheet" href="../../assets/CSS/misc/switcher.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discover Groups — HiveMinds</title>
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Belanosima&family=Bricolage+Grotesque:opsz,wght@12..96,420&family=Coiny&family=McLaren&family=Pacifico&family=Pangolin&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-        <style>
-            #hives-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; padding: 20px 0; }
-            
-            .filter-section { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
-            .filter-btn { padding: 8px 16px; border: 1.5px solid #e5e7eb; border-radius: 8px; background: #fff; cursor: pointer; font-size: 0.9rem; font-weight: 500; color: #444; transition: all 0.2s; }
-            .filter-btn.active { background: #f97316; color: #fff; border-color: #f97316; }
-            .filter-btn:hover { border-color: #f97316; }
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --yellow:     #FFD400;
+            --yellow-d:   #E6BF00;
+            --yellow-mid: #FFF3B0;
+            --orange:     #FF5F00;
+            --dark:       #1A1600;
+            --hive:       #0D0B00;
+            --aged:       #6B5800;
+            --muted:      #9A8A60;
+            --border:     rgba(0,0,0,0.09);
+            --border-y:   #E8C84A;
+            --wax:        #FEFAF0;
+            --nav-h:      62px;
+            --sidebar-w:  220px;
+            --radius:     12px;
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Plus Jakarta Sans', Arial, sans-serif; background: var(--wax); color: var(--dark); min-height: 100vh; font-size: 14px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+        a { text-decoration: none; color: inherit; }
 
-            .group-card { background: #fff; border: 1.5px solid #e5e7eb; border-radius: 12px; padding: 18px; cursor: pointer; transition: all 0.3s; display: flex; flex-direction: column; gap: 12px; }
-            .group-card:hover { box-shadow: 0 4px 12px rgba(249, 115, 22, 0.15); border-color: #f97316; transform: translateY(-2px); }
-            
-            .group-header { display: flex; justify-content: space-between; align-items: start; gap: 8px; }
-            .group-name { font-size: 1.05rem; font-weight: 700; color: #1a1a1a; }
-            .group-status { font-size: 0.7rem; font-weight: 700; padding: 4px 10px; border-radius: 99px; text-transform: uppercase; letter-spacing: 0.04em; }
-            .status-verified { background: #dcfce7; color: #166534; }
-            .status-pending { background: #fef3c7; color: #92400e; }
+        /* ══ NAVBAR ══ */
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
+        #nav-container { display: flex; align-items: center; justify-content: space-between; height: var(--nav-h); padding: 0 28px; gap: 24px; background: rgba(254,250,240,0.96); backdrop-filter: blur(14px); border-bottom: 1.5px solid var(--border-y); }
+        .logo span { font-family: 'Fraunces', Georgia, serif; font-size: 1.45em; font-weight: 700; letter-spacing: -0.03em; }
+        .black { color: #0D0B00; } .orange-text { color: var(--orange); }
+        #nav-links { display: flex; align-items: center; gap: 4px; flex: 1; justify-content: center; }
+        #nav-links a { font-size: 0.88em; font-weight: 600; color: #3A2E00; padding: 6px 14px; border-radius: 6px; transition: 0.18s ease; }
+        #nav-links a:hover { background: rgba(255,212,0,0.18); color: var(--dark); }
+        #nav-links a.active-nav { background: var(--yellow); color: var(--hive); font-weight: 700; border: 1.5px solid rgba(0,0,0,0.15); }
+        #user-pill { display: flex; align-items: center; gap: 9px; padding: 5px 12px 5px 6px; border-radius: 30px; border: 1.5px solid rgba(0,0,0,0.15); background: white; cursor: pointer; transition: 0.18s ease; }
+        #user-pill:hover { background: var(--yellow); }
+        #user-avatar { width: 30px; height: 30px; border-radius: 50%; background: var(--yellow-mid); border: 1.5px solid var(--border-y); display: flex; align-items: center; justify-content: center; font-size: 0.78em; font-weight: 800; color: var(--aged); flex-shrink: 0; }
+        #user-name { font-size: 0.84em; font-weight: 700; color: #3A2E00; }
+        #notif-btn { position: relative; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 8px; border: 1.5px solid rgba(0,0,0,0.15); background: white; cursor: pointer; color: #555; font-size: 1em; transition: 0.18s ease; flex-shrink: 0; }
+        #notif-btn:hover { background: var(--yellow); }
+        .notif-dot { position: absolute; top: 6px; right: 6px; width: 8px; height: 8px; background: var(--orange); border-radius: 50%; border: 1.5px solid white; }
+        #hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; flex-shrink: 0; }
+        #hamburger span { display: block; width: 20px; height: 2px; background: var(--dark); border-radius: 2px; }
 
-            .group-owner { font-size: 0.85rem; color: #666; display: flex; align-items: center; gap: 6px; }
-            .group-owner i { color: #999; }
+        /* ══ LAYOUT ══ */
+        #container { display: flex; min-height: calc(100vh - var(--nav-h)); margin-top: var(--nav-h); }
+        #sidebar { width: var(--sidebar-w); min-width: var(--sidebar-w); background: #FFFDF5; border-right: 1.5px solid var(--border); display: flex; flex-direction: column; padding: 24px 10px 24px 16px; gap: 28px; position: fixed; top: var(--nav-h); left: 0; height: calc(100vh - var(--nav-h)); overflow-y: auto; z-index: 10; }
+        .sidebar-section { display: flex; flex-direction: column; gap: 3px; }
+        .sidebar-label { font-size: 0.67em; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); padding: 0 10px 6px; }
+        .sidebar-hr { border: none; border-top: 1px solid var(--border); margin-bottom: 4px; }
+        .sidebar-btn { display: flex; align-items: center; gap: 9px; padding: 8px 12px; border-radius: 7px; transition: 0.16s ease; cursor: pointer; border-left: 3px solid transparent; font-size: 0.87em; font-weight: 500; color: #3A2E00; }
+        .sidebar-btn:hover { background: rgba(255,212,0,0.14); border-left-color: rgba(255,212,0,0.5); }
+        .sidebar-btn.active { background: rgba(255,212,0,0.22); border-left-color: var(--yellow); font-weight: 700; color: var(--dark); }
+        .sidebar-btn i { width: 16px; text-align: center; font-size: 0.9em; color: var(--aged); }
+        .sidebar-btn.active i { color: var(--dark); }
+        .hex { width: 10px; height: 11px; background: var(--orange); clip-path: polygon(25% 0%,75% 0%,100% 50%,75% 100%,25% 100%,0% 50%); flex-shrink: 0; }
+        .hex.owner { background: var(--yellow); }
 
-            .group-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px 0; border-top: 1px solid #f0f0f0; border-bottom: 1px solid #f0f0f0; }
-            .meta-item { font-size: 0.8rem; }
-            .meta-label { color: #999; font-weight: 600; }
-            .meta-value { color: #1a1a1a; font-weight: 500; }
+        /* ══ CONTENT ══ */
+        #content { flex: 1; padding: 28px 32px; background: repeating-linear-gradient(60deg,transparent,transparent 28px,rgba(0,0,0,0.018) 28px,rgba(0,0,0,0.018) 30px), repeating-linear-gradient(-60deg,transparent,transparent 28px,rgba(0,0,0,0.018) 28px,rgba(0,0,0,0.018) 30px), #FFFDF5; min-width: 0; }
 
-            .group-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-            .tag { font-size: 0.75rem; background: #f3f4f6; color: #444; padding: 4px 10px; border-radius: 6px; }
+        /* ══ PAGE HEADER ══ */
+        .page-title { font-family: 'Fraunces', Georgia, serif; font-size: 1.7em; font-weight: 600; color: var(--hive); letter-spacing: -0.02em; margin-bottom: 4px; }
+        .page-subtitle { font-size: 0.88em; color: var(--muted); margin-bottom: 22px; }
 
-            .group-footer { display: flex; gap: 8px; }
-            .btn-join { flex: 1; padding: 8px 12px; background: #f97316; color: #fff; border: none; border-radius: 7px; font-weight: 600; cursor: pointer; font-size: 0.9rem; transition: background 0.2s; }
-            .btn-join:hover { background: #ea580c; }
-            .btn-view { flex: 1; padding: 8px 12px; background: #fff; color: #f97316; border: 1.5px solid #f97316; border-radius: 7px; font-weight: 600; cursor: pointer; font-size: 0.9rem; transition: all 0.2s; }
-            .btn-view:hover { background: #fff7ed; }
+        /* ══ FILTERS ══ */
+        .filter-section { display: flex; gap: 8px; margin-bottom: 22px; flex-wrap: wrap; }
+        .filter-btn { padding: 7px 16px; border: 1.5px solid var(--border-y); border-radius: 7px; background: white; cursor: pointer; font-family: inherit; font-size: 0.84em; font-weight: 600; color: var(--aged); transition: 0.18s ease; }
+        .filter-btn:hover { border-color: var(--yellow-d); background: var(--yellow-mid); color: var(--dark); }
+        .filter-btn.active { background: var(--yellow); color: var(--hive); border-color: rgba(0,0,0,0.2); font-weight: 700; }
 
-            /* Modal Styles */
-            .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1000; align-items: center; justify-content: center; }
-            .modal.active { display: flex; }
-            .modal-content { background: #fff; border-radius: 12px; padding: 32px; max-width: 500px; width: 90%; max-height: 90vh; overflow-y: auto; }
-            .modal-close { position: absolute; top: 16px; right: 16px; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #999; }
-            .modal-close:hover { color: #1a1a1a; }
+        /* ══ GRID ══ */
+        #hives-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 16px; }
 
-            .modal-header { margin-bottom: 20px; }
-            .modal-title { font-size: 1.5rem; font-weight: 700; color: #1a1a1a; margin-bottom: 8px; }
-            .modal-owner { font-size: 0.9rem; color: #666; display: flex; align-items: center; gap: 6px; }
+        /* ══ GROUP CARD ══ */
+        .group-card { background: white; border: 1.5px solid var(--border-y); border-radius: var(--radius); padding: 16px 18px; display: flex; flex-direction: column; gap: 11px; box-shadow: 3px 3px 0 rgba(232,200,74,0.3); transition: 0.2s ease; }
+        .group-card:hover { box-shadow: 4px 4px 0 rgba(232,200,74,0.5); transform: translateY(-2px); border-color: var(--yellow-d); }
 
-            .modal-info { display: flex; flex-direction: column; gap: 16px; margin-bottom: 20px; padding: 16px; background: #f9fafb; border-radius: 8px; }
-            .info-row { display: flex; justify-content: space-between; }
-            .info-label { font-weight: 600; color: #666; }
-            .info-value { color: #1a1a1a; font-weight: 500; }
+        .group-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+        .group-name { font-size: 0.97em; font-weight: 700; color: var(--dark); line-height: 1.35; }
 
-            .modal-description { color: #444; line-height: 1.6; margin-bottom: 20px; }
+        .group-status { font-size: 0.68em; font-weight: 800; padding: 3px 9px; border-radius: 99px; text-transform: uppercase; letter-spacing: 0.06em; white-space: nowrap; flex-shrink: 0; }
+        .status-verified { background: #DCFCE7; color: #166534; border: 1px solid #BBF7D0; }
+        .status-pending  { background: var(--yellow-mid); color: var(--aged); border: 1px solid var(--border-y); }
 
-            .modal-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+        .group-owner { font-size: 0.82em; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+        .group-owner i { font-size: 0.85em; }
 
-            .modal-actions { display: flex; gap: 10px; }
-            .btn-primary { flex: 1; padding: 12px; background: #f97316; color: #fff; border: none; border-radius: 7px; font-weight: 600; cursor: pointer; font-size: 0.95rem; }
-            .btn-primary:hover { background: #ea580c; }
-            .btn-secondary { flex: 1; padding: 12px; background: #f3f4f6; color: #1a1a1a; border: none; border-radius: 7px; font-weight: 600; cursor: pointer; font-size: 0.95rem; }
-            .btn-secondary:hover { background: #e5e7eb; }
+        .group-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 10px 0; border-top: 1px solid rgba(0,0,0,0.05); border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .meta-item { font-size: 0.8em; }
+        .meta-label { color: var(--muted); font-weight: 700; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.06em; }
+        .meta-value { color: var(--dark); font-weight: 600; margin-top: 2px; }
 
-            .page-title { font-size: 1.8rem; font-weight: 700; color: #1a1a1a; margin-bottom: 8px; }
-            .page-subtitle { font-size: 0.95rem; color: #666; margin-bottom: 24px; }
+        .group-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+        .tag { font-size: 0.74em; background: var(--yellow-mid); color: var(--aged); padding: 3px 9px; border-radius: 5px; border: 1px solid var(--border-y); font-weight: 600; text-transform: capitalize; }
 
-            .empty-state { text-align: center; padding: 40px 20px; color: #999; }
-            .empty-state i { font-size: 2.5rem; margin-bottom: 12px; }
+        .group-footer { display: flex; gap: 8px; margin-top: 2px; }
+        .btn-view { flex: 1; padding: 7px 10px; background: white; color: var(--dark); border: 1.5px solid var(--border-y); border-radius: 7px; font-family: inherit; font-weight: 700; font-size: 0.82em; cursor: pointer; transition: 0.16s ease; }
+        .btn-view:hover { background: var(--yellow-mid); border-color: var(--yellow-d); }
+        .btn-join { flex: 1; padding: 7px 10px; background: var(--yellow); color: var(--hive); border: 1.5px solid rgba(0,0,0,0.18); border-radius: 7px; font-family: inherit; font-weight: 800; font-size: 0.82em; cursor: pointer; transition: 0.16s ease; }
+        .btn-join:hover { background: var(--yellow-d); }
+        .btn-join.requested { background: #f0f0e8; color: var(--muted); border-color: var(--border-y); cursor: default; }
 
-    
-        </style>
-    </head>
+        /* ══ MODAL ══ */
+        .modal { display: none; position: fixed; inset: 0; background: rgba(13,11,0,0.50); backdrop-filter: blur(3px); z-index: 999; align-items: center; justify-content: center; }
+        .modal.active { display: flex; }
+        .modal-content { background: white; border: 2px solid var(--border-y); border-radius: var(--radius); box-shadow: -4px 6px 0 rgba(232,200,74,0.35); padding: 28px; max-width: 480px; width: 90%; max-height: 90vh; overflow-y: auto; position: relative; animation: modalIn 0.2s ease; }
+        @keyframes modalIn { from{opacity:0;transform:translateY(10px) scale(0.97)} to{opacity:1;transform:none} }
 
-    <body>
-        <nav>
-            <div id="nav-container">
-                <a href="/WebDev/pages/home/homepage.html">
-                    <div class="logo">
-                        <span class="black">Hive</span><span class="orange">Minds</span>
-                    </div>
-                </a>
-                <div id="nav-links">
-                    <a class="hover" href="../../pages/home/home_home-feed.html">Home</a>
-                    <a class="hover active-nav" href="hives.html">Hives</a>
-                    <a class="hover" href="../../pages/misc/profile.html">Profile</a>
-                </div>
-                <div id="auth-links">
-                    <a class="hover" href="../../pages/misc/profile.html">student</a>
-                </div>
-            </div>
-        </nav>
+        .modal-close { position: absolute; top: 14px; right: 16px; background: none; border: none; font-size: 1.3em; cursor: pointer; color: var(--muted); line-height: 1; transition: 0.15s; }
+        .modal-close:hover { color: var(--dark); }
 
-        <main>
-            <div id="container">
-                <div id="content" style="flex: 1; padding: 0 24px;">
-                    <div class="page-title">Discover Groups from (e.g., CCS)</div>
-                    <div class="page-subtitle">Browse and join study groups.</div>
+        .modal-title { font-family: 'Fraunces', Georgia, serif; font-size: 1.35em; font-weight: 600; color: var(--hive); margin-bottom: 6px; padding-right: 24px; line-height: 1.25; }
+        .modal-owner { font-size: 0.83em; color: var(--muted); display: flex; align-items: center; gap: 6px; margin-bottom: 18px; }
 
-                    <div class="filter-section">
-                        <button class="filter-btn active" data-filter="all">All Groups</button>
-                        <button class="filter-btn" data-filter="verified">Verified Only</button>
-                        <button class="filter-btn" data-filter="pending">Pending Verification</button>
-                    </div>
+        .modal-info { display: flex; flex-direction: column; gap: 0; background: #FFFDF5; border: 1.5px solid var(--border-y); border-radius: 8px; overflow: hidden; margin-bottom: 16px; }
+        .info-row { display: flex; justify-content: space-between; align-items: center; padding: 9px 14px; border-bottom: 1px solid rgba(0,0,0,0.05); font-size: 0.86em; }
+        .info-row:last-child { border-bottom: none; }
+        .info-label { color: var(--muted); font-weight: 700; }
+        .info-value { color: var(--dark); font-weight: 600; }
 
-                    <div id="hives-container">
-                        <!-- Verified Groups -->
-                        <div class="group-card" data-status="verified">
-                            <div class="group-header">
-                                <div class="group-name">Computer Programming Study Group</div>
-                                <span class="group-status status-verified">Verified</span>
-                            </div>
-                            <div class="group-owner"><i class="fa fa-user"></i>Alex Rivera</div>
-                            <div class="group-meta">
-                                <div class="meta-item"><span class="meta-label">Members</span><br><span class="meta-value">24</span></div>
-                                <div class="meta-item"><span class="meta-label">Department</span><br><span class="meta-value">CCS</span></div>
-                            </div>
-                            <div class="group-tags">
-                                <span class="tag">Technology</span>
-                                <span class="tag">Study Group</span>
-                            </div>
-                            <div class="group-footer">
-                                <button class="btn-view" onclick="openGroupModal(this)">View Details</button>
-                                <button class="btn-join" onclick="requestJoin(event)">Request Join</button>
-                            </div>
-                        </div>
+        .modal-description { font-size: 0.88em; color: #555; line-height: 1.65; margin-bottom: 16px; }
+        .modal-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
 
-                        <div class="group-card" data-status="verified">
-                            <div class="group-header">
-                                <div class="group-name">Discrete structures study group</div>
-                                <span class="group-status status-verified">Verified</span>
-                            </div>
-                            <div class="group-owner"><i class="fa fa-user"></i>Jordan Chen</div>
-                            <div class="group-meta">
-                                <div class="meta-item"><span class="meta-label">Members</span><br><span class="meta-value">18</span></div>
-                                <div class="meta-item"><span class="meta-label">Department</span><br><span class="meta-value">CCS</span></div>
-                            </div>
-                            <div class="group-tags">
-                                <span class="tag">Science</span>
-                                <span class="tag">study Group</span>
-                            </div>
-                            <div class="group-footer">
-                                <button class="btn-view" onclick="openGroupModal(this)">View Details</button>
-                                <button class="btn-join" onclick="requestJoin(event)">Request Join</button>
-                            </div>
-                        </div>
+        .modal-actions { display: flex; gap: 10px; }
+        .btn-primary { flex: 1; padding: 10px; background: var(--yellow); color: var(--hive); border: 1.5px solid rgba(0,0,0,0.18); border-radius: 7px; font-family: inherit; font-weight: 800; font-size: 0.9em; cursor: pointer; transition: 0.16s; }
+        .btn-primary:hover { background: var(--yellow-d); }
+        .btn-secondary { flex: 1; padding: 10px; background: white; color: #555; border: 1.5px solid var(--border-y); border-radius: 7px; font-family: inherit; font-weight: 700; font-size: 0.9em; cursor: pointer; transition: 0.16s; }
+        .btn-secondary:hover { background: #f5f3ea; }
 
-                        <div class="group-card" data-status="verified">
-                            <div class="group-header">
-                                <div class="group-name">AppDev Collab group</div>
-                                <span class="group-status status-verified">Verified</span>
-                            </div>
-                            <div class="group-owner"><i class="fa fa-user"></i>Maya Santos</div>
-                            <div class="group-meta">
-                                <div class="meta-item"><span class="meta-label">Members</span><br><span class="meta-value">32</span></div>
-                                <div class="meta-item"><span class="meta-label">Department</span><br><span class="meta-value">CCS</span></div>
-                            </div>
-                            <div class="group-tags">
-                                <span class="tag">Technology</span>
-                                <span class="tag">Study Group</span>
-                            </div>
-                            <div class="group-footer">
-                                <button class="btn-view" onclick="openGroupModal(this)">View Details</button>
-                                <button class="btn-join" onclick="requestJoin(event)">Request Join</button>
-                            </div>
-                        </div>
+        /* ══ ROLE SWITCHER ══ */
+        #role-switcher { position: fixed; bottom: 20px; right: 20px; display: flex; align-items: center; gap: 6px; background: white; border: 1.5px solid var(--border-y); border-radius: 99px; padding: 5px 8px 5px 14px; box-shadow: 3px 3px 0 rgba(232,200,74,0.3); font-size: 0.78em; z-index: 50; }
+        .switcher-label { font-weight: 700; color: var(--muted); }
+        .switcher-btn { padding: 4px 12px; border-radius: 99px; font-size: 0.9em; font-weight: 700; color: var(--aged); transition: 0.15s; }
+        .switcher-btn:hover { background: var(--yellow-mid); }
+        .switcher-btn.active { background: var(--yellow); color: var(--hive); border: 1px solid rgba(0,0,0,0.15); }
 
-                        <!-- Pending Verification Groups -->
-                        <div class="group-card" data-status="pending">
-                            <div class="group-header">
-                                <div class="group-name">CyberSecurity seniors collab  group</div>
-                                <span class="group-status status-pending">Pending Verification</span>
-                            </div>
-                            <div class="group-owner"><i class="fa fa-user"></i>Sam Reyes</div>
-                            <div class="group-meta">
-                                <div class="meta-item"><span class="meta-label">Members</span><br><span class="meta-value">0</span></div>
-                                <div class="meta-item"><span class="meta-label">Department</span><br><span class="meta-value">CCS</span></div>
-                            </div>
-                            <div class="group-tags">
-                                <span class="tag">Technology</span>
-                                <span class="tag">Study group</span>
-                            </div>
-                            <div class="group-footer">
-                                <button class="btn-view" onclick="openGroupModal(this)">View Details</button>
-                                <button class="btn-join" onclick="requestJoin(event)">Request Join</button>
-                            </div>
-                        </div>
+        /* ══ EMPTY STATE ══ */
+        .empty-state { grid-column: 1/-1; text-align: center; padding: 50px 20px; color: var(--muted); }
+        .empty-state i { font-size: 2rem; margin-bottom: 10px; display: block; }
 
-                        <div class="group-card" data-status="pending">
-                            <div class="group-header">
-                                <div class="group-name">Junior CS Study group</div>
-                                <span class="group-status status-pending">Pending Verification</span>
-                            </div>
-                            <div class="group-owner"><i class="fa fa-user"></i>Lisa Wong</div>
-                            <div class="group-meta">
-                                <div class="meta-item"><span class="meta-label">Members</span><br><span class="meta-value">0</span></div>
-                                <div class="meta-item"><span class="meta-label">Department</span><br><span class="meta-value">CCS</span></div>
-                            </div>
-                            <div class="group-tags">
-                                <span class="tag">Science</span>
-                                <span class="tag">Study Group</span>
-                            </div>
-                            <div class="group-footer">
-                                <button class="btn-view" onclick="openGroupModal(this)">View Details</button>
-                                <button class="btn-join" onclick="requestJoin(event)">Request Join</button>
-                            </div>
-                        </div>
+        /* ══ MOBILE ══ */
+        #mob-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 9; }
+        #mob-toggle { display: none; }
+        @media (max-width: 900px) {
+            #hamburger { display: flex; } #nav-links { display: none; }
+            #sidebar { transform: translateX(-100%); transition: transform 0.28s ease; z-index: 50; }
+            #mob-toggle:checked ~ #mob-overlay { display: block; }
+            #mob-toggle:checked ~ #container #sidebar { transform: translateX(0); }
+            #content { margin-left: 0; }
+        }
+        @media (max-width: 600px) { #content { padding: 16px; } .page-title { font-size: 1.3em; } #hives-container { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
 
-                        <div class="group-card" data-status="pending">
-                            <div class="group-header">
-                                <div class="group-name">CompSci CrashCourse</div>
-                                <span class="group-status status-pending">Pending Verification </span>
-                            </div>
-                            <div class="group-owner"><i class="fa fa-user"></i>Emma Clark</div>
-                            <div class="group-meta">
-                                <div class="meta-item"><span class="meta-label">Members</span><br><span class="meta-value">0</span></div>
-                                <div class="meta-item"><span class="meta-label">Department</span><br><span class="meta-value">CCS</span></div>
-                            </div>
-                            <div class="group-tags">
-                                <span class="tag">science</span>
-                                <span class="tag">Study group</span>
-                            </div>
-                            <div class="group-footer">
-                                <button class="btn-view" onclick="openGroupModal(this)">View Details</button>
-                                <button class="btn-join" onclick="requestJoin(event)">Request Join</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
+<input type="checkbox" id="mob-toggle" style="display:none;">
 
-        <!-- Group Details Modal -->
-        <div id="groupModal" class="modal">
-            <div class="modal-content">
-                <button class="modal-close" onclick="closeGroupModal()">&times;</button>
-                <div class="modal-header">
-                    <div class="modal-title" id="modalTitle"></div>
-                    <div class="modal-owner"><i class="fa fa-user"></i><span id="modalOwner"></span></div>
-                </div>
-                <div class="modal-info">
-                    <div class="info-row">
-                        <span class="info-label">Members</span>
-                        <span class="info-value" id="modalMembers"></span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Department</span>
-                        <span class="info-value" id="modalDepartment"></span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Status</span>
-                        <span class="info-value" id="modalStatus"></span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Created Date</span>
-                        <span class="info-value" id="modalDate"></span>
-                    </div>
-                </div>
-                <div class="modal-description" id="modalDescription"></div>
-                <div class="modal-tags" id="modalTags"></div>
-                <div class="modal-actions">
-                    <button class="btn-primary" onclick="requestJoinFromModal()">Request to Join</button>
-                    <button class="btn-secondary" onclick="closeGroupModal()">Close</button>
-                </div>
-            </div>
+<nav>
+    <div id="nav-container">
+        <label for="mob-toggle" id="hamburger"><span></span><span></span><span></span></label>
+        <a href="/WebDev/pages/home/homepage.html">
+            <div class="logo"><span class="black">Hive</span><span class="orange-text">Minds</span></div>
+        </a>
+        <div id="nav-links">
+            <a href="../../pages/home/home_home-feed.html">Home</a>
+            <a class="active-nav" href="hives.html">Hives</a>
+            <a href="../../pages/misc/profile.html">Profile</a>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+            <div id="notif-btn"><i class="fa-regular fa-bell"></i><span class="notif-dot"></span></div>
+            <a href="../../pages/misc/profile.html" id="user-pill">
+                <div id="user-avatar">RB</div>
+                <span id="user-name">Student</span>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<label for="mob-toggle" id="mob-overlay"></label>
+
+<div id="container">
+
+    <!-- Content -->
+    <div id="content">
+        <div class="page-title">Discover Groups</div>
+        <div class="page-subtitle">Browse and join study groups from your department.</div>
+
+        <div class="filter-section">
+            <button class="filter-btn active" data-filter="all">All Groups</button>
+            <button class="filter-btn" data-filter="verified">Verified Only</button>
+            <button class="filter-btn" data-filter="pending">Pending Verification</button>
         </div>
 
-        <div id="role-switcher">
-            <span class="switcher-label">View as</span>
-            <a href="hives.html" class="switcher-btn active">Student</a>
-            <a href="../../pages/admin/admin-dashboard.html" class="switcher-btn">Admin</a>
+        <div id="hives-container">
+
+            <!-- Verified -->
+            <div class="group-card" data-status="verified">
+                <div class="group-header">
+                    <div class="group-name">Computer Programming Study Group</div>
+                    <span class="group-status status-verified">Verified</span>
+                </div>
+                <div class="group-owner"><i class="fa-solid fa-user"></i> Alex Rivera</div>
+                <div class="group-meta">
+                    <div class="meta-item"><div class="meta-label">Members</div><div class="meta-value">24</div></div>
+                    <div class="meta-item"><div class="meta-label">Department</div><div class="meta-value">CCS</div></div>
+                </div>
+                <div class="group-tags">
+                    <span class="tag">Technology</span>
+                    <span class="tag">Study Group</span>
+                </div>
+                <div class="group-footer">
+                    <button class="btn-view" onclick="openGroupModal(this)">View Details</button>
+                    <button class="btn-join" onclick="requestJoin(event, this)">Request Join</button>
+                </div>
+            </div>
+
+            <div class="group-card" data-status="verified">
+                <div class="group-header">
+                    <div class="group-name">Discrete Structures Study Group</div>
+                    <span class="group-status status-verified">Verified</span>
+                </div>
+                <div class="group-owner"><i class="fa-solid fa-user"></i> Jordan Chen</div>
+                <div class="group-meta">
+                    <div class="meta-item"><div class="meta-label">Members</div><div class="meta-value">18</div></div>
+                    <div class="meta-item"><div class="meta-label">Department</div><div class="meta-value">CCS</div></div>
+                </div>
+                <div class="group-tags">
+                    <span class="tag">Mathematics</span>
+                    <span class="tag">Study Group</span>
+                </div>
+                <div class="group-footer">
+                    <button class="btn-view" onclick="openGroupModal(this)">View Details</button>
+                    <button class="btn-join" onclick="requestJoin(event, this)">Request Join</button>
+                </div>
+            </div>
+
+            <div class="group-card" data-status="verified">
+                <div class="group-header">
+                    <div class="group-name">AppDev Collab Group</div>
+                    <span class="group-status status-verified">Verified</span>
+                </div>
+                <div class="group-owner"><i class="fa-solid fa-user"></i> Maya Santos</div>
+                <div class="group-meta">
+                    <div class="meta-item"><div class="meta-label">Members</div><div class="meta-value">32</div></div>
+                    <div class="meta-item"><div class="meta-label">Department</div><div class="meta-value">CCS</div></div>
+                </div>
+                <div class="group-tags">
+                    <span class="tag">Technology</span>
+                    <span class="tag">Study Group</span>
+                </div>
+                <div class="group-footer">
+                    <button class="btn-view" onclick="openGroupModal(this)">View Details</button>
+                    <button class="btn-join" onclick="requestJoin(event, this)">Request Join</button>
+                </div>
+            </div>
+
+            <!-- Pending -->
+            <div class="group-card" data-status="pending">
+                <div class="group-header">
+                    <div class="group-name">CyberSecurity Seniors Collab Group</div>
+                    <span class="group-status status-pending">Pending</span>
+                </div>
+                <div class="group-owner"><i class="fa-solid fa-user"></i> Sam Reyes</div>
+                <div class="group-meta">
+                    <div class="meta-item"><div class="meta-label">Members</div><div class="meta-value">0</div></div>
+                    <div class="meta-item"><div class="meta-label">Department</div><div class="meta-value">CCS</div></div>
+                </div>
+                <div class="group-tags">
+                    <span class="tag">Technology</span>
+                    <span class="tag">Study Group</span>
+                </div>
+                <div class="group-footer">
+                    <button class="btn-view" onclick="openGroupModal(this)">View Details</button>
+                    <button class="btn-join" onclick="requestJoin(event, this)">Request Join</button>
+                </div>
+            </div>
+
+            <div class="group-card" data-status="pending">
+                <div class="group-header">
+                    <div class="group-name">Junior CS Study Group</div>
+                    <span class="group-status status-pending">Pending</span>
+                </div>
+                <div class="group-owner"><i class="fa-solid fa-user"></i> Lisa Wong</div>
+                <div class="group-meta">
+                    <div class="meta-item"><div class="meta-label">Members</div><div class="meta-value">0</div></div>
+                    <div class="meta-item"><div class="meta-label">Department</div><div class="meta-value">CCS</div></div>
+                </div>
+                <div class="group-tags">
+                    <span class="tag">Science</span>
+                    <span class="tag">Study Group</span>
+                </div>
+                <div class="group-footer">
+                    <button class="btn-view" onclick="openGroupModal(this)">View Details</button>
+                    <button class="btn-join" onclick="requestJoin(event, this)">Request Join</button>
+                </div>
+            </div>
+
+            <div class="group-card" data-status="pending">
+                <div class="group-header">
+                    <div class="group-name">CompSci CrashCourse</div>
+                    <span class="group-status status-pending">Pending</span>
+                </div>
+                <div class="group-owner"><i class="fa-solid fa-user"></i> Emma Clark</div>
+                <div class="group-meta">
+                    <div class="meta-item"><div class="meta-label">Members</div><div class="meta-value">0</div></div>
+                    <div class="meta-item"><div class="meta-label">Department</div><div class="meta-value">CCS</div></div>
+                </div>
+                <div class="group-tags">
+                    <span class="tag">Science</span>
+                    <span class="tag">Study Group</span>
+                </div>
+                <div class="group-footer">
+                    <button class="btn-view" onclick="openGroupModal(this)">View Details</button>
+                    <button class="btn-join" onclick="requestJoin(event, this)">Request Join</button>
+                </div>
+            </div>
+
         </div>
+    </div>
+</div>
 
-        <script>
-            // Filter functionality
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    const filter = this.dataset.filter;
-                    const cards = document.querySelectorAll('.group-card');
-                    
-                    cards.forEach(card => {
-                        if (filter === 'all') {
-                            card.style.display = '';
-                        } else {
-                            card.style.display = card.dataset.status === filter ? '' : 'none';
-                        }
-                    });
-                });
+<!-- Group Details Modal -->
+<div id="groupModal" class="modal">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeGroupModal()">&times;</button>
+        <div class="modal-title" id="modalTitle"></div>
+        <div class="modal-owner"><i class="fa-solid fa-user"></i><span id="modalOwner"></span></div>
+        <div class="modal-info">
+            <div class="info-row"><span class="info-label">Members</span><span class="info-value" id="modalMembers"></span></div>
+            <div class="info-row"><span class="info-label">Department</span><span class="info-value" id="modalDepartment"></span></div>
+            <div class="info-row"><span class="info-label">Status</span><span class="info-value" id="modalStatus"></span></div>
+            <div class="info-row"><span class="info-label">Created</span><span class="info-value" id="modalDate"></span></div>
+        </div>
+        <div class="modal-description" id="modalDescription"></div>
+        <div class="modal-tags" id="modalTags"></div>
+        <div class="modal-actions">
+            <button class="btn-primary" onclick="requestJoinFromModal()">Request to Join</button>
+            <button class="btn-secondary" onclick="closeGroupModal()">Close</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ── Filter ──
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', function () {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            const filter = this.dataset.filter;
+            document.querySelectorAll('.group-card').forEach(card => {
+                card.style.display = (filter === 'all' || card.dataset.status === filter) ? '' : 'none';
             });
+        });
+    });
 
-            // Modal functionality
-            let currentGroupData = {};
+    // ── Join ──
+    function requestJoin(e, btn) {
+        e.preventDefault();
+        if (btn.classList.contains('requested')) return;
+        btn.classList.add('requested');
+        btn.textContent = '✓ Requested';
+        btn.disabled = true;
+    }
 
-            function openGroupModal(btn) {
-                const card = btn.closest('.group-card');
-                const name = card.querySelector('.group-name').textContent;
-                const owner = card.querySelector('.group-owner').textContent.replace('Alex Rivera', '').replace('Jordan Chen', '').replace('Maya Santos', '').replace('Sam Reyes', '').replace('Lisa Wong', '').replace('Emma Clark', '').trim();
-                const meta = card.querySelectorAll('.meta-value');
-                const members = meta[0].textContent;
-                const department = meta[1].textContent;
-                const status = card.querySelector('.group-status').textContent;
-                const tags = Array.from(card.querySelectorAll('.tag')).map(t => t.textContent);
-                
-                const owners = {
-                    'Calculus Study Group': 'Alex Rivera',
-                    'Chemistry Wizards': 'Jordan Chen',
-                    'Bio Bees Support Hive': 'Maya Santos',
-                    'Physics Exam Blitz': 'Sam Reyes',
-                    'History Cram Night': 'Lisa Wong',
-                    'Literature & Lore': 'Emma Clark'
-                };
+    // ── Modal ──
+    const descriptions = {
+        'Computer Programming Study Group': 'A collaborative group dedicated to mastering programming concepts. We meet weekly to discuss problem-solving techniques, review syntax, and prepare for exams together.',
+        'Discrete Structures Study Group': 'Study group for discrete mathematics — covering logic, sets, graph theory, and proofs. Great for anyone finding the textbook hard to follow.',
+        'AppDev Collab Group': 'A collaborative space for app development enthusiasts. We work on projects together, review each other\'s code, and share resources.',
+        'CyberSecurity Seniors Collab Group': 'A group for senior students interested in cybersecurity topics. Covers offensive and defensive techniques, CTF prep, and career guidance.',
+        'Junior CS Study Group': 'Peer-support group for junior CS students. No question is too basic — we help each other navigate coursework and build strong fundamentals.',
+        'CompSci CrashCourse': 'Intensive review sessions covering core CS concepts. Ideal for students who want to fast-track their understanding before exams.'
+    };
 
-                const descriptions = {
-                    'Calculus Study Group': 'A collaborative group dedicated to mastering calculus concepts. We meet weekly to discuss problem-solving techniques and prepare for exams together.',
-                    'Chemistry Wizards': 'Lab-focused study group for chemistry enthusiasts. Perfect for understanding molecular structures, reactions, and lab experiments.',
-                    'Bio Bees Support Hive': 'A supportive community for biology students. We help each other understand complex biological concepts and prepare for assessments.',
-                    'Physics Exam Blitz': 'Intensive exam preparation group. Focus on practice problems, formula review, and conceptual understanding.',
-                    'History Cram Night': 'Collaborative learning for history courses. We share notes, discuss events, and prepare essays together.',
-                    'Literature & Lore': 'A reading club focused on classic and contemporary literature. We discuss themes, analyze texts, and share interpretations.'
-                };
+    let currentGroupName = '';
 
-                currentGroupData = { name, owner: owners[name], members, department, status, tags };
+    function openGroupModal(btn) {
+        const card = btn.closest('.group-card');
+        const name = card.querySelector('.group-name').textContent.trim();
+        const owner = card.querySelector('.group-owner').textContent.trim();
+        const metaVals = card.querySelectorAll('.meta-value');
+        const status = card.querySelector('.group-status').textContent.trim();
+        const tags = Array.from(card.querySelectorAll('.tag')).map(t => t.textContent.trim());
 
-                document.getElementById('modalTitle').textContent = name;
-                document.getElementById('modalOwner').textContent = owners[name];
-                document.getElementById('modalMembers').textContent = members;
-                document.getElementById('modalDepartment').textContent = department;
-                document.getElementById('modalStatus').textContent = status;
-                document.getElementById('modalDate').textContent = 'Feb 15, 2026';
-                document.getElementById('modalDescription').textContent = descriptions[name] || 'A vibrant group focused on collaborative learning and academic support.';
-                
-                const tagsHtml = tags.map(tag => `<span class="tag">${tag}</span>`).join('');
-                document.getElementById('modalTags').innerHTML = tagsHtml;
+        currentGroupName = name;
 
-                document.getElementById('groupModal').classList.add('active');
-            }
+        document.getElementById('modalTitle').textContent = name;
+        document.getElementById('modalOwner').textContent = owner;
+        document.getElementById('modalMembers').textContent = metaVals[0].textContent;
+        document.getElementById('modalDepartment').textContent = metaVals[1].textContent;
+        document.getElementById('modalStatus').textContent = status;
+        document.getElementById('modalDate').textContent = 'Feb 15, 2026';
+        document.getElementById('modalDescription').textContent = descriptions[name] || 'A vibrant group focused on collaborative learning and academic support.';
+        document.getElementById('modalTags').innerHTML = tags.map(t => `<span class="tag">${t}</span>`).join('');
 
-            function closeGroupModal() {
-                document.getElementById('groupModal').classList.remove('active');
-            }
+        document.getElementById('groupModal').classList.add('active');
+    }
 
-            function requestJoin(e) {
-                e.preventDefault();
-                alert('Join request sent! Awaiting group administrator approval.');
-            }
+    function closeGroupModal() {
+        document.getElementById('groupModal').classList.remove('active');
+    }
 
-            function requestJoinFromModal() {
-                alert(`Join request sent to ${currentGroupData.name}! Awaiting group administrator approval.`);
-                closeGroupModal();
-            }
+    function requestJoinFromModal() {
+        alert(`Join request sent to "${currentGroupName}"! Awaiting group administrator approval.`);
+        closeGroupModal();
+    }
 
-            // Close modal when clicking outside
-            document.getElementById('groupModal').addEventListener('click', function(e) {
-                if (e.target === this) {
-                    closeGroupModal();
-                }
-            });
-        </script>
-    </body>
+    document.getElementById('groupModal').addEventListener('click', function (e) {
+        if (e.target === this) closeGroupModal();
+    });
+</script>
+</body>
 </html>
