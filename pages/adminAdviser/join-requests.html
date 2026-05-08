@@ -3,77 +3,57 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Adviser Dashboard — HiveMinds</title>
+  <title>Join Requests — HiveMinds</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Pacifico&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       --amber:#FFB500;--amber-d:#E6A000;--hive:#1A1400;--wax:#FEFAF0;--comb:#FDF3D0;
-      --accent:#EDD97A;--pale:#F0E6B8;--aged:#8C7A50;--warmgray:#6b7280;--text:#2D2410;--muted:#8C7A50;
+      --accent:#EDD97A;--pale:#F0E6B8;--aged:#8C7A50;--warmgray:#6b7280;--text:#2D2410;
       --success:#166534;--success-bg:#dcfce7;--warning:#92400e;--warning-bg:#fef3c7;
       --danger:#991b1b;--danger-bg:#fee2e2;--info:#1d4ed8;--info-bg:#dbeafe;
       --purple:#6b21a8;--purple-bg:#f3e8ff;
       --sidebar-w:240px;--nav-h:58px;--radius:10px;--radius-lg:14px;
       --shadow-sm:0 1px 4px rgba(0,0,0,0.07);--shadow:0 2px 12px rgba(0,0,0,0.09);--shadow-lg:0 6px 24px rgba(0,0,0,0.13);
     }
-    body { font-family:'Bricolage Grotesque',sans-serif; background:#F5EDD5; color:var(--text); min-height:100vh; overflow-x:hidden; }
-
-    /* NAVBAR */
+    body { font-family:'Bricolage Grotesque',sans-serif;background:#F5EDD5;color:var(--text);min-height:100vh;overflow-x:hidden; }
     .reg-nav { position:fixed;top:0;left:0;right:0;height:var(--nav-h);background:var(--hive);border-bottom:2.5px solid var(--amber);display:flex;align-items:center;padding:0 24px;z-index:100;gap:0; }
     .reg-nav .logo { font-family:'Pacifico',cursive;font-size:1.25rem;color:#fff;text-decoration:none;flex-shrink:0;margin-right:32px; }
     .reg-nav .logo span { color:var(--amber); }
     .nav-links { display:flex;align-items:center;gap:2px;flex:1; }
-    .nav-links a { font-size:0.84rem;font-weight:600;color:rgba(255,255,255,0.62);text-decoration:none;padding:6px 14px;border-radius:7px;transition:all .18s;letter-spacing:.01em; }
+    .nav-links a { font-size:.84rem;font-weight:600;color:rgba(255,255,255,0.62);text-decoration:none;padding:6px 14px;border-radius:7px;transition:all .18s;letter-spacing:.01em; }
     .nav-links a:hover { color:#fff;background:rgba(255,255,255,0.08); }
     .nav-links a.active { color:var(--hive);background:var(--amber); }
     .nav-right { display:flex;align-items:center;gap:10px; }
-    .nav-user { font-size:0.83rem;font-weight:600;color:rgba(255,255,255,0.85);text-decoration:none;padding:6px 14px;border-radius:7px;border:1.5px solid rgba(255,212,0,0.4);transition:all .18s;cursor:pointer;display:flex;align-items:center;gap:7px;background:none; }
+    .nav-user { font-size:.83rem;font-weight:600;color:rgba(255,255,255,0.85);text-decoration:none;padding:6px 14px;border-radius:7px;border:1.5px solid rgba(255,212,0,0.4);transition:all .18s;cursor:pointer;display:flex;align-items:center;gap:7px;background:none; }
     .nav-user:hover { border-color:var(--amber);color:var(--amber);background:rgba(255,181,0,0.08); }
-    .nav-user .avatar-dot { width:28px;height:28px;border-radius:50%;background:var(--amber);color:var(--hive);font-size:0.75rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0; }
-    .nav-logout { font-size:0.83rem;font-weight:700;color:rgba(255,255,255,0.55);text-decoration:none;padding:6px 13px;border-radius:7px;border:1.5px solid rgba(255,255,255,0.12);transition:all .18s; }
+    .nav-user .avatar-dot { width:28px;height:28px;border-radius:50%;background:var(--amber);color:var(--hive);font-size:.75rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0; }
+    .nav-logout { font-size:.83rem;font-weight:700;color:rgba(255,255,255,0.55);text-decoration:none;padding:6px 13px;border-radius:7px;border:1.5px solid rgba(255,255,255,0.12);transition:all .18s; }
     .nav-logout:hover { color:#fff;border-color:rgba(255,255,255,0.35); }
-
-    /* LAYOUT */
     .reg-layout { display:flex;margin-top:var(--nav-h);min-height:calc(100vh - var(--nav-h)); }
-
-    /* SIDEBAR */
     .reg-sidebar { width:var(--sidebar-w);flex-shrink:0;position:fixed;top:var(--nav-h);left:0;bottom:0;background:#fff;border-right:1.5px solid var(--accent);overflow-y:auto;padding:20px 14px 40px;display:flex;flex-direction:column;gap:24px; }
-    .sidebar-section-label { font-size:0.68rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--aged);padding:0 8px;margin-bottom:6px; }
+    .sidebar-section-label { font-size:.68rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--aged);padding:0 8px;margin-bottom:6px; }
     .sidebar-divider { height:1px;background:var(--pale);margin:0 4px 10px; }
-    .sidebar-link { display:flex;align-items:center;gap:9px;padding:9px 12px;border-radius:9px;font-size:0.875rem;font-weight:600;color:var(--text);text-decoration:none;transition:all .16s;margin-bottom:2px;cursor:pointer; }
+    .sidebar-link { display:flex;align-items:center;gap:9px;padding:9px 12px;border-radius:9px;font-size:.875rem;font-weight:600;color:var(--text);text-decoration:none;transition:all .16s;margin-bottom:2px; }
     .sidebar-link .sico { width:18px;text-align:center;font-size:1rem;flex-shrink:0; }
     .sidebar-link:hover { background:var(--comb);color:var(--amber-d); }
     .sidebar-link.active { background:var(--amber);color:var(--hive);font-weight:700; }
-    .stat-pill { display:flex;align-items:center;gap:9px;padding:8px 12px;border-radius:9px;font-size:0.82rem;font-weight:500;color:var(--aged);background:var(--comb);border:1px solid var(--pale);margin-bottom:5px; }
+    .stat-pill { display:flex;align-items:center;gap:9px;padding:8px 12px;border-radius:9px;font-size:.82rem;font-weight:500;color:var(--aged);background:var(--comb);border:1px solid var(--pale);margin-bottom:5px; }
     .stat-pill .dot { width:7px;height:7px;border-radius:50%;background:var(--amber);flex-shrink:0; }
     .sico-wrap { position:relative;display:inline-flex; }
     .notif-dot { position:absolute;top:-3px;right:-4px;width:8px;height:8px;border-radius:50%;background:#ef4444;border:1.5px solid #fff; }
-
-    /* MAIN */
     .reg-main { flex:1;margin-left:var(--sidebar-w);padding:28px 28px 48px;max-width:1200px; }
     .page-header { margin-bottom:24px; }
     .page-header h1 { font-size:1.45rem;font-weight:800;color:var(--hive);letter-spacing:-.02em; }
-    .page-header p { font-size:0.87rem;color:var(--aged);margin-top:3px; }
-
-    /* STATS */
-    .stats-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:14px;margin-bottom:26px; }
-    .stat-card { background:#fff;border:1.5px solid var(--accent);border-radius:var(--radius-lg);box-shadow:3px 3px 0 var(--accent);padding:18px 20px;position:relative;overflow:hidden; }
-    .stat-card::before { content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--amber); }
-    .stat-card.green::before { background:#22c55e; }
-    .stat-card.amber::before { background:var(--amber-d); }
-    .stat-card.red::before { background:#ef4444; }
-    .stat-card.blue::before { background:#3b82f6; }
-    .stat-label { font-size:.73rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--aged);margin-bottom:8px; }
-    .stat-value { font-size:2rem;font-weight:800;color:var(--hive);line-height:1;letter-spacing:-.03em; }
-    .stat-sub { font-size:.78rem;color:var(--aged);margin-top:6px; }
-
-    /* CARDS & TABLES */
-    .full-table-card,.dash-card { background:#fff;border:1.5px solid var(--accent);box-shadow:3px 3px 0 var(--accent);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:20px; }
-    .dash-card-header { padding:13px 16px;border-bottom:1px solid var(--pale);background:var(--comb);display:flex;align-items:center;justify-content:space-between; }
-    .dash-card-header h3 { font-size:.9rem;font-weight:700;color:var(--hive); }
-    .dash-card-header a { font-size:.78rem;color:var(--amber-d);text-decoration:none;font-weight:700; }
-    .dash-card-header a:hover { text-decoration:underline; }
+    .page-header p { font-size:.87rem;color:var(--aged);margin-top:3px; }
+    .page-topbar { display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:16px; }
+    .filter-bar { display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px; }
+    .filter-input { flex:1;min-width:200px;padding:9px 14px;font-size:.9em;font-family:'Bricolage Grotesque',sans-serif;border:2px solid var(--accent);border-radius:6px;background:#fff;outline:none;transition:.2s;color:var(--text); }
+    .filter-input:focus { border-color:var(--amber);box-shadow:0 0 0 3px rgba(255,181,0,0.15); }
+    .filter-select { padding:9px 14px;font-size:.85em;font-family:'Bricolage Grotesque',sans-serif;border:2px solid var(--accent);border-radius:6px;background:#fff;outline:none;color:var(--text);cursor:pointer;transition:.2s; }
+    .filter-select:focus { border-color:var(--amber); }
+    .full-table-card { background:#fff;border:1.5px solid var(--accent);box-shadow:3px 3px 0 var(--accent);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:20px; }
     .table-wrap { overflow-x:auto; }
     .admin-table-full { width:100%;border-collapse:collapse;font-size:.88em; }
     .admin-table-full th { background:var(--comb);padding:11px 16px;text-align:left;font-size:.75em;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--aged);border-bottom:1.5px solid var(--pale); }
@@ -81,22 +61,17 @@
     .admin-table-full tr:last-child td { border-bottom:none; }
     .admin-table-full tr:hover td { background:var(--wax); }
     .td-user { display:flex;align-items:center;gap:10px; }
-    .td-user img,.td-user .avatar { width:34px!important;height:34px!important;min-width:34px!important;border-radius:50%;object-fit:cover;border:2px solid var(--pale);background:var(--comb);display:flex;align-items:center;justify-content:center;font-size:.85rem;color:var(--aged);font-weight:700;flex-shrink:0; }
+    .td-user img { width:34px!important;height:34px!important;min-width:34px!important;border-radius:50%;object-fit:cover;border:2px solid var(--pale);flex-shrink:0; }
     .td-name { font-weight:700;color:var(--hive); }
     .td-sub { font-size:.78em;color:var(--aged);margin-top:1px; }
     .td-meta { font-size:.82rem;color:var(--aged); }
     .td-actions { display:flex;gap:6px;flex-wrap:wrap;align-items:center; }
-    .dash-cols { display:grid;grid-template-columns:1fr 340px;gap:20px;align-items:start; }
-    .section-title { font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--aged);margin-bottom:10px; }
-
-    /* BADGES */
     .tbl-badge { display:inline-flex;padding:3px 10px;border-radius:100px;font-size:.75em;font-weight:700;white-space:nowrap;text-transform:uppercase;letter-spacing:.06em; }
     .badge-active { background:var(--success-bg);color:var(--success); }
     .badge-pending { background:var(--warning-bg);color:var(--warning); }
     .badge-approved { background:var(--success-bg);color:var(--success); }
+    .badge-rejected { background:var(--danger-bg);color:var(--danger); }
     .tbl-tag { display:inline-flex;background:var(--amber);color:var(--hive);font-size:9px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border:1.5px solid var(--hive);border-radius:3px;white-space:nowrap; }
-
-    /* BUTTONS */
     .tbl-btn { padding:4px 11px;font-size:.75em;font-weight:700;border-radius:6px;cursor:pointer;font-family:'Bricolage Grotesque',sans-serif;transition:.2s;border:1.5px solid;white-space:nowrap; }
     .tbl-btn.view { border-color:var(--amber-d);color:var(--amber-d);background:var(--comb); }
     .tbl-btn.view:hover { background:var(--amber);color:var(--hive);border-color:var(--amber); }
@@ -104,15 +79,15 @@
     .tbl-btn.approve:hover { background:#15803d;border-color:#15803d; }
     .tbl-btn.reject { background:#fff;color:var(--danger);border-color:var(--danger); }
     .tbl-btn.reject:hover { background:var(--danger-bg); }
+    .reason-snippet { font-size:.82em;color:var(--aged);font-style:italic;cursor:pointer;text-decoration:underline dotted;max-width:260px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis; }
+    .reason-snippet:hover { color:var(--amber-d); }
+    .pagination { display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-top:1px solid var(--pale);background:var(--wax);font-size:.82em;color:var(--aged); }
+    .pagination-btns { display:flex;gap:6px; }
+    .pg-btn { padding:4px 12px;font-size:.82em;font-weight:700;border-radius:5px;cursor:pointer;border:1.5px solid var(--accent);background:#fff;color:var(--hive);font-family:'Bricolage Grotesque',sans-serif;transition:.15s; }
+    .pg-btn:hover { background:var(--comb); }
+    .pg-btn.active { background:var(--amber);border-color:var(--amber-d);color:var(--hive); }
 
-    /* SESSION */
-    .session-item { display:flex;align-items:center;gap:14px;padding:12px 14px;background:var(--wax);border-radius:8px;border:1px solid var(--pale);margin-bottom:10px; }
-    .session-dot { width:10px;height:10px;border-radius:50%;background:var(--amber);flex-shrink:0;border:2px solid var(--amber-d); }
-    .session-dot.today { background:#22c55e;border-color:#16a34a; }
-    .session-info .session-title { font-weight:700;font-size:.9em;color:var(--hive); }
-    .session-info .session-meta { font-size:.78em;color:var(--aged);margin-top:2px; }
-
-    /* MODAL */
+    /* MODALS */
     .modal-overlay { position:fixed;inset:0;background:rgba(26,20,0,0.55);backdrop-filter:blur(3px);z-index:200;display:none;align-items:center;justify-content:center;padding:20px; }
     .modal-overlay.open { display:flex; }
     .modal-box { background:var(--wax);border:2px solid var(--accent);border-radius:var(--radius-lg);padding:28px 30px 24px;width:min(580px,96vw);position:relative;box-shadow:var(--shadow-lg),4px 4px 0 var(--hive);max-height:90vh;overflow-y:auto; }
@@ -144,8 +119,6 @@
     .modal-btn.danger-btn:hover { background:var(--danger);color:#fff; }
     .cor-preview { width:100%;border-radius:8px;background:var(--comb);border:1.5px solid var(--pale);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;padding:32px;color:var(--aged);font-size:2.6rem;min-height:160px; }
     .cor-preview p { font-size:.85rem;font-weight:600;font-style:italic; }
-
-    /* PROFILE MODAL — Prof */
     .prof-banner { background:var(--hive);border-radius:var(--radius);padding:20px 20px 48px;margin-bottom:-34px;position:relative; }
     .prof-banner-title { color:rgba(255,255,255,0.55);font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase; }
     .prof-banner-name { color:#fff;font-size:1.2rem;font-weight:800;margin-top:2px; }
@@ -159,26 +132,21 @@
     .prof-stat-box { background:var(--comb);border:1.5px solid var(--accent);border-radius:var(--radius);padding:12px;text-align:center; }
     .prof-stat-box .n { font-size:1.6rem;font-weight:800;color:var(--hive);line-height:1; }
     .prof-stat-box .l { font-size:.68rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--aged);margin-top:4px; }
-
-    /* TOAST */
     .toast { position:fixed;bottom:24px;right:24px;background:var(--hive);color:#fff;padding:12px 20px;border-radius:10px;font-size:.88rem;font-weight:600;z-index:999;transform:translateY(80px);opacity:0;transition:all .3s;border-left:4px solid var(--amber);box-shadow:var(--shadow-lg); }
     .toast.show { transform:translateY(0);opacity:1; }
     .toast.success { border-color:var(--success); }
     .toast.error { border-color:var(--danger); }
     .toast.warn { border-color:var(--amber); }
-
-    @media (max-width:900px) { .dash-cols { grid-template-columns:1fr; } }
     @media (max-width:768px) { .reg-sidebar { display:none; } .reg-main { margin-left:0;padding:20px 16px 40px; } }
   </style>
 </head>
 <body>
 
-<!-- NAVBAR -->
 <nav class="reg-nav">
-  <a href="Adviser_dashboard.html" class="logo"><span>Hive</span>Minds</a>
+  <a href="adviser-dashboard.html" class="logo"><span>Hive</span>Minds</a>
   <div class="nav-links">
-    <a href="Adviser_dashboard.html" class="active">Dashboard</a>
-    <a href="join-requests.html">Join Requests</a>
+    <a href="adviser-dashboard.html">Dashboard</a>
+    <a href="join-requests.html" class="active">Join Requests</a>
     <a href="my-groups.html">My Groups</a>
     <a href="members.html">Members</a>
   </div>
@@ -193,23 +161,16 @@
 </nav>
 
 <div class="reg-layout">
-  <!-- SIDEBAR -->
   <aside class="reg-sidebar">
     <div>
       <div class="sidebar-section-label">Menu</div>
       <div class="sidebar-divider"></div>
-      <a class="sidebar-link active" href="adviser-dashboard.html">
-        <span class="sico"><i class="fa-solid fa-gauge"></i></span> Dashboard
-      </a>
-      <a class="sidebar-link" href="join-requests.html">
+      <a class="sidebar-link" href="Adviser_dashboard.html"><span class="sico"><i class="fa-solid fa-gauge"></i></span> Dashboard</a>
+      <a class="sidebar-link active" href="join-requests.html">
         <span class="sico sico-wrap"><i class="fa-solid fa-inbox"></i><span class="notif-dot"></span></span> Join Requests
       </a>
-      <a class="sidebar-link" href="my-groups.html">
-        <span class="sico"><i class="fa-solid fa-layer-group"></i></span> My Groups
-      </a>
-      <a class="sidebar-link" href="members.html">
-        <span class="sico"><i class="fa-solid fa-users"></i></span> Members
-      </a>
+      <a class="sidebar-link" href="my-groups.html"><span class="sico"><i class="fa-solid fa-layer-group"></i></span> My Groups</a>
+      <a class="sidebar-link" href="members.html"><span class="sico"><i class="fa-solid fa-users"></i></span> Members</a>
     </div>
     <div>
       <div class="sidebar-section-label">Quick Stats</div>
@@ -221,130 +182,105 @@
     </div>
   </aside>
 
-  <!-- MAIN -->
   <main class="reg-main">
     <div class="page-header">
-      <h1>Adviser Dashboard</h1>
-      <p>Manage your hive groups, join requests, and member activity — Prof. Rivera</p>
+      <h1>Join Requests</h1>
+      <p>Review and action student applications to your groups</p>
     </div>
-
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-label">Pending Requests</div>
-        <div class="stat-value">4</div>
-        <div class="stat-sub">Awaiting your review</div>
-      </div>
-      <div class="stat-card green">
-        <div class="stat-label">Active Members</div>
-        <div class="stat-value">18</div>
-        <div class="stat-sub">Across 2 groups</div>
-      </div>
-      <div class="stat-card amber">
-        <div class="stat-label">My Groups</div>
-        <div class="stat-value">2</div>
-        <div class="stat-sub">Both verified by Dean</div>
-      </div>
-      <div class="stat-card blue">
-        <div class="stat-label">Sessions This Week</div>
-        <div class="stat-value">2</div>
-        <div class="stat-sub">1 today</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">Total Approved</div>
-        <div class="stat-value">31</div>
-        <div class="stat-sub">All time</div>
+    <div class="page-topbar">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span class="tbl-badge badge-pending" style="font-size:.85em;padding:6px 14px;">4 pending</span>
       </div>
     </div>
-
-    <div class="dash-cols">
-      <div>
-        <div class="section-title">Recent Join Requests</div>
-        <div class="dash-card">
-          <div class="dash-card-header">
-            <h3>Pending Approval</h3>
-            <a href="join-requests.html">See all →</a>
-          </div>
-          <div class="table-wrap">
-            <table class="admin-table-full">
-              <thead>
-                <tr><th>Student</th><th>Group</th><th>Submitted</th><th>Actions</th></tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><div class="td-user"><img src="https://i.pravatar.cc/80?img=11" alt=""><div><div class="td-name">Marco Dela Cruz</div><div class="td-sub">2nd Year — BSCS</div></div></div></td>
-                  <td><span class="tbl-tag">Programming</span></td>
-                  <td class="td-meta">2 hrs ago</td>
-                  <td><div class="td-actions">
-                    <button class="tbl-btn view" onclick="openRequestModal('Marco Dela Cruz','2nd Year','BSCS','3.4','marco.dc@wmsu.edu.ph','202500087','CS-2A','Programming Study Group','I want to improve my understanding of data structures and algorithms before the finals. I believe joining this group will help me review more effectively and collaborate with peers.','https://i.pravatar.cc/80?img=11')">View</button>
-                    <button class="tbl-btn approve" onclick="showToast('Request approved.','success')">Approve</button>
-                    <button class="tbl-btn reject" onclick="showToast('Request rejected.','error')">Reject</button>
-                  </div></td>
-                </tr>
-                <tr>
-                  <td><div class="td-user"><img src="https://i.pravatar.cc/80?img=22" alt=""><div><div class="td-name">Aisha Reyes</div><div class="td-sub">3rd Year — BSCE</div></div></div></td>
-                  <td><span class="tbl-tag">Networking</span></td>
-                  <td class="td-meta">5 hrs ago</td>
-                  <td><div class="td-actions">
-                    <button class="tbl-btn view" onclick="openRequestModal('Aisha Reyes','3rd Year','BSCE','3.1','aisha.r@wmsu.edu.ph','202400123','CE-3B','Networking Study Group','My professor recommended joining a study group to supplement our lectures. I am particularly struggling with subnetting and hope to get peer explanations.','https://i.pravatar.cc/80?img=22')">View</button>
-                    <button class="tbl-btn approve" onclick="showToast('Request approved.','success')">Approve</button>
-                    <button class="tbl-btn reject" onclick="showToast('Request rejected.','error')">Reject</button>
-                  </div></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <div class="section-title">Upcoming Sessions</div>
-        <div class="dash-card">
-          <div class="dash-card-header">
-            <h3>This Week</h3>
-            <a href="my-groups.html">Manage →</a>
-          </div>
-          <div style="padding:14px 16px;">
-            <div class="session-item">
-              <div class="session-dot today"></div>
-              <div class="session-info">
-                <div class="session-title">Programming: Recursion Deep Dive</div>
-                <div class="session-meta">Today — 4:00 PM to 6:00 PM — Room 301</div>
-              </div>
-              <span class="tbl-badge badge-active" style="flex-shrink:0;">Today</span>
-            </div>
-            <div class="session-item">
-              <div class="session-dot"></div>
-              <div class="session-info">
-                <div class="session-title">Networking: Subnetting Workshop</div>
-                <div class="session-meta">Tomorrow — 10:00 AM to 12:00 PM — Online (Meet)</div>
-              </div>
-              <span class="tbl-badge badge-pending" style="flex-shrink:0;">Tomorrow</span>
-            </div>
-          </div>
-        </div>
+    <div class="filter-bar">
+      <input class="filter-input" type="text" id="search-input" placeholder="Search by student name..." oninput="filterTable()">
+      <select class="filter-select" id="filter-group" onchange="filterTable()">
+        <option value="">All groups</option>
+        <option>Programming Study Group</option>
+        <option>Networking Study Group</option>
+      </select>
+      <select class="filter-select" id="filter-status" onchange="filterTable()">
+        <option value="">All statuses</option>
+        <option>Pending</option>
+        <option>Approved</option>
+        <option>Rejected</option>
+      </select>
+    </div>
+    <div class="full-table-card">
+      <div class="table-wrap">
+        <table class="admin-table-full" id="requests-table">
+          <thead>
+            <tr><th>Student</th><th>Group</th><th>Reason Snippet</th><th>Submitted</th><th>Status</th><th>Actions</th></tr>
+          </thead>
+          <tbody>
+            <tr data-name="Marco Dela Cruz" data-group="Programming Study Group" data-status="Pending">
+              <td><div class="td-user"><img src="https://i.pravatar.cc/80?img=11" alt=""><div><div class="td-name">Marco Dela Cruz</div><div class="td-sub">2nd Year — BSCS</div></div></div></td>
+              <td><span class="tbl-tag">Programming</span></td>
+              <td><div class="reason-snippet" onclick="openRequestModal('Marco Dela Cruz','2nd Year','BSCS','3.4','marco.dc@wmsu.edu.ph','202500087','CS-2A','Programming Study Group','I want to improve my understanding of data structures and algorithms before the finals. I believe joining this group will help me review more effectively and collaborate with peers.','https://i.pravatar.cc/80?img=11')">"I want to improve my understanding of data structures..."</div></td>
+              <td class="td-meta">2 hrs ago</td>
+              <td><span class="tbl-badge badge-pending">Pending</span></td>
+              <td><div class="td-actions">
+                <button class="tbl-btn view" onclick="openRequestModal('Marco Dela Cruz','2nd Year','BSCS','3.4','marco.dc@wmsu.edu.ph','202500087','CS-2A','Programming Study Group','I want to improve my understanding of data structures and algorithms before the finals. I believe joining this group will help me review more effectively and collaborate with peers.','https://i.pravatar.cc/80?img=11')">View</button>
+                <button class="tbl-btn approve" onclick="showToast('Marco approved!','success')">Approve</button>
+                <button class="tbl-btn reject" onclick="showToast('Request rejected.','error')">Reject</button>
+              </div></td>
+            </tr>
+            <tr data-name="Aisha Reyes" data-group="Networking Study Group" data-status="Pending">
+              <td><div class="td-user"><img src="https://i.pravatar.cc/80?img=22" alt=""><div><div class="td-name">Aisha Reyes</div><div class="td-sub">3rd Year — BSCE</div></div></div></td>
+              <td><span class="tbl-tag">Networking</span></td>
+              <td><div class="reason-snippet" onclick="openRequestModal('Aisha Reyes','3rd Year','BSCE','3.1','aisha.r@wmsu.edu.ph','202400123','CE-3B','Networking Study Group','My professor recommended joining a study group to supplement our lectures. I am particularly struggling with subnetting and hope to get peer explanations.','https://i.pravatar.cc/80?img=22')">"My professor recommended joining a study group..."</div></td>
+              <td class="td-meta">5 hrs ago</td>
+              <td><span class="tbl-badge badge-pending">Pending</span></td>
+              <td><div class="td-actions">
+                <button class="tbl-btn view" onclick="openRequestModal('Aisha Reyes','3rd Year','BSCE','3.1','aisha.r@wmsu.edu.ph','202400123','CE-3B','Networking Study Group','My professor recommended joining a study group to supplement our lectures. I am particularly struggling with subnetting and hope to get peer explanations.','https://i.pravatar.cc/80?img=22')">View</button>
+                <button class="tbl-btn approve" onclick="showToast('Aisha approved!','success')">Approve</button>
+                <button class="tbl-btn reject" onclick="showToast('Request rejected.','error')">Reject</button>
+              </div></td>
+            </tr>
+            <tr data-name="Paolo Tan" data-group="Programming Study Group" data-status="Pending">
+              <td><div class="td-user"><img src="https://i.pravatar.cc/80?img=33" alt=""><div><div class="td-name">Paolo Tan</div><div class="td-sub">1st Year — BSIT</div></div></div></td>
+              <td><span class="tbl-tag">Programming</span></td>
+              <td><div class="reason-snippet" onclick="openRequestModal('Paolo Tan','1st Year','BSIT','2.9','paolo.t@wmsu.edu.ph','202600045','IT-1C','Programming Study Group','Programming is my weakest subject and I need structured peer-learning. I heard this group has a great track record helping first years.','https://i.pravatar.cc/80?img=33')">"Programming is my weakest subject and I need..."</div></td>
+              <td class="td-meta">Yesterday</td>
+              <td><span class="tbl-badge badge-pending">Pending</span></td>
+              <td><div class="td-actions">
+                <button class="tbl-btn view" onclick="openRequestModal('Paolo Tan','1st Year','BSIT','2.9','paolo.t@wmsu.edu.ph','202600045','IT-1C','Programming Study Group','Programming is my weakest subject and I need structured peer-learning. I heard this group has a great track record helping first years.','https://i.pravatar.cc/80?img=33')">View</button>
+                <button class="tbl-btn approve" onclick="showToast('Paolo approved!','success')">Approve</button>
+                <button class="tbl-btn reject" onclick="showToast('Request rejected.','error')">Reject</button>
+              </div></td>
+            </tr>
+            <tr data-name="Dana Villanueva" data-group="Programming Study Group" data-status="Pending">
+              <td><div class="td-user"><img src="https://i.pravatar.cc/80?img=44" alt=""><div><div class="td-name">Dana Villanueva</div><div class="td-sub">2nd Year — BSEd</div></div></div></td>
+              <td><span class="tbl-tag">Programming</span></td>
+              <td><div class="reason-snippet" onclick="openRequestModal('Dana Villanueva','2nd Year','BSEd','3.6','dana.v@wmsu.edu.ph','202500201','ED-2A','Programming Study Group','As a future IT teacher I want to deepen my conceptual understanding of programming. I plan to apply what I learn here in my classroom.','https://i.pravatar.cc/80?img=44')">"As a future IT teacher I want to deepen..."</div></td>
+              <td class="td-meta">2 days ago</td>
+              <td><span class="tbl-badge badge-pending">Pending</span></td>
+              <td><div class="td-actions">
+                <button class="tbl-btn view" onclick="openRequestModal('Dana Villanueva','2nd Year','BSEd','3.6','dana.v@wmsu.edu.ph','202500201','ED-2A','Programming Study Group','As a future IT teacher I want to deepen my conceptual understanding of programming. I plan to apply what I learn here in my classroom.','https://i.pravatar.cc/80?img=44')">View</button>
+                <button class="tbl-btn approve" onclick="showToast('Dana approved!','success')">Approve</button>
+                <button class="tbl-btn reject" onclick="showToast('Request rejected.','error')">Reject</button>
+              </div></td>
+            </tr>
+            <tr data-name="Sam Uy" data-group="Networking Study Group" data-status="Approved">
+              <td><div class="td-user"><img src="https://i.pravatar.cc/80?img=55" alt=""><div><div class="td-name">Sam Uy</div><div class="td-sub">3rd Year — BSCS</div></div></div></td>
+              <td><span class="tbl-tag">Networking</span></td>
+              <td><div class="reason-snippet">"I am excited to join and contribute my notes..."</div></td>
+              <td class="td-meta">3 days ago</td>
+              <td><span class="tbl-badge badge-approved">Approved</span></td>
+              <td><div class="td-actions">
+                <button class="tbl-btn view" onclick="openRequestModal('Sam Uy','3rd Year','BSCS','3.7','sam.u@wmsu.edu.ph','202300312','CS-3A','Networking Study Group','I am excited to join and contribute my notes and resources to the group. I have been studying ahead and would love a collaborative environment.','https://i.pravatar.cc/80?img=55')">View</button>
+              </div></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-
-      <div>
-        <div class="section-title">My Groups</div>
-        <div class="dash-card">
-          <div class="dash-card-header">
-            <h3>Active Groups</h3>
-            <a href="my-groups.html">See all →</a>
-          </div>
-          <div style="padding:12px 16px;border-bottom:1px solid var(--pale);display:flex;align-items:center;gap:12px;">
-            <div style="width:34px;height:34px;background:var(--comb);border:1.5px solid var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;">🐝</div>
-            <div style="flex:1;min-width:0;">
-              <div style="font-weight:700;font-size:.88rem;color:var(--hive);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Programming Study Group</div>
-              <div style="font-size:.75rem;color:var(--aged);margin-top:1px;">14 members · Recurring · Online</div>
-            </div>
-            <span class="tbl-badge badge-pending" style="flex-shrink:0;">4 pending</span>
-          </div>
-          <div style="padding:12px 16px;display:flex;align-items:center;gap:12px;">
-            <div style="width:34px;height:34px;background:var(--comb);border:1.5px solid var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;">🌐</div>
-            <div style="flex:1;min-width:0;">
-              <div style="font-weight:700;font-size:.88rem;color:var(--hive);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Networking Study Group</div>
-              <div style="font-size:.75rem;color:var(--aged);margin-top:1px;">4 members · One-time · In-person</div>
-            </div>
-            <span class="tbl-badge badge-active" style="flex-shrink:0;">Open</span>
-          </div>
+      <div class="pagination">
+        <span>Showing 5 of 35 requests</span>
+        <div class="pagination-btns">
+          <button class="pg-btn active">1</button>
+          <button class="pg-btn">2</button>
+          <button class="pg-btn">3</button>
+          <button class="pg-btn">→</button>
         </div>
       </div>
     </div>
@@ -412,7 +348,6 @@
         <div class="prof-stat-box"><div class="n">18</div><div class="l">Active Members</div></div>
         <div class="prof-stat-box"><div class="n">31</div><div class="l">Total Approved</div></div>
       </div>
-
       <div class="modal-info-grid" style="margin-bottom:16px;">
         <div class="modal-info-field"><label>Employee ID</label><div class="val">EMP-2019-0042</div></div>
         <div class="modal-info-field"><label>Department</label><div class="val">Computer Science</div></div>
@@ -423,7 +358,6 @@
         <div class="modal-info-field"><label>Adviser Since</label><div class="val">January 2024</div></div>
         <div class="modal-info-field"><label>Rank</label><div class="val">Instructor III</div></div>
       </div>
-
       <div class="prof-section-title">Courses Handled</div>
       <div class="prof-course-list" style="margin-bottom:16px;">
         <span class="prof-course-tag">CS 201 — Data Structures</span>
@@ -431,23 +365,16 @@
         <span class="prof-course-tag">CS 312 — Computer Networks</span>
         <span class="prof-course-tag">CS 401 — Operating Systems</span>
       </div>
-
       <div class="prof-section-title">Groups Advised</div>
       <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:4px;">
         <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--comb);border:1.5px solid var(--accent);border-radius:var(--radius);">
           <span style="font-size:1.1rem;">🐝</span>
-          <div style="flex:1;">
-            <div style="font-weight:700;font-size:.88rem;color:var(--hive);">Programming Study Group</div>
-            <div style="font-size:.75rem;color:var(--aged);">14 members · 4 pending · Recurring · Online</div>
-          </div>
+          <div style="flex:1;"><div style="font-weight:700;font-size:.88rem;color:var(--hive);">Programming Study Group</div><div style="font-size:.75rem;color:var(--aged);">14 members · 4 pending · Recurring · Online</div></div>
           <span class="tbl-badge badge-approved">Verified</span>
         </div>
         <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--comb);border:1.5px solid var(--accent);border-radius:var(--radius);">
           <span style="font-size:1.1rem;">🌐</span>
-          <div style="flex:1;">
-            <div style="font-weight:700;font-size:.88rem;color:var(--hive);">Networking Study Group</div>
-            <div style="font-size:.75rem;color:var(--aged);">4 members · Open · One-time · In-person</div>
-          </div>
+          <div style="flex:1;"><div style="font-weight:700;font-size:.88rem;color:var(--hive);">Networking Study Group</div><div style="font-size:.75rem;color:var(--aged);">4 members · Open · One-time · In-person</div></div>
           <span class="tbl-badge badge-approved">Verified</span>
         </div>
       </div>
@@ -460,7 +387,6 @@
 </div>
 
 <div class="toast" id="toast"></div>
-
 <script>
 function openModal(id) { document.getElementById(id).classList.add('open'); }
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
@@ -479,6 +405,18 @@ function openRequestModal(name,year,course,gwa,email,id,section,group,reason,ava
   document.getElementById('req-group').textContent = group;
   document.getElementById('req-reason').textContent = reason;
   openModal('modal-request');
+}
+function filterTable() {
+  const search = document.getElementById('search-input').value.toLowerCase();
+  const group = document.getElementById('filter-group').value;
+  const status = document.getElementById('filter-status').value;
+  document.querySelectorAll('#requests-table tbody tr').forEach(row => {
+    const name = (row.dataset.name||'').toLowerCase();
+    const rGroup = row.dataset.group||'';
+    const rStatus = row.dataset.status||'';
+    const show = name.includes(search) && (!group||rGroup===group) && (!status||rStatus===status);
+    row.style.display = show ? '' : 'none';
+  });
 }
 function showToast(msg, type='success') {
   const t = document.getElementById('toast');

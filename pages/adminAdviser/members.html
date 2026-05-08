@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Members — HiveMinds</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing:border-box;margin:0;padding:0; }
+    :root {
+      --amber:#FFB500;--amber-d:#E6A000;--hive:#1A1400;--wax:#FEFAF0;--comb:#FDF3D0;
+      --accent:#EDD97A;--pale:#F0E6B8;--aged:#8C7A50;--text:#2D2410;
+      --success:#166534;--success-bg:#dcfce7;--warning:#92400e;--warning-bg:#fef3c7;
+      --danger:#991b1b;--danger-bg:#fee2e2;--info:#1d4ed8;--info-bg:#dbeafe;
+      --sidebar-w:240px;--nav-h:58px;--radius:10px;--radius-lg:14px;
+      --shadow-lg:0 6px 24px rgba(0,0,0,0.13);
+    }
+    body { font-family:'Bricolage Grotesque',sans-serif;background:#F5EDD5;color:var(--text);min-height:100vh;overflow-x:hidden; }
+    .reg-nav { position:fixed;top:0;left:0;right:0;height:var(--nav-h);background:var(--hive);border-bottom:2.5px solid var(--amber);display:flex;align-items:center;padding:0 24px;z-index:100;gap:0; }
+    .reg-nav .logo { font-family:'Pacifico',cursive;font-size:1.25rem;color:#fff;text-decoration:none;flex-shrink:0;margin-right:32px; }
+    .reg-nav .logo span { color:var(--amber); }
+    .nav-links { display:flex;align-items:center;gap:2px;flex:1; }
+    .nav-links a { font-size:.84rem;font-weight:600;color:rgba(255,255,255,0.62);text-decoration:none;padding:6px 14px;border-radius:7px;transition:all .18s; }
+    .nav-links a:hover { color:#fff;background:rgba(255,255,255,0.08); }
+    .nav-links a.active { color:var(--hive);background:var(--amber); }
+    .nav-right { display:flex;align-items:center;gap:10px; }
+    .nav-user { font-size:.83rem;font-weight:600;color:rgba(255,255,255,0.85);text-decoration:none;padding:6px 14px;border-radius:7px;border:1.5px solid rgba(255,212,0,0.4);transition:all .18s;cursor:pointer;display:flex;align-items:center;gap:7px;background:none; }
+    .nav-user:hover { border-color:var(--amber);color:var(--amber);background:rgba(255,181,0,0.08); }
+    .nav-user .avatar-dot { width:28px;height:28px;border-radius:50%;background:var(--amber);color:var(--hive);font-size:.75rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0; }
+    .nav-logout { font-size:.83rem;font-weight:700;color:rgba(255,255,255,0.55);text-decoration:none;padding:6px 13px;border-radius:7px;border:1.5px solid rgba(255,255,255,0.12);transition:all .18s; }
+    .nav-logout:hover { color:#fff;border-color:rgba(255,255,255,0.35); }
+    .reg-layout { display:flex;margin-top:var(--nav-h);min-height:calc(100vh - var(--nav-h)); }
+    .reg-sidebar { width:var(--sidebar-w);flex-shrink:0;position:fixed;top:var(--nav-h);left:0;bottom:0;background:#fff;border-right:1.5px solid var(--accent);overflow-y:auto;padding:20px 14px 40px;display:flex;flex-direction:column;gap:24px; }
+    .sidebar-section-label { font-size:.68rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--aged);padding:0 8px;margin-bottom:6px; }
+    .sidebar-divider { height:1px;background:var(--pale);margin:0 4px 10px; }
+    .sidebar-link { display:flex;align-items:center;gap:9px;padding:9px 12px;border-radius:9px;font-size:.875rem;font-weight:600;color:var(--text);text-decoration:none;transition:all .16s;margin-bottom:2px; }
+    .sidebar-link .sico { width:18px;text-align:center;font-size:1rem;flex-shrink:0; }
+    .sidebar-link:hover { background:var(--comb);color:var(--amber-d); }
+    .sidebar-link.active { background:var(--amber);color:var(--hive);font-weight:700; }
+    .stat-pill { display:flex;align-items:center;gap:9px;padding:8px 12px;border-radius:9px;font-size:.82rem;font-weight:500;color:var(--aged);background:var(--comb);border:1px solid var(--pale);margin-bottom:5px; }
+    .stat-pill .dot { width:7px;height:7px;border-radius:50%;background:var(--amber);flex-shrink:0; }
+    .sico-wrap { position:relative;display:inline-flex; }
+    .notif-dot { position:absolute;top:-3px;right:-4px;width:8px;height:8px;border-radius:50%;background:#ef4444;border:1.5px solid #fff; }
+    .reg-main { flex:1;margin-left:var(--sidebar-w);padding:28px 28px 48px;max-width:1200px; }
+    .page-header { margin-bottom:24px; }
+    .page-header h1 { font-size:1.45rem;font-weight:800;color:var(--hive);letter-spacing:-.02em; }
+    .page-header p { font-size:.87rem;color:var(--aged);margin-top:3px; }
+    .page-topbar { display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:16px; }
+    .filter-bar { display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px; }
+    .filter-input { flex:1;min-width:200px;padding:9px 14px;font-size:.9em;font-family:'Bricolage Grotesque',sans-serif;border:2px solid var(--accent);border-radius:6px;background:#fff;outline:none;transition:.2s;color:var(--text); }
+    .filter-input:focus { border-color:var(--amber);box-shadow:0 0 0 3px rgba(255,181,0,0.15); }
+    .filter-select { padding:9px 14px;font-size:.85em;font-family:'Bricolage Grotesque',sans-serif;border:2px solid var(--accent);border-radius:6px;background:#fff;outline:none;color:var(--text);cursor:pointer;transition:.2s; }
+    .filter-select:focus { border-color:var(--amber); }
+    .full-table-card { background:#fff;border:1.5px solid var(--accent);box-shadow:3px 3px 0 var(--accent);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:20px; }
+    .table-wrap { overflow-x:auto; }
+    .admin-table-full { width:100%;border-collapse:collapse;font-size:.88em; }
+    .admin-table-full th { background:var(--comb);padding:11px 16px;text-align:left;font-size:.75em;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--aged);border-bottom:1.5px solid var(--pale); }
+    .admin-table-full td { padding:12px 16px;border-bottom:1px solid var(--pale);vertical-align:middle;color:var(--text); }
+    .admin-table-full tr:last-child td { border-bottom:none; }
+    .admin-table-full tr:hover td { background:var(--wax); }
+    .td-user { display:flex;align-items:center;gap:10px; }
+    .td-user img { width:34px!important;height:34px!important;min-width:34px!important;border-radius:50%;object-fit:cover;border:2px solid var(--pale);flex-shrink:0; }
+    .td-name { font-weight:700;color:var(--hive); }
+    .td-sub { font-size:.78em;color:var(--aged);margin-top:1px; }
+    .td-meta { font-size:.82rem;color:var(--aged); }
+    .td-actions { display:flex;gap:6px;flex-wrap:wrap;align-items:center; }
+    .tbl-badge { display:inline-flex;padding:3px 10px;border-radius:100px;font-size:.75em;font-weight:700;white-space:nowrap;text-transform:uppercase;letter-spacing:.06em; }
+    .badge-active { background:var(--success-bg);color:var(--success); }
+    .badge-pending { background:var(--warning-bg);color:var(--warning); }
+    .tbl-tag { display:inline-flex;background:var(--amber);color:var(--hive);font-size:9px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border:1.5px solid var(--hive);border-radius:3px;white-space:nowrap; }
+    .tbl-btn { padding:4px 11px;font-size:.75em;font-weight:700;border-radius:6px;cursor:pointer;font-family:'Bricolage Grotesque',sans-serif;transition:.2s;border:1.5px solid;white-space:nowrap; }
+    .tbl-btn.view { border-color:var(--amber-d);color:var(--amber-d);background:var(--comb); }
+    .tbl-btn.view:hover { background:var(--amber);color:var(--hive);border-color:var(--amber); }
+    .tbl-btn.danger { border-color:var(--danger);color:var(--danger);background:var(--danger-bg); }
+    .tbl-btn.danger:hover { background:var(--danger);color:#fff; }
+    .pagination { display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-top:1px solid var(--pale);background:var(--wax);font-size:.82em;color:var(--aged); }
+    .pagination-btns { display:flex;gap:6px; }
+    .pg-btn { padding:4px 12px;font-size:.82em;font-weight:700;border-radius:5px;cursor:pointer;border:1.5px solid var(--accent);background:#fff;color:var(--hive);font-family:'Bricolage Grotesque',sans-serif;transition:.15s; }
+    .pg-btn:hover { background:var(--comb); }
+    .pg-btn.active { background:var(--amber);border-color:var(--amber-d);color:var(--hive); }
+
+    /* MODALS */
+    .modal-overlay { position:fixed;inset:0;background:rgba(26,20,0,0.55);backdrop-filter:blur(3px);z-index:200;display:none;align-items:center;justify-content:center;padding:20px; }
+    .modal-overlay.open { display:flex; }
+    .modal-box { background:var(--wax);border:2px solid var(--accent);border-radius:var(--radius-lg);padding:28px 30px 24px;width:min(580px,96vw);position:relative;box-shadow:var(--shadow-lg),4px 4px 0 var(--hive);max-height:90vh;overflow-y:auto; }
+    .modal-box.wide { width:min(720px,96vw); }
+    .modal-close { position:absolute;top:14px;right:18px;background:none;border:none;font-size:1.4rem;color:var(--aged);cursor:pointer;transition:color .15s; }
+    .modal-close:hover { color:var(--amber-d); }
+    .modal-title { font-size:1.1rem;font-weight:800;color:var(--hive);margin-bottom:20px; }
+    .modal-profile { display:flex;align-items:center;gap:16px;padding:16px;background:var(--comb);border:1.5px solid var(--accent);border-radius:var(--radius);margin-bottom:18px; }
+    .modal-avatar { width:58px;height:58px;border-radius:50%;object-fit:cover;border:3px solid var(--accent);flex-shrink:0; }
+    .modal-profile-name { font-size:1.05rem;font-weight:800;color:var(--hive); }
+    .modal-profile-sub { font-size:.82rem;color:var(--aged);margin-top:3px; }
+    .modal-profile-tags { display:flex;flex-wrap:wrap;gap:6px;margin-top:8px; }
+    .profile-tag { display:inline-flex;background:#fff;border:1.5px solid var(--accent);border-radius:6px;padding:3px 10px;font-size:.76rem;font-weight:700;color:var(--hive);gap:5px;align-items:center; }
+    .profile-tag i { color:var(--amber-d);font-size:.75rem; }
+    .modal-info-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-bottom:16px; }
+    .modal-info-field { background:#fff;border:1.5px solid var(--pale);border-radius:var(--radius);padding:10px 13px; }
+    .modal-info-field label { font-size:.67rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--aged);display:block;margin-bottom:4px; }
+    .modal-info-field .val { font-size:.88rem;font-weight:700;color:var(--hive); }
+    .modal-actions { display:flex;justify-content:flex-end;gap:10px;margin-top:4px; }
+    .modal-btn { padding:9px 22px;border-radius:var(--radius);font-family:'Bricolage Grotesque',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;border:2px solid transparent;transition:all .15s; }
+    .modal-btn.primary { background:var(--amber);color:var(--hive);border-color:var(--hive);box-shadow:2px 2px 0 var(--hive); }
+    .modal-btn.primary:hover { background:var(--amber-d);transform:translate(-1px,-1px);box-shadow:3px 3px 0 var(--hive); }
+    .modal-btn.secondary { background:#f3f4f6;color:var(--aged);border-color:#e5e7eb; }
+    .modal-btn.secondary:hover { background:#e5e7eb; }
+    .modal-btn.danger-btn { background:var(--danger-bg);color:var(--danger);border-color:var(--danger); }
+    .modal-btn.danger-btn:hover { background:var(--danger);color:#fff; }
+
+    /* member activity */
+    .activity-item { display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--pale); }
+    .activity-item:last-child { border-bottom:none; }
+    .activity-icon { width:28px;height:28px;border-radius:50%;background:var(--comb);border:1.5px solid var(--accent);display:flex;align-items:center;justify-content:center;font-size:.75rem;color:var(--amber-d);flex-shrink:0;margin-top:2px; }
+    .activity-text { font-size:.82rem;color:var(--text);line-height:1.5; }
+    .activity-time { font-size:.73rem;color:var(--aged);margin-top:2px; }
+
+    /* Prof modal */
+    .prof-banner { background:var(--hive);border-radius:var(--radius);padding:20px 20px 48px;margin-bottom:-34px; }
+    .prof-banner-title { color:rgba(255,255,255,0.55);font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase; }
+    .prof-banner-name { color:#fff;font-size:1.2rem;font-weight:800;margin-top:2px; }
+    .prof-banner-sub { color:var(--amber);font-size:.82rem;font-weight:600;margin-top:2px; }
+    .prof-avatar-ring { width:68px;height:68px;border-radius:50%;background:var(--amber);border:4px solid var(--wax);display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:800;color:var(--hive);flex-shrink:0;box-shadow:0 4px 12px rgba(0,0,0,0.2); }
+    .prof-body { padding:40px 0 0; }
+    .prof-section-title { font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--aged);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--pale); }
+    .prof-course-list { display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px; }
+    .prof-course-tag { background:var(--comb);border:1.5px solid var(--accent);border-radius:6px;padding:4px 12px;font-size:.78rem;font-weight:700;color:var(--hive); }
+    .prof-stat-row { display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px; }
+    .prof-stat-box { background:var(--comb);border:1.5px solid var(--accent);border-radius:var(--radius);padding:12px;text-align:center; }
+    .prof-stat-box .n { font-size:1.6rem;font-weight:800;color:var(--hive);line-height:1; }
+    .prof-stat-box .l { font-size:.68rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--aged);margin-top:4px; }
+
+    .toast { position:fixed;bottom:24px;right:24px;background:var(--hive);color:#fff;padding:12px 20px;border-radius:10px;font-size:.88rem;font-weight:600;z-index:999;transform:translateY(80px);opacity:0;transition:all .3s;border-left:4px solid var(--amber);box-shadow:var(--shadow-lg); }
+    .toast.show { transform:translateY(0);opacity:1; }
+    .toast.success { border-color:var(--success); }
+    .toast.error { border-color:var(--danger); }
+    .toast.warn { border-color:var(--amber); }
+    @media (max-width:768px) { .reg-sidebar { display:none; } .reg-main { margin-left:0;padding:20px 16px 40px; } }
+  </style>
+</head>
+<body>
+
+<nav class="reg-nav">
+  <a href="Adviser_dashboard.html" class="logo"><span>Hive</span>Minds</a>
+  <div class="nav-links">
+    <a href="Adviser_dashboard.html">Dashboard</a>
+    <a href="join-requests.html">Join Requests</a>
+    <a href="my-groups.html">My Groups</a>
+    <a href="members.html" class="active">Members</a>
+  </div>
+  <div class="nav-right">
+    <button class="nav-user" onclick="openModal('modal-profile')">
+      <div class="avatar-dot">PR</div>
+      Prof. Rivera
+      <i class="fa-solid fa-chevron-down" style="font-size:.65rem;opacity:.6;"></i>
+    </button>
+    <a href="../auth/login.html" class="nav-logout"><i class="fa-solid fa-arrow-right-from-bracket"></i> Log out</a>
+  </div>
+</nav>
+
+<div class="reg-layout">
+  <aside class="reg-sidebar">
+    <div>
+      <div class="sidebar-section-label">Menu</div>
+      <div class="sidebar-divider"></div>
+      <a class="sidebar-link" href="adviser_dashboard.html"><span class="sico"><i class="fa-solid fa-gauge"></i></span> Dashboard</a>
+      <a class="sidebar-link" href="join-requests.html"><span class="sico sico-wrap"><i class="fa-solid fa-inbox"></i><span class="notif-dot"></span></span> Join Requests</a>
+      <a class="sidebar-link" href="my-groups.html"><span class="sico"><i class="fa-solid fa-layer-group"></i></span> My Groups</a>
+      <a class="sidebar-link active" href="members.html"><span class="sico"><i class="fa-solid fa-users"></i></span> Members</a>
+    </div>
+    <div>
+      <div class="sidebar-section-label">Quick Stats</div>
+      <div class="sidebar-divider"></div>
+      <div class="stat-pill"><span class="dot"></span> 4 pending requests</div>
+      <div class="stat-pill"><span class="dot"></span> 18 group members</div>
+      <div class="stat-pill"><span class="dot"></span> 2 active groups</div>
+      <div class="stat-pill"><span class="dot"></span> 2 sessions this week</div>
+    </div>
+  </aside>
+
+  <main class="reg-main">
+    <div class="page-header">
+      <h1>Members</h1>
+      <p>Overview of all approved members across your groups</p>
+    </div>
+    <div class="page-topbar">
+      <span class="tbl-badge badge-active" style="font-size:.85em;padding:6px 14px;">18 total members</span>
+    </div>
+    <div class="filter-bar">
+      <input class="filter-input" type="text" id="search-input" placeholder="Search members..." oninput="filterTable()">
+      <select class="filter-select" id="filter-group" onchange="filterTable()">
+        <option value="">All groups</option>
+        <option>Programming Study Group</option>
+        <option>Networking Study Group</option>
+      </select>
+      <select class="filter-select" id="filter-year" onchange="filterTable()">
+        <option value="">All years</option>
+        <option>1st Year</option>
+        <option>2nd Year</option>
+        <option>3rd Year</option>
+        <option>4th Year</option>
+      </select>
+    </div>
+
+    <div class="full-table-card">
+      <div class="table-wrap">
+        <table class="admin-table-full" id="members-table">
+          <thead>
+            <tr><th>Member</th><th>Course & Year</th><th>Section</th><th>Group</th><th>Joined</th><th>Status</th><th>Actions</th></tr>
+          </thead>
+          <tbody>
+            <tr data-name="Sam Uy" data-group="Networking Study Group" data-year="3rd Year">
+              <td><div class="td-user"><img src="https://i.pravatar.cc/80?img=55" alt=""><div><div class="td-name">Sam Uy</div><div class="td-sub">sam.u@wmsu.edu.ph</div></div></div></td>
+              <td>BSCS · 3rd Year</td><td class="td-meta">CS-3A</td>
+              <td><span class="tbl-tag">Networking</span></td>
+              <td class="td-meta">Mar 15, 2026</td>
+              <td><span class="tbl-badge badge-active">Active</span></td>
+              <td><div class="td-actions">
+                <button class="tbl-btn view" onclick="openMemberModal('Sam Uy','3rd Year','BSCS','CS-3A','sam.u@wmsu.edu.ph','202300312','Networking Study Group','Mar 15, 2026','3.7','https://i.pravatar.cc/80?img=55')">View</button>
+                <button class="tbl-btn danger" onclick="showToast('Member removed.','error')">Remove</button>
+              </div></td>
+            </tr>
+            <tr data-name="Bianca Lim" data-group="Programming Study Group" data-year="2nd Year">
+              <td><div class="td-user"><img src="https://i.pravatar.cc/80?img=12" alt=""><div><div class="td-name">Bianca Lim</div><div class="td-sub">bianca.l@wmsu.edu.ph</div></div></div></td>
+              <td>ACT · 2nd Year</td><td class="td-meta">ACT-2B</td>
+              <td><span class="tbl-tag">Programming</span></td>
+              <td class="td-meta">Mar 16, 2026</td>
+              <td><span class="tbl-badge badge-active">Active</span></td>
+              <td><div class="td-actions">
+                <button class="tbl-btn view" onclick="openMemberModal('Bianca Lim','2nd Year','ACT','ACT-2B','bianca.l@wmsu.edu.ph','202500156','Programming Study Group','Mar 16, 2026','3.2','https://i.pravatar.cc/80?img=12')">View</button>
+                <button class="tbl-btn danger" onclick="showToast('Member removed.','error')">Remove</button>
+              </div></td>
+            </tr>
+            <tr data-name="Nico Fuentez" data-group="Programming Study Group" data-year="3rd Year">
+              <td><div class="td-user"><img src="https://i.pravatar.cc/80?img=32" alt=""><div><div class="td-name">Nico Fuentez</div><div class="td-sub">nico.f@wmsu.edu.ph</div></div></div></td>
+              <td>BSCS · 3rd Year</td><td class="td-meta">CS-3B</td>
+              <td><span class="tbl-tag">Programming</span></td>
+              <td class="td-meta">Mar 18, 2026</td>
+              <td><span class="tbl-badge badge-active">Active</span></td>
+              <td><div class="td-actions">
+                <button class="tbl-btn view" onclick="openMemberModal('Nico Fuentez','3rd Year','BSCS','CS-3B','nico.f@wmsu.edu.ph','202300289','Programming Study Group','Mar 18, 2026','3.5','https://i.pravatar.cc/80?img=32')">View</button>
+                <button class="tbl-btn danger" onclick="showToast('Member removed.','error')">Remove</button>
+              </div></td>
+            </tr>
+            <tr data-name="Trisha Gomez" data-group="Programming Study Group" data-year="4th Year">
+              <td><div class="td-user"><img src="https://i.pravatar.cc/80?img=41" alt=""><div><div class="td-name">Trisha Gomez</div><div class="td-sub">trisha.g@wmsu.edu.ph</div></div></div></td>
+              <td>BSIT · 4th Year</td><td class="td-meta">IT-4A</td>
+              <td><span class="tbl-tag">Programming</span></td>
+              <td class="td-meta">Mar 20, 2026</td>
+              <td><span class="tbl-badge badge-active">Active</span></td>
+              <td><div class="td-actions">
+                <button class="tbl-btn view" onclick="openMemberModal('Trisha Gomez','4th Year','BSIT','IT-4A','trisha.g@wmsu.edu.ph','202200441','Programming Study Group','Mar 20, 2026','3.8','https://i.pravatar.cc/80?img=41')">View</button>
+                <button class="tbl-btn danger" onclick="showToast('Member removed.','error')">Remove</button>
+              </div></td>
+            </tr>
+            <tr data-name="Luis Aguilar" data-group="Programming Study Group" data-year="2nd Year">
+              <td><div class="td-user"><img src="https://i.pravatar.cc/80?img=60" alt=""><div><div class="td-name">Luis Aguilar</div><div class="td-sub">luis.a@wmsu.edu.ph</div></div></div></td>
+              <td>BSCS · 2nd Year</td><td class="td-meta">CS-2B</td>
+              <td><span class="tbl-tag">Programming</span></td>
+              <td class="td-meta">Mar 22, 2026</td>
+              <td><span class="tbl-badge badge-active">Active</span></td>
+              <td><div class="td-actions">
+                <button class="tbl-btn view" onclick="openMemberModal('Luis Aguilar','2nd Year','BSCS','CS-2B','luis.a@wmsu.edu.ph','202500390','Programming Study Group','Mar 22, 2026','3.3','https://i.pravatar.cc/80?img=60')">View</button>
+                <button class="tbl-btn danger" onclick="showToast('Member removed.','error')">Remove</button>
+              </div></td>
+            </tr>
+            <tr data-name="Lea Santos" data-group="Networking Study Group" data-year="1st Year">
+              <td><div class="td-user"><img src="https://i.pravatar.cc/80?img=47" alt=""><div><div class="td-name">Lea Santos</div><div class="td-sub">lea.s@wmsu.edu.ph</div></div></div></td>
+              <td>BSCE · 1st Year</td><td class="td-meta">CE-1A</td>
+              <td><span class="tbl-tag">Networking</span></td>
+              <td class="td-meta">Mar 24, 2026</td>
+              <td><span class="tbl-badge badge-active">Active</span></td>
+              <td><div class="td-actions">
+                <button class="tbl-btn view" onclick="openMemberModal('Lea Santos','1st Year','BSCE','CE-1A','lea.s@wmsu.edu.ph','202600077','Networking Study Group','Mar 24, 2026','3.0','https://i.pravatar.cc/80?img=47')">View</button>
+                <button class="tbl-btn danger" onclick="showToast('Member removed.','error')">Remove</button>
+              </div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination">
+        <span>Showing 6 of 18 members</span>
+        <div class="pagination-btns">
+          <button class="pg-btn active">1</button>
+          <button class="pg-btn">2</button>
+          <button class="pg-btn">3</button>
+          <button class="pg-btn">→</button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- MODAL: Member Profile -->
+<div class="modal-overlay" id="modal-member">
+  <div class="modal-box wide">
+    <button class="modal-close" onclick="closeModal('modal-member')"><i class="fa-solid fa-xmark"></i></button>
+    <div class="modal-title">Member Profile</div>
+    <div class="modal-profile">
+      <img class="modal-avatar" id="mem-avatar" src="" alt="">
+      <div>
+        <div class="modal-profile-name" id="mem-name"></div>
+        <div class="modal-profile-sub" id="mem-email"></div>
+        <div class="modal-profile-tags">
+          <span class="profile-tag"><i class="fa-solid fa-graduation-cap"></i><span id="mem-course"></span></span>
+          <span class="profile-tag"><i class="fa-solid fa-layer-group"></i><span id="mem-year"></span></span>
+          <span class="profile-tag"><i class="fa-solid fa-star"></i><span id="mem-gwa"></span> GWA</span>
+        </div>
+      </div>
+    </div>
+    <div class="modal-info-grid">
+      <div class="modal-info-field"><label>Student ID</label><div class="val" id="mem-id"></div></div>
+      <div class="modal-info-field"><label>Section</label><div class="val" id="mem-section"></div></div>
+      <div class="modal-info-field"><label>Group</label><div class="val" id="mem-group"></div></div>
+      <div class="modal-info-field"><label>Date Joined</label><div class="val" id="mem-joined"></div></div>
+      <div class="modal-info-field"><label>Status</label><div class="val"><span class="tbl-badge badge-active">Active</span></div></div>
+      <div class="modal-info-field"><label>Attendance</label><div class="val">8 / 10 sessions</div></div>
+    </div>
+
+    <!-- Recent activity -->
+    <div style="background:#fff;border:1.5px solid var(--pale);border-radius:var(--radius);padding:14px 16px;margin-bottom:0;">
+      <div style="font-size:.68rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--aged);margin-bottom:10px;">Recent Activity</div>
+      <div class="activity-item">
+        <div class="activity-icon"><i class="fa-solid fa-check"></i></div>
+        <div><div class="activity-text">Attended <strong>Recursion Deep Dive</strong> session</div><div class="activity-time">Today · 4:00 PM</div></div>
+      </div>
+      <div class="activity-item">
+        <div class="activity-icon"><i class="fa-solid fa-file-lines"></i></div>
+        <div><div class="activity-text">Submitted shared notes for <strong>Week 8 review</strong></div><div class="activity-time">2 days ago</div></div>
+      </div>
+      <div class="activity-item">
+        <div class="activity-icon"><i class="fa-solid fa-check"></i></div>
+        <div><div class="activity-text">Attended <strong>Sorting Algorithms Workshop</strong></div><div class="activity-time">May 2, 2026</div></div>
+      </div>
+    </div>
+
+    <div class="modal-actions" style="margin-top:16px;">
+      <button class="modal-btn secondary" onclick="closeModal('modal-member')">Close</button>
+      <button class="modal-btn danger-btn" onclick="closeModal('modal-member');showToast('Member removed.','error')">Remove from Group</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Professor Profile -->
+<div class="modal-overlay" id="modal-profile">
+  <div class="modal-box wide">
+    <button class="modal-close" onclick="closeModal('modal-profile')"><i class="fa-solid fa-xmark"></i></button>
+    <div class="prof-banner">
+      <div class="prof-banner-title">Adviser Profile</div>
+      <div class="prof-banner-name">Prof. Maria Santos Rivera</div>
+      <div class="prof-banner-sub">College of Computer Studies — Western Mindanao State University</div>
+    </div>
+    <div style="display:flex;align-items:flex-end;gap:14px;padding:0 4px;margin-bottom:4px;">
+      <div class="prof-avatar-ring" style="margin-top:-34px;">PR</div>
+      <div style="padding-bottom:4px;">
+        <span class="tbl-badge badge-active" style="margin-right:6px;">Active Adviser</span>
+        <span class="tbl-badge" style="background:var(--info-bg);color:var(--info);">Verified</span>
+      </div>
+    </div>
+    <div class="prof-body">
+      <div class="prof-stat-row">
+        <div class="prof-stat-box"><div class="n">2</div><div class="l">Groups Advised</div></div>
+        <div class="prof-stat-box"><div class="n">18</div><div class="l">Active Members</div></div>
+        <div class="prof-stat-box"><div class="n">31</div><div class="l">Total Approved</div></div>
+      </div>
+      <div class="modal-info-grid" style="margin-bottom:16px;">
+        <div class="modal-info-field"><label>Employee ID</label><div class="val">EMP-2019-0042</div></div>
+        <div class="modal-info-field"><label>Department</label><div class="val">Computer Science</div></div>
+        <div class="modal-info-field"><label>Office</label><div class="val">CCS Bldg., Room 204</div></div>
+        <div class="modal-info-field"><label>Office Hours</label><div class="val">M/W/F · 1:00 – 3:00 PM</div></div>
+        <div class="modal-info-field"><label>Email</label><div class="val" style="font-size:.8rem;">m.rivera@wmsu.edu.ph</div></div>
+        <div class="modal-info-field"><label>Contact No.</label><div class="val">+63 917 555 0192</div></div>
+        <div class="modal-info-field"><label>Adviser Since</label><div class="val">January 2024</div></div>
+        <div class="modal-info-field"><label>Rank</label><div class="val">Instructor III</div></div>
+      </div>
+      <div class="prof-section-title">Courses Handled</div>
+      <div class="prof-course-list" style="margin-bottom:16px;">
+        <span class="prof-course-tag">CS 201 — Data Structures</span>
+        <span class="prof-course-tag">CS 301 — Algorithms</span>
+        <span class="prof-course-tag">CS 312 — Computer Networks</span>
+        <span class="prof-course-tag">CS 401 — Operating Systems</span>
+      </div>
+      <div class="prof-section-title">Groups Advised</div>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:4px;">
+        <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--comb);border:1.5px solid var(--accent);border-radius:var(--radius);">
+          <span style="font-size:1.1rem;">🐝</span>
+          <div style="flex:1;"><div style="font-weight:700;font-size:.88rem;color:var(--hive);">Programming Study Group</div><div style="font-size:.75rem;color:var(--aged);">14 members · 4 pending · Recurring · Online</div></div>
+          <span class="tbl-badge badge-active">Verified</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--comb);border:1.5px solid var(--accent);border-radius:var(--radius);">
+          <span style="font-size:1.1rem;">🌐</span>
+          <div style="flex:1;"><div style="font-weight:700;font-size:.88rem;color:var(--hive);">Networking Study Group</div><div style="font-size:.75rem;color:var(--aged);">4 members · Open · One-time · In-person</div></div>
+          <span class="tbl-badge badge-active">Verified</span>
+        </div>
+      </div>
+    </div>
+    <div class="modal-actions" style="margin-top:20px;">
+      <button class="modal-btn secondary" onclick="closeModal('modal-profile')">Close</button>
+      <button class="modal-btn primary" onclick="showToast('Profile settings coming soon.','warn');closeModal('modal-profile')"><i class="fa-solid fa-pen"></i> Edit Profile</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script>
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+document.querySelectorAll('.modal-overlay').forEach(o => {
+  o.addEventListener('click', e => { if(e.target===o) o.classList.remove('open'); });
+});
+function openMemberModal(name,year,course,section,email,id,group,joined,gwa,avatar) {
+  document.getElementById('mem-avatar').src = avatar;
+  document.getElementById('mem-name').textContent = name;
+  document.getElementById('mem-email').textContent = email;
+  document.getElementById('mem-course').textContent = course;
+  document.getElementById('mem-year').textContent = year;
+  document.getElementById('mem-id').textContent = id;
+  document.getElementById('mem-section').textContent = section;
+  document.getElementById('mem-group').textContent = group;
+  document.getElementById('mem-joined').textContent = joined;
+  document.getElementById('mem-gwa').textContent = gwa;
+  openModal('modal-member');
+}
+function filterTable() {
+  const search = document.getElementById('search-input').value.toLowerCase();
+  const group = document.getElementById('filter-group').value;
+  const year = document.getElementById('filter-year').value;
+  document.querySelectorAll('#members-table tbody tr').forEach(row => {
+    const name = (row.dataset.name||'').toLowerCase();
+    const rGroup = row.dataset.group||'';
+    const rYear = row.dataset.year||'';
+    const show = name.includes(search) && (!group||rGroup===group) && (!year||rYear===year);
+    row.style.display = show ? '' : 'none';
+  });
+}
+function showToast(msg, type='success') {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.className = 'toast '+type+' show';
+  clearTimeout(t._timer); t._timer = setTimeout(() => t.classList.remove('show'), 3000);
+}
+</script>
+</body>
+</html>
