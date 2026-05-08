@@ -1,344 +1,264 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../../assets/CSS/base/base.css">
-        <link rel="stylesheet" href="../../assets/CSS/base/navbar.css">
-        <link rel="stylesheet" href="../../assets/CSS/base/layout.css">
-        <link rel="stylesheet" href="../../assets/CSS/admin/admin.css">
-        <link rel="stylesheet" href="../../assets/CSS/admin/admin-pages.css">
-        <link rel="stylesheet" href="../../assets/CSS/misc/switcher.css">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — Registrar Admin | HiveMinds</title>
+  <link rel="stylesheet" href="../../assets/CSS/admin/registrar.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Belanosima&family=Bricolage+Grotesque:opsz,wght@12..96,420&family=Coiny&family=McLaren&family=Pacifico&family=Pangolin&display=swap" rel="stylesheet">
+<!-- NAV -->
+<nav class="reg-nav">
+  <a href="#" class="logo"><span>Hive</span>Minds</a>
+  <div class="nav-links">
+    <a href="Registrar-admin-dashboard.html" class="active">Dashboard</a>
+    <a href="Registrar-admin-verifications.html">Verifications</a>
+    <a href="Registrar-admin-students.html">Student Records</a>
+    <a href="Registrar-admin-users.html">Users</a>
+  </div>
+  <a href="../../pages/auth/login.html" class="nav-user">👤 Registrar Admin &nbsp;·&nbsp; Log out</a>
+</nav>
 
-          <style>
-            #content {
-                margin-left:230px;
-                margin-top:-680px;
-                }
-        </style>
-    </head>
+<div class="reg-layout">
 
-    <body >
-                <nav>
-            <div id="nav-container">
-             <a href="/WebDev/pages/home/homepage.html">
-                    <div class="logo">
-                        <span class="black">Hive</span><span class="orange">Minds</span>
-                    </div>
-                </a>
-                <div id="nav-links">
-                    <a class="hover active-nav" href="Registrar-admin-dashboard.html">Dashboard</a>
-                    <a class="hover" href="Registrar-admin-users.html">Users</a>
-                    <a class="hover" href="Registrar-admin-hives.html">Hives</a>
-                    <a class="hover" href="../../pages/misc/profile.html">Profile</a>
-                </div>
-                <div id="auth-links">
-                    <a class="hover" href="../../pages/misc/profile.html">Registrar Admin</a>
-                </div>
-            </div>
-        </nav>
+  <!-- SIDEBAR -->
+  <aside class="reg-sidebar">
+    <div>
+      <div class="sidebar-section-label">Menu</div>
+      <div class="sidebar-divider"></div>
+      <a href="Registrar-admin-dashboard.html" class="sidebar-link active"><span class="sico">⊞</span> Dashboard</a>
+      <a href="Registrar-admin-verifications.html" class="sidebar-link"><span class="sico">✓</span> Verifications</a>
+      <a href="Registrar-admin-students.html" class="sidebar-link"><span class="sico">🎓</span> Student Records</a>
+      <a href="Registrar-admin-users.html" class="sidebar-link"><span class="sico">👥</span> Users</a>
+    </div>
+    <div>
+      <div class="sidebar-section-label">Quick Stats</div>
+      <div class="sidebar-divider"></div>
+      <div class="stat-pill"><span class="dot"></span> 124 pending verifications</div>
+      <div class="stat-pill"><span class="dot"></span> 64 verified users</div>
+      <div class="stat-pill"><span class="dot"></span> 3 flagged posts</div>
+      <div class="stat-pill"><span class="dot"></span> 12 new today</div>
+    </div>
+  </aside>
 
+  <!-- MAIN -->
+  <main class="reg-main">
+    <div class="page-header">
+      <h1>Registrar Dashboard</h1>
+      <p>Overview of student verifications, users, and hive activity</p>
+    </div>
 
-        <main>
-            <div id="container">
-                <div id="sidebar">
+    <!-- Stats -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Pending Verifications</div>
+        <div class="stat-value">124</div>
+        <div class="stat-sub">+5 this week</div>
+      </div>
+      <div class="stat-card green">
+        <div class="stat-label">Verified Users</div>
+        <div class="stat-value">64</div>
+        <div class="stat-sub">+12 this month</div>
+      </div>
+      <div class="stat-card amber">
+        <div class="stat-label">Flagged Posts</div>
+        <div class="stat-value">3</div>
+        <div class="stat-sub">Needs review</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Active Hives</div>
+        <div class="stat-value">38</div>
+        <div class="stat-sub">2 added this week</div>
+      </div>
+      <div class="stat-card red">
+        <div class="stat-label">New Today</div>
+        <div class="stat-value">12</div>
+        <div class="stat-sub">Registrations</div>
+      </div>
+    </div>
 
-                    <div id="menu">
-                        <p>MENU</p>
-                        <hr>
-                       
-                       
-                     
-                        <a href="../adminRegistrar/Registrar-admin-verifications.html">
-                            <div class="sidebar-button menu">
-                                <p>Verifications</p>
-                            </div>
-                        </a>
-                       
-                    </div>
+    <div class="dash-cols">
+      <div>
 
-                    <div id="my-hives">
-                        <p>QUICK STATS</p>
-                        <hr>
-                        <div class="sidebar-button my-hives">
-                            <span class="hex"></span><p>124 total pending verifications</p>
-                        </div>
-                        <div class="sidebar-button my-hives">
-                            <span class="hex"></span><p>64 verified users</p>
-                        </div>
-                        <div class="sidebar-button my-hives">
-                            <span class="hex"></span><p>3 flagged posts</p>
-                        </div>
-                        <div class="sidebar-button my-hives">
-                            <span class="hex"></span><p>12 new today</p>
-                        </div>
-                    </div>
-                </div>
+        <!-- Recent Users -->
+        <div class="section-title">Recent Users</div>
+        <div class="dash-card" style="margin-bottom:20px;">
+          <div class="dash-card-header">
+            <h3>Recently Joined</h3>
+            <a href="users.html">See all →</a>
+          </div>
+          <div class="table-wrap">
+            <table class="reg-table">
+              <thead>
+                <tr>
+                  <th>User</th>
+                  <th>Joined</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><div class="td-user"><div class="avatar">R</div><div><div class="td-name">Rick Buzztley</div><div class="td-sub">Student</div></div></div></td>
+                  <td class="td-meta">Mar 20</td>
+                  <td><span class="badge badge-active">Active</span></td>
+                  <td><div class="td-actions"><button class="tbl-btn danger" onclick="showToast('User banned.','error')">Ban</button></div></td>
+                </tr>
+                <tr>
+                  <td><div class="td-user"><div class="avatar">M</div><div><div class="td-name">Maya Santos</div><div class="td-sub">Student</div></div></div></td>
+                  <td class="td-meta">Mar 21</td>
+                  <td><span class="badge badge-active">Active</span></td>
+                  <td><div class="td-actions"><button class="tbl-btn danger" onclick="showToast('User banned.','error')">Ban</button></div></td>
+                </tr>
+                <tr>
+                  <td><div class="td-user"><div class="avatar">L</div><div><div class="td-name">Leo Reyes</div><div class="td-sub">Student</div></div></div></td>
+                  <td class="td-meta">Mar 22</td>
+                  <td><span class="badge badge-active">Active</span></td>
+                  <td><div class="td-actions"><button class="tbl-btn danger" onclick="showToast('User banned.','error')">Ban</button></div></td>
+                </tr>
+                <tr>
+                  <td><div class="td-user"><div class="avatar">C</div><div><div class="td-name">Carla Mendez</div><div class="td-sub">Student</div></div></div></td>
+                  <td class="td-meta">Mar 22</td>
+                  <td><span class="badge badge-inactive">Inactive</span></td>
+                  <td><div class="td-actions"><button class="tbl-btn danger" onclick="showToast('User banned.','error')">Ban</button></div></td>
+                </tr>
+                <tr>
+                  <td><div class="td-user"><div class="avatar">S</div><div><div class="td-name">Sam Uy</div><div class="td-sub">Student</div></div></div></td>
+                  <td class="td-meta">Mar 23</td>
+                  <td><span class="badge badge-flagged">Flagged</span></td>
+                  <td><div class="td-actions"><button class="tbl-btn danger" onclick="showToast('User banned.','error')">Ban</button></div></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
 
-                <div id="content">
-                    <div id="qotd">
-                        Registrar-Admin Dashboard — HiveMinds
-                    </div>
+        <!-- Flagged Posts -->
+        <div class="section-title">Flagged Posts</div>
+        <div class="dash-card">
+          <div class="dash-card-header">
+            <h3>Requires Review</h3>
+            <span class="badge badge-flagged">3 open</span>
+          </div>
+          <div class="table-wrap">
+            <table class="reg-table">
+              <thead>
+                <tr>
+                  <th>User</th>
+                  <th>Hive</th>
+                  <th>Reason</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><div class="td-user"><div class="avatar">S</div><span>Sam Uy</span></div></td>
+                  <td class="td-meta">Physics Study Group</td>
+                  <td><span class="badge badge-flagged">Spam</span></td>
+                  <td><div class="td-actions">
+                    <button class="tbl-btn safe" onclick="showToast('Post dismissed.','warn')">Dismiss</button>
+                    <button class="tbl-btn danger" onclick="showToast('Post removed.','error')">Remove</button>
+                  </div></td>
+                </tr>
+                <tr>
+                  <td><div class="td-user"><div class="avatar">C</div><span>Charla Cruz</span></div></td>
+                  <td class="td-meta">Physics Study Group</td>
+                  <td><span class="badge badge-inactive">Inactivity</span></td>
+                  <td><div class="td-actions">
+                    <button class="tbl-btn safe" onclick="showToast('Post dismissed.','warn')">Dismiss</button>
+                    <button class="tbl-btn danger" onclick="showToast('Post removed.','error')">Remove</button>
+                  </div></td>
+                </tr>
+                <tr>
+                  <td><div class="td-user"><div class="avatar">A</div><span>Anthony</span></div></td>
+                  <td class="td-meta">English Study Group</td>
+                  <td><span class="badge badge-pending">Off-topic</span></td>
+                  <td><div class="td-actions">
+                    <button class="tbl-btn safe" onclick="showToast('Post dismissed.','warn')">Dismiss</button>
+                    <button class="tbl-btn danger" onclick="showToast('Post removed.','error')">Remove</button>
+                  </div></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
 
-                    <div id="admin-body">
+      </div>
 
-                        <!-- Stats row -->
-                        <div class="admin-stats-grid">
-                            <div class="stat-card">
-                                <div class="stat-label">Total pending verifications</div>
-                                <div class="stat-value">124</div>
-                                <div class="stat-sub">+5 this week</div>
-                            </div>
+      <!-- Right: Active Hives -->
+      <div>
+        <div class="section-title">Active Hives</div>
+        <div class="dash-card">
+          <div class="dash-card-header">
+            <h3>Active Hives</h3>
+            <a href="hives.html">See all →</a>
+          </div>
+          <div class="hive-row">
+            <div class="hive-hex">📐</div>
+            <div class="hive-info"><div class="hive-name">Calculus Study Group</div><div class="hive-meta">18 members · Recurring · Online</div></div>
+            <span class="tag-subject">Math</span>
+            <button class="tbl-btn danger" onclick="showToast('Hive removed.','error')">Remove</button>
+          </div>
+          <div class="hive-row">
+            <div class="hive-hex">🧬</div>
+            <div class="hive-info"><div class="hive-name">Biology Study Group</div><div class="hive-meta">12 members · One-time · In-person</div></div>
+            <span class="tag-subject">Bio</span>
+            <button class="tbl-btn danger" onclick="showToast('Hive removed.','error')">Remove</button>
+          </div>
+          <div class="hive-row">
+            <div class="hive-hex">🔢</div>
+            <div class="hive-info"><div class="hive-name">Calc Crusaders</div><div class="hive-meta">55 members · Recurring · Online</div></div>
+            <span class="tag-subject">Math</span>
+            <button class="tbl-btn danger" onclick="showToast('Hive removed.','error')">Remove</button>
+          </div>
+          <div class="hive-row">
+            <div class="hive-hex">⚗️</div>
+            <div class="hive-info"><div class="hive-name">Chemistry Wizards</div><div class="hive-meta">42 members · Recurring · Online</div></div>
+            <span class="tag-subject">Chem</span>
+            <button class="tbl-btn danger" onclick="showToast('Hive removed.','error')">Remove</button>
+          </div>
+          <div class="hive-row">
+            <div class="hive-hex">📚</div>
+            <div class="hive-info"><div class="hive-name">Literature &amp; Lore</div><div class="hive-meta">38 members · Recurring · Online</div></div>
+            <span class="tag-subject">English</span>
+            <button class="tbl-btn danger" onclick="showToast('Hive removed.','error')">Remove</button>
+          </div>
+          <div class="hive-row">
+            <div class="hive-hex">🐝</div>
+            <div class="hive-info"><div class="hive-name">Bio Bees</div><div class="hive-meta">29 members · Recurring · In-person</div></div>
+            <span class="tag-subject">Bio</span>
+            <button class="tbl-btn danger" onclick="showToast('Hive removed.','error')">Remove</button>
+          </div>
+          <div class="hive-row">
+            <div class="hive-hex">⚡</div>
+            <div class="hive-info"><div class="hive-name">Physics Exam Blitz</div><div class="hive-meta">21 members · One-time · Online</div></div>
+            <span class="tag-subject">Physics</span>
+            <button class="tbl-btn danger" onclick="showToast('Hive removed.','error')">Remove</button>
+          </div>
+          <div class="hive-row">
+            <div class="hive-hex">📜</div>
+            <div class="hive-info"><div class="hive-name">History Cram Night</div><div class="hive-meta">15 members · One-time · In-person</div></div>
+            <span class="tag-subject">History</span>
+            <button class="tbl-btn danger" onclick="showToast('Hive removed.','error')">Remove</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
-                        </div>
+  </main>
+</div>
 
-                        <div class="admin-columns">
-
-                            <!-- Left: recent users, flagged posts -->
-                            <div class="admin-left">
-
-                                <div>
-                                    <div class="section-label">Recent Users</div>
-                                    <div class="admin-card">
-                                        <table class="admin-table">
-                                            <thead>
-                                                <tr>
-                                                    <th>User</th>
-                                                    <th>Joined</th>
-                                                    <th>Status</th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <div class="user-row">
-                                                            <img src="../../assets/images/person-profile.jpg">
-                                                            Rick Buzztley
-                                                        </div>
-                                                    </td>
-                                                    <td>Mar 20</td>
-                                                    <td><span class="status-badge status-active">Active</span></td>
-                                                    <td><button class="action-btn danger">Ban</button></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="user-row">
-                                                            <img src="../../assets/images/person-profile.jpg">
-                                                            Maya Santos
-                                                        </div>
-                                                    </td>
-                                                    <td>Mar 21</td>
-                                                    <td><span class="status-badge status-active">Active</span></td>
-                                                    <td><button class="action-btn danger">Ban</button></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="user-row">
-                                                            <img src="../../assets/images/person-profile.jpg">
-                                                            Leo Reyes
-                                                        </div>
-                                                    </td>
-                                                    <td>Mar 22</td>
-                                                    <td><span class="status-badge status-active">Active</span></td>
-                                                    <td><button class="action-btn danger">Ban</button></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="user-row">
-                                                            <img src="../../assets/images/person-profile.jpg">
-                                                            Carla Mendez
-                                                        </div>
-                                                    </td>
-                                                    <td>Mar 22</td>
-                                                    <td><span class="status-badge status-inactive">Inactive</span></td>
-                                                    <td><button class="action-btn danger">Ban</button></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="user-row">
-                                                            <img src="../../assets/images/person-profile.jpg">
-                                                            Sam Uy
-                                                        </div>
-                                                    </td>
-                                                    <td>Mar 23</td>
-                                                    <td><span class="status-badge status-flagged">Flagged</span></td>
-                                                    <td><button class="action-btn danger">Ban</button></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <div class="section-label">Flagged Posts</div>
-                                    <div class="admin-card">
-                                        <table class="admin-table">
-                                            <thead>
-                                                <tr>
-                                                    <th>User</th>
-                                                    <th>Hive</th>
-                                                    <th>Reason</th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <div class="user-row">
-                                                            <img src="../../assets/images/person-profile.jpg">
-                                                            Sam Uy
-                                                        </div>
-                                                    </td>
-                                                    <td>Physics study group</td>
-                                                    <td>Spam</td>
-                                                    <td>
-                                                        <button class="action-btn">Dismiss</button>
-                                                        <button class="action-btn danger" style="margin-left:5px;">Remove</button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="user-row">
-                                                            <img src="../../assets/images/person-profile.jpg">
-                                                           Charla Cruz
-                                                        </div>
-                                                    </td>
-                                                    <td>Physics study group</td>
-                                                    <td>prolonged Inactivity</td>
-                                                    <td>
-                                                        <button class="action-btn">Dismiss</button>
-                                                        <button class="action-btn danger" style="margin-left:5px;">Remove</button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="user-row">
-                                                            <img src="../../assets/images/person-profile.jpg">
-                                                            Anthony
-                                                        </div>
-                                                    </td>
-                                                    <td>English study group</td>
-                                                    <td>Off-topic</td>
-                                                    <td>
-                                                        <button class="action-btn">Dismiss</button>
-                                                        <button class="action-btn danger" style="margin-left:5px;">Remove</button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="user-row">
-                                                            <img src="../../assets/images/person-profile.jpg">
-                                                            Milky
-                                                        </div>
-                                                    </td>
-                                                    <td>Biology study group</td>
-                                                    <td>Inappropriate</td>
-                                                    <td>
-                                                        <button class="action-btn">Dismiss</button>
-                                                        <button class="action-btn danger" style="margin-left:5px;">Remove</button>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <!-- Right: active hives -->
-                            <div class="admin-right">
-
-                                <div>
-                                    <div class="section-label">Active Hives</div>
-                                    <div class="admin-card">
-                                        <div class="hive-admin-row">
-                                            <span class="hex"></span>
-                                            <div class="hive-admin-info">
-                                                <div class="hive-admin-name">Calculus Study Group</div>
-                                                <div class="hive-admin-meta">18 members &mdash; Recurring &mdash; Online</div>
-                                            </div>
-                                            <span class="tag">Mathematics</span>
-                                            <button class="action-btn danger">Remove</button>
-                                        </div>
-                                        <div class="hive-admin-row">
-                                            <span class="hex"></span>
-                                            <div class="hive-admin-info">
-                                                <div class="hive-admin-name">Biology Study Group</div>
-                                                <div class="hive-admin-meta">12 members &mdash; One-time &mdash; In-person</div>
-                                            </div>
-                                            <span class="tag">Biology</span>
-                                            <button class="action-btn danger">Remove</button>
-                                        </div>
-                                        <div class="hive-admin-row">
-                                            <span class="hex"></span>
-                                            <div class="hive-admin-info">
-                                                <div class="hive-admin-name">Calc Crusaders</div>
-                                                <div class="hive-admin-meta">55 members &mdash; Recurring &mdash; Online</div>
-                                            </div>
-                                            <span class="tag">Mathematics</span>
-                                            <button class="action-btn danger">Remove</button>
-                                        </div>
-                                        <div class="hive-admin-row">
-                                            <span class="hex"></span>
-                                            <div class="hive-admin-info">
-                                                <div class="hive-admin-name">Chemistry Wizards</div>
-                                                <div class="hive-admin-meta">42 members &mdash; Recurring &mdash; Online</div>
-                                            </div>
-                                            <span class="tag">Chemistry</span>
-                                            <button class="action-btn danger">Remove</button>
-                                        </div>
-                                        <div class="hive-admin-row">
-                                            <span class="hex"></span>
-                                            <div class="hive-admin-info">
-                                                <div class="hive-admin-name">Literature & Lore</div>
-                                                <div class="hive-admin-meta">38 members &mdash; Recurring &mdash; Online</div>
-                                            </div>
-                                            <span class="tag">English</span>
-                                            <button class="action-btn danger">Remove</button>
-                                        </div>
-                                        <div class="hive-admin-row">
-                                            <span class="hex"></span>
-                                            <div class="hive-admin-info">
-                                                <div class="hive-admin-name">Bio Bees</div>
-                                                <div class="hive-admin-meta">29 members &mdash; Recurring &mdash; In-person</div>
-                                            </div>
-                                            <span class="tag">Biology</span>
-                                            <button class="action-btn danger">Remove</button>
-                                        </div>
-                                        <div class="hive-admin-row">
-                                            <span class="hex"></span>
-                                            <div class="hive-admin-info">
-                                                <div class="hive-admin-name">Physics Exam Blitz</div>
-                                                <div class="hive-admin-meta">21 members &mdash; One-time &mdash; Online</div>
-                                            </div>
-                                            <span class="tag">Physics</span>
-                                            <button class="action-btn danger">Remove</button>
-                                        </div>
-                                        <div class="hive-admin-row">
-                                            <span class="hex"></span>
-                                            <div class="hive-admin-info">
-                                                <div class="hive-admin-name">History Cram Night</div>
-                                                <div class="hive-admin-meta">15 members &mdash; One-time &mdash; In-person</div>
-                                            </div>
-                                            <span class="tag">History</span>
-                                            <button class="action-btn danger">Remove</button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </main>
-            
-    </body>
+<div class="toast" id="toast"></div>
+<script>
+function showToast(msg, type='success') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast ' + type;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+</script>
+</body>
 </html>

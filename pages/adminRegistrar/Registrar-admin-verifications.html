@@ -1,334 +1,422 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Verification Queue— HiveMinds Admin</title>
-        <link rel="stylesheet" href="../../assets/CSS/base/base.css">
-        <link rel="stylesheet" href="../../assets/CSS/base/navbar.css">
-        <link rel="stylesheet" href="../../assets/CSS/base/layout.css">
-        <link rel="stylesheet" href="../../assets/CSS/admin/admin.css">
-        <link rel="stylesheet" href="../../assets/CSS/admin/admin-pages.css">
-        <link rel="stylesheet" href="../../assets/CSS/misc/switcher.css">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verifications — Registrar Admin | HiveMinds</title>
+  <link rel="stylesheet" href="../../assets/CSS/admin/registrar.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Belanosima&family=Bricolage+Grotesque:opsz,wght@12..96,420&family=Coiny&family=McLaren&family=Pacifico&family=Pangolin&display=swap" rel="stylesheet">
+<!-- NAV -->
+<nav class="reg-nav">
+  <a href="#" class="logo"><span>Hive</span>Minds</a>
+  <div class="nav-links">
+    <a href="Registrar-admin-dashboard.html">Dashboard</a>
+    <a href="Registrar-admin-verifications.html" class="active">Verifications</a>
+    <a href="Registrar-admin-students.html">Student Records</a>
+    <a href="Registrar-admin-users.html">Users</a>
+  </div>
+  <a href="../../pages/auth/login.html" class="nav-user">👤 Registrar Admin &nbsp;·&nbsp; Log out</a>
+</nav>
 
-        <style>
-            #verification-body { display: flex; flex-direction: column; gap: 28px; padding: 20px 0; }
-            .section-label { font-size: 0.78rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #aaa; margin-bottom: 10px; }
-            .verif-card { background: #fff; border: 1.5px solid #f0f0f0; border-radius: 12px; padding: 18px 22px; display: flex; align-items: flex-start; gap: 18px; margin-bottom: 10px; }
-            .verif-avatar-placeholder { width: 44px; height: 44px; border-radius: 50%; background: #f3f4f6; display: flex; align-items: center; justify-content: center; color: #bbb; font-size: 1.1rem; flex-shrink: 0; border: 2px solid #eee; }
-            .verif-info { flex: 1; display: flex; flex-direction: column; gap: 5px; }
-            .verif-name { font-size: 0.97rem; font-weight: 600; color: #1a1a1a; }
-            .verif-meta { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 3px 16px; }
-            .verif-meta span { font-size: 0.81rem; color: #444; }
-            .verif-meta span b { color: #aaa; font-weight: 500; }
-            .verif-submitted { font-size: 0.77rem; color: #bbb; margin-top: 2px; }
-            .verif-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 7px; flex-shrink: 0; }
-            .badge { font-size: 0.73rem; font-weight: 700; padding: 3px 10px; border-radius: 99px; text-transform: uppercase; letter-spacing: .04em; }
-            .badge-pending  { background: #fef3c7; color: #92400e; }
-            .badge-approved { background: #dcfce7; color: #166534; }
-            .badge-rejected { background: #fee2e2; color: #991b1b; }
-            .btn-view { padding: 6px 14px; background: #3b82f6; color: #fff; border: none; border-radius: 7px; font-size: 0.81rem; font-weight: 600; cursor: pointer; }
-            .btn-approve { padding: 6px 14px; background: #22c55e; color: #fff; border: none; border-radius: 7px; font-size: 0.81rem; font-weight: 600; cursor: pointer; }
-            .btn-reject { padding: 6px 14px; background: #fff; color: #ef4444; border: 1.5px solid #ef4444; border-radius: 7px; font-size: 0.81rem; font-weight: 600; cursor: pointer; }
+<div class="reg-layout">
+  <aside class="reg-sidebar">
+    <div>
+      <div class="sidebar-section-label">Menu</div>
+      <div class="sidebar-divider"></div>
+      <a href="Registrar-admin-dashboard.html" class="sidebar-link active"><span class="sico">⊞</span> Dashboard</a>
+      <a href="Registrar-admin-verifications.html" class="sidebar-link"><span class="sico">✓</span> Verifications</a>
+      <a href="Registrar-admin-students.html" class="sidebar-link"><span class="sico">🎓</span> Student Records</a>
+      <a href="Registrar-admin-users.html" class="sidebar-link"><span class="sico">👥</span> Users</a>
+    </div>
+    <div>
+      <div class="sidebar-section-label">Queue Summary</div>
+      <div class="sidebar-divider"></div>
+      <div class="stat-pill"><span class="dot" style="background:#e5a000;"></span> 5 pending review</div>
+      <div class="stat-pill"><span class="dot" style="background:#22c55e;"></span> 2 approved today</div>
+      <div class="stat-pill"><span class="dot" style="background:#ef4444;"></span> 1 rejected</div>
+    </div>
+  </aside>
 
-            #container {
-                display: flex;
-                align-items: flex-start;
-            }
-            #sidebar {
-                width: 230px;
-                flex-shrink: 0;
-            }
-            #content {
-                flex: 1;
-            }
-        </style>
-    </head>
+  <main class="reg-main">
+    <div class="page-header">
+      <h1>Student Verifications</h1>
+      <p>Review student COR submissions and manage enrollment verification</p>
+    </div>
 
-    <body>
-                <nav>
-            <div id="nav-container">
-                 <a href="/WebDev/pages/home/homepage.html">
-                    <div class="logo">
-                        <span class="black">Hive</span><span class="orange">Minds</span>
-                    </div>
-                </a>
-                <div id="nav-links">
-                    <a class="hover active-nav" href="Registrar-admin-dashboard.html">Dashboard</a>
-                    <a class="hover" href="Registrar-admin-users.html">Users</a>
-                    <a class="hover" href="Registrar-admin-hives.html">Hives</a>
-                    <a class="hover" href="../../pages/misc/profile.html">Profile</a>
-                </div>
-                <div id="auth-links">
-                    <a class="hover" href="../../pages/misc/profile.html">Registrar Admin</a>
-                </div>
-            </div>
-        </nav>
+    <!-- Filter bar -->
+    <div class="topbar-row" style="margin-bottom:20px;">
+      <div class="filter-bar">
+        <input class="filter-input" type="text" placeholder="Search by name or student no..." id="verifSearch" oninput="filterVerif()">
+        <select class="filter-select" id="verifStatus" onchange="filterVerif()">
+          <option value="">All statuses</option>
+          <option value="pending">Pending</option>
+          <option value="approved">Approved</option>
+          <option value="rejected">Rejected</option>
+        </select>
+        <select class="filter-select" id="verifDept" onchange="filterVerif()">
+          <option value="">All departments</option>
+          <option>College of Computing Studies</option>
+          <option>College of Science</option>
+          <option>College of Arts &amp; Sciences</option>
+        </select>
+      </div>
+    </div>
 
+    <!-- PENDING -->
+    <div id="sec-pending">
+      <div class="verif-section-label" style="display:flex;justify-content:space-between;align-items:center;">
+        <span>Pending Review</span>
+        <span class="badge badge-pending" id="pending-count">5</span>
+      </div>
 
-        <main>
-            <div id="container">
-                <div id="sidebar">
-                    <div id="menu">
-                        <p>MENU</p>
-                        <hr>
-                     
-                       
-                     
-                        <a href="/WebDev/pages/adminRegistrar/Registrar-admin-verifications.html">
-                            <div class="sidebar-button menu">
-                                <p>User-Verifications</p>
-                            </div>
-                        </a>
-                       
-                    </div>
-
-                    <div id="my-hives">
-                        <p>QUICK STATS</p>
-                        <hr>
-                        <div class="sidebar-button my-hives"><span class="hex"></span><p>124 total pending verifications</p></div>
-                    
-                    </div>
-                </div>
-
-                <div id="content">
-                    <div id="qotd">Student Verifications — HiveMinds</div>
-
-                    <div id="verification-body">
-
-                        <div>
-                            <div class="section-label">Pending Review</div>
-
-                            <div class="verif-card">
-                                <div class="verif-avatar-placeholder"><i class="fa fa-user"></i></div>
-                                <div class="verif-info">
-                                    <div class="verif-name">Buzztley, Rick A.</div>
-                                    <div class="verif-meta">
-                                        <span><b>Email </b>rb0000000001@wmsu.edu.ph</span>
-                                        <span><b>Student No. </b>2021-00001</span>
-                                        <span><b>Course </b>BS Computer Science</span>
-                                        <span><b>Year Level </b>3rd Year</span>
-                                        <span><b>Department </b>College of Computing Studies</span>
-                                        <span><b>Section </b>BSCS 3-A</span>
-                                    </div>
-                                    <div class="verif-submitted">Submitted: Mar 20, 2026 &middot; 9:14 AM</div>
-                                </div>
-                                <div class="verif-actions">
-                                    <span class="badge badge-pending">Pending</span>
-                                    <button class="btn-view">View Document</button>
-                                    <button class="btn-approve">Approve</button>
-                                    <button class="btn-reject">Reject</button>
-                                </div>
-                            </div>
-
-                            <div class="verif-card">
-                                <div class="verif-avatar-placeholder"><i class="fa fa-user"></i></div>
-                                <div class="verif-info">
-                                    <div class="verif-name">Santos, Maya L.</div>
-                                    <div class="verif-meta">
-                                        <span><b>Email </b>ms0000000002@wmsu.edu.ph</span>
-                                        <span><b>Student No. </b>2022-00045</span>
-                                        <span><b>Course </b>BS Biology</span>
-                                        <span><b>Year Level </b>2nd Year</span>
-                                        <span><b>Department </b>College of Science</span>
-                                        <span><b>Section </b>BSBio 2-B</span>
-                                    </div>
-                                    <div class="verif-submitted">Submitted: Mar 21, 2026 &middot; 2:38 PM</div>
-                                </div>
-                                <div class="verif-actions">
-                                    <span class="badge badge-pending">Pending</span>
-                                    <button class="btn-view">View Document</button>
-                                    <button class="btn-approve">Approve</button>
-                                    <button class="btn-reject">Reject</button>
-                                </div>
-                            </div>
-
-                            <div class="verif-card">
-                                <div class="verif-avatar-placeholder"><i class="fa fa-user"></i></div>
-                                <div class="verif-info">
-                                    <div class="verif-name">Reyes, Leo M.</div>
-                                    <div class="verif-meta">
-                                        <span><b>Email </b>lr0000000003@wmsu.edu.ph</span>
-                                        <span><b>Student No. </b>2023-00112</span>
-                                        <span><b>Course </b>BS Mathematics</span>
-                                        <span><b>Year Level </b>1st Year</span>
-                                        <span><b>Department </b>College of Science</span>
-                                        <span><b>Section </b>BSMath 1-A</span>
-                                    </div>
-                                    <div class="verif-submitted">Submitted: Mar 22, 2026 &middot; 8:05 AM</div>
-                                </div>
-                                <div class="verif-actions">
-                                    <span class="badge badge-pending">Pending</span>
-                                    <button class="btn-view">View Document</button>
-                                    <button class="btn-approve">Approve</button>
-                                    <button class="btn-reject">Reject</button>
-                                </div>
-                            </div>
-
-                            <div class="verif-card">
-                                <div class="verif-avatar-placeholder"><i class="fa fa-user"></i></div>
-                                <div class="verif-info">
-                                    <div class="verif-name">Mendez, Carla B.</div>
-                                    <div class="verif-meta">
-                                        <span><b>Email </b>cm0000000004@wmsu.edu.ph</span>
-                                        <span><b>Student No. </b>2022-00088</span>
-                                        <span><b>Course </b>BS Chemistry</span>
-                                        <span><b>Year Level </b>2nd Year</span>
-                                        <span><b>Department </b>College of Science</span>
-                                        <span><b>Section </b>BSChem 2-A</span>
-                                    </div>
-                                    <div class="verif-submitted">Submitted: Mar 22, 2026 &middot; 11:20 AM</div>
-                                </div>
-                                <div class="verif-actions">
-                                    <span class="badge badge-pending">Pending</span>
-                                    <button class="btn-view">View Document</button>
-                                    <button class="btn-approve">Approve</button>
-                                    <button class="btn-reject">Reject</button>
-                                </div>
-                            </div>
-
-                            <div class="verif-card">
-                                <div class="verif-avatar-placeholder"><i class="fa fa-user"></i></div>
-                                <div class="verif-info">
-                                    <div class="verif-name">Uy, Sam T.</div>
-                                    <div class="verif-meta">
-                                        <span><b>Email </b>su0000000005@wmsu.edu.ph</span>
-                                        <span><b>Student No. </b>2021-00234</span>
-                                        <span><b>Course </b>BS Physics</span>
-                                        <span><b>Year Level </b>3rd Year</span>
-                                        <span><b>Department </b>College of Science</span>
-                                        <span><b>Section </b>BSPhysics 3-B</span>
-                                    </div>
-                                    <div class="verif-submitted">Submitted: Mar 23, 2026 &middot; 4:52 PM</div>
-                                </div>
-                                <div class="verif-actions">
-                                    <span class="badge badge-pending">Pending</span>
-                                    <button class="btn-view">View Document</button>
-                                    <button class="btn-approve">Approve</button>
-                                    <button class="btn-reject">Reject</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div>
-                            <div class="section-label">Approved</div>
-
-                            <div class="verif-card">
-                                <div class="verif-avatar-placeholder"><i class="fa fa-user"></i></div>
-                                <div class="verif-info">
-                                    <div class="verif-name">Cruz, Ana G.</div>
-                                    <div class="verif-meta">
-                                        <span><b>Email </b>ac0000000010@wmsu.edu.ph</span>
-                                        <span><b>Student No. </b>2020-00301</span>
-                                        <span><b>Course </b>BS Computer Science</span>
-                                        <span><b>Year Level </b>4th Year</span>
-                                        <span><b>Department </b>College of Computing Studies</span>
-                                        <span><b>Section </b>BSCS 4-A</span>
-                                    </div>
-                                    <div class="verif-submitted">Approved: Mar 18, 2026</div>
-                                </div>
-                                <div class="verif-actions">
-                                    <span class="badge badge-approved">Approved</span>
-                                </div>
-                            </div>
-
-                            <div class="verif-card">
-                                <div class="verif-avatar-placeholder"><i class="fa fa-user"></i></div>
-                                <div class="verif-info">
-                                    <div class="verif-name">Torres, Ben R.</div>
-                                    <div class="verif-meta">
-                                        <span><b>Email </b>bt0000000011@wmsu.edu.ph</span>
-                                        <span><b>Student No. </b>2021-00405</span>
-                                        <span><b>Course </b>BS English</span>
-                                        <span><b>Year Level </b>3rd Year</span>
-                                        <span><b>Department </b>College of Arts &amp; Sciences</span>
-                                        <span><b>Section </b>BSEng 3-C</span>
-                                    </div>
-                                    <div class="verif-submitted">Approved: Mar 19, 2026</div>
-                                </div>
-                                <div class="verif-actions">
-                                    <span class="badge badge-approved">Approved</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div>
-                            <div class="section-label">Rejected</div>
-
-                            <div class="verif-card">
-                                <div class="verif-avatar-placeholder"><i class="fa fa-user"></i></div>
-                                <div class="verif-info">
-                                    <div class="verif-name">Flores, Dan K.</div>
-                                    <div class="verif-meta">
-                                        <span><b>Email </b>df0000000020@wmsu.edu.ph</span>
-                                        <span><b>Student No. </b>2022-00199</span>
-                                        <span><b>Course </b>BS Biology</span>
-                                        <span><b>Year Level </b>2nd Year</span>
-                                        <span><b>Department </b>College of Science</span>
-                                        <span><b>Section </b>BSBio 2-A</span>
-                                    </div>
-                                    <div class="verif-submitted">Rejected: Mar 17, 2026 &middot; Reason: COR unreadable</div>
-                                </div>
-                                <div class="verif-actions">
-                                    <span class="badge badge-rejected">Rejected</span>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </main>
-
-                      <div id="role-switcher">
-            <span class="switcher-label">View as</span>
-        
-             <a href="/WebDev/pages/admin/admin-dashboard.html" class="switcher-btn">Super-Admin</a>
-            <a href="/WebDev/pages/adminRegistrar/Registrar-admin-verifications.html" class="switcher-btn">Registrar-Admin</a>
-            <a href="/WebDev/pages/adminDean/Dean-admin-dashboard.html" class="switcher-btn">Dean</a>
-            <a href="/WebDev/pages/adminAdviser/Adviser_dashboard.html" class="switcher-btn">Adviser</a>
+      <div class="verif-card pending" data-status="pending" data-name="buzztley rick" data-dept="College of Computing Studies">
+        <div class="verif-avatar"><i class="fa fa-user"></i></div>
+        <div class="verif-info">
+          <div class="verif-name">Buzztley, Rick A.</div>
+          <div class="verif-grid">
+            <div class="verif-field"><span>School Email</span><br>rb0000000001@wmsu.edu.ph</div>
+            <div class="verif-field"><span>Student No.</span><br>2021-00001</div>
+            <div class="verif-field"><span>Phone</span><br>09171234567</div>
+            <div class="verif-field"><span>Birthdate</span><br>March 5, 2001</div>
+            <div class="verif-field"><span>Course</span><br>BS Computer Science</div>
+            <div class="verif-field"><span>Year Level</span><br>3rd Year</div>
+            <div class="verif-field"><span>Section</span><br>BSCS 3-A</div>
+            <div class="verif-field"><span>Department</span><br>College of Computing Studies</div>
+          </div>
+          <div class="verif-time">Submitted: Mar 20, 2026 · 9:14 AM</div>
         </div>
+        <div class="cor-thumb" onclick="openDocViewer('Rick Buzztley')">
+          <div class="doc-icon">📄</div>
+          <span>View COR</span>
+        </div>
+        <div class="verif-actions">
+          <span class="badge badge-pending">Pending</span>
+          <button class="tbl-btn approve" onclick="approveVerif(this)">✓ Approve</button>
+          <button class="tbl-btn reject" onclick="openRejectModal(this)">✕ Reject</button>
+        </div>
+      </div>
 
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                // Add event listeners to all buttons
-                document.querySelectorAll('.btn-approve').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        if (confirm('Are you sure you want to approve this verification?')) {
-                            alert('Verification approved!');
-                            // Here you would typically send a request to the server
-                        }
-                    });
-                });
+      <div class="verif-card pending" data-status="pending" data-name="santos maya" data-dept="College of Science">
+        <div class="verif-avatar"><i class="fa fa-user"></i></div>
+        <div class="verif-info">
+          <div class="verif-name">Santos, Maya L.</div>
+          <div class="verif-grid">
+            <div class="verif-field"><span>School Email</span><br>ms0000000002@wmsu.edu.ph</div>
+            <div class="verif-field"><span>Student No.</span><br>2022-00045</div>
+            <div class="verif-field"><span>Phone</span><br>09189876543</div>
+            <div class="verif-field"><span>Birthdate</span><br>June 12, 2002</div>
+            <div class="verif-field"><span>Course</span><br>BS Biology</div>
+            <div class="verif-field"><span>Year Level</span><br>2nd Year</div>
+            <div class="verif-field"><span>Section</span><br>BSBio 2-B</div>
+            <div class="verif-field"><span>Department</span><br>College of Science</div>
+          </div>
+          <div class="verif-time">Submitted: Mar 21, 2026 · 2:38 PM</div>
+        </div>
+        <div class="cor-thumb" onclick="openDocViewer('Maya Santos')">
+          <div class="doc-icon">📄</div>
+          <span>View COR</span>
+        </div>
+        <div class="verif-actions">
+          <span class="badge badge-pending">Pending</span>
+          <button class="tbl-btn approve" onclick="approveVerif(this)">✓ Approve</button>
+          <button class="tbl-btn reject" onclick="openRejectModal(this)">✕ Reject</button>
+        </div>
+      </div>
 
-                document.querySelectorAll('.btn-reject').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const reason = prompt('Please provide a reason for rejection:');
-                        if (reason !== null && reason.trim() !== '') {
-                            if (confirm(`Reject with reason: "${reason}"?`)) {
-                                alert('Verification rejected!');
-                                // Here you would typically send a request to the server
-                            }
-                        } else if (reason !== null) {
-                            alert('Reason is required for rejection.');
-                        }
-                    });
-                });
+      <div class="verif-card pending" data-status="pending" data-name="reyes leo" data-dept="College of Science">
+        <div class="verif-avatar"><i class="fa fa-user"></i></div>
+        <div class="verif-info">
+          <div class="verif-name">Reyes, Leo M.</div>
+          <div class="verif-grid">
+            <div class="verif-field"><span>School Email</span><br>lr0000000003@wmsu.edu.ph</div>
+            <div class="verif-field"><span>Student No.</span><br>2023-00112</div>
+            <div class="verif-field"><span>Phone</span><br>09201112233</div>
+            <div class="verif-field"><span>Birthdate</span><br>January 8, 2003</div>
+            <div class="verif-field"><span>Course</span><br>BS Mathematics</div>
+            <div class="verif-field"><span>Year Level</span><br>1st Year</div>
+            <div class="verif-field"><span>Section</span><br>BSMath 1-A</div>
+            <div class="verif-field"><span>Department</span><br>College of Science</div>
+          </div>
+          <div class="verif-time">Submitted: Mar 22, 2026 · 8:05 AM</div>
+        </div>
+        <div class="cor-thumb" onclick="openDocViewer('Leo Reyes')">
+          <div class="doc-icon">📄</div>
+          <span>View COR</span>
+        </div>
+        <div class="verif-actions">
+          <span class="badge badge-pending">Pending</span>
+          <button class="tbl-btn approve" onclick="approveVerif(this)">✓ Approve</button>
+          <button class="tbl-btn reject" onclick="openRejectModal(this)">✕ Reject</button>
+        </div>
+      </div>
 
-                document.querySelectorAll('.btn-view').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        alert('Opening document viewer...\n(In a real application, this would display the submitted student document for review.)');
-                        // Here you would typically open a modal or new window with the document
-                    });
-                });
-            });
-        </script>
+      <div class="verif-card pending" data-status="pending" data-name="mendez carla" data-dept="College of Science">
+        <div class="verif-avatar"><i class="fa fa-user"></i></div>
+        <div class="verif-info">
+          <div class="verif-name">Mendez, Carla B.</div>
+          <div class="verif-grid">
+            <div class="verif-field"><span>School Email</span><br>cm0000000004@wmsu.edu.ph</div>
+            <div class="verif-field"><span>Student No.</span><br>2022-00088</div>
+            <div class="verif-field"><span>Phone</span><br>09151234568</div>
+            <div class="verif-field"><span>Birthdate</span><br>September 22, 2002</div>
+            <div class="verif-field"><span>Course</span><br>BS Chemistry</div>
+            <div class="verif-field"><span>Year Level</span><br>2nd Year</div>
+            <div class="verif-field"><span>Section</span><br>BSChem 2-A</div>
+            <div class="verif-field"><span>Department</span><br>College of Science</div>
+          </div>
+          <div class="verif-time">Submitted: Mar 22, 2026 · 11:20 AM</div>
+        </div>
+        <div class="cor-thumb" onclick="openDocViewer('Carla Mendez')">
+          <div class="doc-icon">📄</div>
+          <span>View COR</span>
+        </div>
+        <div class="verif-actions">
+          <span class="badge badge-pending">Pending</span>
+          <button class="tbl-btn approve" onclick="approveVerif(this)">✓ Approve</button>
+          <button class="tbl-btn reject" onclick="openRejectModal(this)">✕ Reject</button>
+        </div>
+      </div>
 
-            
-    </body>
+      <div class="verif-card pending" data-status="pending" data-name="uy sam" data-dept="College of Science">
+        <div class="verif-avatar"><i class="fa fa-user"></i></div>
+        <div class="verif-info">
+          <div class="verif-name">Uy, Sam T.</div>
+          <div class="verif-grid">
+            <div class="verif-field"><span>School Email</span><br>su0000000005@wmsu.edu.ph</div>
+            <div class="verif-field"><span>Student No.</span><br>2021-00234</div>
+            <div class="verif-field"><span>Phone</span><br>09279998877</div>
+            <div class="verif-field"><span>Birthdate</span><br>July 14, 2001</div>
+            <div class="verif-field"><span>Course</span><br>BS Physics</div>
+            <div class="verif-field"><span>Year Level</span><br>3rd Year</div>
+            <div class="verif-field"><span>Section</span><br>BSPhysics 3-B</div>
+            <div class="verif-field"><span>Department</span><br>College of Science</div>
+          </div>
+          <div class="verif-time">Submitted: Mar 23, 2026 · 4:52 PM</div>
+        </div>
+        <div class="cor-thumb" onclick="openDocViewer('Sam Uy')">
+          <div class="doc-icon">📄</div>
+          <span>View COR</span>
+        </div>
+        <div class="verif-actions">
+          <span class="badge badge-pending">Pending</span>
+          <button class="tbl-btn approve" onclick="approveVerif(this)">✓ Approve</button>
+          <button class="tbl-btn reject" onclick="openRejectModal(this)">✕ Reject</button>
+        </div>
+      </div>
+    </div>
+
+    <div style="height:28px;"></div>
+
+    <!-- APPROVED -->
+    <div id="sec-approved">
+      <div class="verif-section-label">Approved</div>
+
+      <div class="verif-card approved" data-status="approved" data-name="cruz ana" data-dept="College of Computing Studies">
+        <div class="verif-avatar" style="border-color:#86efac;"><i class="fa fa-user"></i></div>
+        <div class="verif-info">
+          <div class="verif-name">Cruz, Ana G.</div>
+          <div class="verif-grid">
+            <div class="verif-field"><span>School Email</span><br>ac0000000010@wmsu.edu.ph</div>
+            <div class="verif-field"><span>Student No.</span><br>2020-00301</div>
+            <div class="verif-field"><span>Course</span><br>BS Computer Science</div>
+            <div class="verif-field"><span>Year Level</span><br>4th Year</div>
+            <div class="verif-field"><span>Section</span><br>BSCS 4-A</div>
+            <div class="verif-field"><span>Department</span><br>College of Computing Studies</div>
+          </div>
+          <div class="verif-time">Approved: Mar 18, 2026</div>
+        </div>
+        <div class="verif-actions">
+          <span class="badge badge-approved">Approved</span>
+        </div>
+      </div>
+
+      <div class="verif-card approved" data-status="approved" data-name="torres ben" data-dept="College of Arts & Sciences">
+        <div class="verif-avatar" style="border-color:#86efac;"><i class="fa fa-user"></i></div>
+        <div class="verif-info">
+          <div class="verif-name">Torres, Ben R.</div>
+          <div class="verif-grid">
+            <div class="verif-field"><span>School Email</span><br>bt0000000011@wmsu.edu.ph</div>
+            <div class="verif-field"><span>Student No.</span><br>2021-00405</div>
+            <div class="verif-field"><span>Course</span><br>BS English</div>
+            <div class="verif-field"><span>Year Level</span><br>3rd Year</div>
+            <div class="verif-field"><span>Section</span><br>BSEng 3-C</div>
+            <div class="verif-field"><span>Department</span><br>College of Arts &amp; Sciences</div>
+          </div>
+          <div class="verif-time">Approved: Mar 19, 2026</div>
+        </div>
+        <div class="verif-actions">
+          <span class="badge badge-approved">Approved</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="height:28px;"></div>
+
+    <!-- REJECTED -->
+    <div id="sec-rejected">
+      <div class="verif-section-label">Rejected</div>
+
+      <div class="verif-card rejected" data-status="rejected" data-name="flores dan" data-dept="College of Science">
+        <div class="verif-avatar" style="border-color:#fca5a5;"><i class="fa fa-user"></i></div>
+        <div class="verif-info">
+          <div class="verif-name">Flores, Dan K.</div>
+          <div class="verif-grid">
+            <div class="verif-field"><span>School Email</span><br>df0000000020@wmsu.edu.ph</div>
+            <div class="verif-field"><span>Student No.</span><br>2022-00199</div>
+            <div class="verif-field"><span>Course</span><br>BS Biology</div>
+            <div class="verif-field"><span>Year Level</span><br>2nd Year</div>
+            <div class="verif-field"><span>Section</span><br>BSBio 2-A</div>
+            <div class="verif-field"><span>Department</span><br>College of Science</div>
+          </div>
+          <div class="verif-time">Rejected: Mar 17, 2026 · Reason: COR unreadable / blurry image</div>
+        </div>
+        <div class="verif-actions">
+          <span class="badge badge-rejected">Rejected</span>
+          <button class="tbl-btn warn" onclick="showToast('Resubmission requested.','warn')">Request Resubmit</button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- COR Viewer Modal -->
+<div class="modal-overlay" id="docModal">
+  <div class="modal-box doc-viewer">
+    <button class="modal-close" onclick="closeModal('docModal')">×</button>
+    <div class="modal-title" id="docModalTitle">COR — Student Name</div>
+    <div class="doc-viewer-img">
+      <div>📄</div>
+      <p id="docStudentName">Certificate of Registration</p>
+      <p style="font-size:0.78rem;margin-top:6px;color:#aaa;">Document preview — in production this would display the uploaded COR image</p>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-btn secondary" onclick="closeModal('docModal')">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Reject Reason Modal -->
+<div class="modal-overlay" id="rejectModal">
+  <div class="modal-box" style="max-width:440px;">
+    <button class="modal-close" onclick="closeModal('rejectModal')">×</button>
+    <div class="modal-title">Reject Verification</div>
+    <p style="font-size:0.87rem;color:#666;margin-bottom:16px;">Please provide a reason. The student will be notified to resubmit.</p>
+    <div class="modal-field">
+      <label>Rejection Reason</label>
+      <select id="rejectReason">
+        <option value="">Select a reason...</option>
+        <option>COR is unreadable / blurry</option>
+        <option>COR appears tampered or edited</option>
+        <option>Student information mismatch</option>
+        <option>Wrong document submitted (not a COR)</option>
+        <option>COR is outdated / wrong semester</option>
+        <option>Other (specify below)</option>
+      </select>
+    </div>
+    <div class="modal-field" style="margin-top:10px;">
+      <label>Additional Notes <span style="font-weight:400;color:#aaa;">(optional)</span></label>
+      <textarea id="rejectNotes" placeholder="Any additional notes for the student..."></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-btn secondary" onclick="closeModal('rejectModal')">Cancel</button>
+      <button class="modal-btn danger-btn" onclick="confirmReject()">Reject &amp; Notify</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+let currentRejectCard = null;
+
+function showToast(msg, type='success') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast ' + type;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3200);
+}
+
+function openDocViewer(name) {
+  document.getElementById('docModalTitle').textContent = 'COR — ' + name;
+  document.getElementById('docStudentName').textContent = 'Certificate of Registration for ' + name;
+  document.getElementById('docModal').classList.add('open');
+}
+
+function openRejectModal(btn) {
+  currentRejectCard = btn.closest('.verif-card');
+  document.getElementById('rejectReason').value = '';
+  document.getElementById('rejectNotes').value = '';
+  document.getElementById('rejectModal').classList.add('open');
+}
+
+function approveVerif(btn) {
+  const card = btn.closest('.verif-card');
+  const name = card.querySelector('.verif-name').textContent;
+  card.className = 'verif-card approved';
+  card.style.borderLeft = '4px solid #22c55e';
+  const actions = card.querySelector('.verif-actions');
+  actions.innerHTML = '<span class="badge badge-approved">Approved</span>';
+  const time = card.querySelector('.verif-time');
+  const today = new Date().toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' });
+  time.textContent = 'Approved: ' + today;
+  card.dataset.status = 'approved';
+  updateCounts();
+  showToast(name + ' approved successfully.', 'success');
+}
+
+function confirmReject() {
+  const reason = document.getElementById('rejectReason').value;
+  if (!reason) { showToast('Please select a reason.', 'error'); return; }
+  const card = currentRejectCard;
+  if (!card) return;
+  const name = card.querySelector('.verif-name').textContent;
+  card.className = 'verif-card rejected';
+  card.style.borderLeft = '4px solid #ef4444';
+  const actions = card.querySelector('.verif-actions');
+  actions.innerHTML = '<span class="badge badge-rejected">Rejected</span><button class="tbl-btn warn" onclick="showToast(\'Resubmission requested.\',\'warn\')">Request Resubmit</button>';
+  const cor = card.querySelector('.cor-thumb');
+  if (cor) cor.style.display = 'none';
+  const time = card.querySelector('.verif-time');
+  const today = new Date().toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' });
+  time.textContent = 'Rejected: ' + today + ' · Reason: ' + reason;
+  card.dataset.status = 'rejected';
+  closeModal('rejectModal');
+  updateCounts();
+  showToast(name + ' rejected. Student notified.', 'error');
+}
+
+function updateCounts() {
+  const pending = document.querySelectorAll('.verif-card[data-status="pending"]').length;
+  document.getElementById('pending-count').textContent = pending;
+}
+
+function filterVerif() {
+  const search = document.getElementById('verifSearch').value.toLowerCase();
+  const status = document.getElementById('verifStatus').value;
+  const dept   = document.getElementById('verifDept').value;
+  document.querySelectorAll('.verif-card').forEach(card => {
+    const name   = (card.dataset.name || '').toLowerCase();
+    const cstat  = card.dataset.status || '';
+    const cdept  = card.dataset.dept || '';
+    const ok = (!search || name.includes(search))
+            && (!status || cstat === status)
+            && (!dept   || cdept.includes(dept));
+    card.style.display = ok ? '' : 'none';
+  });
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+}
+
+document.querySelectorAll('.modal-overlay').forEach(o => {
+  o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); });
+});
+</script>
+</body>
 </html>
