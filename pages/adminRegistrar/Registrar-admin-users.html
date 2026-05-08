@@ -1,316 +1,279 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../../assets/CSS/base/base.css">
-        <link rel="stylesheet" href="../../assets/CSS/base/navbar.css">
-        <link rel="stylesheet" href="../../assets/CSS/base/layout.css">
-        <link rel="stylesheet" href="../../assets/CSS/admin/admin.css">
-        <link rel="stylesheet" href="../../assets/CSS/admin/admin-pages.css">
-        <link rel="stylesheet" href="../../assets/CSS/misc/switcher.css">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Users — Registrar Admin | HiveMinds</title>
+  <link rel="stylesheet" href="../../assets/CSS/admin/registrar.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Belanosima&family=Bricolage+Grotesque:opsz,wght@12..96,420&family=Coiny&family=McLaren&family=Pacifico&family=Pangolin&display=swap" rel="stylesheet">
+<nav class="reg-nav">
+  <a href="#" class="logo"><span>Hive</span>Minds</a>
+  <div class="nav-links">
+    <a href="Registrar-admin-dashboard.html">Dashboard</a>
+    <a href="Registrar-admin-verifications.html">Verifications</a>
+    <a href="Registrar-admin-students.html">Student Records</a>
+    <a href="Registrar-admin-users.html" class="active">Users</a>
+  </div>
+  <a href="../../pages/auth/login.html" class="nav-user">👤 Registrar Admin &nbsp;·&nbsp; Log out</a>
+</nav>
 
-          <style>
-            #content {
-                margin-left:230px;
-                margin-top:-680px;
-                }
-        </style>
-    </head>
+<div class="reg-layout">
+  <aside class="reg-sidebar">
+    <div>
+      <div class="sidebar-section-label">Menu</div>
+      <div class="sidebar-divider"></div>
+      <a href="Registrar-admin-dashboard.html" class="sidebar-link active"><span class="sico">⊞</span> Dashboard</a>
+      <a href="Registrar-admin-verifications.html" class="sidebar-link"><span class="sico">✓</span> Verifications</a>
+      <a href="Registrar-admin-students.html" class="sidebar-link"><span class="sico">🎓</span> Student Records</a>
+      <a href="Registrar-admin-users.html" class="sidebar-link"><span class="sico">👥</span> Users</a>
+    </div>
+    <div>
+      <div class="sidebar-section-label">Quick Stats</div>
+      <div class="sidebar-divider"></div>
+      <div class="stat-pill"><span class="dot"></span> 124 total users</div>
+      <div class="stat-pill"><span class="dot" style="background:#22c55e;"></span> 96 active</div>
+      <div class="stat-pill"><span class="dot" style="background:#e5a000;"></span> 1 flagged</div>
+      <div class="stat-pill"><span class="dot" style="background:#ef4444;"></span> 1 banned</div>
+    </div>
+  </aside>
 
-    <body>
-                <nav>
-            <div id="nav-container">
-            <a href="/WebDev/pages/home/homepage.html">
-                    <div class="logo">
-                        <span class="black">Hive</span><span class="orange">Minds</span>
-                    </div>
-                </a>
-                <div id="nav-links">
-                    <a class="hover" href="Registrar-admin-dashboard.html">Dashboard</a>
-                    <a class="hover active-nav" href="Registrar-admin-users.html">Users</a>
-                    <a class="hover" href="Registrar-admin-hives.html">Hives</a>
-                    <a class="hover" href="../../pages/misc/profile.html">Profile</a>
-                </div>
-                <div id="auth-links">
-                    <a class="hover" href="../../pages/misc/profile.html">Registrar Admin</a>
-                </div>
-            </div>
-        </nav>
+  <main class="reg-main">
+    <div class="page-header">
+      <h1>Users</h1>
+      <p>Manage all registered HiveMinds accounts</p>
+    </div>
 
+    <div class="topbar-row">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span class="badge badge-active" style="font-size:0.85em;padding:6px 14px;">124 total</span>
+      </div>
+      <div class="filter-bar">
+        <input class="filter-input" type="text" id="userSearch" placeholder="Search by name or email..." oninput="filterUsers()">
+        <select class="filter-select" id="userStatusFilter" onchange="filterUsers()">
+          <option value="">All statuses</option>
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
+          <option value="flagged">Flagged</option>
+          <option value="banned">Banned</option>
+        </select>
+        <select class="filter-select" id="userSort">
+          <option value="">Sort by</option>
+          <option>Newest first</option>
+          <option>Oldest first</option>
+          <option>Name A–Z</option>
+        </select>
+      </div>
+    </div>
 
-        <main>
-            <div id="container">
-                <div id="sidebar">
-                     <div id="menu">
-                        <p>MENU</p>
-                        <hr>
-                       
-                     
-                        <a href="/WebDev/pages/adminRegistrar/Registrar-admin-verifications.html">
-                            <div class="sidebar-button menu">
-                                <p>Verifications</p>
-                            </div>
-                        </a>
-                     
-                    </div>
+    <div class="card">
+      <div class="table-wrap">
+        <table class="reg-table">
+          <thead>
+            <tr>
+              <th>User</th>
+              <th>Email</th>
+              <th>Joined</th>
+              <th>Student No.</th>
+              <th>Course / Year</th>
+              <th>Hives</th>
+              <th>Verif. Status</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="usersBody">
 
-                    <div id="my-hives">
-                        <p>QUICK STATS</p>
-                        <hr>
-                        <div class="sidebar-button my-hives">
-                            <span class="hex"></span><p>124 total pending verifications</p>
-                        </div>
-                        <div class="sidebar-button my-hives">
-                            <span class="hex"></span><p>38 active hives</p>
-                        </div>
-                        <div class="sidebar-button my-hives">
-                            <span class="hex"></span><p>3 flagged posts</p>
-                        </div>
-                        <div class="sidebar-button my-hives">
-                            <span class="hex"></span><p>12 new today</p>
-                        </div>
-                    </div>
-                </div>
+            <tr data-status="active" data-name="rick buzztley rick.buzztley@email.com">
+              <td><div class="td-user"><div class="avatar">R</div><div><div class="td-name">Rick Buzztley</div><div class="td-sub">Student</div></div></div></td>
+              <td class="td-meta">rb0000000001@wmsu.edu.ph</td>
+              <td class="td-meta">Mar 20, 2026</td>
+              <td class="td-meta">2021-00001</td>
+              <td class="td-meta">BSCS · 3rd Year</td>
+              <td>5 hives</td>
+              <td><span class="badge badge-pending">Pending</span></td>
+              <td><span class="badge badge-active">Active</span></td>
+              <td><div class="td-actions">
+                <button class="tbl-btn view" onclick="showToast('Viewing user profile…')">View</button>
+                <button class="tbl-btn warn" onclick="showToast('Warning sent.','warn')">Warn</button>
+                <button class="tbl-btn danger" onclick="banUser(this)">Ban</button>
+              </div></td>
+            </tr>
 
-                <div id="content">
-                    <div id="qotd">Admin — Users</div>
+            <tr data-status="active" data-name="maya santos ms0000000002@wmsu.edu.ph">
+              <td><div class="td-user"><div class="avatar">M</div><div><div class="td-name">Maya Santos</div><div class="td-sub">Student</div></div></div></td>
+              <td class="td-meta">ms0000000002@wmsu.edu.ph</td>
+              <td class="td-meta">Mar 21, 2026</td>
+              <td class="td-meta">2022-00045</td>
+              <td class="td-meta">BSBio · 2nd Year</td>
+              <td>3 hives</td>
+              <td><span class="badge badge-approved">Verified</span></td>
+              <td><span class="badge badge-active">Active</span></td>
+              <td><div class="td-actions">
+                <button class="tbl-btn view" onclick="showToast('Viewing user profile…')">View</button>
+                <button class="tbl-btn warn" onclick="showToast('Warning sent.','warn')">Warn</button>
+                <button class="tbl-btn danger" onclick="banUser(this)">Ban</button>
+              </div></td>
+            </tr>
 
-                    <div class="admin-page-body">
+            <tr data-status="active" data-name="leo reyes lr0000000003@wmsu.edu.ph">
+              <td><div class="td-user"><div class="avatar">L</div><div><div class="td-name">Leo Reyes</div><div class="td-sub">Student</div></div></div></td>
+              <td class="td-meta">lr0000000003@wmsu.edu.ph</td>
+              <td class="td-meta">Mar 22, 2026</td>
+              <td class="td-meta">2023-00112</td>
+              <td class="td-meta">BSMath · 1st Year</td>
+              <td>2 hives</td>
+              <td><span class="badge badge-approved">Verified</span></td>
+              <td><span class="badge badge-active">Active</span></td>
+              <td><div class="td-actions">
+                <button class="tbl-btn view" onclick="showToast('Viewing user profile…')">View</button>
+                <button class="tbl-btn warn" onclick="showToast('Warning sent.','warn')">Warn</button>
+                <button class="tbl-btn danger" onclick="banUser(this)">Ban</button>
+              </div></td>
+            </tr>
 
-                        <div class="page-topbar">
-                            <div class="page-topbar-title">All Users</div>
-                            <span class="tbl-badge badge-active" style="font-size:0.85em;padding:6px 14px;">124 total</span>
-                        </div>
+            <tr data-status="inactive" data-name="carla mendez cm0000000004@wmsu.edu.ph">
+              <td><div class="td-user"><div class="avatar">C</div><div><div class="td-name">Carla Mendez</div><div class="td-sub">Student</div></div></div></td>
+              <td class="td-meta">cm0000000004@wmsu.edu.ph</td>
+              <td class="td-meta">Mar 22, 2026</td>
+              <td class="td-meta">2022-00088</td>
+              <td class="td-meta">BSChem · 2nd Year</td>
+              <td>4 hives</td>
+              <td><span class="badge badge-pending">Pending</span></td>
+              <td><span class="badge badge-inactive">Inactive</span></td>
+              <td><div class="td-actions">
+                <button class="tbl-btn view" onclick="showToast('Viewing user profile…')">View</button>
+                <button class="tbl-btn warn" onclick="showToast('Warning sent.','warn')">Warn</button>
+                <button class="tbl-btn danger" onclick="banUser(this)">Ban</button>
+              </div></td>
+            </tr>
 
-                        <div class="filter-bar">
-                            <input class="filter-input" type="text" placeholder="Search by name or email...">
-                            <select class="filter-select">
-                                <option value="">All statuses</option>
-                                <option value="active">Active</option>
-                                <option value="inactive">Inactive</option>
-                                <option value="flagged">Flagged</option>
-                                <option value="banned">Banned</option>
-                            </select>
-                            <select class="filter-select">
-                                <option value="">Sort by</option>
-                                <option value="newest">Newest first</option>
-                                <option value="oldest">Oldest first</option>
-                                <option value="name">Name A–Z</option>
-                            </select>
-                        </div>
+            <tr data-status="flagged" data-name="sam uy su0000000005@wmsu.edu.ph">
+              <td><div class="td-user"><div class="avatar">S</div><div><div class="td-name">Sam Uy</div><div class="td-sub">Student</div></div></div></td>
+              <td class="td-meta">su0000000005@wmsu.edu.ph</td>
+              <td class="td-meta">Mar 23, 2026</td>
+              <td class="td-meta">2021-00234</td>
+              <td class="td-meta">BSPhysics · 3rd Year</td>
+              <td>3 hives</td>
+              <td><span class="badge badge-pending">Pending</span></td>
+              <td><span class="badge badge-flagged">Flagged</span></td>
+              <td><div class="td-actions">
+                <button class="tbl-btn view" onclick="showToast('Viewing user profile…')">View</button>
+                <button class="tbl-btn warn" onclick="showToast('Warning sent.','warn')">Warn</button>
+                <button class="tbl-btn danger" onclick="banUser(this)">Ban</button>
+              </div></td>
+            </tr>
 
-                        <div class="full-table-card">
-                            <table class="admin-table-full">
-                                <thead>
-                                    <tr>
-                                        <th>User</th>
-                                        <th>Email</th>
-                                        <th>Joined</th>
-                                        <th>Hives</th>
-                                        <th>Status</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <div class="td-user">
-                                                <img src="../../assets/images/person-profile.jpg">
-                                                <div>
-                                                    <div class="td-name">Rick Buzztley</div>
-                                                    <div class="td-sub">Student</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="td-sub">rick.buzztley@email.com</td>
-                                        <td>Mar 20, 2026</td>
-                                        <td>5 hives</td>
-                                        <td><span class="tbl-badge badge-active">Active</span></td>
-                                        <td>
-                                            <div class="td-actions">
-                                                <button class="tbl-btn view">View</button>
-                                                <button class="tbl-btn warn">Warn</button>
-                                                <button class="tbl-btn danger">Ban</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="td-user">
-                                                <img src="../../assets/images/person-profile.jpg">
-                                                <div>
-                                                    <div class="td-name">Maya Santos</div>
-                                                    <div class="td-sub">Student</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="td-sub">maya.santos@email.com</td>
-                                        <td>Mar 21, 2026</td>
-                                        <td>3 hives</td>
-                                        <td><span class="tbl-badge badge-active">Active</span></td>
-                                        <td>
-                                            <div class="td-actions">
-                                                <button class="tbl-btn view">View</button>
-                                                <button class="tbl-btn warn">Warn</button>
-                                                <button class="tbl-btn danger">Ban</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="td-user">
-                                                <img src="../../assets/images/person-profile.jpg">
-                                                <div>
-                                                    <div class="td-name">Leo Reyes</div>
-                                                    <div class="td-sub">Student</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="td-sub">leo.reyes@email.com</td>
-                                        <td>Mar 22, 2026</td>
-                                        <td>2 hives</td>
-                                        <td><span class="tbl-badge badge-active">Active</span></td>
-                                        <td>
-                                            <div class="td-actions">
-                                                <button class="tbl-btn view">View</button>
-                                                <button class="tbl-btn warn">Warn</button>
-                                                <button class="tbl-btn danger">Ban</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="td-user">
-                                                <img src="../../assets/images/person-profile.jpg">
-                                                <div>
-                                                    <div class="td-name">Carla Mendez</div>
-                                                    <div class="td-sub">Student</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="td-sub">carla.mendez@email.com</td>
-                                        <td>Mar 22, 2026</td>
-                                        <td>4 hives</td>
-                                        <td><span class="tbl-badge badge-inactive">Inactive</span></td>
-                                        <td>
-                                            <div class="td-actions">
-                                                <button class="tbl-btn view">View</button>
-                                                <button class="tbl-btn warn">Warn</button>
-                                                <button class="tbl-btn danger">Ban</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="td-user">
-                                                <img src="../../assets/images/person-profile.jpg">
-                                                <div>
-                                                    <div class="td-name">Sam Uy</div>
-                                                    <div class="td-sub">Student</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="td-sub">sam.uy@email.com</td>
-                                        <td>Mar 23, 2026</td>
-                                        <td>3 hives</td>
-                                        <td><span class="tbl-badge badge-flagged">Flagged</span></td>
-                                        <td>
-                                            <div class="td-actions">
-                                                <button class="tbl-btn view">View</button>
-                                                <button class="tbl-btn warn">Warn</button>
-                                                <button class="tbl-btn danger">Ban</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="td-user">
-                                                <img src="../../assets/images/person-profile.jpg">
-                                                <div>
-                                                    <div class="td-name">Milky</div>
-                                                    <div class="td-sub">Student</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="td-sub">milky@email.com</td>
-                                        <td>Mar 23, 2026</td>
-                                        <td>2 hives</td>
-                                        <td><span class="tbl-badge badge-active">Active</span></td>
-                                        <td>
-                                            <div class="td-actions">
-                                                <button class="tbl-btn view">View</button>
-                                                <button class="tbl-btn warn">Warn</button>
-                                                <button class="tbl-btn danger">Ban</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="td-user">
-                                                <img src="../../assets/images/person-profile.jpg">
-                                                <div>
-                                                    <div class="td-name">Anthony</div>
-                                                    <div class="td-sub">Student</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="td-sub">anthony@email.com</td>
-                                        <td>Mar 23, 2026</td>
-                                        <td>1 hive</td>
-                                        <td><span class="tbl-badge badge-active">Active</span></td>
-                                        <td>
-                                            <div class="td-actions">
-                                                <button class="tbl-btn view">View</button>
-                                                <button class="tbl-btn warn">Warn</button>
-                                                <button class="tbl-btn danger">Ban</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="td-user">
-                                                <img src="../../assets/images/person-profile.jpg">
-                                                <div>
-                                                    <div class="td-name">Nina Cruz</div>
-                                                    <div class="td-sub">Student</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="td-sub">nina.cruz@email.com</td>
-                                        <td>Mar 23, 2026</td>
-                                        <td>3 hives</td>
-                                        <td><span class="tbl-badge badge-banned">Banned</span></td>
-                                        <td>
-                                            <div class="td-actions">
-                                                <button class="tbl-btn view">View</button>
-                                                <button class="tbl-btn safe">Unban</button>
-                                                <button class="tbl-btn danger">Remove</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div class="pagination">
-                                <span>Showing 8 of 124 users</span>
-                                <div class="pagination-btns">
-                                    <button class="pg-btn active">1</button>
-                                    <button class="pg-btn">2</button>
-                                    <button class="pg-btn">3</button>
-                                    <button class="pg-btn">→</button>
-                                </div>
-                            </div>
-                        </div>
+            <tr data-status="active" data-name="milky milky@email.com">
+              <td><div class="td-user"><div class="avatar">Mi</div><div><div class="td-name">Milky</div><div class="td-sub">Student</div></div></div></td>
+              <td class="td-meta">milky@email.com</td>
+              <td class="td-meta">Mar 23, 2026</td>
+              <td class="td-meta">2024-00310</td>
+              <td class="td-meta">BSBA · 1st Year</td>
+              <td>2 hives</td>
+              <td><span class="badge badge-approved">Verified</span></td>
+              <td><span class="badge badge-active">Active</span></td>
+              <td><div class="td-actions">
+                <button class="tbl-btn view" onclick="showToast('Viewing user profile…')">View</button>
+                <button class="tbl-btn warn" onclick="showToast('Warning sent.','warn')">Warn</button>
+                <button class="tbl-btn danger" onclick="banUser(this)">Ban</button>
+              </div></td>
+            </tr>
 
-                    </div>
-                </div>
-            </div>
-        </main>
+            <tr data-status="active" data-name="anthony anthony@email.com">
+              <td><div class="td-user"><div class="avatar">A</div><div><div class="td-name">Anthony</div><div class="td-sub">Student</div></div></div></td>
+              <td class="td-meta">anthony@email.com</td>
+              <td class="td-meta">Mar 23, 2026</td>
+              <td class="td-meta">2023-00451</td>
+              <td class="td-meta">BSIT · 2nd Year</td>
+              <td>1 hive</td>
+              <td><span class="badge badge-approved">Verified</span></td>
+              <td><span class="badge badge-active">Active</span></td>
+              <td><div class="td-actions">
+                <button class="tbl-btn view" onclick="showToast('Viewing user profile…')">View</button>
+                <button class="tbl-btn warn" onclick="showToast('Warning sent.','warn')">Warn</button>
+                <button class="tbl-btn danger" onclick="banUser(this)">Ban</button>
+              </div></td>
+            </tr>
 
-    </body>
+            <tr data-status="banned" data-name="nina cruz nina.cruz@email.com">
+              <td><div class="td-user"><div class="avatar">N</div><div><div class="td-name">Nina Cruz</div><div class="td-sub">Student</div></div></div></td>
+              <td class="td-meta">nina.cruz@email.com</td>
+              <td class="td-meta">Mar 23, 2026</td>
+              <td class="td-meta">2022-00567</td>
+              <td class="td-meta">BSEng · 3rd Year</td>
+              <td>3 hives</td>
+              <td><span class="badge badge-approved">Verified</span></td>
+              <td><span class="badge badge-banned">Banned</span></td>
+              <td><div class="td-actions">
+                <button class="tbl-btn view" onclick="showToast('Viewing user profile…')">View</button>
+                <button class="tbl-btn safe" onclick="unbanUser(this)">Unban</button>
+                <button class="tbl-btn danger" onclick="showToast('User removed.','error')">Remove</button>
+              </div></td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination">
+        <span>Showing 8 of 124 users</span>
+        <div class="pg-btns">
+          <button class="pg-btn active">1</button>
+          <button class="pg-btn">2</button>
+          <button class="pg-btn">3</button>
+          <button class="pg-btn">→</button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+<script>
+function filterUsers() {
+  const search = document.getElementById('userSearch').value.toLowerCase();
+  const status = document.getElementById('userStatusFilter').value;
+  document.querySelectorAll('#usersBody tr').forEach(row => {
+    const name   = (row.dataset.name || '').toLowerCase();
+    const rStatus= row.dataset.status || '';
+    const ok = (!search || name.includes(search))
+            && (!status || rStatus === status);
+    row.style.display = ok ? '' : 'none';
+  });
+}
+
+function banUser(btn) {
+  if (!confirm('Ban this user?')) return;
+  const row = btn.closest('tr');
+  row.dataset.status = 'banned';
+  const statusBadge = [...row.querySelectorAll('.badge')].find(b => ['Active','Inactive','Flagged'].includes(b.textContent));
+  if (statusBadge) { statusBadge.className = 'badge badge-banned'; statusBadge.textContent = 'Banned'; }
+  const actions = row.querySelector('.td-actions');
+  const viewBtn = actions.querySelector('.view');
+  actions.innerHTML = '';
+  actions.appendChild(viewBtn);
+  const ub = document.createElement('button'); ub.className='tbl-btn safe'; ub.textContent='Unban'; ub.onclick=function(){ unbanUser(this); }; actions.appendChild(ub);
+  const rm = document.createElement('button'); rm.className='tbl-btn danger'; rm.textContent='Remove'; rm.onclick=function(){ showToast('User removed.','error'); }; actions.appendChild(rm);
+  showToast('User banned.', 'error');
+}
+
+function unbanUser(btn) {
+  const row = btn.closest('tr');
+  row.dataset.status = 'active';
+  const statusBadge = [...row.querySelectorAll('.badge')].find(b => b.textContent === 'Banned');
+  if (statusBadge) { statusBadge.className = 'badge badge-active'; statusBadge.textContent = 'Active'; }
+  showToast('User unbanned successfully.', 'success');
+}
+
+function showToast(msg, type='success') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast ' + type;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+</script>
+</body>
 </html>

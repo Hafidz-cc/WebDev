@@ -1,405 +1,433 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Records - Registrar</title>
-    <link rel="stylesheet" href="../../assets/CSS/base/base.css">
-    <link rel="stylesheet" href="../../assets/CSS/base/navbar.css">
-    <link rel="stylesheet" href="../../assets/CSS/base/layout.css">
-    <link rel="stylesheet" href="../../assets/CSS/admin/admin.css">
-    <link rel="stylesheet" href="../../assets/CSS/admin/admin-pages.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Belanosima&family=Bricolage+Grotesque:opsz,wght@12..96,420&family=Pacifico&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Records — Registrar Admin | HiveMinds</title>
+  <link rel="stylesheet" href="../../assets/CSS/admin/registrar.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
-<nav>
-    <div id="nav-container">
-        <a href="../../index.html">
-            <div class="logo">
-                <span class="black">Hive</span><span class="orange">Minds</span>
-            </div>
-        </a>
-        <div id="nav-links">
-            <a class="hover" href="Registrar-admin-dashboard.html">Dashboard</a>
-            <a class="hover" href="Registrar-admin-verifications.html">Verifications</a>
-            <a class="hover active-nav" href="Registrar-admin-students.html">Student Records</a>
-            <a class="hover" href="Registrar-admin-enrollment.html">Enrollment</a>
-        </div>
-        <div id="auth-links">
-            <a class="hover" href="../../pages/misc/profile.html">Registrar Admin</a>
-        </div>
-    </div>
+<nav class="reg-nav">
+  <a href="#" class="logo"><span>Hive</span>Minds</a>
+  <div class="nav-links">
+    <a href="Registrar-admin-dashboard.html">Dashboard</a>
+    <a href="Registrar-admin-verifications.html">Verifications</a>
+    <a href="Registrar-admin-students.html" class="active">Student Records</a>
+    <a href="Registrar-admin-users.html">Users</a>
+  </div>
+  <a href="../../pages/auth/login.html" class="nav-user">👤 Registrar Admin &nbsp;·&nbsp; Log out</a>
 </nav>
 
-<main>
-<div id="container">
+<div class="reg-layout">
+  <aside class="reg-sidebar">
+    <div>
+      <div class="sidebar-section-label">Menu</div>
+      <div class="sidebar-divider"></div>
+      <a href="Registrar-admin-dashboard.html" class="sidebar-link active"><span class="sico">⊞</span> Dashboard</a>
+      <a href="Registrar-admin-verifications.html" class="sidebar-link"><span class="sico">✓</span> Verifications</a>
+      <a href="Registrar-admin-students.html" class="sidebar-link"><span class="sico">🎓</span> Student Records</a>
+      <a href="Registrar-admin-users.html" class="sidebar-link"><span class="sico">👥</span> Users</a>
+    </div>
+    <div>
+      <div class="sidebar-section-label">Filter by Status</div>
+      <div class="sidebar-divider"></div>
+      <div class="sidebar-link" onclick="filterSidebar('all')" id="sf-all" style="cursor:pointer;">All Students</div>
+      <div class="sidebar-link" onclick="filterSidebar('active')" id="sf-active" style="cursor:pointer;">Active</div>
+      <div class="sidebar-link" onclick="filterSidebar('inactive')" id="sf-inactive" style="cursor:pointer;">Inactive</div>
+      <div class="sidebar-link" onclick="filterSidebar('graduated')" id="sf-graduated" style="cursor:pointer;">Graduated</div>
+    </div>
+  </aside>
 
-    <div id="sidebar">
-        <div id="menu">
-            <p>REGISTRAR MENU</p>
-            <hr>
-            <a href="Registrar-admin-dashboard.html">
-                <div class="sidebar-button"><span class="hex"></span><p>Dashboard</p></div>
-            </a>
-            <a href="Registrar-admin-verifications.html">
-                <div class="sidebar-button"><span class="hex"></span><p>Verifications</p></div>
-            </a>
-            <a href="Registrar-admin-students.html">
-                <div class="sidebar-button active"><span class="hex"></span><p>Student Records</p></div>
-            </a>
-            <a href="Registrar-admin-enrollment.html">
-                <div class="sidebar-button"><span class="hex"></span><p>Enrollment</p></div>
-            </a>
-        </div>
-
-        <div id="my-hives">
-            <p>STATUS</p>
-            <hr>
-            <div class="sidebar-button" onclick="filterStatus('all')" id="sf-all">
-                <span class="hex"></span><p>All Students</p>
-            </div>
-            <div class="sidebar-button" onclick="filterStatus('active')" id="sf-active">
-                <span class="hex"></span><p>Active</p>
-            </div>
-            <div class="sidebar-button" onclick="filterStatus('inactive')" id="sf-inactive">
-                <span class="hex"></span><p>Inactive</p>
-            </div>
-            <div class="sidebar-button" onclick="filterStatus('graduated')" id="sf-graduated">
-                <span class="hex"></span><p>Graduated</p>
-            </div>
-        </div>
+  <main class="reg-main">
+    <div class="page-header">
+      <h1>Student Records</h1>
+      <p>2,450 students enrolled across all courses</p>
     </div>
 
-    <div id="content">
-
-        <div id="qotd">
-            Student Records — 2,450 students enrolled
-        </div>
-
-        <div class="admin-page-body">
-
-            <div class="page-topbar">
-                <div class="page-topbar-title">All Student Records</div>
-                <div class="filter-bar">
-                    <input class="filter-input" type="text" id="searchInput" placeholder="Search name or student ID..." oninput="applyFilters()">
-                    <select class="filter-select" id="courseFilter" onchange="applyFilters()">
-                        <option value="">All Courses</option>
-                        <option>BSCS</option>
-                        <option>BSIT</option>
-                        <option>BSED</option>
-                        <option>BSN</option>
-                        <option>BSBA</option>
-                    </select>
-                    <select class="filter-select" id="yearFilter" onchange="applyFilters()">
-                        <option value="">All Years</option>
-                        <option>1st Year</option>
-                        <option>2nd Year</option>
-                        <option>3rd Year</option>
-                        <option>4th Year</option>
-                    </select>
-                    <button class="btn-admin-action" onclick="openAddModal()">+ Add Student</button>
-                </div>
-            </div>
-
-            <div class="full-table-card">
-                <table class="admin-table-full">
-                    <thead>
-                        <tr>
-                            <th>Student</th>
-                            <th>Course</th>
-                            <th>Year / Section</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="studentsBody">
-                        <tr data-status="active" data-course="BSCS" data-year="2nd Year">
-                            <td>
-                                <div class="td-user">
-                                    <img src="../../assets/images/person-profile.jpg" alt="">
-                                    <div>
-                                        <div class="td-name">Juan Dela Cruz</div>
-                                        <div class="td-sub">2024-0001</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>BSCS</td>
-                            <td>2nd Year — 2A</td>
-                            <td><span class="tbl-badge badge-active">Active</span></td>
-                            <td class="td-actions">
-                                <a href="Registrar-admin-student-view.html?id=2024-0001"><button class="tbl-btn view">View</button></a>
-                                <button class="tbl-btn warn" onclick="openEditModal('Juan Dela Cruz','2024-0001','BSCS','2nd Year','2A','active')">Edit</button>
-                                <button class="tbl-btn danger" onclick="confirmDeactivate(this)">Deactivate</button>
-                            </td>
-                        </tr>
-                        <tr data-status="active" data-course="BSIT" data-year="1st Year">
-                            <td>
-                                <div class="td-user">
-                                    <img src="../../assets/images/person-profile.jpg" alt="">
-                                    <div>
-                                        <div class="td-name">Maria Santos</div>
-                                        <div class="td-sub">2024-0002</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>BSIT</td>
-                            <td>1st Year — 1B</td>
-                            <td><span class="tbl-badge badge-active">Active</span></td>
-                            <td class="td-actions">
-                                <a href="Registrar-admin-student-view.html?id=2024-0002"><button class="tbl-btn view">View</button></a>
-                                <button class="tbl-btn warn" onclick="openEditModal('Maria Santos','2024-0002','BSIT','1st Year','1B','active')">Edit</button>
-                                <button class="tbl-btn danger" onclick="confirmDeactivate(this)">Deactivate</button>
-                            </td>
-                        </tr>
-                        <tr data-status="active" data-course="BSCS" data-year="3rd Year">
-                            <td>
-                                <div class="td-user">
-                                    <img src="../../assets/images/person-profile.jpg" alt="">
-                                    <div>
-                                        <div class="td-name">Ricardo Pabustan</div>
-                                        <div class="td-sub">2023-0045</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>BSCS</td>
-                            <td>3rd Year — 3A</td>
-                            <td><span class="tbl-badge badge-active">Active</span></td>
-                            <td class="td-actions">
-                                <a href="Registrar-admin-student-view.html?id=2023-0045"><button class="tbl-btn view">View</button></a>
-                                <button class="tbl-btn warn" onclick="openEditModal('Ricardo Pabustan','2023-0045','BSCS','3rd Year','3A','active')">Edit</button>
-                                <button class="tbl-btn danger" onclick="confirmDeactivate(this)">Deactivate</button>
-                            </td>
-                        </tr>
-                        <tr data-status="graduated" data-course="BSIT" data-year="4th Year">
-                            <td>
-                                <div class="td-user">
-                                    <img src="../../assets/images/person-profile.jpg" alt="">
-                                    <div>
-                                        <div class="td-name">Ana Reyes</div>
-                                        <div class="td-sub">2020-0089</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>BSIT</td>
-                            <td>Graduate — 2024</td>
-                            <td><span class="tbl-badge badge-graduated">Graduated</span></td>
-                            <td class="td-actions">
-                                <a href="Registrar-admin-student-view.html?id=2020-0089"><button class="tbl-btn view">View</button></a>
-                            </td>
-                        </tr>
-                        <tr data-status="inactive" data-course="BSED" data-year="2nd Year">
-                            <td>
-                                <div class="td-user">
-                                    <img src="../../assets/images/person-profile.jpg" alt="">
-                                    <div>
-                                        <div class="td-name">Ben Narciso</div>
-                                        <div class="td-sub">2024-0011</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>BSED</td>
-                            <td>2nd Year — 2C</td>
-                            <td><span class="tbl-badge badge-inactive">Inactive</span></td>
-                            <td class="td-actions">
-                                <a href="Registrar-admin-student-view.html?id=2024-0011"><button class="tbl-btn view">View</button></a>
-                                <button class="tbl-btn safe" onclick="reactivate(this)">Reactivate</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="pagination">
-                    <span class="page-info">Showing 5 of 2,450</span>
-                    <button class="page-btn active">1</button>
-                    <button class="page-btn">2</button>
-                    <button class="page-btn">3</button>
-                    <button class="page-btn">→</button>
-                </div>
-            </div>
-
-        </div>
+    <div class="topbar-row">
+      <div class="filter-bar">
+        <input class="filter-input" type="text" id="searchInput" placeholder="Search name or student ID..." oninput="applyFilters()">
+        <select class="filter-select" id="courseFilter" onchange="applyFilters()">
+          <option value="">All Courses</option>
+          <option>BSCS</option>
+          <option>BSIT</option>
+          <option>BSED</option>
+          <option>BSN</option>
+          <option>BSBA</option>
+        </select>
+        <select class="filter-select" id="yearFilter" onchange="applyFilters()">
+          <option value="">All Year Levels</option>
+          <option>1st Year</option>
+          <option>2nd Year</option>
+          <option>3rd Year</option>
+          <option>4th Year</option>
+        </select>
+        <button class="btn-add" onclick="openAddModal()">+ Add Student</button>
+      </div>
     </div>
 
+    <div class="card">
+      <div class="table-wrap">
+        <table class="reg-table">
+          <thead>
+            <tr>
+              <th>Student</th>
+              <th>Student No.</th>
+              <th>Course</th>
+              <th>Year / Section</th>
+              <th>Department</th>
+              <th>Contact</th>
+              <th>Verif. Status</th>
+              <th>Account Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="studentsBody">
+
+            <tr data-status="active" data-course="BSCS" data-year="2nd Year">
+              <td><div class="td-user"><div class="avatar">J</div><div><div class="td-name">Juan Dela Cruz</div><div class="td-sub">jdc@wmsu.edu.ph</div></div></div></td>
+              <td class="td-meta">2024-0001</td>
+              <td>BSCS</td>
+              <td>2nd Year — 2A</td>
+              <td class="td-meta" style="font-size:0.78rem;">College of Computing Studies</td>
+              <td class="td-meta" style="font-size:0.78rem;">09171234561</td>
+              <td><span class="badge badge-approved">Verified</span></td>
+              <td><span class="badge badge-active">Active</span></td>
+              <td><div class="td-actions">
+                <button class="tbl-btn view" onclick="openStudentView('Juan Dela Cruz','2024-0001','BSCS','2nd Year','2A','active','jdc@wmsu.edu.ph','09171234561','College of Computing Studies','Jan 10, 2003','Verified')">View</button>
+                <button class="tbl-btn warn" onclick="openEditModal('Juan Dela Cruz','2024-0001','BSCS','2nd Year','2A','active')">Edit</button>
+                <button class="tbl-btn danger" onclick="confirmDeactivate(this)">Deactivate</button>
+              </div></td>
+            </tr>
+
+            <tr data-status="active" data-course="BSIT" data-year="1st Year">
+              <td><div class="td-user"><div class="avatar">M</div><div><div class="td-name">Maria Santos</div><div class="td-sub">ms@wmsu.edu.ph</div></div></div></td>
+              <td class="td-meta">2024-0002</td>
+              <td>BSIT</td>
+              <td>1st Year — 1B</td>
+              <td class="td-meta" style="font-size:0.78rem;">College of Computing Studies</td>
+              <td class="td-meta" style="font-size:0.78rem;">09189876543</td>
+              <td><span class="badge badge-approved">Verified</span></td>
+              <td><span class="badge badge-active">Active</span></td>
+              <td><div class="td-actions">
+                <button class="tbl-btn view" onclick="openStudentView('Maria Santos','2024-0002','BSIT','1st Year','1B','active','ms@wmsu.edu.ph','09189876543','College of Computing Studies','Mar 5, 2004','Verified')">View</button>
+                <button class="tbl-btn warn" onclick="openEditModal('Maria Santos','2024-0002','BSIT','1st Year','1B','active')">Edit</button>
+                <button class="tbl-btn danger" onclick="confirmDeactivate(this)">Deactivate</button>
+              </div></td>
+            </tr>
+
+            <tr data-status="active" data-course="BSCS" data-year="3rd Year">
+              <td><div class="td-user"><div class="avatar">R</div><div><div class="td-name">Ricardo Pabustan</div><div class="td-sub">rp@wmsu.edu.ph</div></div></div></td>
+              <td class="td-meta">2023-0045</td>
+              <td>BSCS</td>
+              <td>3rd Year — 3A</td>
+              <td class="td-meta" style="font-size:0.78rem;">College of Computing Studies</td>
+              <td class="td-meta" style="font-size:0.78rem;">09201112233</td>
+              <td><span class="badge badge-approved">Verified</span></td>
+              <td><span class="badge badge-active">Active</span></td>
+              <td><div class="td-actions">
+                <button class="tbl-btn view" onclick="openStudentView('Ricardo Pabustan','2023-0045','BSCS','3rd Year','3A','active','rp@wmsu.edu.ph','09201112233','College of Computing Studies','Aug 19, 2001','Verified')">View</button>
+                <button class="tbl-btn warn" onclick="openEditModal('Ricardo Pabustan','2023-0045','BSCS','3rd Year','3A','active')">Edit</button>
+                <button class="tbl-btn danger" onclick="confirmDeactivate(this)">Deactivate</button>
+              </div></td>
+            </tr>
+
+            <tr data-status="graduated" data-course="BSIT" data-year="4th Year">
+              <td><div class="td-user"><div class="avatar">A</div><div><div class="td-name">Ana Reyes</div><div class="td-sub">ar@wmsu.edu.ph</div></div></div></td>
+              <td class="td-meta">2020-0089</td>
+              <td>BSIT</td>
+              <td>Graduate — 2024</td>
+              <td class="td-meta" style="font-size:0.78rem;">College of Computing Studies</td>
+              <td class="td-meta" style="font-size:0.78rem;">09159887766</td>
+              <td><span class="badge badge-approved">Verified</span></td>
+              <td><span class="badge badge-grad">Graduated</span></td>
+              <td><div class="td-actions">
+                <button class="tbl-btn view" onclick="openStudentView('Ana Reyes','2020-0089','BSIT','4th Year (Grad)','—','graduated','ar@wmsu.edu.ph','09159887766','College of Computing Studies','Feb 14, 1999','Verified')">View</button>
+              </div></td>
+            </tr>
+
+            <tr data-status="inactive" data-course="BSED" data-year="2nd Year">
+              <td><div class="td-user"><div class="avatar">B</div><div><div class="td-name">Ben Narciso</div><div class="td-sub">bn@wmsu.edu.ph</div></div></div></td>
+              <td class="td-meta">2024-0011</td>
+              <td>BSED</td>
+              <td>2nd Year — 2C</td>
+              <td class="td-meta" style="font-size:0.78rem;">College of Education</td>
+              <td class="td-meta" style="font-size:0.78rem;">09270000001</td>
+              <td><span class="badge badge-pending">Pending</span></td>
+              <td><span class="badge badge-inactive">Inactive</span></td>
+              <td><div class="td-actions">
+                <button class="tbl-btn view" onclick="openStudentView('Ben Narciso','2024-0011','BSED','2nd Year','2C','inactive','bn@wmsu.edu.ph','09270000001','College of Education','Nov 3, 2003','Pending')">View</button>
+                <button class="tbl-btn safe" onclick="reactivate(this)">Reactivate</button>
+              </div></td>
+            </tr>
+
+            <tr data-status="active" data-course="BSN" data-year="2nd Year">
+              <td><div class="td-user"><div class="avatar">L</div><div><div class="td-name">Liza Buenaventura</div><div class="td-sub">lb@wmsu.edu.ph</div></div></div></td>
+              <td class="td-meta">2024-0077</td>
+              <td>BSN</td>
+              <td>2nd Year — 2B</td>
+              <td class="td-meta" style="font-size:0.78rem;">College of Nursing</td>
+              <td class="td-meta" style="font-size:0.78rem;">09178889990</td>
+              <td><span class="badge badge-rejected">Rejected</span></td>
+              <td><span class="badge badge-active">Active</span></td>
+              <td><div class="td-actions">
+                <button class="tbl-btn view" onclick="openStudentView('Liza Buenaventura','2024-0077','BSN','2nd Year','2B','active','lb@wmsu.edu.ph','09178889990','College of Nursing','May 20, 2002','Rejected')">View</button>
+                <button class="tbl-btn warn" onclick="openEditModal('Liza Buenaventura','2024-0077','BSN','2nd Year','2B','active')">Edit</button>
+                <button class="tbl-btn danger" onclick="confirmDeactivate(this)">Deactivate</button>
+              </div></td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination">
+        <span>Showing 6 of 2,450 students</span>
+        <div class="pg-btns">
+          <button class="pg-btn active">1</button>
+          <button class="pg-btn">2</button>
+          <button class="pg-btn">3</button>
+          <button class="pg-btn">→</button>
+        </div>
+      </div>
+    </div>
+  </main>
 </div>
-</main>
 
-<!-- Edit Student Modal -->
+<!-- Student View Modal -->
+<div class="modal-overlay" id="viewModal">
+  <div class="modal-box" style="max-width:600px;">
+    <button class="modal-close" onclick="closeModal('viewModal')">×</button>
+    <div class="modal-title" id="viewModalTitle">Student Record</div>
+
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;padding:14px;background:var(--comb);border-radius:10px;border:1.5px solid var(--border-lt);">
+      <div class="avatar" style="width:52px;height:52px;border-radius:50%;font-size:1.3rem;background:var(--cream);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;" id="view-avatar">?</div>
+      <div>
+        <div style="font-size:1.05rem;font-weight:700;color:var(--dark);" id="view-name">—</div>
+        <div style="font-size:0.82rem;color:var(--muted);" id="view-email">—</div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;">
+      <div class="info-field"><label>Student No.</label><div class="val" id="view-id">—</div></div>
+      <div class="info-field"><label>Birthdate</label><div class="val" id="view-bdate">—</div></div>
+      <div class="info-field"><label>Phone Number</label><div class="val" id="view-phone">—</div></div>
+      <div class="info-field"><label>School Email</label><div class="val" id="view-schoolemail">—</div></div>
+      <div class="info-field"><label>Course</label><div class="val" id="view-course">—</div></div>
+      <div class="info-field"><label>Year / Section</label><div class="val" id="view-yearsec">—</div></div>
+      <div class="info-field" style="grid-column:span 2;"><label>Department</label><div class="val" id="view-dept">—</div></div>
+      <div class="info-field"><label>Account Status</label><div class="val" id="view-status">—</div></div>
+      <div class="info-field"><label>Verification Status</label><div class="val" id="view-verif">—</div></div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="modal-btn secondary" onclick="closeModal('viewModal')">Close</button>
+      <a href="verifications.html" class="modal-btn primary" style="text-decoration:none;">Go to Verifications</a>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Modal -->
 <div class="modal-overlay" id="editModal">
-    <div class="modal-box">
-        <button class="modal-close" onclick="closeModal('editModal')">×</button>
-        <div class="modal-title" id="editModalTitle">Edit Student</div>
-        <div style="display:flex;gap:10px;">
-            <div class="modal-field" style="flex:1;">
-                <label>Student Name</label>
-                <input type="text" id="edit-name">
-            </div>
-            <div class="modal-field" style="flex:1;">
-                <label>Student ID</label>
-                <input type="text" id="edit-id" readonly>
-            </div>
-        </div>
-        <div style="display:flex;gap:10px;">
-            <div class="modal-field" style="flex:1;">
-                <label>Course</label>
-                <select id="edit-course">
-                    <option>BSCS</option>
-                    <option>BSIT</option>
-                    <option>BSED</option>
-                    <option>BSN</option>
-                    <option>BSBA</option>
-                </select>
-            </div>
-            <div class="modal-field" style="flex:1;">
-                <label>Year Level</label>
-                <select id="edit-year">
-                    <option>1st Year</option>
-                    <option>2nd Year</option>
-                    <option>3rd Year</option>
-                    <option>4th Year</option>
-                </select>
-            </div>
-            <div class="modal-field" style="flex:1;">
-                <label>Section</label>
-                <input type="text" id="edit-section" placeholder="e.g., 2A">
-            </div>
-        </div>
-        <div class="modal-field">
-            <label>Status</label>
-            <select id="edit-status">
-                <option value="active">Active</option>
-                <option value="inactive">Inactive</option>
-                <option value="graduated">Graduated</option>
-            </select>
-        </div>
-        <div class="modal-actions">
-            <button class="modal-btn secondary" onclick="closeModal('editModal')">Cancel</button>
-            <button class="modal-btn primary" onclick="saveEdit()">Save Changes</button>
-        </div>
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('editModal')">×</button>
+    <div class="modal-title" id="editModalTitle">Edit Student</div>
+    <div class="modal-row">
+      <div class="modal-field"><label>Student Name</label><input type="text" id="edit-name"></div>
+      <div class="modal-field"><label>Student ID</label><input type="text" id="edit-id" readonly style="background:#f9f9f9;"></div>
     </div>
+    <div class="modal-row">
+      <div class="modal-field">
+        <label>Course</label>
+        <select id="edit-course">
+          <option>BSCS</option><option>BSIT</option><option>BSED</option><option>BSN</option><option>BSBA</option>
+        </select>
+      </div>
+      <div class="modal-field">
+        <label>Year Level</label>
+        <select id="edit-year">
+          <option>1st Year</option><option>2nd Year</option><option>3rd Year</option><option>4th Year</option>
+        </select>
+      </div>
+      <div class="modal-field"><label>Section</label><input type="text" id="edit-section" placeholder="e.g., 2A"></div>
+    </div>
+    <div class="modal-row">
+      <div class="modal-field">
+        <label>Status</label>
+        <select id="edit-status">
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
+          <option value="graduated">Graduated</option>
+        </select>
+      </div>
+      <div class="modal-field">
+        <label>Verification</label>
+        <select id="edit-verif">
+          <option>Verified</option>
+          <option>Pending</option>
+          <option>Rejected</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-btn secondary" onclick="closeModal('editModal')">Cancel</button>
+      <button class="modal-btn primary" onclick="saveEdit()">Save Changes</button>
+    </div>
+  </div>
 </div>
 
-<!-- Add Student Modal -->
+<!-- Add Modal -->
 <div class="modal-overlay" id="addModal">
-    <div class="modal-box">
-        <button class="modal-close" onclick="closeModal('addModal')">×</button>
-        <div class="modal-title">Add New Student</div>
-        <div style="display:flex;gap:10px;">
-            <div class="modal-field" style="flex:1;"><label>Last Name</label><input type="text" id="add-lname" placeholder="Dela Cruz"></div>
-            <div class="modal-field" style="flex:1;"><label>First Name</label><input type="text" id="add-fname" placeholder="Juan"></div>
-        </div>
-        <div style="display:flex;gap:10px;">
-            <div class="modal-field" style="flex:1;"><label>Student ID</label><input type="text" id="add-id" placeholder="2025-0001"></div>
-            <div class="modal-field" style="flex:1;"><label>Email</label><input type="email" id="add-email" placeholder="ty@wmsu.edu.ph"></div>
-        </div>
-        <div style="display:flex;gap:10px;">
-            <div class="modal-field" style="flex:1;">
-                <label>Course</label>
-                <select id="add-course"><option>BSCS</option><option>BSIT</option><option>BSED</option><option>BSN</option><option>BSBA</option></select>
-            </div>
-            <div class="modal-field" style="flex:1;">
-                <label>Year Level</label>
-                <select id="add-year"><option>1st Year</option><option>2nd Year</option><option>3rd Year</option><option>4th Year</option></select>
-            </div>
-            <div class="modal-field" style="flex:1;"><label>Section</label><input type="text" id="add-section" placeholder="1A"></div>
-        </div>
-        <div class="modal-actions">
-            <button class="modal-btn secondary" onclick="closeModal('addModal')">Cancel</button>
-            <button class="modal-btn primary" onclick="closeModal('addModal');showToast('Student record added.','success')">Add Student</button>
-        </div>
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('addModal')">×</button>
+    <div class="modal-title">Add New Student</div>
+    <div class="modal-row">
+      <div class="modal-field"><label>Last Name</label><input type="text" id="add-lname" placeholder="Dela Cruz"></div>
+      <div class="modal-field"><label>First Name</label><input type="text" id="add-fname" placeholder="Juan"></div>
+      <div class="modal-field" style="max-width:80px;"><label>M.I.</label><input type="text" id="add-mi" placeholder="A." maxlength="2"></div>
     </div>
+    <div class="modal-row">
+      <div class="modal-field"><label>Student ID</label><input type="text" id="add-id" placeholder="2025-0001"></div>
+      <div class="modal-field"><label>School Email</label><input type="email" id="add-email" placeholder="xx@wmsu.edu.ph"></div>
+    </div>
+    <div class="modal-row">
+      <div class="modal-field"><label>Phone</label><input type="tel" id="add-phone" placeholder="09XXXXXXXXX"></div>
+      <div class="modal-field"><label>Birthdate</label><input type="date" id="add-bdate"></div>
+    </div>
+    <div class="modal-row">
+      <div class="modal-field">
+        <label>Course</label>
+        <select id="add-course"><option>BSCS</option><option>BSIT</option><option>BSED</option><option>BSN</option><option>BSBA</option></select>
+      </div>
+      <div class="modal-field">
+        <label>Year Level</label>
+        <select id="add-year"><option>1st Year</option><option>2nd Year</option><option>3rd Year</option><option>4th Year</option></select>
+      </div>
+      <div class="modal-field"><label>Section</label><input type="text" id="add-section" placeholder="1A"></div>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-btn secondary" onclick="closeModal('addModal')">Cancel</button>
+      <button class="modal-btn primary" onclick="closeModal('addModal');showToast('Student record added successfully.','success')">Add Student</button>
+    </div>
+  </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-    let currentStatusFilter = 'all';
+let currentStatusFilter = 'all';
 
-    function filterStatus(status) {
-        currentStatusFilter = status;
-        ['all','active','inactive','graduated'].forEach(s => {
-            document.getElementById('sf-'+s)?.classList.remove('active');
-        });
-        document.getElementById('sf-'+status)?.classList.add('active');
-        applyFilters();
-    }
+function filterSidebar(status) {
+  currentStatusFilter = status;
+  ['all','active','inactive','graduated'].forEach(s => {
+    document.getElementById('sf-' + s)?.classList.remove('active');
+  });
+  document.getElementById('sf-' + status)?.classList.add('active');
+  applyFilters();
+}
 
-    function applyFilters() {
-        const search = document.getElementById('searchInput').value.toLowerCase();
-        const course = document.getElementById('courseFilter').value;
-        const year   = document.getElementById('yearFilter').value;
-        document.querySelectorAll('#studentsBody tr').forEach(row => {
-            const name   = row.querySelector('.td-name')?.textContent.toLowerCase() || '';
-            const id     = row.querySelector('.td-sub')?.textContent.toLowerCase() || '';
-            const rCourse= row.dataset.course || '';
-            const rYear  = row.dataset.year || '';
-            const rStatus= row.dataset.status || '';
-            const ok = (name.includes(search) || id.includes(search))
-                    && (!course || rCourse === course)
-                    && (!year   || rYear   === year)
-                    && (currentStatusFilter === 'all' || rStatus === currentStatusFilter);
-            row.style.display = ok ? '' : 'none';
-        });
-    }
+function applyFilters() {
+  const search  = document.getElementById('searchInput').value.toLowerCase();
+  const course  = document.getElementById('courseFilter').value;
+  const year    = document.getElementById('yearFilter').value;
+  document.querySelectorAll('#studentsBody tr').forEach(row => {
+    const name   = row.querySelector('.td-name')?.textContent.toLowerCase() || '';
+    const id     = row.querySelector('.td-meta')?.textContent.toLowerCase() || '';
+    const rCourse= row.dataset.course || '';
+    const rYear  = row.dataset.year || '';
+    const rStatus= row.dataset.status || '';
+    const ok = (name.includes(search) || id.includes(search))
+            && (!course || rCourse === course)
+            && (!year   || rYear   === year)
+            && (currentStatusFilter === 'all' || rStatus === currentStatusFilter);
+    row.style.display = ok ? '' : 'none';
+  });
+}
 
-    function openEditModal(name, id, course, year, section, status) {
-        document.getElementById('edit-name').value    = name;
-        document.getElementById('edit-id').value      = id;
-        document.getElementById('edit-course').value  = course;
-        document.getElementById('edit-year').value    = year;
-        document.getElementById('edit-section').value = section;
-        document.getElementById('edit-status').value  = status;
-        document.getElementById('editModalTitle').textContent = 'Edit — ' + name;
-        document.getElementById('editModal').classList.add('open');
-    }
+function openStudentView(name, id, course, year, sec, status, email, phone, dept, bdate, verif) {
+  document.getElementById('viewModalTitle').textContent = name;
+  document.getElementById('view-avatar').textContent = name.charAt(0);
+  document.getElementById('view-name').textContent = name;
+  document.getElementById('view-email').textContent = email;
+  document.getElementById('view-id').textContent = id;
+  document.getElementById('view-schoolemail').textContent = email;
+  document.getElementById('view-phone').textContent = phone;
+  document.getElementById('view-bdate').textContent = bdate;
+  document.getElementById('view-course').textContent = course;
+  document.getElementById('view-yearsec').textContent = year + ' — ' + sec;
+  document.getElementById('view-dept').textContent = dept;
+  document.getElementById('view-status').innerHTML = `<span class="badge badge-${status}">${status.charAt(0).toUpperCase()+status.slice(1)}</span>`;
+  const verifClass = verif === 'Verified' ? 'badge-approved' : verif === 'Rejected' ? 'badge-rejected' : 'badge-pending';
+  document.getElementById('view-verif').innerHTML = `<span class="badge ${verifClass}">${verif}</span>`;
+  document.getElementById('viewModal').classList.add('open');
+}
 
-    function openAddModal() {
-        document.getElementById('addModal').classList.add('open');
-    }
+function openEditModal(name, id, course, year, section, status) {
+  document.getElementById('edit-name').value    = name;
+  document.getElementById('edit-id').value      = id;
+  document.getElementById('edit-course').value  = course;
+  document.getElementById('edit-year').value    = year;
+  document.getElementById('edit-section').value = section;
+  document.getElementById('edit-status').value  = status;
+  document.getElementById('editModalTitle').textContent = 'Edit — ' + name;
+  document.getElementById('editModal').classList.add('open');
+}
 
-    function saveEdit() {
-        closeModal('editModal');
-        showToast('Student record updated.', 'success');
-    }
+function openAddModal() {
+  document.getElementById('addModal').classList.add('open');
+}
 
-    function confirmDeactivate(btn) {
-        if (!confirm('Deactivate this student record?')) return;
-        const row = btn.closest('tr');
-        row.dataset.status = 'inactive';
-        const badge = row.querySelector('.tbl-badge');
-        if (badge) { badge.className = 'tbl-badge badge-inactive'; badge.textContent = 'Inactive'; }
-        const actions = row.querySelector('.td-actions');
-        const viewBtn = actions.querySelector('.view').parentElement.outerHTML;
-        actions.innerHTML = viewBtn + '<button class="tbl-btn safe" onclick="reactivate(this)">Reactivate</button>';
-        showToast('Student deactivated.', 'warn');
-    }
+function saveEdit() {
+  closeModal('editModal');
+  showToast('Student record updated.', 'success');
+}
 
-    function reactivate(btn) {
-        const row = btn.closest('tr');
-        row.dataset.status = 'active';
-        const badge = row.querySelector('.tbl-badge');
-        if (badge) { badge.className = 'tbl-badge badge-active'; badge.textContent = 'Active'; }
-        showToast('Student reactivated.', 'success');
-    }
+function confirmDeactivate(btn) {
+  if (!confirm('Deactivate this student account?')) return;
+  const row = btn.closest('tr');
+  row.dataset.status = 'inactive';
+  const badges = row.querySelectorAll('.badge');
+  badges.forEach(b => {
+    if (b.textContent === 'Active') { b.className = 'badge badge-inactive'; b.textContent = 'Inactive'; }
+  });
+  const actions = row.querySelector('.td-actions');
+  const viewBtn = actions.querySelector('.tbl-btn.view');
+  actions.innerHTML = '';
+  actions.appendChild(viewBtn);
+  const rb = document.createElement('button');
+  rb.className = 'tbl-btn safe';
+  rb.textContent = 'Reactivate';
+  rb.onclick = function() { reactivate(this); };
+  actions.appendChild(rb);
+  showToast('Student deactivated.', 'warn');
+}
 
-    function closeModal(id) {
-        document.getElementById(id).classList.remove('open');
-    }
+function reactivate(btn) {
+  const row = btn.closest('tr');
+  row.dataset.status = 'active';
+  const badges = row.querySelectorAll('.badge');
+  badges.forEach(b => {
+    if (b.textContent === 'Inactive') { b.className = 'badge badge-active'; b.textContent = 'Active'; }
+  });
+  showToast('Student reactivated.', 'success');
+}
 
-    function showToast(msg, type) {
-        const t = document.getElementById('toast');
-        t.textContent = msg;
-        t.className = 'toast ' + type;
-        t.classList.add('show');
-        setTimeout(() => t.classList.remove('show'), 3000);
-    }
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+}
 
-    document.querySelectorAll('.modal-overlay').forEach(o => {
-        o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); });
-    });
+function showToast(msg, type='success') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast ' + type;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+document.querySelectorAll('.modal-overlay').forEach(o => {
+  o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); });
+});
 </script>
-
 </body>
-</html> 
+</html>
