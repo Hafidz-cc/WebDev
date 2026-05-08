@@ -16,72 +16,439 @@
         <link href="https://fonts.googleapis.com/css2?family=Belanosima&family=Bricolage+Grotesque:opsz,wght@12..96,420&family=Coiny&family=McLaren&family=Pacifico&family=Pangolin&display=swap" rel="stylesheet">
 
         <style>
-            #hives-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; padding: 20px 0; }
-            
-            .filter-section { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
-            .filter-btn { padding: 8px 16px; border: 1.5px solid #e5e7eb; border-radius: 8px; background: #fff; cursor: pointer; font-size: 0.9rem; font-weight: 500; color: #444; transition: all 0.2s; }
-            .filter-btn.active { background: #f97316; color: #fff; border-color: #f97316; }
-            .filter-btn:hover { border-color: #f97316; }
+            #hives-container {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 20px;
+                padding: 20px 0;
+            }
 
-            .group-card { background: #fff; border: 1.5px solid #e5e7eb; border-radius: 12px; padding: 18px; cursor: pointer; transition: all 0.3s; display: flex; flex-direction: column; gap: 12px; }
-            .group-card:hover { box-shadow: 0 4px 12px rgba(249, 115, 22, 0.15); border-color: #f97316; transform: translateY(-2px); }
-            
+            .filter-section { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+            .filter-btn {
+                padding: 8px 16px;
+                border: 1.5px solid #e5e7eb;
+                border-radius: 8px;
+                background: #fff;
+                cursor: pointer;
+                font-size: 0.9rem;
+                font-weight: 500;
+                color: #444;
+                transition: all 0.2s;
+                font-family: 'Bricolage Grotesque', sans-serif;
+            }
+            .filter-btn.active { background: #f97316; color: #fff; border-color: #f97316; }
+            .filter-btn:hover:not(.active) { border-color: #f97316; }
+
+            .group-card {
+                background: #fff;
+                border: 1.5px solid #e5e7eb;
+                border-radius: 12px;
+                padding: 18px;
+                cursor: default;
+                transition: all 0.3s;
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+            .group-card:hover {
+                box-shadow: 0 4px 12px rgba(249, 115, 22, 0.15);
+                border-color: #f97316;
+                transform: translateY(-2px);
+            }
+
             .group-header { display: flex; justify-content: space-between; align-items: start; gap: 8px; }
             .group-name { font-size: 1.05rem; font-weight: 700; color: #1a1a1a; }
-            .group-status { font-size: 0.7rem; font-weight: 700; padding: 4px 10px; border-radius: 99px; text-transform: uppercase; letter-spacing: 0.04em; }
+            .group-status {
+                font-size: 0.7rem;
+                font-weight: 700;
+                padding: 4px 10px;
+                border-radius: 99px;
+                text-transform: uppercase;
+                letter-spacing: 0.04em;
+                white-space: nowrap;
+                flex-shrink: 0;
+            }
             .status-verified { background: #dcfce7; color: #166534; }
-            .status-pending { background: #fef3c7; color: #92400e; }
+            .status-pending  { background: #fef3c7; color: #92400e; }
 
             .group-owner { font-size: 0.85rem; color: #666; display: flex; align-items: center; gap: 6px; }
             .group-owner i { color: #999; }
 
-            .group-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px 0; border-top: 1px solid #f0f0f0; border-bottom: 1px solid #f0f0f0; }
+            .group-meta {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+                padding: 10px 0;
+                border-top: 1px solid #f0f0f0;
+                border-bottom: 1px solid #f0f0f0;
+            }
             .meta-item { font-size: 0.8rem; }
             .meta-label { color: #999; font-weight: 600; }
             .meta-value { color: #1a1a1a; font-weight: 500; }
 
             .group-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-            .tag { font-size: 0.75rem; background: #f3f4f6; color: #444; padding: 4px 10px; border-radius: 6px; }
+            .tag {
+                font-size: 0.75rem;
+                background: #f3f4f6;
+                color: #444;
+                padding: 4px 10px;
+                border-radius: 6px;
+                font-family: 'Bricolage Grotesque', sans-serif;
+            }
 
             .group-footer { display: flex; gap: 8px; }
-            .btn-join { flex: 1; padding: 8px 12px; background: #f97316; color: #fff; border: none; border-radius: 7px; font-weight: 600; cursor: pointer; font-size: 0.9rem; transition: background 0.2s; }
+            .btn-join {
+                flex: 1;
+                padding: 8px 12px;
+                background: #f97316;
+                color: #fff;
+                border: none;
+                border-radius: 7px;
+                font-weight: 600;
+                cursor: pointer;
+                font-size: 0.9rem;
+                font-family: 'Bricolage Grotesque', sans-serif;
+                transition: background 0.2s;
+            }
             .btn-join:hover { background: #ea580c; }
-            .btn-view { flex: 1; padding: 8px 12px; background: #fff; color: #f97316; border: 1.5px solid #f97316; border-radius: 7px; font-weight: 600; cursor: pointer; font-size: 0.9rem; transition: all 0.2s; }
+            .btn-join.requested {
+                background: #e5e7eb;
+                color: #888;
+                cursor: default;
+            }
+            .btn-view {
+                flex: 1;
+                padding: 8px 12px;
+                background: #fff;
+                color: #f97316;
+                border: 1.5px solid #f97316;
+                border-radius: 7px;
+                font-weight: 600;
+                cursor: pointer;
+                font-size: 0.9rem;
+                font-family: 'Bricolage Grotesque', sans-serif;
+                transition: all 0.2s;
+            }
             .btn-view:hover { background: #fff7ed; }
 
-            /* Modal Styles */
-            .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1000; align-items: center; justify-content: center; }
+            /* ── Group Details Modal ── */
+            .modal {
+                display: none;
+                position: fixed;
+                top: 0; left: 0;
+                width: 100%; height: 100%;
+                background: rgba(0,0,0,0.5);
+                z-index: 1000;
+                align-items: center;
+                justify-content: center;
+                padding: 20px;
+            }
             .modal.active { display: flex; }
-            .modal-content { background: #fff; border-radius: 12px; padding: 32px; max-width: 500px; width: 90%; max-height: 90vh; overflow-y: auto; }
-            .modal-close { position: absolute; top: 16px; right: 16px; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #999; }
+
+            .modal-content {
+                background: #fff;
+                border-radius: 14px;
+                padding: 32px;
+                max-width: 500px;
+                width: 100%;
+                max-height: 90vh;
+                overflow-y: auto;
+                position: relative;
+                animation: modalSlideIn 0.22s ease;
+            }
+
+            @keyframes modalSlideIn {
+                from { opacity: 0; transform: translateY(16px) scale(0.97); }
+                to   { opacity: 1; transform: translateY(0) scale(1); }
+            }
+
+            .modal-close {
+                position: absolute;
+                top: 14px; right: 16px;
+                background: none;
+                border: none;
+                font-size: 1.5rem;
+                cursor: pointer;
+                color: #999;
+                line-height: 1;
+                transition: color 0.15s;
+            }
             .modal-close:hover { color: #1a1a1a; }
 
             .modal-header { margin-bottom: 20px; }
-            .modal-title { font-size: 1.5rem; font-weight: 700; color: #1a1a1a; margin-bottom: 8px; }
+            .modal-title { font-size: 1.45rem; font-weight: 700; color: #1a1a1a; margin-bottom: 6px; }
             .modal-owner { font-size: 0.9rem; color: #666; display: flex; align-items: center; gap: 6px; }
 
-            .modal-info { display: flex; flex-direction: column; gap: 16px; margin-bottom: 20px; padding: 16px; background: #f9fafb; border-radius: 8px; }
+            .modal-info {
+                display: flex;
+                flex-direction: column;
+                gap: 14px;
+                margin-bottom: 18px;
+                padding: 16px;
+                background: #f9fafb;
+                border-radius: 10px;
+            }
             .info-row { display: flex; justify-content: space-between; }
-            .info-label { font-weight: 600; color: #666; }
-            .info-value { color: #1a1a1a; font-weight: 500; }
+            .info-label { font-weight: 600; color: #666; font-size: 0.9rem; }
+            .info-value { color: #1a1a1a; font-weight: 500; font-size: 0.9rem; }
 
-            .modal-description { color: #444; line-height: 1.6; margin-bottom: 20px; }
-
+            .modal-description { color: #444; line-height: 1.65; margin-bottom: 18px; font-size: 0.93rem; }
             .modal-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
 
             .modal-actions { display: flex; gap: 10px; }
-            .btn-primary { flex: 1; padding: 12px; background: #f97316; color: #fff; border: none; border-radius: 7px; font-weight: 600; cursor: pointer; font-size: 0.95rem; }
+            .btn-primary {
+                flex: 1;
+                padding: 11px;
+                background: #f97316;
+                color: #fff;
+                border: none;
+                border-radius: 8px;
+                font-weight: 600;
+                cursor: pointer;
+                font-size: 0.92rem;
+                font-family: 'Bricolage Grotesque', sans-serif;
+                transition: background 0.2s;
+            }
             .btn-primary:hover { background: #ea580c; }
-            .btn-secondary { flex: 1; padding: 12px; background: #f3f4f6; color: #1a1a1a; border: none; border-radius: 7px; font-weight: 600; cursor: pointer; font-size: 0.95rem; }
+            .btn-secondary {
+                flex: 1;
+                padding: 11px;
+                background: #f3f4f6;
+                color: #1a1a1a;
+                border: none;
+                border-radius: 8px;
+                font-weight: 600;
+                cursor: pointer;
+                font-size: 0.92rem;
+                font-family: 'Bricolage Grotesque', sans-serif;
+                transition: background 0.2s;
+            }
             .btn-secondary:hover { background: #e5e7eb; }
 
-            .page-title { font-size: 1.8rem; font-weight: 700; color: #1a1a1a; margin-bottom: 8px; }
+            .page-title { font-size: 1.8rem; font-weight: 700; color: #1a1a1a; margin-bottom: 6px; }
             .page-subtitle { font-size: 0.95rem; color: #666; margin-bottom: 24px; }
 
+            /* ══════════════════════════════════
+               JOIN REQUEST MODAL
+            ══════════════════════════════════ */
+            #joinModal .modal-content {
+                max-width: 460px;
+            }
+
+            .join-modal-title {
+                font-size: 1.2rem;
+                font-weight: 700;
+                color: #1a1a1a;
+                margin-bottom: 4px;
+            }
+
+            .join-modal-group {
+                font-size: 0.88rem;
+                color: #f97316;
+                font-weight: 600;
+                margin-bottom: 20px;
+                display: flex;
+                align-items: center;
+                gap: 6px;
+            }
+
+            .join-form { display: flex; flex-direction: column; gap: 18px; }
+
+            .form-field { display: flex; flex-direction: column; gap: 6px; }
+
+            .form-label {
+                font-size: 0.85rem;
+                font-weight: 700;
+                color: #1a1a1a;
+                letter-spacing: 0.01em;
+            }
+
+            .form-label span {
+                color: #f97316;
+                margin-left: 2px;
+            }
+
+            .form-hint {
+                font-size: 0.78rem;
+                color: #999;
+                margin-top: -2px;
+            }
+
+            .form-select,
+            .form-textarea,
+            .form-input {
+                width: 100%;
+                padding: 10px 12px;
+                font-size: 0.9rem;
+                font-family: 'Bricolage Grotesque', sans-serif;
+                border: 1.5px solid #e5e7eb;
+                border-radius: 8px;
+                background: #fafafa;
+                color: #1a1a1a;
+                outline: none;
+                transition: border-color 0.15s, background 0.15s;
+                box-sizing: border-box;
+            }
+
+            .form-select:focus,
+            .form-textarea:focus,
+            .form-input:focus {
+                border-color: #f97316;
+                background: #fff;
+            }
+
+            .form-textarea {
+                resize: vertical;
+                min-height: 88px;
+                line-height: 1.55;
+            }
+
+            .topic-chips {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 7px;
+                margin-top: 4px;
+            }
+
+            .topic-chip {
+                padding: 6px 13px;
+                border: 1.5px solid #e5e7eb;
+                border-radius: 99px;
+                font-size: 0.8rem;
+                font-weight: 600;
+                color: #555;
+                cursor: pointer;
+                transition: all 0.15s;
+                background: #fff;
+                font-family: 'Bricolage Grotesque', sans-serif;
+                user-select: none;
+            }
+
+            .topic-chip:hover {
+                border-color: #f97316;
+                color: #f97316;
+            }
+
+            .topic-chip.selected {
+                background: #fff7ed;
+                border-color: #f97316;
+                color: #c2410c;
+            }
+
+            .char-counter {
+                font-size: 0.75rem;
+                color: #bbb;
+                text-align: right;
+                margin-top: 3px;
+                transition: color 0.15s;
+            }
+
+            .char-counter.warn { color: #f97316; }
+            .char-counter.over { color: #dc2626; }
+
+            .join-form-actions {
+                display: flex;
+                gap: 10px;
+                padding-top: 4px;
+            }
+
+            .btn-submit-join {
+                flex: 1;
+                padding: 11px;
+                background: #f97316;
+                color: #fff;
+                border: none;
+                border-radius: 8px;
+                font-weight: 700;
+                cursor: pointer;
+                font-size: 0.92rem;
+                font-family: 'Bricolage Grotesque', sans-serif;
+                transition: background 0.2s;
+            }
+            .btn-submit-join:hover:not(:disabled) { background: #ea580c; }
+            .btn-submit-join:disabled { opacity: 0.4; cursor: not-allowed; }
+
+            .btn-cancel-join {
+                flex: 1;
+                padding: 11px;
+                background: #f3f4f6;
+                color: #444;
+                border: none;
+                border-radius: 8px;
+                font-weight: 600;
+                cursor: pointer;
+                font-size: 0.92rem;
+                font-family: 'Bricolage Grotesque', sans-serif;
+                transition: background 0.2s;
+            }
+            .btn-cancel-join:hover { background: #e5e7eb; }
+
+            /* Success state inside join modal */
+            .join-success {
+                display: none;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 10px;
+                padding: 10px 0 6px;
+            }
+
+            .join-success-icon {
+                width: 52px;
+                height: 52px;
+                background: #dcfce7;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.5rem;
+            }
+
+            .join-success-title {
+                font-size: 1.1rem;
+                font-weight: 700;
+                color: #1a1a1a;
+            }
+
+            .join-success-msg {
+                font-size: 0.88rem;
+                color: #666;
+                line-height: 1.55;
+            }
+
+            /* Progress dots */
+            .join-steps {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                margin-bottom: 22px;
+            }
+
+            .step-dot {
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: #e5e7eb;
+                transition: background 0.2s;
+            }
+
+            .step-dot.active { background: #f97316; }
+            .step-dot.done   { background: #86efac; }
+
+            .step-label {
+                font-size: 0.78rem;
+                color: #999;
+                margin-left: 4px;
+            }
+
+            /* ── Misc ── */
             .empty-state { text-align: center; padding: 40px 20px; color: #999; }
             .empty-state i { font-size: 2.5rem; margin-bottom: 12px; }
 
-    
+            @media (max-width: 480px) {
+                .modal-content { padding: 22px 18px; }
+                .join-form-actions { flex-direction: column; }
+            }
         </style>
     </head>
 
@@ -99,7 +466,7 @@
                     <a class="hover" href="../../pages/misc/profile.html">Profile</a>
                 </div>
                 <div id="auth-links">
-                    <a class="hover" href="../../pages/misc/profile.html">student</a>
+                    <a class="hover" href="../../pages/misc/profile.html">Student</a>
                 </div>
             </div>
         </nav>
@@ -117,8 +484,9 @@
                     </div>
 
                     <div id="hives-container">
+
                         <!-- Verified Groups -->
-                        <div class="group-card" data-status="verified">
+                        <div class="group-card" data-status="verified" data-subject="Mathematics">
                             <div class="group-header">
                                 <div class="group-name">Calculus Study Group</div>
                                 <span class="group-status status-verified">Verified</span>
@@ -134,11 +502,11 @@
                             </div>
                             <div class="group-footer">
                                 <button class="btn-view" onclick="openGroupModal(this)">View Details</button>
-                                <button class="btn-join" onclick="requestJoin(event)">Request Join</button>
+                                <button class="btn-join" onclick="openJoinModal(event, this)">Request Join</button>
                             </div>
                         </div>
 
-                        <div class="group-card" data-status="verified">
+                        <div class="group-card" data-status="verified" data-subject="Chemistry">
                             <div class="group-header">
                                 <div class="group-name">Chemistry Wizards</div>
                                 <span class="group-status status-verified">Verified</span>
@@ -154,11 +522,11 @@
                             </div>
                             <div class="group-footer">
                                 <button class="btn-view" onclick="openGroupModal(this)">View Details</button>
-                                <button class="btn-join" onclick="requestJoin(event)">Request Join</button>
+                                <button class="btn-join" onclick="openJoinModal(event, this)">Request Join</button>
                             </div>
                         </div>
 
-                        <div class="group-card" data-status="verified">
+                        <div class="group-card" data-status="verified" data-subject="Biology">
                             <div class="group-header">
                                 <div class="group-name">Bio Bees Support Hive</div>
                                 <span class="group-status status-verified">Verified</span>
@@ -174,12 +542,12 @@
                             </div>
                             <div class="group-footer">
                                 <button class="btn-view" onclick="openGroupModal(this)">View Details</button>
-                                <button class="btn-join" onclick="requestJoin(event)">Request Join</button>
+                                <button class="btn-join" onclick="openJoinModal(event, this)">Request Join</button>
                             </div>
                         </div>
 
                         <!-- Pending Verification Groups -->
-                        <div class="group-card" data-status="pending">
+                        <div class="group-card" data-status="pending" data-subject="Physics">
                             <div class="group-header">
                                 <div class="group-name">Physics Exam Blitz</div>
                                 <span class="group-status status-pending">Pending</span>
@@ -195,11 +563,11 @@
                             </div>
                             <div class="group-footer">
                                 <button class="btn-view" onclick="openGroupModal(this)">View Details</button>
-                                <button class="btn-join" onclick="requestJoin(event)">Request Join</button>
+                                <button class="btn-join" onclick="openJoinModal(event, this)">Request Join</button>
                             </div>
                         </div>
 
-                        <div class="group-card" data-status="pending">
+                        <div class="group-card" data-status="pending" data-subject="History">
                             <div class="group-header">
                                 <div class="group-name">History Cram Night</div>
                                 <span class="group-status status-pending">Pending</span>
@@ -215,11 +583,11 @@
                             </div>
                             <div class="group-footer">
                                 <button class="btn-view" onclick="openGroupModal(this)">View Details</button>
-                                <button class="btn-join" onclick="requestJoin(event)">Request Join</button>
+                                <button class="btn-join" onclick="openJoinModal(event, this)">Request Join</button>
                             </div>
                         </div>
 
-                        <div class="group-card" data-status="pending">
+                        <div class="group-card" data-status="pending" data-subject="Literature">
                             <div class="group-header">
                                 <div class="group-name">Literature & Lore</div>
                                 <span class="group-status status-pending">Pending</span>
@@ -235,15 +603,18 @@
                             </div>
                             <div class="group-footer">
                                 <button class="btn-view" onclick="openGroupModal(this)">View Details</button>
-                                <button class="btn-join" onclick="requestJoin(event)">Request Join</button>
+                                <button class="btn-join" onclick="openJoinModal(event, this)">Request Join</button>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
         </main>
 
-        <!-- Group Details Modal -->
+        <!-- ══════════════════════════════════
+             GROUP DETAILS MODAL
+        ══════════════════════════════════ -->
         <div id="groupModal" class="modal">
             <div class="modal-content">
                 <button class="modal-close" onclick="closeGroupModal()">&times;</button>
@@ -272,9 +643,91 @@
                 <div class="modal-description" id="modalDescription"></div>
                 <div class="modal-tags" id="modalTags"></div>
                 <div class="modal-actions">
-                    <button class="btn-primary" onclick="requestJoinFromModal()">Request to Join</button>
+                    <button class="btn-primary" onclick="openJoinModalFromDetail()">Request to Join</button>
                     <button class="btn-secondary" onclick="closeGroupModal()">Close</button>
                 </div>
+            </div>
+        </div>
+
+        <!-- ══════════════════════════════════
+             JOIN REQUEST MODAL
+        ══════════════════════════════════ -->
+        <div id="joinModal" class="modal">
+            <div class="modal-content">
+                <button class="modal-close" onclick="closeJoinModal()">&times;</button>
+
+                <!-- Step indicator -->
+                <div class="join-steps">
+                    <div class="step-dot active" id="step1dot"></div>
+                    <div class="step-dot" id="step2dot"></div>
+                    <div class="step-dot" id="step3dot"></div>
+                    <span class="step-label" id="stepLabel">Step 1 of 2</span>
+                </div>
+
+                <div class="join-modal-title">Request to Join</div>
+                <div class="join-modal-group"><i class="fa fa-users"></i><span id="joinGroupName"></span></div>
+
+                <!-- ── FORM (steps 1 & 2) ── -->
+                <div class="join-form" id="joinForm">
+
+                    <!-- Step 1: Reason -->
+                    <div id="joinStep1">
+                        <div class="form-field">
+                            <label class="form-label">Why do you want to join this group? <span>*</span></label>
+                            <p class="form-hint">Select the option that best describes your reason.</p>
+                            <select class="form-select" id="joinReasonSelect" onchange="onReasonChange()">
+                                <option value="">— Choose a reason —</option>
+                                <option value="exam">Preparing for an upcoming exam</option>
+                                <option value="understand">Struggling to understand the subject</option>
+                                <option value="improve">Want to improve my grades</option>
+                                <option value="collaborate">Looking for study partners to collaborate with</option>
+                                <option value="supplement">Supplementing what's taught in class</option>
+                                <option value="other">Other reason</option>
+                            </select>
+                        </div>
+
+                        <!-- "Other" text box shown only when "Other" is selected -->
+                        <div class="form-field" id="otherReasonField" style="display:none; margin-top: 12px;">
+                            <label class="form-label">Describe your reason <span>*</span></label>
+                            <textarea class="form-textarea" id="otherReasonText" placeholder="Tell the group owner why you'd like to join…" maxlength="300" oninput="updateCharCount('otherReasonText','otherReasonCount',300); validateJoinStep1()"></textarea>
+                            <div class="char-counter" id="otherReasonCount">0 / 300</div>
+                        </div>
+
+                        <div class="join-form-actions" style="margin-top: 8px;">
+                            <button class="btn-cancel-join" onclick="closeJoinModal()">Cancel</button>
+                            <button class="btn-submit-join" id="step1Next" disabled onclick="goToStep2()">Next →</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Topic + extra note -->
+                    <div id="joinStep2" style="display:none;">
+                        <div class="form-field">
+                            <label class="form-label">What specific topic(s) do you want to learn? <span>*</span></label>
+                            <p class="form-hint">Pick all that apply, or type your own below.</p>
+                            <div class="topic-chips" id="topicChips"></div>
+                        </div>
+
+                        <div class="form-field">
+                            <label class="form-label">Any extra details? <span style="color:#bbb; font-weight:400;">(optional)</span></label>
+                            <textarea class="form-textarea" id="extraNote" placeholder="e.g. I have an exam next Friday and I'm lost on integration by parts…" maxlength="400" oninput="updateCharCount('extraNote','extraNoteCount',400)"></textarea>
+                            <div class="char-counter" id="extraNoteCount">0 / 400</div>
+                        </div>
+
+                        <div class="join-form-actions" style="margin-top: 8px;">
+                            <button class="btn-cancel-join" onclick="goToStep1()">← Back</button>
+                            <button class="btn-submit-join" id="step2Submit" disabled onclick="submitJoinRequest()">Send Request</button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- ── SUCCESS STATE ── -->
+                <div class="join-success" id="joinSuccess">
+                    <div class="join-success-icon">✓</div>
+                    <div class="join-success-title">Request Sent!</div>
+                    <p class="join-success-msg">Your join request has been sent to <strong id="successGroupName"></strong>. The group owner will review it and get back to you.</p>
+                </div>
+
             </div>
         </div>
 
@@ -285,68 +738,85 @@
         </div>
 
         <script>
-            // Filter functionality
+            /* ════════════════════════════════
+               DATA
+            ════════════════════════════════ */
+            const groupData = {
+                'Calculus Study Group': {
+                    owner: 'Alex Rivera',
+                    description: 'A collaborative group dedicated to mastering calculus concepts. We meet weekly to discuss problem-solving techniques and prepare for exams together.',
+                    date: 'Feb 15, 2026',
+                    topics: ['Limits & Continuity', 'Derivatives', 'Related Rates', 'Integration', 'Differential Equations', 'Series & Sequences']
+                },
+                'Chemistry Wizards': {
+                    owner: 'Jordan Chen',
+                    description: 'Lab-focused study group for chemistry enthusiasts. Perfect for understanding molecular structures, reactions, and lab experiments.',
+                    date: 'Jan 22, 2026',
+                    topics: ['Stoichiometry', 'Organic Reactions', 'Lab Techniques', 'Thermodynamics', 'Electrochemistry', 'Acid-Base Chemistry']
+                },
+                'Bio Bees Support Hive': {
+                    owner: 'Maya Santos',
+                    description: 'A supportive community for biology students. We help each other understand complex biological concepts and prepare for assessments.',
+                    date: 'Mar 3, 2026',
+                    topics: ['Cell Biology', 'Genetics', 'Ecology', 'Evolution', 'Anatomy', 'Molecular Biology']
+                },
+                'Physics Exam Blitz': {
+                    owner: 'Sam Reyes',
+                    description: 'Intensive exam preparation group. Focus on practice problems, formula review, and conceptual understanding.',
+                    date: 'Apr 1, 2026',
+                    topics: ['Kinematics', 'Newton\'s Laws', 'Electricity', 'Waves & Optics', 'Thermodynamics', 'Quantum Basics']
+                },
+                'History Cram Night': {
+                    owner: 'Lisa Wong',
+                    description: 'Collaborative learning for history courses. We share notes, discuss events, and prepare essays together.',
+                    date: 'Mar 18, 2026',
+                    topics: ['Ancient Civilizations', 'World Wars', 'Colonial Period', 'Political Revolutions', 'Modern History', 'Essay Writing']
+                },
+                'Literature & Lore': {
+                    owner: 'Emma Clark',
+                    description: 'A reading club focused on classic and contemporary literature. We discuss themes, analyze texts, and share interpretations.',
+                    date: 'Feb 28, 2026',
+                    topics: ['Literary Analysis', 'Poetry', 'Fiction', 'Character Studies', 'Theme Exploration', 'Essay Structure']
+                }
+            };
+
+            /* ════════════════════════════════
+               FILTER
+            ════════════════════════════════ */
             document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
+                btn.addEventListener('click', function () {
                     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
                     this.classList.add('active');
-                    
                     const filter = this.dataset.filter;
-                    const cards = document.querySelectorAll('.group-card');
-                    
-                    cards.forEach(card => {
-                        if (filter === 'all') {
-                            card.style.display = '';
-                        } else {
-                            card.style.display = card.dataset.status === filter ? '' : 'none';
-                        }
+                    document.querySelectorAll('.group-card').forEach(card => {
+                        card.style.display = (filter === 'all' || card.dataset.status === filter) ? '' : 'none';
                     });
                 });
             });
 
-            // Modal functionality
-            let currentGroupData = {};
+            /* ════════════════════════════════
+               GROUP DETAILS MODAL
+            ════════════════════════════════ */
+            let currentGroupName = '';
 
             function openGroupModal(btn) {
                 const card = btn.closest('.group-card');
                 const name = card.querySelector('.group-name').textContent;
-                const owner = card.querySelector('.group-owner').textContent.replace('Alex Rivera', '').replace('Jordan Chen', '').replace('Maya Santos', '').replace('Sam Reyes', '').replace('Lisa Wong', '').replace('Emma Clark', '').trim();
                 const meta = card.querySelectorAll('.meta-value');
-                const members = meta[0].textContent;
-                const department = meta[1].textContent;
                 const status = card.querySelector('.group-status').textContent;
                 const tags = Array.from(card.querySelectorAll('.tag')).map(t => t.textContent);
-                
-                const owners = {
-                    'Calculus Study Group': 'Alex Rivera',
-                    'Chemistry Wizards': 'Jordan Chen',
-                    'Bio Bees Support Hive': 'Maya Santos',
-                    'Physics Exam Blitz': 'Sam Reyes',
-                    'History Cram Night': 'Lisa Wong',
-                    'Literature & Lore': 'Emma Clark'
-                };
+                const data = groupData[name];
 
-                const descriptions = {
-                    'Calculus Study Group': 'A collaborative group dedicated to mastering calculus concepts. We meet weekly to discuss problem-solving techniques and prepare for exams together.',
-                    'Chemistry Wizards': 'Lab-focused study group for chemistry enthusiasts. Perfect for understanding molecular structures, reactions, and lab experiments.',
-                    'Bio Bees Support Hive': 'A supportive community for biology students. We help each other understand complex biological concepts and prepare for assessments.',
-                    'Physics Exam Blitz': 'Intensive exam preparation group. Focus on practice problems, formula review, and conceptual understanding.',
-                    'History Cram Night': 'Collaborative learning for history courses. We share notes, discuss events, and prepare essays together.',
-                    'Literature & Lore': 'A reading club focused on classic and contemporary literature. We discuss themes, analyze texts, and share interpretations.'
-                };
-
-                currentGroupData = { name, owner: owners[name], members, department, status, tags };
+                currentGroupName = name;
 
                 document.getElementById('modalTitle').textContent = name;
-                document.getElementById('modalOwner').textContent = owners[name];
-                document.getElementById('modalMembers').textContent = members;
-                document.getElementById('modalDepartment').textContent = department;
+                document.getElementById('modalOwner').textContent = data.owner;
+                document.getElementById('modalMembers').textContent = meta[0].textContent;
+                document.getElementById('modalDepartment').textContent = meta[1].textContent;
                 document.getElementById('modalStatus').textContent = status;
-                document.getElementById('modalDate').textContent = 'Feb 15, 2026';
-                document.getElementById('modalDescription').textContent = descriptions[name] || 'A vibrant group focused on collaborative learning and academic support.';
-                
-                const tagsHtml = tags.map(tag => `<span class="tag">${tag}</span>`).join('');
-                document.getElementById('modalTags').innerHTML = tagsHtml;
+                document.getElementById('modalDate').textContent = data.date;
+                document.getElementById('modalDescription').textContent = data.description;
+                document.getElementById('modalTags').innerHTML = tags.map(t => `<span class="tag">${t}</span>`).join('');
 
                 document.getElementById('groupModal').classList.add('active');
             }
@@ -355,21 +825,164 @@
                 document.getElementById('groupModal').classList.remove('active');
             }
 
-            function requestJoin(e) {
-                e.preventDefault();
-                alert('Join request sent! Awaiting group administrator approval.');
-            }
-
-            function requestJoinFromModal() {
-                alert(`Join request sent to ${currentGroupData.name}! Awaiting group administrator approval.`);
+            function openJoinModalFromDetail() {
                 closeGroupModal();
+                openJoinModalByName(currentGroupName, null);
             }
 
-            // Close modal when clicking outside
-            document.getElementById('groupModal').addEventListener('click', function(e) {
-                if (e.target === this) {
-                    closeGroupModal();
+            document.getElementById('groupModal').addEventListener('click', function (e) {
+                if (e.target === this) closeGroupModal();
+            });
+
+            /* ════════════════════════════════
+               JOIN REQUEST MODAL
+            ════════════════════════════════ */
+            let activeJoinBtn = null;
+
+            function openJoinModal(e, btn) {
+                e.preventDefault();
+                const name = btn.closest('.group-card').querySelector('.group-name').textContent;
+                openJoinModalByName(name, btn);
+            }
+
+            function openJoinModalByName(name, btn) {
+                activeJoinBtn = btn;
+                currentGroupName = name;
+
+                // Reset modal to initial state
+                resetJoinModal();
+
+                document.getElementById('joinGroupName').textContent = name;
+                document.getElementById('successGroupName').textContent = name;
+
+                // Populate topic chips from data
+                const topics = groupData[name]?.topics || [];
+                const chipsEl = document.getElementById('topicChips');
+                chipsEl.innerHTML = topics.map(t =>
+                    `<span class="topic-chip" onclick="toggleChip(this)">${t}</span>`
+                ).join('');
+
+                document.getElementById('joinModal').classList.add('active');
+            }
+
+            function closeJoinModal() {
+                document.getElementById('joinModal').classList.remove('active');
+                setTimeout(resetJoinModal, 250);
+            }
+
+            function resetJoinModal() {
+                // Reset step dots
+                setStep(1, false);
+                // Reset form fields
+                document.getElementById('joinReasonSelect').value = '';
+                document.getElementById('otherReasonText').value = '';
+                document.getElementById('otherReasonField').style.display = 'none';
+                document.getElementById('otherReasonCount').textContent = '0 / 300';
+                document.getElementById('extraNote').value = '';
+                document.getElementById('extraNoteCount').textContent = '0 / 400';
+                document.getElementById('step1Next').disabled = true;
+                document.getElementById('step2Submit').disabled = true;
+                // Show form, hide success
+                document.getElementById('joinForm').style.display = '';
+                document.getElementById('joinSuccess').style.display = 'none';
+                document.getElementById('joinStep1').style.display = '';
+                document.getElementById('joinStep2').style.display = 'none';
+            }
+
+            function setStep(step, done) {
+                const dots = [
+                    document.getElementById('step1dot'),
+                    document.getElementById('step2dot'),
+                    document.getElementById('step3dot')
+                ];
+                const label = document.getElementById('stepLabel');
+
+                dots.forEach((d, i) => {
+                    d.classList.remove('active', 'done');
+                    if (i < step - 1) d.classList.add('done');
+                    else if (i === step - 1) d.classList.add(done ? 'done' : 'active');
+                });
+
+                if (done) {
+                    label.textContent = 'Submitted!';
+                } else {
+                    label.textContent = step === 1 ? 'Step 1 of 2' : 'Step 2 of 2';
                 }
+            }
+
+            // Reason dropdown change
+            function onReasonChange() {
+                const val = document.getElementById('joinReasonSelect').value;
+                const isOther = val === 'other';
+                document.getElementById('otherReasonField').style.display = isOther ? '' : 'none';
+                validateJoinStep1();
+            }
+
+            function validateJoinStep1() {
+                const reason = document.getElementById('joinReasonSelect').value;
+                const isOther = reason === 'other';
+                const otherText = document.getElementById('otherReasonText').value.trim();
+                const valid = reason !== '' && (!isOther || otherText.length > 0);
+                document.getElementById('step1Next').disabled = !valid;
+            }
+
+            function goToStep2() {
+                document.getElementById('joinStep1').style.display = 'none';
+                document.getElementById('joinStep2').style.display = '';
+                setStep(2, false);
+                validateStep2();
+            }
+
+            function goToStep1() {
+                document.getElementById('joinStep2').style.display = 'none';
+                document.getElementById('joinStep1').style.display = '';
+                setStep(1, false);
+            }
+
+            // Topic chip toggle
+            function toggleChip(chip) {
+                chip.classList.toggle('selected');
+                validateStep2();
+            }
+
+            function validateStep2() {
+                const anyChip = document.querySelector('.topic-chip.selected');
+                document.getElementById('step2Submit').disabled = !anyChip;
+            }
+
+            function submitJoinRequest() {
+                // Mark step dots done
+                setStep(3, true);
+                // Hide form, show success
+                document.getElementById('joinForm').style.display = 'none';
+                document.getElementById('joinSuccess').style.display = 'flex';
+
+                // Mark the button on the card as requested
+                if (activeJoinBtn) {
+                    activeJoinBtn.textContent = '✓ Requested';
+                    activeJoinBtn.classList.add('requested');
+                    activeJoinBtn.disabled = true;
+                    activeJoinBtn.onclick = null;
+                }
+
+                // Auto-close after 2.5s
+                setTimeout(() => {
+                    document.getElementById('joinModal').classList.remove('active');
+                    setTimeout(resetJoinModal, 250);
+                }, 2500);
+            }
+
+            // Char counter helper
+            function updateCharCount(inputId, counterId, max) {
+                const len = document.getElementById(inputId).value.length;
+                const el = document.getElementById(counterId);
+                el.textContent = `${len} / ${max}`;
+                el.className = 'char-counter' + (len > max * 0.9 ? (len >= max ? ' over' : ' warn') : '');
+            }
+
+            // Close join modal on backdrop click
+            document.getElementById('joinModal').addEventListener('click', function (e) {
+                if (e.target === this) closeJoinModal();
             });
         </script>
     </body>

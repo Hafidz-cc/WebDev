@@ -14,12 +14,302 @@
         <link href="https://fonts.googleapis.com/css2?family=Belanosima&family=Bricolage+Grotesque:opsz,wght@12..96,420&family=Coiny&family=McLaren&family=Pacifico&family=Pangolin&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
 
-         <style>
+        <style>
             #content {
-                margin-left:230px;
-                margin-top:-680px;
+                margin-left: 230px;
+                margin-top: -680px;
+            }
+
+            /* ── Edit button on profile card ── */
+            .profile-top {
+                position: relative;
+            }
+
+            .edit-profile-btn {
+                position: absolute;
+                top: 16px;
+                right: 16px;
+                background: #fff;
+                border: 1.5px solid #FFD400;
+                border-radius: 50px;
+                padding: 6px 14px;
+                font-size: 0.8rem;
+                font-weight: 700;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                color: #1a1a1a;
+                font-family: inherit;
+                transition: background 0.2s, box-shadow 0.2s;
+                box-shadow: -1px 2px rgba(0,0,0,0.15);
+            }
+
+            .edit-profile-btn:hover {
+                background: #FFD400;
+                box-shadow: -2px 3px rgba(0,0,0,0.25);
+            }
+
+            .edit-profile-btn i {
+                font-size: 13px;
+            }
+
+            /* ── Editable fields ── */
+            .editable-field {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+            .editable-field input,
+            .editable-field textarea {
+                display: none;
+                font-family: inherit;
+                border: 1.5px solid #FFD400;
+                border-radius: 8px;
+                padding: 6px 10px;
+                font-size: inherit;
+                color: #1a1a1a;
+                background: #fffdf5;
+                outline: none;
+                width: 100%;
+                transition: box-shadow 0.2s;
+                resize: none;
+            }
+
+            .editable-field input:focus,
+            .editable-field textarea:focus {
+                box-shadow: 0 0 0 3px rgba(255, 212, 0, 0.25);
+            }
+
+            .editable-field.editing input,
+            .editable-field.editing textarea {
+                display: block;
+            }
+
+            .editable-field.editing .display-val {
+                display: none;
+            }
+
+            /* name input bigger */
+            #name-field input {
+                font-size: 1.8em;
+                font-weight: 700;
+            }
+
+            /* bio textarea */
+            #bio-field textarea {
+                font-size: 1em;
+                line-height: 1.5;
+                min-height: 90px;
+            }
+
+            /* ── Save / cancel buttons shown during edit ── */
+            .edit-actions {
+                display: none;
+                gap: 8px;
+                margin-top: 10px;
+            }
+
+            .edit-actions.show {
+                display: flex;
+            }
+
+            .save-btn, .cancel-btn {
+                border-radius: 50px;
+                padding: 7px 18px;
+                font-size: 0.82rem;
+                font-weight: 700;
+                cursor: pointer;
+                font-family: inherit;
+                border: 1.5px solid #1a1a1a;
+                transition: background 0.2s;
+            }
+
+            .save-btn {
+                background: #FFD400;
+                color: #1a1a1a;
+            }
+
+            .save-btn:hover { background: #e6bf00; }
+
+            .cancel-btn {
+                background: #fff;
+                color: #1a1a1a;
+            }
+
+            .cancel-btn:hover { background: #f5f5f5; }
+
+            /* ── Photo upload overlay ── */
+            .photo-wrap {
+                position: relative;
+                flex-shrink: 0;
+                width: 100px;
+                height: 100px;
+            }
+
+            .photo-wrap img {
+                width: 100px;
+                height: 100px;
+                border-radius: 50%;
+                object-fit: cover;
+                display: block;
+            }
+
+            .photo-overlay {
+                display: none;
+                position: absolute;
+                inset: 0;
+                border-radius: 50%;
+                background: rgba(0,0,0,0.45);
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                flex-direction: column;
+                gap: 4px;
+                color: #fff;
+                font-size: 0.65rem;
+                font-weight: 700;
+                text-align: center;
+            }
+
+            .photo-overlay i { font-size: 18px; }
+
+            .photo-wrap.edit-mode .photo-overlay {
+                display: flex;
+            }
+
+            #photo-upload { display: none; }
+
+            /* ── Hive History section ── */
+            .hive-history-row {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                padding: 12px 15px;
+                background-color: white;
+                border: 2px solid rgba(0,0,0,0.1);
+                border-radius: 10px;
+                margin-bottom: 10px;
+                font-size: 1.1em;
+                opacity: 0.7;
+            }
+
+            .hive-history-row .tag {
+                display: flex;
+                background: #e8e8e8;
+                color: #555;
+                font-size: 9px;
+                font-weight: 900;
+                letter-spacing: 0.12em;
+                text-transform: uppercase;
+                padding: 3px 8px;
+                border: 1.5px solid #aaa;
+                margin-left: auto;
+            }
+
+            .hive-history-row .left-meta {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                flex: 1;
+            }
+
+            .history-dates {
+                margin-left: auto;
+                font-size: 0.72rem;
+                color: #aaa;
+                white-space: nowrap;
+            }
+
+            .left-badge {
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                background: #ccc;
+                flex-shrink: 0;
+            }
+
+            /* left badge reuse hex style replacement for history */
+            .hive-history-row .hex {
+                opacity: 0.4;
+            }
+
+            /* ── Stats row ── */
+            .profile-stats {
+                display: flex;
+                gap: 12px;
+                flex-wrap: wrap;
+            }
+
+            .stat-card {
+                background: #fff;
+                border: 2px solid #FFD400;
+                box-shadow: -2px 3px rgba(0,0,0,0.18);
+                border-radius: 10px;
+                padding: 14px 22px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 2px;
+                min-width: 90px;
+            }
+
+            .stat-number {
+                font-size: 1.8em;
+                font-weight: 800;
+                color: #FF5F00;
+            }
+
+            .stat-label {
+                font-size: 0.7rem;
+                color: #888;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                text-align: center;
+            }
+
+            /* ── Responsive ── */
+            @media (max-width: 768px) {
+                .profile-top {
+                    flex-direction: column;
+                    text-align: center;
+                    gap: 20px;
+                    padding: 20px;
                 }
-            </style>
+
+                .photo-wrap { width: 80px; height: 80px; }
+                .photo-wrap img { width: 80px; height: 80px; }
+                .profile-name { font-size: 1.5em; }
+                .profile-bio { font-size: 0.95em; }
+                .hive-row, .hive-history-row { padding: 10px 12px; font-size: 1em; gap: 10px; }
+                .edit-profile-btn { top: 10px; right: 10px; padding: 5px 10px; font-size: 0.75rem; }
+            }
+
+            @media (max-width: 480px) {
+                .profile-top { padding: 15px; gap: 15px; }
+                .photo-wrap { width: 60px; height: 60px; }
+                .photo-wrap img { width: 60px; height: 60px; }
+                .profile-name { font-size: 1.2em; }
+                .profile-bio { font-size: 0.9em; }
+                .hive-row, .hive-history-row {
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 8px;
+                    padding: 12px;
+                    font-size: 0.95em;
+                }
+                .hive-row .tag, .hive-history-row .tag {
+                    margin-left: 0;
+                    align-self: flex-end;
+                }
+                .history-dates { margin-left: 0; }
+                .profile-stats { gap: 8px; }
+                .stat-card { padding: 10px 14px; min-width: 70px; }
+                .stat-number { font-size: 1.4em; }
+            }
+        </style>
     </head>
 
     <body>
@@ -31,44 +321,28 @@
                     </div>
                 </a>
                 <div id="nav-links">
-                    <a class="hover" href="../home/home_home-feed.html">
-                        Home
-                    </a>
-                    <a class="hover" href="../hives/hives.html">
-                        Hives
-                    </a>
-                    <a class="hover active-nav" href="/WebDev/pages/misc/profile.html">
-                        Profile
-                    </a>
+                    <a class="hover" href="../home/home_home-feed.html">Home</a>
+                    <a class="hover" href="../hives/hives.html">Hives</a>
+                    <a class="hover active-nav" href="/WebDev/pages/misc/profile.html">Profile</a>
                 </div>
-                <div id="auth-links">
-                    <a class="hover" href="profile.html">Student</a>
-                </div>
+                <!-- Student button removed — this IS the student's profile -->
             </div>
         </nav>
 
         <main>
             <div id="container">
                 <div id="sidebar">
-
                     <div id="menu">
                         <p>MENU</p>
                         <hr>
                         <a href="../home/home_home-feed.html">
-                            <div class="sidebar-button menu">
-                                <p>Home Feed</p>
-                            </div>
+                            <div class="sidebar-button menu"><p>Home Feed</p></div>
                         </a>
                         <a href="../home/home_my-schedule.html">
-                            <div class="sidebar-button menu">
-                                <p>My Schedule</p>
-                            </div>
+                            <div class="sidebar-button menu"><p>My Schedule</p></div>
                         </a>
-
                         <a href="../home/home_settings.html">
-                            <div class="sidebar-button menu">
-                                <p>Settings</p>
-                            </div>
+                            <div class="sidebar-button menu"><p>Settings</p></div>
                         </a>
                     </div>
 
@@ -101,22 +375,73 @@
                 </div>
 
                 <div id="content">
-
                     <div id="profile-body">
 
+                        <!-- ── Profile Card ── -->
                         <div class="profile-top">
-                            <img src="images/person-profile.jpg">
+                            <button class="edit-profile-btn" id="edit-btn" onclick="toggleEdit()">
+                                <i class="fa-solid fa-pen"></i> Edit Profile
+                            </button>
+
+                            <!-- Photo with upload overlay -->
+                            <div class="photo-wrap" id="photo-wrap" onclick="triggerPhotoUpload()">
+                                <img src="images/person-profile.jpg" id="profile-photo" alt="Profile photo">
+                                <div class="photo-overlay">
+                                    <i class="fa-solid fa-camera"></i>
+                                    Change
+                                </div>
+                            </div>
+                            <input type="file" id="photo-upload" accept="image/*" onchange="handlePhotoChange(event)">
+
                             <div class="profile-details">
-                                <div class="profile-name">Rick Buzztley</div>
-                                <div class="profile-bio">
-                                    Just a guy who loves math and staying on top of deadlines. 
-                                    Always down to share notes and help the hive out. 🐝
-                                    <P>-BS Computer Science 1B</P>
-                                    <p>-1st year</p>
+                                <!-- Editable name -->
+                                <div class="editable-field" id="name-field">
+                                    <div class="display-val profile-name" id="display-name">Rick Buzztley</div>
+                                    <input type="text" id="input-name" value="Rick Buzztley" placeholder="Your name">
+                                </div>
+
+                                <!-- Editable bio -->
+                                <div class="editable-field" id="bio-field">
+                                    <div class="display-val profile-bio" id="display-bio">
+                                        Just a guy who loves math and staying on top of deadlines.
+                                        Always down to share notes and help the hive out. 🐝
+                                        <p>- BS Computer Science 1B</p>
+                                        <p>- 1st year</p>
+                                    </div>
+                                    <textarea id="input-bio" placeholder="Write something about yourself...">Just a guy who loves math and staying on top of deadlines. Always down to share notes and help the hive out. 🐝
+- BS Computer Science 1B
+- 1st year</textarea>
+                                </div>
+
+                                <!-- Save / Cancel -->
+                                <div class="edit-actions" id="edit-actions">
+                                    <button class="save-btn" onclick="saveProfile()"><i class="fa-solid fa-check"></i> Save</button>
+                                    <button class="cancel-btn" onclick="cancelEdit()"><i class="fa-solid fa-xmark"></i> Cancel</button>
                                 </div>
                             </div>
                         </div>
 
+                        <!-- ── Stats ── -->
+                        <div class="profile-stats">
+                            <div class="stat-card">
+                                <div class="stat-number">2</div>
+                                <div class="stat-label">Active Hives</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">3</div>
+                                <div class="stat-label">Past Hives</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">47</div>
+                                <div class="stat-label">Posts</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">128</div>
+                                <div class="stat-label">Helpful ↑</div>
+                            </div>
+                        </div>
+
+                        <!-- ── Joined Hives ── -->
                         <div>
                             <div class="section-label">Joined Hives</div>
                             <div class="hives-list">
@@ -128,9 +453,33 @@
                                 <div class="hive-row">
                                     <span class="hex"></span>
                                     Biology Study Group
+                                    <span class="tag">Biology</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ── Hive History ── -->
+                        <div>
+                            <div class="section-label">Hive History</div>
+                            <div class="hives-list">
+                                <div class="hive-history-row">
+                                    <span class="hex"></span>
+                                    <div style="flex:1;">Physics Study Group</div>
+                                    <div class="history-dates">Jan 2024 – Apr 2024</div>
                                     <span class="tag">Physics</span>
                                 </div>
-                              
+                                <div class="hive-history-row">
+                                    <span class="hex"></span>
+                                    <div style="flex:1;">History Buffs</div>
+                                    <div class="history-dates">Aug 2023 – Dec 2023</div>
+                                    <span class="tag">History</span>
+                                </div>
+                                <div class="hive-history-row">
+                                    <span class="hex"></span>
+                                    <div style="flex:1;">Intro to Programming</div>
+                                    <div class="history-dates">Jun 2023 – Aug 2023</div>
+                                    <span class="tag">CS</span>
+                                </div>
                             </div>
                         </div>
 
@@ -138,5 +487,92 @@
                 </div>
             </div>
         </main>
+
+        <script>
+            let isEditing = false;
+            let originalName = '';
+            let originalBio = '';
+
+            function toggleEdit() {
+                isEditing = true;
+
+                // Store originals for cancel
+                originalName = document.getElementById('display-name').textContent.trim();
+                originalBio  = document.getElementById('display-bio').innerText.trim();
+
+                // Sync inputs with current display values
+                document.getElementById('input-name').value = originalName;
+                document.getElementById('input-bio').value  = originalBio;
+
+                // Switch to edit mode
+                document.getElementById('name-field').classList.add('editing');
+                document.getElementById('bio-field').classList.add('editing');
+                document.getElementById('edit-actions').classList.add('show');
+                document.getElementById('photo-wrap').classList.add('edit-mode');
+
+                // Update button
+                const btn = document.getElementById('edit-btn');
+                btn.innerHTML = '<i class="fa-solid fa-pen-to-square"></i> Editing...';
+                btn.style.opacity = '0.5';
+                btn.style.pointerEvents = 'none';
+            }
+
+            function saveProfile() {
+                const newName = document.getElementById('input-name').value.trim();
+                const newBio  = document.getElementById('input-bio').value.trim();
+
+                if (!newName) {
+                    document.getElementById('input-name').style.borderColor = '#FF5F00';
+                    document.getElementById('input-name').focus();
+                    return;
+                }
+
+                // Update display
+                document.getElementById('display-name').textContent = newName;
+                document.getElementById('display-bio').innerHTML = newBio.replace(/\n/g, '<br>');
+
+                exitEdit();
+            }
+
+            function cancelEdit() {
+                // Restore originals
+                document.getElementById('input-name').value = originalName;
+                document.getElementById('input-bio').value  = originalBio;
+                exitEdit();
+            }
+
+            function exitEdit() {
+                isEditing = false;
+
+                document.getElementById('name-field').classList.remove('editing');
+                document.getElementById('bio-field').classList.remove('editing');
+                document.getElementById('edit-actions').classList.remove('show');
+                document.getElementById('photo-wrap').classList.remove('edit-mode');
+
+                // Reset input border if it was red
+                document.getElementById('input-name').style.borderColor = '';
+
+                const btn = document.getElementById('edit-btn');
+                btn.innerHTML = '<i class="fa-solid fa-pen"></i> Edit Profile';
+                btn.style.opacity = '';
+                btn.style.pointerEvents = '';
+            }
+
+            function triggerPhotoUpload() {
+                if (document.getElementById('photo-wrap').classList.contains('edit-mode')) {
+                    document.getElementById('photo-upload').click();
+                }
+            }
+
+            function handlePhotoChange(event) {
+                const file = event.target.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = e => {
+                    document.getElementById('profile-photo').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        </script>
     </body>
 </html>
