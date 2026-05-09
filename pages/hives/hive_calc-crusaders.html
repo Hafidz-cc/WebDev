@@ -16,8 +16,21 @@
                 margin-left:230px;
                 margin-top:-680px;
                 }
+            .btn-report { padding: 8px 18px; font-size: 0.82em; font-weight: 700; border-radius: 7px; cursor: pointer; border: 1.5px solid #e67e22; background: white; color: #e67e22; transition: 0.18s ease; display: inline-flex; align-items: center; gap: 6px; }
+            .btn-report:hover { background: #fff8f0; }
+            .hive-header-actions { display: flex; gap: 10px; align-items: center; flex-shrink: 0; }
+            .report-modal { position: fixed; inset: 0; background: rgba(13,11,0,0.50); backdrop-filter: blur(3px); display: none; align-items: center; justify-content: center; z-index: 999; }
+            #report-toggle:checked ~ .report-modal { display: flex; }
+            .report-box { background: white; border: 2px solid #000; border-radius: 12px; box-shadow: -4px 6px 0 rgba(0,0,0,0.25); padding: 24px; width: 320px; animation: modalIn 0.2s ease; text-align: left; }
+            .report-select { width: 100%; padding: 8px 10px; font-size: 0.9em; border: 2px solid rgba(0,0,0,0.15); border-radius: 6px; outline: none; background-color: #fffdf5; box-sizing: border-box; }
+            .report-textarea { width: 100%; margin-top: 10px; padding: 8px 10px; font-size: 0.9em; border: 2px solid rgba(0,0,0,0.15); border-radius: 6px; outline: none; background-color: #fffdf5; box-sizing: border-box; resize: vertical; min-height: 80px; }
+            .report-actions { display: flex; justify-content: center; gap: 10px; margin-top: 18px; }
+            .confirm-btn { display: inline-flex; align-items: center; justify-content: center; padding: 8px 20px; background: #DC2626; color: white; border: 2px solid #000; border-radius: 6px; font-size: 0.82em; font-weight: 700; cursor: pointer; transition: 0.18s; border-style: solid; text-decoration: none; }
+            .cancel-btn { display: inline-flex; align-items: center; justify-content: center; padding: 8px 20px; background: white; color: #444; border: 1.5px solid rgba(0,0,0,0.20); border-radius: 6px; font-size: 0.82em; font-weight: 700; cursor: pointer; transition: 0.18s; }
+            @keyframes modalIn { from { opacity: 0; transform: translateY(12px) scale(0.97); } to { opacity: 1; transform: none; } }
         </style>
     </head>
+
     <body>
         <nav>
             <div id="nav-container">
@@ -36,6 +49,30 @@
                 </div>
             </div>
         </nav>
+
+        <input type="checkbox" id="report-toggle" style="display:none;">
+        <!-- Report modal (sits outside container so backdrop covers everything) -->
+        <div class="report-modal">
+            <div class="report-box">
+                <p style="font-family: 'Fraunces', serif; font-size: 1em; font-weight: 600; color: var(--dark); margin-bottom: 4px;">Report this Hive</p>
+                <small style="font-size: 0.78em; color: var(--muted); margin-bottom: 15px; display: block;">Please select a reason for reporting this group.</small>
+                <select id="reportReasonSelect" class="report-select">
+                    <option value="">Select a reason</option>
+                    <option value="inappropriate_content">Inappropriate Content</option>
+                    <option value="spam">Spam / Self-promotion</option>
+                    <option value="harassment">Harassment / Bullying</option>
+                    <option value="misleading">Misleading Information</option>
+                    <option value="inactive">Inactive / Abandoned</option>
+                    <option value="other">Other</option>
+                </select>
+                <textarea id="reportDetailsTextarea" class="report-textarea" placeholder="Provide more details (optional)..."></textarea>
+                <div class="report-actions">
+                    <button class="confirm-btn" onclick="submitReport()">Submit Report</button>
+                    <label for="report-toggle" class="cancel-btn">Cancel</label>
+                </div>
+            </div>
+        </div>
+
         <main>
             <div id="container">
                 <div id="content" style="width:100%;">
@@ -54,7 +91,10 @@
                                     Owned by <strong>Proff.Jake Almeida</strong>
                                 </div>
                             </div>
-                            <button class="btn-join" style="padding:9px 22px;font-size:0.85em;font-weight:bold;border-radius:6px;cursor:pointer;border:2px solid #000;background-color:#FFD400;color:#000;font-family:inherit;transition:0.3s ease;">Join Hive</button>
+                            <div class="hive-header-actions">
+                                <label for="report-toggle" class="btn-report"><i class="fa-solid fa-flag" style="margin-right:6px;font-size:0.9em;"></i>Report</label>
+                                <button class="btn-join" style="padding:9px 22px;font-size:0.85em;font-weight:bold;border-radius:6px;cursor:pointer;border:2px solid #000;background-color:#FFD400;color:#000;font-family:inherit;transition:0.3s ease;">Join Hive</button>
+                            </div>
                         </div>
 
                         <div class="hive-columns">
@@ -131,5 +171,21 @@
                 </div>
             </div>
         </main>
+        <script>
+            // Report modal functions
+            function submitReport() {
+                const reason = document.getElementById('reportReasonSelect').value;
+                const details = document.getElementById('reportDetailsTextarea').value.trim();
+
+                if (!reason) {
+                    alert('Please select a reason for reporting.');
+                    return;
+                }
+                alert(`Report submitted!\nReason: ${reason}\nDetails: ${details || 'No additional details'}`);
+                document.getElementById('report-toggle').checked = false; // Close modal
+                document.getElementById('reportReasonSelect').value = ''; // Reset form
+                document.getElementById('reportDetailsTextarea').value = ''; // Reset form
+            }
+        </script>
     </body>
 </html>

@@ -168,17 +168,17 @@
 <nav>
     <div id="nav-container">
         <label for="mob-toggle" id="hamburger"><span></span><span></span><span></span></label>
-        <a href="/WebDev/pages/home/homepage.html">
+        <a href="../../index.html">
             <div class="logo"><span class="black">Hive</span><span class="orange-text">Minds</span></div>
         </a>
         <div id="nav-links">
             <a href="../../pages/home/home_home-feed.html">Home</a>
             <a class="active-nav" href="hives.html">Hives</a>
-            <a href="../../pages/misc/profile.html">Profile</a>
+            <a href="../home/profile.html">Profile</a>
         </div>
         <div style="display:flex;align-items:center;gap:8px;">
             <div id="notif-btn"><i class="fa-regular fa-bell"></i><span class="notif-dot"></span></div>
-            <a href="../../pages/misc/profile.html" id="user-pill">
+            <a href="../home/profile.html" id="user-pill">
                 <div id="user-avatar">RB</div>
                 <span id="user-name">Student</span>
             </a>
@@ -350,6 +350,21 @@
     </div>
 </div>
 
+<!-- Join Request Modal -->
+<div id="joinModal" class="modal">
+    <div class="modal-content" style="max-width: 400px;">
+        <button class="modal-close" onclick="closeJoinModal()">&times;</button>
+        <div class="modal-title">Request to Join</div>
+        <p style="font-size: 0.88em; color: var(--muted); margin-bottom: 12px;">Tell the group administrator why you'd like to join.</p>
+        <textarea id="joinReason" placeholder="e.g. I'm looking to improve my skills and collaborate with others." 
+                  style="width:100%; height:100px; padding:10px; border:1.5px solid var(--border-y); border-radius:8px; font-family:inherit; font-size:0.9em; outline:none; resize:vertical; margin-bottom:16px;"></textarea>
+        <div class="modal-actions">
+            <button class="btn-primary" onclick="submitJoinRequest()">Send Request</button>
+            <button class="btn-secondary" onclick="closeJoinModal()">Cancel</button>
+        </div>
+    </div>
+</div>
+
 <script>
     // ── Filter ──
     document.querySelectorAll('.filter-btn').forEach(btn => {
@@ -364,12 +379,37 @@
     });
 
     // ── Join ──
+    let pendingJoinBtn = null;
+
     function requestJoin(e, btn) {
         e.preventDefault();
         if (btn.classList.contains('requested')) return;
-        btn.classList.add('requested');
-        btn.textContent = '✓ Requested';
-        btn.disabled = true;
+
+        pendingJoinBtn = btn;
+        document.getElementById('joinReason').value = '';
+        document.getElementById('joinModal').classList.add('active');
+    }
+
+    function closeJoinModal() {
+        document.getElementById('joinModal').classList.remove('active');
+        pendingJoinBtn = null;
+    }
+
+    function submitJoinRequest() {
+        const reason = document.getElementById('joinReason').value.trim();
+        if (!reason) {
+            alert('Please provide a reason for joining.');
+            return;
+        }
+
+        if (pendingJoinBtn) {
+            pendingJoinBtn.classList.add('requested');
+            pendingJoinBtn.textContent = '✓ Requested';
+            pendingJoinBtn.disabled = true;
+        }
+
+        alert('Your join request has been sent! The group administrator will review your reason.');
+        closeJoinModal();
     }
 
     // ── Modal ──
@@ -411,12 +451,26 @@
     }
 
     function requestJoinFromModal() {
-        alert(`Join request sent to "${currentGroupName}"! Awaiting group administrator approval.`);
+        const cards = document.querySelectorAll('.group-card');
+        let targetBtn = null;
+        for (let card of cards) {
+            if (card.querySelector('.group-name').textContent.trim() === currentGroupName) {
+                targetBtn = card.querySelector('.btn-join');
+                break;
+            }
+        }
+        
         closeGroupModal();
+        if (targetBtn) {
+            requestJoin({ preventDefault: () => {} }, targetBtn);
+        }
     }
 
     document.getElementById('groupModal').addEventListener('click', function (e) {
         if (e.target === this) closeGroupModal();
+    });
+    document.getElementById('joinModal').addEventListener('click', function (e) {
+        if (e.target === this) closeJoinModal();
     });
 </script>
 </body>

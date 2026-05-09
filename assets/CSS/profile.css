@@ -1,0 +1,30 @@
+/* ══ PROFILE CARD ══ */
+.profile-card { background: white; border: 1.5px solid var(--border-y); border-radius: var(--radius); padding: 24px; box-shadow: 3px 3px 0 rgba(232,200,74,0.4); display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap; }
+.profile-avatar-wrap { position: relative; flex-shrink: 0; }
+.profile-avatar { width: 84px; height: 84px; border-radius: 50%; object-fit: cover; border: 2.5px solid var(--border-y); background: var(--yellow-mid); display: flex; align-items: center; justify-content: center; font-family: 'Fraunces', serif; font-size: 2em; font-weight: 700; color: var(--aged); }
+.avatar-edit-btn { position: absolute; bottom: 2px; right: 2px; width: 24px; height: 24px; background: var(--yellow); border: 1.5px solid rgba(0,0,0,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.65em; color: var(--hive); transition: 0.15s; }
+.profile-info { flex: 1; min-width: 200px; display: flex; flex-direction: column; gap: 6px; }
+.profile-name { font-family: 'Fraunces', Georgia, serif; font-size: 1.5em; font-weight: 600; color: var(--hive); letter-spacing: -0.02em; }
+.profile-meta { display: flex; flex-wrap: wrap; gap: 14px; font-size: 0.82em; color: var(--muted); }
+.profile-bio-text { font-size: 0.88em; color: #555; line-height: 1.65; margin-top: 4px; }
+.btn-edit-profile { display: inline-flex; align-items: center; gap: 7px; padding: 7px 16px; background: white; color: var(--dark); border: 1.5px solid var(--border-y); border-radius: 7px; font-family: inherit; font-size: 0.82em; font-weight: 700; cursor: pointer; transition: 0.16s ease; margin-top: 6px; align-self: flex-start; }
+
+/* ══ HIVE LIST ══ */
+.hive-row { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid rgba(0,0,0,0.05); font-size: 0.9em; font-weight: 500; color: var(--dark); }
+.hive-row a { flex: 1; display: flex; align-items: center; gap: 10px; color: inherit; }
+
+/* ══ STATS ROW ══ */
+.stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.stat-card { background: white; border: 1.5px solid var(--border-y); border-radius: var(--radius); padding: 16px 18px; box-shadow: 3px 3px 0 rgba(232,200,74,0.4); text-align: center; }
+.stat-num { font-family: 'Fraunces', serif; font-size: 2em; font-weight: 700; color: var(--hive); line-height: 1; }
+.stat-label { font-size: 0.76em; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 4px; }
+
+/* ══ EDIT MODAL ══ */
+.modal-backdrop { display: none; position: fixed; inset: 0; background: rgba(13,11,0,0.50); backdrop-filter: blur(3px); z-index: 999; align-items: center; justify-content: center; }
+.modal-backdrop.active { display: flex; }
+.modal-box { background: white; border: 2px solid var(--border-y); border-radius: var(--radius); box-shadow: -4px 6px 0 rgba(232,200,74,0.35); padding: 28px; max-width: 460px; width: 90%; max-height: 90vh; overflow-y: auto; position: relative; animation: modalIn 0.2s ease; }
+.form-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 14px; }
+.form-label { font-size: 0.78em; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
+.form-input, .form-textarea { width: 100%; padding: 9px 12px; border: 1.5px solid var(--border-y); border-radius: 7px; font-family: inherit; font-size: 0.88em; background: #FFFDF0; color: var(--dark); outline: none; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@keyframes modalIn { from{opacity:0;transform:translateY(10px) scale(0.97)} to{opacity:1;transform:none} }
