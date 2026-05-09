@@ -77,18 +77,36 @@
         .hive-owner img { width: 24px; height: 24px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--border-y); }
         .tag { display: inline-flex; align-items: center; background: var(--yellow); color: #000; font-size: 9px; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase; padding: 3px 8px; border: 1.5px solid #000; border-radius: 3px; white-space: nowrap; flex-shrink: 0; }
 
+        /* Header action buttons group */
+        .hive-header-actions { display: flex; gap: 10px; align-items: center; flex-shrink: 0; }
+
+        /* Report button */
+        .btn-report { padding: 8px 18px; font-size: 0.82em; font-weight: 700; border-radius: 7px; cursor: pointer; border: 1.5px solid #e67e22; background: white; color: #e67e22; transition: 0.18s ease; display: inline-flex; align-items: center; gap: 6px; }
+        .btn-report:hover { background: #fff8f0; }
+
         /* Leave button */
         .btn-leave { display: inline-flex; align-items: center; padding: 8px 18px; background: white; color: var(--danger); border: 1.5px solid var(--danger); border-radius: 7px; font-size: 0.82em; font-weight: 700; cursor: pointer; transition: 0.18s ease; white-space: nowrap; flex-shrink: 0; }
         .btn-leave:hover { background: #FEF2F2; }
 
-        /* Leave modal */
-        .leave-modal { position: fixed; inset: 0; background: rgba(13,11,0,0.50); backdrop-filter: blur(3px); display: none; align-items: center; justify-content: center; z-index: 999; }
-        #leave-toggle:checked ~ .leave-modal { display: flex; }
+        /* Modals */
+        .leave-modal, .report-modal { position: fixed; inset: 0; background: rgba(13,11,0,0.50); backdrop-filter: blur(3px); display: none; align-items: center; justify-content: center; z-index: 999; }
+        #leave-toggle:checked ~ .leave-modal,
+        #report-toggle:checked ~ .report-modal { display: flex; }
+
         .leave-box { background: white; border: 2px solid #000; border-radius: var(--radius); box-shadow: -4px 6px 0 rgba(0,0,0,0.25); padding: 28px; text-align: center; max-width: 340px; width: 90%; animation: modalIn 0.2s ease; }
-        @keyframes modalIn { from{opacity:0;transform:translateY(12px) scale(0.97)} to{opacity:1;transform:none} }
-        .leave-box p { font-family: 'Fraunces', serif; font-size: 1em; font-weight: 600; color: var(--dark); margin-bottom: 4px; }
-        .leave-box small { font-size: 0.78em; color: var(--muted); }
-        .leave-actions { display: flex; justify-content: center; gap: 10px; margin-top: 18px; }
+
+        .report-box { background: white; border: 2px solid #000; border-radius: var(--radius); box-shadow: -4px 6px 0 rgba(0,0,0,0.25); padding: 24px; width: 320px; animation: modalIn 0.2s ease; }
+        .report-select { width: 100%; padding: 8px 10px; font-size: 0.9em; font-family: inherit; border: 2px solid rgba(0,0,0,0.15); border-radius: 6px; outline: none; background-color: #fffdf5; transition: 0.2s ease; box-sizing: border-box; }
+        .report-select:focus { border-color: #e67e22; }
+        .report-textarea { width: 100%; margin-top: 10px; padding: 8px 10px; font-size: 0.9em; font-family: inherit; border: 2px solid rgba(0,0,0,0.15); border-radius: 6px; outline: none; background-color: #fffdf5; transition: 0.2s ease; box-sizing: border-box; resize: vertical; min-height: 80px; }
+        .report-textarea:focus { border-color: #e67e22; }
+
+        @keyframes modalIn { from { opacity: 0; transform: translateY(12px) scale(0.97); } to { opacity: 1; transform: none; } }
+
+        .leave-box p, .report-box p { font-family: 'Fraunces', serif; font-size: 1em; font-weight: 600; color: var(--dark); margin-bottom: 4px; }
+        .leave-box small, .report-box small { font-size: 0.78em; color: var(--muted); display: block; margin-bottom: 12px; }
+        .leave-actions, .report-actions { display: flex; justify-content: center; gap: 10px; margin-top: 18px; }
+
         .confirm-btn { display: inline-flex; align-items: center; justify-content: center; padding: 8px 20px; background: var(--danger); color: white; border: 2px solid #000; border-radius: 6px; font-family: inherit; font-size: 0.82em; font-weight: 700; text-decoration: none; transition: 0.18s; }
         .confirm-btn:hover { opacity: 0.88; }
         .cancel-btn { display: inline-flex; align-items: center; justify-content: center; padding: 8px 20px; background: white; color: #444; border: 1.5px solid rgba(0,0,0,0.20); border-radius: 6px; font-family: inherit; font-size: 0.82em; font-weight: 700; cursor: pointer; transition: 0.18s; }
@@ -187,6 +205,7 @@
 <body>
 
 <input type="checkbox" id="mob-toggle" style="display:none;">
+<input type="checkbox" id="report-toggle" style="display:none;">
 <input type="checkbox" id="leave-toggle" style="display:none;">
 
 <nav>
@@ -224,6 +243,28 @@
     </div>
 </div>
 
+<!-- Report modal (sits outside container so backdrop covers everything) -->
+<div class="report-modal">
+    <div class="report-box">
+        <p style="font-family: 'Fraunces', serif; font-size: 1em; font-weight: 600; color: var(--dark); margin-bottom: 4px;">Report this Hive</p>
+        <small style="font-size: 0.78em; color: var(--muted); margin-bottom: 15px; display: block;">Please select a reason for reporting this group.</small>
+        <select id="reportReasonSelect" class="report-select">
+            <option value="">Select a reason</option>
+            <option value="inappropriate_content">Inappropriate Content</option>
+            <option value="spam">Spam / Self-promotion</option>
+            <option value="harassment">Harassment / Bullying</option>
+            <option value="misleading">Misleading Information</option>
+            <option value="inactive">Inactive / Abandoned</option>
+            <option value="other">Other</option>
+        </select>
+        <textarea id="reportDetailsTextarea" class="report-textarea" placeholder="Provide more details (optional)..."></textarea>
+        <div class="report-actions">
+            <button class="confirm-btn" onclick="submitReport()">Submit Report</button>
+            <label for="report-toggle" class="cancel-btn">Cancel</label>
+        </div>
+    </div>
+</div>
+
 <div id="container">
 
     <!-- Sidebar -->
@@ -236,14 +277,14 @@
             <a href="home_settings.html"><div class="sidebar-btn"><i class="fa-solid fa-gear"></i> Settings</div></a>
         </div>
         <div class="sidebar-section">
-            <div class="sidebar-label">Created Hives</div>
+            <div class="sidebar-label">Groups You Co-Manage</div>
             <hr class="sidebar-hr">
             <a href="home_created-hives.html"><div class="sidebar-btn"><span class="hex owner"></span> Rick's Study Circle</div></a>
         </div>
         <div class="sidebar-section">
             <div class="sidebar-label">My Hives</div>
             <hr class="sidebar-hr">
-            <a href="home_calculus.html"><div class="sidebar-btn active"><span class="hex"></span> Programming Study Group</div></a>
+            <a href="home_prog.html"><div class="sidebar-btn active"><span class="hex"></span> Programming Study Group</div></a>
             <a href="home_biology.html"><div class="sidebar-btn"><span class="hex"></span> Biology Study Group</div></a>
         </div>
     </div>
@@ -265,7 +306,10 @@
                     Owned by <strong>Shane Doss</strong>
                 </div>
             </div>
-            <label for="leave-toggle" class="btn-leave"><i class="fa-solid fa-right-from-bracket" style="margin-right:6px;font-size:0.9em;"></i>Leave Hive</label>
+            <div class="hive-header-actions">
+                <label for="report-toggle" class="btn-report"><i class="fa-solid fa-flag" style="margin-right:6px;font-size:0.9em;"></i>Report</label>
+                <label for="leave-toggle" class="btn-leave"><i class="fa-solid fa-right-from-bracket" style="margin-right:6px;font-size:0.9em;"></i>Leave Hive</label>
+            </div>
         </div>
 
         <!-- Two-column body -->
@@ -617,6 +661,21 @@
 
     // Init dot on load
     renderNotifs();
+
+    // Report modal functions
+    function submitReport() {
+        const reason = document.getElementById('reportReasonSelect').value;
+        const details = document.getElementById('reportDetailsTextarea').value.trim();
+
+        if (!reason) {
+            alert('Please select a reason for reporting.');
+            return;
+        }
+        alert(`Report submitted!\nReason: ${reason}\nDetails: ${details || 'No additional details'}`);
+        document.getElementById('report-toggle').checked = false; // Close modal
+        document.getElementById('reportReasonSelect').value = ''; // Reset form
+        document.getElementById('reportDetailsTextarea').value = ''; // Reset form
+    }
 </script>
 
 </body>
