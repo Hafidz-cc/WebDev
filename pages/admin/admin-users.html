@@ -27,6 +27,16 @@
             #content {
                 flex: 1;
             }
+
+            /* Role Management Modal Styles */
+            .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(3px); display: none; align-items: center; justify-content: center; z-index: 1000; }
+            .modal-overlay.open { display: flex; }
+            .modal-box { background: white; border: 2px solid #000; border-radius: 12px; padding: 24px; max-width: 400px; width: 90%; position: relative; box-shadow: 0 8px 32px rgba(0,0,0,0.15); }
+            .modal-close { position: absolute; top: 10px; right: 15px; font-size: 1.5rem; cursor: pointer; background: none; border: none; font-weight: bold; color: #666; }
+            .modal-title { font-family: 'Fraunces', serif; font-size: 1.2rem; font-weight: 700; color: #333; margin-bottom: 15px; }
+            .role-select { width: 100%; padding: 10px; border: 1.5px solid var(--accent); border-radius: 8px; font-family: inherit; margin-bottom: 20px; outline: none; }
+            .btn-role-save { width: 100%; padding: 10px; background: var(--amber); color: #000; border: 2px solid #000; border-radius: 8px; font-weight: 700; cursor: pointer; transition: 0.2s; }
+            .btn-role-save:hover { background: var(--amber-d); }
         </style>
     </head>
 
@@ -157,8 +167,9 @@
                                         <td>
                                             <div class="td-actions">
                                                 <button class="tbl-btn view">View</button>
-                                                <button class="tbl-btn warn">Warn</button>
-                                                <button class="tbl-btn danger">Ban</button>
+                                                <button class="tbl-btn view" onclick="openRoleModal('Rick Buzztley', 'Student', this)">Role</button>
+                                                <button class="tbl-btn warn" onclick="warnUser('Rick Buzztley')">Warn</button>
+                                                <button class="tbl-btn danger" onclick="toggleBan('Rick Buzztley', this)">Ban</button>
                                             </div>
                                         </td>
                                     </tr>
@@ -179,8 +190,9 @@
                                         <td>
                                             <div class="td-actions">
                                                 <button class="tbl-btn view">View</button>
-                                                <button class="tbl-btn warn">Warn</button>
-                                                <button class="tbl-btn danger">Ban</button>
+                                                <button class="tbl-btn view" onclick="openRoleModal('Maya Santos', 'Student', this)">Role</button>
+                                                <button class="tbl-btn warn" onclick="warnUser('Maya Santos')">Warn</button>
+                                                <button class="tbl-btn danger" onclick="toggleBan('Maya Santos', this)">Ban</button>
                                             </div>
                                         </td>
                                     </tr>
@@ -201,8 +213,9 @@
                                         <td>
                                             <div class="td-actions">
                                                 <button class="tbl-btn view">View</button>
-                                                <button class="tbl-btn warn">Warn</button>
-                                                <button class="tbl-btn danger">Ban</button>
+                                                <button class="tbl-btn view" onclick="openRoleModal('Leo Reyes', 'Student', this)">Role</button>
+                                                <button class="tbl-btn warn" onclick="warnUser('Leo Reyes')">Warn</button>
+                                                <button class="tbl-btn danger" onclick="toggleBan('Leo Reyes', this)">Ban</button>
                                             </div>
                                         </td>
                                     </tr>
@@ -223,8 +236,9 @@
                                         <td>
                                             <div class="td-actions">
                                                 <button class="tbl-btn view">View</button>
-                                                <button class="tbl-btn warn">Warn</button>
-                                                <button class="tbl-btn danger">Ban</button>
+                                                <button class="tbl-btn view" onclick="openRoleModal('Carla Mendez', 'Student', this)">Role</button>
+                                                <button class="tbl-btn warn" onclick="warnUser('Carla Mendez')">Warn</button>
+                                                <button class="tbl-btn danger" onclick="toggleBan('Carla Mendez', this)">Ban</button>
                                             </div>
                                         </td>
                                     </tr>
@@ -245,8 +259,9 @@
                                         <td>
                                             <div class="td-actions">
                                                 <button class="tbl-btn view">View</button>
-                                                <button class="tbl-btn warn">Warn</button>
-                                                <button class="tbl-btn danger">Ban</button>
+                                                <button class="tbl-btn view" onclick="openRoleModal('Sam Uy', 'Student', this)">Role</button>
+                                                <button class="tbl-btn warn" onclick="warnUser('Sam Uy')">Warn</button>
+                                                <button class="tbl-btn danger" onclick="toggleBan('Sam Uy', this)">Ban</button>
                                             </div>
                                         </td>
                                     </tr>
@@ -267,8 +282,9 @@
                                         <td>
                                             <div class="td-actions">
                                                 <button class="tbl-btn view">View</button>
-                                                <button class="tbl-btn warn">Warn</button>
-                                                <button class="tbl-btn danger">Ban</button>
+                                                <button class="tbl-btn view" onclick="openRoleModal('Milky', 'Student', this)">Role</button>
+                                                <button class="tbl-btn warn" onclick="warnUser('Milky')">Warn</button>
+                                                <button class="tbl-btn danger" onclick="toggleBan('Milky', this)">Ban</button>
                                             </div>
                                         </td>
                                     </tr>
@@ -289,8 +305,9 @@
                                         <td>
                                             <div class="td-actions">
                                                 <button class="tbl-btn view">View</button>
-                                                <button class="tbl-btn warn">Warn</button>
-                                                <button class="tbl-btn danger">Ban</button>
+                                                <button class="tbl-btn view" onclick="openRoleModal('Anthony', 'Student', this)">Role</button>
+                                                <button class="tbl-btn warn" onclick="warnUser('Anthony')">Warn</button>
+                                                <button class="tbl-btn danger" onclick="toggleBan('Anthony', this)">Ban</button>
                                             </div>
                                         </td>
                                     </tr>
@@ -311,8 +328,9 @@
                                         <td>
                                             <div class="td-actions">
                                                 <button class="tbl-btn view">View</button>
-                                                <button class="tbl-btn safe">Unban</button>
-                                                <button class="tbl-btn danger">Remove</button>
+                                                <button class="tbl-btn view" onclick="openRoleModal('Nina Cruz', 'Student', this)">Role</button>
+                                                <button class="tbl-btn safe" onclick="toggleBan('Nina Cruz', this)">Unban</button>
+                                                <button class="tbl-btn danger" onclick="removeUser('Nina Cruz', this)">Remove</button>
                                             </div>
                                         </td>
                                     </tr>
@@ -342,5 +360,90 @@
             <a href="/WebDev/pages/adminAdviser/Adviser_dashboard.html" class="switcher-btn">Adviser</a>
         </div>
             
+        <!-- Role Assignment Modal -->
+        <div class="modal-overlay" id="roleModal">
+            <div class="modal-box">
+                <button class="modal-close" onclick="closeRoleModal()">×</button>
+                <div class="modal-title">Assign Role</div>
+                <p style="font-size: 0.85rem; color: #666; margin-bottom: 10px;">User: <strong id="modalUserName"></strong></p>
+                <select class="role-select" id="roleSelect">
+                    <option value="Student">Student</option>
+                    <option value="Adviser">Adviser</option>
+                    <option value="Dean">Dean Admin</option>
+                    <option value="Registrar-Admin">Registrar Admin</option>
+                    <option value="Super-Admin">Super Admin</option>
+                </select>
+                <button class="btn-role-save" onclick="saveRole()">Save Role Assignment</button>
+            </div>
+        </div>
+
+        <script>
+            let currentUserRow = null;
+
+            // Role Management
+            function openRoleModal(name, currentRole, btn) {
+                document.getElementById('modalUserName').textContent = name;
+                document.getElementById('roleSelect').value = currentRole;
+                currentUserRow = btn.closest('tr');
+                document.getElementById('roleModal').classList.add('open');
+            }
+
+            function closeRoleModal() {
+                document.getElementById('roleModal').classList.remove('open');
+            }
+
+            function saveRole() {
+                const newRole = document.getElementById('roleSelect').value;
+                if (currentUserRow) {
+                    // Update the role label in the row
+                    const roleLabel = currentUserRow.querySelector('.td-sub');
+                    if (roleLabel) {
+                        roleLabel.textContent = newRole;
+                    }
+                }
+                alert('Role assigned successfully!');
+                closeRoleModal();
+            }
+
+            // User Actions
+            function warnUser(name) {
+                const reason = prompt(`Enter warning reason for ${name}:`, "Inappropriate conduct");
+                if (reason) {
+                    alert(`Warning sent to ${name}.\nReason: ${reason}`);
+                }
+            }
+
+            function toggleBan(name, btn) {
+                const row = btn.closest('tr');
+                const statusBadge = row.querySelector('.tbl-badge');
+                const isBanning = btn.textContent === 'Ban';
+
+                if (isBanning) {
+                    if (confirm(`Are you sure you want to ban ${name}?`)) {
+                        statusBadge.textContent = 'Banned';
+                        statusBadge.className = 'tbl-badge badge-banned';
+                        btn.textContent = 'Unban';
+                        btn.className = 'tbl-btn safe';
+                    }
+                } else {
+                    if (confirm(`Are you sure you want to unban ${name}?`)) {
+                        statusBadge.textContent = 'Active';
+                        statusBadge.className = 'tbl-badge badge-active';
+                        btn.textContent = 'Ban';
+                        btn.className = 'tbl-btn danger';
+                    }
+                }
+            }
+
+            function removeUser(name, btn) {
+                if (confirm(`Are you sure you want to permanently remove ${name}? This action cannot be undone.`)) {
+                    const row = btn.closest('tr');
+                    row.style.transition = 'opacity 0.3s ease';
+                    row.style.opacity = '0';
+                    setTimeout(() => row.remove(), 300);
+                }
+            }
+        </script>
+
     </body>
 </html>

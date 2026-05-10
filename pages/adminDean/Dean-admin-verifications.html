@@ -107,7 +107,7 @@
 
                     <div id="verification-body">
 
-                        <div>
+                        <div id="sec-pending">
                             <div class="section-label">Group Verification Requests</div>
 
                             <div class="verif-card">
@@ -126,8 +126,8 @@
                                 </div>
                                 <div class="verif-actions">
                                     <span class="badge badge-pending">Pending</span>
-                                    <button class="btn-approve">Approve</button>
-                                    <button class="btn-reject">Reject</button>
+                                    <button class="btn-approve" onclick="approveGroup(this)">Approve</button>
+                                    <button class="btn-reject" onclick="rejectGroup(this)">Reject</button>
                                 </div>
                             </div>
 
@@ -147,8 +147,8 @@
                                 </div>
                                 <div class="verif-actions">
                                     <span class="badge badge-pending">Pending</span>
-                                    <button class="btn-approve">Approve</button>
-                                    <button class="btn-reject">Reject</button>
+                                    <button class="btn-approve" onclick="approveGroup(this)">Approve</button>
+                                    <button class="btn-reject" onclick="rejectGroup(this)">Reject</button>
                                 </div>
                             </div>
 
@@ -168,8 +168,8 @@
                                 </div>
                                 <div class="verif-actions">
                                     <span class="badge badge-pending">Pending</span>
-                                    <button class="btn-approve">Approve</button>
-                                    <button class="btn-reject">Reject</button>
+                                    <button class="btn-approve" onclick="approveGroup(this)">Approve</button>
+                                    <button class="btn-reject" onclick="rejectGroup(this)">Reject</button>
                                 </div>
                             </div>
 
@@ -189,8 +189,8 @@
                                 </div>
                                 <div class="verif-actions">
                                     <span class="badge badge-pending">Pending</span>
-                                    <button class="btn-approve">Approve</button>
-                                    <button class="btn-reject">Reject</button>
+                                    <button class="btn-approve" onclick="approveGroup(this)">Approve</button>
+                                    <button class="btn-reject" onclick="rejectGroup(this)">Reject</button>
                                 </div>
                             </div>
 
@@ -210,13 +210,13 @@
                                 </div>
                                 <div class="verif-actions">
                                     <span class="badge badge-pending">Pending</span>
-                                    <button class="btn-approve">Approve</button>
-                                    <button class="btn-reject">Reject</button>
+                                    <button class="btn-approve" onclick="approveGroup(this)">Approve</button>
+                                    <button class="btn-reject" onclick="rejectGroup(this)">Reject</button>
                                 </div>
                             </div>
                         </div>
 
-                        <div>
+                        <div id="sec-approved">
                             <div class="section-label">Approved</div>
 
                             <div class="verif-card">
@@ -241,7 +241,7 @@
                             <div class="verif-card">
                                 <div class="verif-avatar-placeholder"><i class="fa fa-users"></i></div>
                                 <div class="verif-info">
-                                    <div class="verif-name"></div>javaRice Group <div class="verif-meta">
+                                    <div class="verif-name">javaRice Group</div><div class="verif-meta">
                                         <span><b>Owner </b>Ben Torres</span>
                                         <span><b>Subject </b>Technology</span>
                                         <span><b>Members </b>29</span>
@@ -257,7 +257,7 @@
                             </div>
                         </div>
 
-                        <div>
+                        <div id="sec-rejected">
                             <div class="section-label">Rejected</div>
 
                             <div class="verif-card">
@@ -285,7 +285,40 @@
             </div>
         </main>
 
-            
+        <script>
+            function approveGroup(btn) {
+                const card = btn.closest('.verif-card');
+                const name = card.querySelector('.verif-name').textContent;
+                if (confirm(`Approve verification for "${name}"?`)) {
+                    card.querySelector('.verif-actions').innerHTML = '<span class="badge badge-approved">Approved</span>';
+                    const meta = card.querySelector('.verif-meta');
+                    meta.querySelector('span:last-child').innerHTML = '<b>Status </b>Group Verified';
+                    
+                    const now = new Date();
+                    const dateStr = now.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                    card.querySelector('.verif-submitted').textContent = `Approved: ${dateStr}`;
+                    
+                    document.getElementById('sec-approved').appendChild(card);
+                }
+            }
+
+            function rejectGroup(btn) {
+                const card = btn.closest('.verif-card');
+                const name = card.querySelector('.verif-name').textContent;
+                const reason = prompt(`Enter rejection reason for "${name}":`, "Does not meet group conduct standards");
+                
+                if (reason) {
+                    card.querySelector('.verif-actions').innerHTML = '<span class="badge badge-rejected">Rejected</span>';
+                    const meta = card.querySelector('.verif-meta');
+                    meta.querySelector('span:last-child').innerHTML = '<b>Status </b>Verification Rejected';
+                    
+                    const now = new Date();
+                    const dateStr = now.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                    card.querySelector('.verif-submitted').textContent = `Rejected: ${dateStr} · Reason: ${reason}`;
+                    
+                    document.getElementById('sec-rejected').appendChild(card);
+                }
+            }
+        </script>
     </body>
 </html>
-
