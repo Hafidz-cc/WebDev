@@ -27,6 +27,18 @@
             #content {
                 flex: 1;
             }
+            :root { --amber: #FFB500; --amber-d: #E6A000; --wax: #FEFAF0; --pale: #F0E6B8; --aged: #8C7A50; }
+
+            /* Bar Chart Styles */
+            .chart-card { padding: 24px; margin-bottom: 24px; }
+            .bar-chart { display: flex; align-items: flex-end; justify-content: space-between; height: 160px; gap: 12px; margin-top: 15px; padding-bottom: 5px; }
+            .bar-item { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+            .bar-container { width: 100%; height: 100%; background: var(--wax); border-radius: 6px; position: relative; overflow: hidden; display: flex; align-items: flex-end; border: 1.5px solid var(--pale); }
+            .bar-fill { width: 100%; backgrounds(0.95); cursor: help; }
+            .bar-label { font-size: 0.7rem; font-weight: 800; color: var(--aged); text-transform: uppercase; letter-spacing: 0.05em; }
+            .chart-header { display: flex; align-items: center; justify-content: space-between; }
+            .legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.75rem; font-weight: 700; color: var(--aged); }
+            .legend-dot { width: 10px; height: 10px; border-radius: 2px; background: var(--amber); }
         </style>
     </head>
 
@@ -133,6 +145,48 @@
                             </div>
                         </div>
 
+                        <!-- System Growth Chart -->
+                        <div class="admin-card chart-card">
+                            <div class="chart-header">
+                                <div class="section-label" style="margin-bottom: 0; border-bottom: none;">System-wide Hive Activity (Last 6 Months)</div>
+                                <div class="legend-item"><span class="legend-dot"></span> Monthly Hive Sessions</div>
+                            </div>
+                            <div class="bar-chart">
+                                <div class="bar-item">
+                                    <div class="bar-container"><div class="bar-fill" style="height: 35%;" title="Oct: 14 sessions"></div></div>
+                                    <span class="bar-label">Oct</span>
+                                </div>
+                                <div class="bar-item">
+                                    <div class="bar-container"><div class="bar-fill" style="height: 55%;" title="Nov: 22 sessions"></div></div>
+                                    <span class="bar-label">Nov</span>
+                                </div>
+                                <div class="bar-item">
+                                    <div class="bar-container"><div class="bar-fill" style="height: 40%;" title="Dec: 18 sessions"></div></div>
+                                    <span class="bar-label">Dec</span>
+                                </div>
+                                <div class="bar-item">
+                                    <div class="bar-container"><div class="bar-fill" style="height: 70%;" title="Jan: 28 sessions"></div></div>
+                                    <span class="bar-label">Jan</span>
+                                </div>
+                                <div class="bar-item">
+                                    <div class="bar-container"><div class="bar-fill" style="height: 65%;" title="Feb: 26 sessions"></div></div>
+                                    <span class="bar-label">Feb</span>
+                                </div>
+                                <div class="bar-item">
+                                    <div class="bar-container"><div class="bar-fill" style="height: 92%;" title="Mar: 38 sessions"></div></div>
+                                    <span class="bar-label">Mar</span>
+                                </div>
+                                <div class="bar-item">
+                                    <div class="bar-container"><div class="bar-fill" style="height: 20%; background-color: var(--orange); opacity: 0.6;" title="Current: 9 sessions"></div></div>
+                                    <span class="bar-label" style="color: var(--orange);">Apr</span>
+                                </div>
+                            </div>
+                            <p style="font-size: 0.75rem; color: var(--muted); margin-top: 15px; text-align: center;">
+                                <i class="fa-solid fa-circle-info" style="color: var(--amber-d);"></i>
+                                Activity peaks recorded in March due to mid-term exam preparations across Technical departments.
+                            </p>
+                        </div>
+
                         <div class="admin-columns">
 
                             <!-- Left: recent users, flagged posts -->
@@ -160,7 +214,7 @@
                                                     </td>
                                                     <td>Mar 20</td>
                                                     <td><span class="status-badge status-active">Active</span></td>
-                                                    <td><button class="action-btn danger">Ban</button></td>
+                                                    <td><button class="action-btn danger" onclick="handleUserAction(this, 'Ban')">Ban</button></td>
                                                 </tr>
                                                 <tr>
                                                     <td>
@@ -171,7 +225,7 @@
                                                     </td>
                                                     <td>Mar 21</td>
                                                     <td><span class="status-badge status-active">Active</span></td>
-                                                    <td><button class="action-btn danger">Ban</button></td>
+                                                    <td><button class="action-btn danger" onclick="handleUserAction(this, 'Ban')">Ban</button></td>
                                                 </tr>
                                                 <tr>
                                                     <td>
@@ -182,7 +236,7 @@
                                                     </td>
                                                     <td>Mar 22</td>
                                                     <td><span class="status-badge status-active">Active</span></td>
-                                                    <td><button class="action-btn danger">Ban</button></td>
+                                                    <td><button class="action-btn danger" onclick="handleUserAction(this, 'Ban')">Ban</button></td>
                                                 </tr>
                                                 <tr>
                                                     <td>
@@ -193,7 +247,7 @@
                                                     </td>
                                                     <td>Mar 22</td>
                                                     <td><span class="status-badge status-inactive">Inactive</span></td>
-                                                    <td><button class="action-btn danger">Ban</button></td>
+                                                    <td><button class="action-btn danger" onclick="handleUserAction(this, 'Ban')">Ban</button></td>
                                                 </tr>
                                                 <tr>
                                                     <td>
@@ -204,7 +258,7 @@
                                                     </td>
                                                     <td>Mar 23</td>
                                                     <td><span class="status-badge status-flagged">Flagged</span></td>
-                                                    <td><button class="action-btn danger">Ban</button></td>
+                                                    <td><button class="action-btn danger" onclick="handleUserAction(this, 'Ban')">Ban</button></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -231,11 +285,11 @@
                                                             Sam Uy
                                                         </div>
                                                     </td>
-                                                    <td>Physics study group</td>
+                                                    <td>OS Security Fundamentals</td>
                                                     <td>Spam</td>
                                                     <td>
-                                                        <button class="action-btn">Dismiss</button>
-                                                        <button class="action-btn danger" style="margin-left:5px;">Remove</button>
+                                                        <button class="action-btn" onclick="removeElement(this, 'tr', false)">Dismiss</button>
+                                                        <button class="action-btn danger" style="margin-left:5px;" onclick="removeElement(this, 'tr', true)">Remove</button>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -245,11 +299,11 @@
                                                            Charla Cruz
                                                         </div>
                                                     </td>
-                                                    <td>Physics study group</td>
+                                                    <td>C++ Advanced Patterns</td>
                                                     <td>prolonged Inactivity</td>
                                                     <td>
-                                                        <button class="action-btn">Dismiss</button>
-                                                        <button class="action-btn danger" style="margin-left:5px;">Remove</button>
+                                                        <button class="action-btn" onclick="removeElement(this, 'tr', false)">Dismiss</button>
+                                                        <button class="action-btn danger" style="margin-left:5px;" onclick="removeElement(this, 'tr', true)">Remove</button>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -259,11 +313,11 @@
                                                             Anthony
                                                         </div>
                                                     </td>
-                                                    <td>English study group</td>
+                                                    <td>Network Protocols Review</td>
                                                     <td>Off-topic</td>
                                                     <td>
-                                                        <button class="action-btn">Dismiss</button>
-                                                        <button class="action-btn danger" style="margin-left:5px;">Remove</button>
+                                                        <button class="action-btn" onclick="removeElement(this, 'tr', false)">Dismiss</button>
+                                                        <button class="action-btn danger" style="margin-left:5px;" onclick="removeElement(this, 'tr', true)">Remove</button>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -273,11 +327,11 @@
                                                             Milky
                                                         </div>
                                                     </td>
-                                                    <td>Biology study group</td>
+                                                    <td>Database Management Systems</td>
                                                     <td>Inappropriate</td>
                                                     <td>
-                                                        <button class="action-btn">Dismiss</button>
-                                                        <button class="action-btn danger" style="margin-left:5px;">Remove</button>
+                                                        <button class="action-btn" onclick="removeElement(this, 'tr', false)">Dismiss</button>
+                                                        <button class="action-btn danger" style="margin-left:5px;" onclick="removeElement(this, 'tr', true)">Remove</button>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -296,74 +350,74 @@
                                         <div class="hive-admin-row">
                                             <span class="hex"></span>
                                             <div class="hive-admin-info">
-                                                <div class="hive-admin-name">Calculus Study Group</div>
+                                                <div class="hive-admin-name">Web Development Collective</div>
                                                 <div class="hive-admin-meta">18 members &mdash; Recurring &mdash; Online</div>
                                             </div>
-                                            <span class="tag">Mathematics</span>
-                                            <button class="action-btn danger">Remove</button>
+                                            <span class="tag">Technology</span>
+                                            <button class="action-btn danger" onclick="removeElement(this, '.hive-admin-row', true)">Remove</button>
                                         </div>
                                         <div class="hive-admin-row">
                                             <span class="hex"></span>
                                             <div class="hive-admin-info">
-                                                <div class="hive-admin-name">Biology Study Group</div>
+                                                <div class="hive-admin-name">Python Programming Basics</div>
                                                 <div class="hive-admin-meta">12 members &mdash; One-time &mdash; In-person</div>
                                             </div>
-                                            <span class="tag">Biology</span>
-                                            <button class="action-btn danger">Remove</button>
+                                            <span class="tag">Technology</span>
+                                            <button class="action-btn danger" onclick="removeElement(this, '.hive-admin-row', true)">Remove</button>
                                         </div>
                                         <div class="hive-admin-row">
                                             <span class="hex"></span>
                                             <div class="hive-admin-info">
-                                                <div class="hive-admin-name">Calc Crusaders</div>
+                                                <div class="hive-admin-name">Data Structures & Algorithms</div>
                                                 <div class="hive-admin-meta">55 members &mdash; Recurring &mdash; Online</div>
                                             </div>
-                                            <span class="tag">Mathematics</span>
-                                            <button class="action-btn danger">Remove</button>
+                                            <span class="tag">Technology</span>
+                                            <button class="action-btn danger" onclick="removeElement(this, '.hive-admin-row', true)">Remove</button>
                                         </div>
                                         <div class="hive-admin-row">
                                             <span class="hex"></span>
                                             <div class="hive-admin-info">
-                                                <div class="hive-admin-name">Chemistry Wizards</div>
+                                                <div class="hive-admin-name">Cybersecurity Essentials</div>
                                                 <div class="hive-admin-meta">42 members &mdash; Recurring &mdash; Online</div>
                                             </div>
-                                            <span class="tag">Chemistry</span>
-                                            <button class="action-btn danger">Remove</button>
+                                            <span class="tag">Technology</span>
+                                            <button class="action-btn danger" onclick="removeElement(this, '.hive-admin-row', true)">Remove</button>
                                         </div>
                                         <div class="hive-admin-row">
                                             <span class="hex"></span>
                                             <div class="hive-admin-info">
-                                                <div class="hive-admin-name">Literature & Lore</div>
+                                                <div class="hive-admin-name">Machine Learning Mastery</div>
                                                 <div class="hive-admin-meta">38 members &mdash; Recurring &mdash; Online</div>
                                             </div>
-                                            <span class="tag">English</span>
-                                            <button class="action-btn danger">Remove</button>
+                                            <span class="tag">Technology</span>
+                                            <button class="action-btn danger" onclick="removeElement(this, '.hive-admin-row', true)">Remove</button>
                                         </div>
                                         <div class="hive-admin-row">
                                             <span class="hex"></span>
                                             <div class="hive-admin-info">
-                                                <div class="hive-admin-name">Bio Bees</div>
+                                                <div class="hive-admin-name">Full Stack Developers Hub</div>
                                                 <div class="hive-admin-meta">29 members &mdash; Recurring &mdash; In-person</div>
                                             </div>
-                                            <span class="tag">Biology</span>
-                                            <button class="action-btn danger">Remove</button>
+                                            <span class="tag">Technology</span>
+                                            <button class="action-btn danger" onclick="removeElement(this, '.hive-admin-row', true)">Remove</button>
                                         </div>
                                         <div class="hive-admin-row">
                                             <span class="hex"></span>
                                             <div class="hive-admin-info">
-                                                <div class="hive-admin-name">Physics Exam Blitz</div>
+                                                <div class="hive-admin-name">Mobile App Design (UI/UX)</div>
                                                 <div class="hive-admin-meta">21 members &mdash; One-time &mdash; Online</div>
                                             </div>
-                                            <span class="tag">Physics</span>
-                                            <button class="action-btn danger">Remove</button>
+                                            <span class="tag">Technology</span>
+                                            <button class="action-btn danger" onclick="removeElement(this, '.hive-admin-row', true)">Remove</button>
                                         </div>
                                         <div class="hive-admin-row">
                                             <span class="hex"></span>
                                             <div class="hive-admin-info">
-                                                <div class="hive-admin-name">History Cram Night</div>
+                                                <div class="hive-admin-name">Cloud Architecture Prep</div>
                                                 <div class="hive-admin-meta">15 members &mdash; One-time &mdash; In-person</div>
                                             </div>
-                                            <span class="tag">History</span>
-                                            <button class="action-btn danger">Remove</button>
+                                            <span class="tag">Technology</span>
+                                            <button class="action-btn danger" onclick="removeElement(this, '.hive-admin-row', true)">Remove</button>
                                         </div>
                                     </div>
                                 </div>
@@ -386,6 +440,27 @@
             <a href="/WebDev/pages/adminAdviser/Adviser_dashboard.html" class="switcher-btn">Adviser</a>
         </div>
 
-            
+        <script>
+            function handleUserAction(btn, action) {
+                const userName = btn.closest('tr').querySelector('.user-row').textContent.trim();
+                if (confirm(`Are you sure you want to ${action.toLowerCase()} ${userName}?`)) {
+                    const row = btn.closest('tr');
+                    row.style.transition = 'opacity 0.3s ease';
+                    row.style.opacity = '0.5';
+                    btn.disabled = true;
+                    btn.textContent = action === 'Ban' ? 'Banned' : 'Suspended';
+                }
+            }
+
+            function removeElement(btn, selector, askConfirm) {
+                if (!askConfirm || confirm('Are you sure you want to remove this item?')) {
+                    const item = btn.closest(selector);
+                    item.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                    item.style.opacity = '0';
+                    item.style.transform = 'translateX(20px)';
+                    setTimeout(() => item.remove(), 300);
+                }
+            }
+        </script>
     </body>
 </html>

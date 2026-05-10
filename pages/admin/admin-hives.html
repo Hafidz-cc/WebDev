@@ -27,6 +27,12 @@
             #content {
                 flex: 1;
             }
+            /* Modal Styles */
+            .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(3px); display: none; align-items: center; justify-content: center; z-index: 1000; }
+            .modal-overlay.open { display: flex; }
+            .modal-box { background: white; border: 2px solid #000; border-radius: 12px; padding: 28px; max-width: 600px; width: 90%; position: relative; box-shadow: 0 8px 32px rgba(0,0,0,0.15); }
+            .modal-close { position: absolute; top: 10px; right: 15px; font-size: 1.5rem; cursor: pointer; background: none; border: none; font-weight: bold; color: #666; }
+            .modal-title { font-family: 'Fraunces', Georgia, serif; font-size: 1.4rem; font-weight: 700; color: var(--dark); margin-bottom: 20px; }
         </style>
     </head>
 
@@ -122,11 +128,6 @@
                                 <option>English</option>
                             </select>
                             <select class="filter-select">
-                                <option value="">All types</option>
-                                <option>Recurring</option>
-                                <option>One-time</option>
-                            </select>
-                            <select class="filter-select">
                                 <option value="">All modes</option>
                                 <option>Online</option>
                                 <option>In-person</option>
@@ -140,7 +141,6 @@
                                         <th>Hive</th>
                                         <th>Owner</th>
                                         <th>Subject</th>
-                                        <th>Type</th>
                                         <th>Mode</th>
                                         <th>Members</th>
                                         <th>Status</th>
@@ -149,162 +149,154 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><div class="td-name">Calculus Study Group</div><div class="td-sub">Created Mar 10</div></td>
+                                        <td><div class="td-name">Web Development Collective</div><div class="td-sub">Created Mar 10</div></td>
                                         <td>
                                             <div class="td-user" style="gap:7px;">
                                                 <img src="../../assets/images/person-profile.jpg">
                                                 <span>Rick Buzztley</span>
                                             </div>
                                         </td>
-                                        <td><span class="tbl-tag">Mathematics</span></td>
-                                        <td><span class="freq-badge freq-recurring"><span class="freq-dot"></span> Recurring</span></td>
+                                        <td><span class="tbl-tag">Technology</span></td>
                                         <td>Online</td>
                                         <td>18 / 30</td>
                                         <td><span class="tbl-badge badge-open">Open</span></td>
                                         <td>
                                             <div class="td-actions">
-                                                <button class="tbl-btn view"><a href="/WebDev/pages/home/home_calculus.html">View</a></button>
-                                                <button class="tbl-btn danger">Remove</button>
+                                                <button class="tbl-btn view" onclick="viewHive('Web Development Collective', 'Rick Buzztley', 'Technology', '18 / 30', 'Open', 'Mar 10')">View</button>
+                                                <button class="tbl-btn danger" onclick="handleRemoveHive(this)">Remove</button>
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><div class="td-name">Biology Study Group</div><div class="td-sub">Created Mar 15</div></td>
+                                        <td><div class="td-name">Python Programming Basics</div><div class="td-sub">Created Mar 15</div></td>
                                         <td>
                                             <div class="td-user" style="gap:7px;">
                                                 <img src="../../assets/images/person-profile.jpg">
                                                 <span>Maya Santos</span>
                                             </div>
                                         </td>
-                                        <td><span class="tbl-tag">Biology</span></td>
-                                        <td><span class="freq-badge freq-one-time"><span class="freq-dot"></span> One-time</span></td>
+                                        <td><span class="tbl-tag">Technology</span></td>
                                         <td>In-person</td>
                                         <td>12 / 20</td>
                                         <td><span class="tbl-badge badge-open">Open</span></td>
                                         <td>
                                             <div class="td-actions">
-                                                <button class="tbl-btn view">View</button>
-                                                <button class="tbl-btn danger">Remove</button>
+                                                <button class="tbl-btn view" onclick="viewHive('Python Programming Basics', 'Maya Santos', 'Technology', '12 / 20', 'Open', 'Mar 15')">View</button>
+                                                <button class="tbl-btn danger" onclick="handleRemoveHive(this)">Remove</button>
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><div class="td-name">Calc Crusaders</div><div class="td-sub">Created Mar 5</div></td>
+                                        <td><div class="td-name">Data Structures & Algorithms</div><div class="td-sub">Created Mar 5</div></td>
                                         <td>
                                             <div class="td-user" style="gap:7px;">
                                                 <img src="../../assets/images/person-profile.jpg">
                                                 <span>Jake Almeida</span>
                                             </div>
                                         </td>
-                                        <td><span class="tbl-tag">Mathematics</span></td>
-                                        <td><span class="freq-badge freq-recurring"><span class="freq-dot"></span> Recurring</span></td>
+                                        <td><span class="tbl-tag">Technology</span></td>
                                         <td>Online</td>
                                         <td>55 / 60</td>
                                         <td><span class="tbl-badge badge-open">Open</span></td>
                                         <td>
                                             <div class="td-actions">
-                                                <button class="tbl-btn view">View</button>
-                                                <button class="tbl-btn danger">Remove</button>
+                                                <button class="tbl-btn view" onclick="viewHive('Data Structures & Algorithms', 'Jake Almeida', 'Technology', '55 / 60', 'Open', 'Mar 5')">View</button>
+                                                <button class="tbl-btn danger" onclick="handleRemoveHive(this)">Remove</button>
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><div class="td-name">Chemistry Wizards</div><div class="td-sub">Created Mar 8</div></td>
+                                        <td><div class="td-name">Cybersecurity Essentials</div><div class="td-sub">Created Mar 8</div></td>
                                         <td>
                                             <div class="td-user" style="gap:7px;">
                                                 <img src="../../assets/images/person-profile.jpg">
                                                 <span>Nina Cruz</span>
                                             </div>
                                         </td>
-                                        <td><span class="tbl-tag">Chemistry</span></td>
-                                        <td><span class="freq-badge freq-recurring"><span class="freq-dot"></span> Recurring</span></td>
+                                        <td><span class="tbl-tag">Technology</span></td>
                                         <td>Online</td>
                                         <td>42 / 50</td>
                                         <td><span class="tbl-badge badge-open">Open</span></td>
                                         <td>
                                             <div class="td-actions">
-                                                <button class="tbl-btn view">View</button>
-                                                <button class="tbl-btn danger">Remove</button>
+                                                <button class="tbl-btn view" onclick="viewHive('Cybersecurity Essentials', 'Nina Cruz', 'Technology', '42 / 50', 'Open', 'Mar 8')">View</button>
+                                                <button class="tbl-btn danger" onclick="handleRemoveHive(this)">Remove</button>
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><div class="td-name">Literature & Lore</div><div class="td-sub">Created Mar 12</div></td>
+                                        <td><div class="td-name">Machine Learning Mastery</div><div class="td-sub">Created Mar 12</div></td>
                                         <td>
                                             <div class="td-user" style="gap:7px;">
                                                 <img src="../../assets/images/person-profile.jpg">
                                                 <span>Carla Mendez</span>
                                             </div>
                                         </td>
-                                        <td><span class="tbl-tag">English</span></td>
-                                        <td><span class="freq-badge freq-recurring"><span class="freq-dot"></span> Recurring</span></td>
+                                        <td><span class="tbl-tag">Technology</span></td>
                                         <td>Online</td>
                                         <td>38 / 40</td>
                                         <td><span class="tbl-badge badge-open">Open</span></td>
                                         <td>
                                             <div class="td-actions">
-                                                <button class="tbl-btn view">View</button>
-                                                <button class="tbl-btn danger">Remove</button>
+                                                <button class="tbl-btn view" onclick="viewHive('Machine Learning Mastery', 'Carla Mendez', 'Technology', '38 / 40', 'Open', 'Mar 12')">View</button>
+                                                <button class="tbl-btn danger" onclick="handleRemoveHive(this)">Remove</button>
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><div class="td-name">Bio Bees</div><div class="td-sub">Created Mar 9</div></td>
+                                        <td><div class="td-name">Full Stack Developers Hub</div><div class="td-sub">Created Mar 9</div></td>
                                         <td>
                                             <div class="td-user" style="gap:7px;">
                                                 <img src="../../assets/images/person-profile.jpg">
                                                 <span>Leo Reyes</span>
                                             </div>
                                         </td>
-                                        <td><span class="tbl-tag">Biology</span></td>
-                                        <td><span class="freq-badge freq-recurring"><span class="freq-dot"></span> Recurring</span></td>
+                                        <td><span class="tbl-tag">Technology</span></td>
                                         <td>In-person</td>
                                         <td>29 / 30</td>
                                         <td><span class="tbl-badge badge-full">Full</span></td>
                                         <td>
                                             <div class="td-actions">
-                                                <button class="tbl-btn view">View</button>
-                                                <button class="tbl-btn danger">Remove</button>
+                                                <button class="tbl-btn view" onclick="viewHive('Full Stack Developers Hub', 'Leo Reyes', 'Technology', '29 / 30', 'Full', 'Mar 9')">View</button>
+                                                <button class="tbl-btn danger" onclick="handleRemoveHive(this)">Remove</button>
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><div class="td-name">Physics Exam Blitz</div><div class="td-sub">Created Mar 18</div></td>
+                                        <td><div class="td-name">Mobile App Design (UI/UX)</div><div class="td-sub">Created Mar 18</div></td>
                                         <td>
                                             <div class="td-user" style="gap:7px;">
                                                 <img src="../../assets/images/person-profile.jpg">
                                                 <span>Sam Uy</span>
                                             </div>
                                         </td>
-                                        <td><span class="tbl-tag">Physics</span></td>
-                                        <td><span class="freq-badge freq-one-time"><span class="freq-dot"></span> One-time</span></td>
+                                        <td><span class="tbl-tag">Technology</span></td>
                                         <td>Online</td>
                                         <td>21 / 40</td>
                                         <td><span class="tbl-badge badge-open">Open</span></td>
                                         <td>
                                             <div class="td-actions">
-                                                <button class="tbl-btn view">View</button>
-                                                <button class="tbl-btn danger">Remove</button>
+                                                <button class="tbl-btn view" onclick="viewHive('Mobile App Design (UI/UX)', 'Sam Uy', 'Technology', '21 / 40', 'Open', 'Mar 18')">View</button>
+                                                <button class="tbl-btn danger" onclick="handleRemoveHive(this)">Remove</button>
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><div class="td-name">History Cram Night</div><div class="td-sub">Created Mar 19</div></td>
+                                        <td><div class="td-name">Cloud Architecture Prep</div><div class="td-sub">Created Mar 19</div></td>
                                         <td>
                                             <div class="td-user" style="gap:7px;">
                                                 <img src="../../assets/images/person-profile.jpg">
                                                 <span>Carla Mendez</span>
                                             </div>
                                         </td>
-                                        <td><span class="tbl-tag">History</span></td>
-                                        <td><span class="freq-badge freq-one-time"><span class="freq-dot"></span> One-time</span></td>
+                                        <td><span class="tbl-tag">Technology</span></td>
                                         <td>In-person</td>
                                         <td>15 / 25</td>
                                         <td><span class="tbl-badge badge-open">Open</span></td>
                                         <td>
                                             <div class="td-actions">
-                                                <button class="tbl-btn view">View</button>
-                                                <button class="tbl-btn danger">Remove</button>
+                                                <button class="tbl-btn view" onclick="viewHive('Cloud Architecture Prep', 'Carla Mendez', 'Technology', '15 / 25', 'Open', 'Mar 19')">View</button>
+                                                <button class="tbl-btn danger" onclick="handleRemoveHive(this)">Remove</button>
                                             </div>
                                         </td>
                                     </tr>
@@ -335,5 +327,68 @@
             <a href="/WebDev/pages/adminAdviser/Adviser_dashboard.html" class="switcher-btn">Adviser</a>
         </div>
             
+        <!-- Hive Details Modal -->
+        <div class="modal-overlay" id="hiveModal">
+            <div class="modal-box">
+                <button class="modal-close" onclick="closeHiveModal()">×</button>
+                <div class="modal-title" id="modalHiveName">Group Details</div>
+                
+                <div style="display:flex; align-items:center; gap:15px; margin-bottom:20px; padding:18px; background:var(--yellow-pale); border-radius:12px; border:2px dashed var(--border-y);">
+                    <div style="width:44px; height:44px; background:var(--orange); clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%); display:flex; align-items:center; justify-content:center; color:white; font-size:1.2rem;"></div>
+                    <div>
+                        <div id="displayHiveName" style="font-size:1.2rem; font-weight:700; color:var(--dark);">Hive Name</div>
+                        <div id="displayHiveOwner" style="font-size:0.9rem; color:var(--aged);">Owner: Name</div>
+                    </div>
+                </div>
+
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:15px; margin-bottom:20px;">
+                    <div class="admin-card" style="padding:15px; border-color: var(--pale);">
+                        <div class="section-label" style="font-size:0.65rem; margin-bottom:8px;">Group Information</div>
+                        <p style="font-size:0.85rem; margin-bottom:4px;"><strong>Subject:</strong> <span id="displaySubject"></span></p>
+                        <p style="font-size:0.85rem; margin-bottom:4px;"><strong>Members:</strong> <span id="displayMembers"></span></p>
+                        <p style="font-size:0.85rem; margin-bottom:4px;"><strong>Status:</strong> <span id="displayStatus"></span></p>
+                        <p style="font-size:0.85rem;"><strong>Created:</strong> <span id="displayDate"></span></p>
+                    </div>
+                    <div class="admin-card" style="padding:15px; border-color: var(--pale);">
+                        <div class="section-label" style="font-size:0.65rem; margin-bottom:8px;">Activity Statistics</div>
+                        <p style="font-size:0.85rem; margin-bottom:4px;"><strong>Sessions Held:</strong> 18</p>
+                        <p style="font-size:0.85rem; margin-bottom:4px;"><strong>Attendance:</strong> 92%</p>
+                        <p style="font-size:0.85rem; margin-bottom:4px;"><strong>Avg Duration:</strong> 2.5 hrs</p>
+                        <p style="font-size:0.85rem;"><strong>Flagged Posts:</strong> 0</p>
+                    </div>
+                </div>
+
+                <div style="display:flex; justify-content:flex-end; gap:10px;">
+                    <button class="tbl-btn view" onclick="closeHiveModal()">Close</button>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function viewHive(name, owner, subject, members, status, date) {
+                document.getElementById('displayHiveName').textContent = name;
+                document.getElementById('displayHiveOwner').textContent = 'Owner: ' + owner;
+                document.getElementById('displaySubject').textContent = subject;
+                document.getElementById('displayMembers').textContent = members;
+                document.getElementById('displayStatus').textContent = status;
+                document.getElementById('displayDate').textContent = date;
+                document.getElementById('hiveModal').classList.add('open');
+            }
+
+            function closeHiveModal() {
+                document.getElementById('hiveModal').classList.remove('open');
+            }
+
+            function handleRemoveHive(btn) {
+                const hiveName = btn.closest('tr').querySelector('.td-name').textContent.trim();
+                if (confirm(`Are you sure you want to permanently remove "${hiveName}"?`)) {
+                    const row = btn.closest('tr');
+                    row.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                    row.style.opacity = '0';
+                    row.style.transform = 'translateX(20px)';
+                    setTimeout(() => row.remove(), 300);
+                }
+            }
+        </script>
     </body>
 </html>
