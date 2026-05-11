@@ -11,14 +11,89 @@
         <link href="https://fonts.googleapis.com/css2?family=Belanosima&family=Bricolage+Grotesque:opsz,wght@12..96,420&family=Coiny&family=McLaren&family=Pacifico&family=Pangolin&display=swap" rel="stylesheet">
 
          <style>
-            #content {
-                margin-left:230px;
-                margin-top:-680px;
+            /* --- Mobile Navbar Styles --- */
+            #nav-toggle { display: none; }
+            #hamburger {
+                display: none;
+                flex-direction: column;
+                gap: 5px;
+                cursor: pointer;
+                padding: 4px;
+                z-index: 101;
+            }
+            #hamburger span {
+                display: block; 
+                width: 22px; 
+                height: 2px;
+                background: #1A1600; 
+                border-radius: 2px;
+                transition: 0.3s ease;
+            }
+
+            @media (max-width: 768px) {
+                #hamburger { display: flex; }
+                
+                #nav-links, #auth-links {
+                    display: none; /* Hide by default on mobile */
+                    position: absolute;
+                    top: 62px; /* Matches --nav-h */
+                    left: 0; right: 0;
+                    background: rgba(254, 250, 240, 0.98);
+                    border-bottom: 1.5px solid #E8C84A;
+                    padding: 16px 20px;
+                    flex-direction: column;
+                    gap: 12px;
+                    text-align: center;
+                    z-index: 100;
+                    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
                 }
-            </style>
+                
+                #auth-links {
+                    top: 200px; /* Positioned below nav-links */
+                    border-top: 1px solid rgba(232, 200, 74, 0.2);
+                    padding-top: 20px;
+                    padding-bottom: 20px;
+                    flex-direction: row;
+                    justify-content: center;
+                }
+
+                /* Show menu when checkbox is checked */
+                #nav-toggle:checked ~ #nav-container #nav-links,
+                #nav-toggle:checked ~ #nav-container #auth-links {
+                    display: flex;
+                }
+                
+                #bee { display: none; }
+            }
+        </style>
     </head>
 
     <body>
+        <nav>
+            <input type="checkbox" id="nav-toggle">
+            <div id="nav-container">
+                <label for="nav-toggle" id="hamburger" aria-label="Toggle menu">
+                    <span></span><span></span><span></span>
+                </label>
+
+                 <a href="/WebDev/pages/home/homepage.html">
+                    <div class="logo">
+                        <span class="black">Hive</span><span class="orange">Minds</span>
+                    </div>
+                </a>
+                <div id="nav-links">
+                    <a class = "hover"href="#features">Features</a>
+                    <a class = "hover" href="#how">How it works</a>
+                    <a class = "hover" href="#popular-hives">Explore hives</a>
+                </div>
+                <div id="auth-links">
+                    <a class="hover" href="/WebDev/pages/auth/login.html">Login</a>
+                    <span id="bee">|</span>
+                    <a class="hover" href="/WebDev/pages/auth/signup.html">Signup</a>
+                </div>
+            </div>
+        </nav>
+
         <header>
             <div id = "hex-bg">
             <div id="hero">
@@ -45,26 +120,6 @@
             </div>
             </div>
         </header>
-
-        <nav>
-            <div id="nav-container">
-                 <a href="/WebDev/pages/home/homepage.html">
-                    <div class="logo">
-                        <span class="black">Hive</span><span class="orange">Minds</span>
-                    </div>
-                </a>
-                <div id="nav-links">
-                    <a class = "hover"href="#features">Features</a>
-                    <a class = "hover" href="#how">How it works</a>
-                    <a class = "hover" href="#popular-hives">Explore hives</a>
-                </div>
-                <div id="auth-links">
-                    <a class="hover" href="/WebDev/pages/auth/login.html">Login</a>
-                    <span id="bee">|</span>
-                    <a class="hover" href="/WebDev/pages/auth/signup.html">Signup</a>
-                </div>
-            </div>
-        </nav>
 
         <main>
             <div class="features-wrap" id="features">
