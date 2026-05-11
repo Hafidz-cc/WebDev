@@ -16,10 +16,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Belanosima&family=Bricolage+Grotesque:opsz,wght@12..96,420&family=Coiny&family=McLaren&family=Pacifico&family=Pangolin&display=swap" rel="stylesheet">
 
     <style>
-        #container { display: flex; align-items: flex-start; }
-        #sidebar { width: 230px; flex-shrink: 0; }
-        #content { flex: 1; }
-        :root { --amber: #FFB500; --amber-d: #E6A000; --wax: #FEFAF0; --pale: #F0E6B8; --aged: #8C7A50; }
+        r      align-items: flex-start;
+                gap: 10px;
+            }
+        }
 
         /* Bar Chart Styles */
         .chart-card { padding: 24px; margin-bottom: 24px; }
@@ -35,8 +35,13 @@
     </style>
 </head>
 <body>
+    <input type="checkbox" id="nav-toggle">
+    <input type="checkbox" id="mob-toggle" style="display:none;">
     <nav>
         <div id="nav-container">
+            <label for="nav-toggle" id="hamburger">
+                <span></span><span></span><span></span>
+            </label>
             <a href="/WebDev/pages/home/homepage.html">
                 <div class="logo">
                     <span class="black">Hive</span><span class="orange">Minds</span>
@@ -52,6 +57,8 @@
             </div>
         </div>
     </nav>
+
+    <label for="mob-toggle" id="mob-overlay"></label>
 
     <main>
         <div id="container">
@@ -157,24 +164,12 @@
 
             tbody.innerHTML = allHives.map((hive, index) => `
                 <tr>
-                    <td class="td-name">${hive.name}</td>
-                    <td><span class="tag-subject">${hive.subject}</span></td>
-                    <td>Student Member</td>
-                    <td class="td-meta">${hive.dateCreated}</td>
-                    <td><span class="badge badge-${hive.status}">${hive.status}</span></td>
-                    <td class="td-actions">
-                        ${hive.status === 'pending' ? `
-                            <button class="tbl-btn approve" onclick="updateStatus(${index}, 'approved')">Approve</button>
-                            <button class="tbl-btn reject" onclick="updateStatus(${index}, 'rejected')">Reject</button>
+                    <td class="td-name" data-label="Hive Name">${hive.name}</td>
+                    <td data-label="Subject"><span class="tagtatus}">${hive.status}</span></td>
+                <ti"tbl-btn reject" onclick="updateStatus(${index}, 'rejected')">Reject</button>
                         ` : `—`}
                     </td>
-                </tr>
-            `).join('') || '<tr><td colspan="6" style="text-align:center; padding: 20px;">No requests found.</td></tr>';
-        }
-
-        function updateStatus(index, newStatus) {
-            const allHives = JSON.parse(localStorage.getItem('allHives') || '[]');
-            allHives[index].status = newStatus;
+atus;
             localStorage.setItem('allHives', JSON.stringify(allHives));
             renderDashboard();
         }
