@@ -1,334 +1,725 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../../assets/CSS/base/base.css">
-        <link rel="stylesheet" href="../../assets/CSS/base/navbar.css">
-        <link rel="stylesheet" href="../../assets/CSS/base/layout.css">
-        <link rel="stylesheet" href="../../assets/CSS/admin/admin.css">
-        <link rel="stylesheet" href="../../assets/CSS/admin/admin-pages.css">
-        <link rel="stylesheet" href="../../assets/CSS/misc/switcher.css">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Users — Dean Admin | HiveMinds</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Belanosima&family=Bricolage+Grotesque:opsz,wght@12..96,420&family=Coiny&family=McLaren&family=Pacifico&family=Pangolin&display=swap" rel="stylesheet">
+    :root {
+      --amber:      #FFB500;
+      --amber-d:    #E6A000;
+      --hive:       #1A1400;
+      --wax:        #FEFAF0;
+      --comb:       #FDF3D0;
+      --accent:     #EDD97A;
+      --pale:       #F0E6B8;
+      --aged:       #8C7A50;
+      --warmgray:   #6b7280;
+      --text:       #2D2410;
 
-    </head>
+      --success:    #166534;
+      --success-bg: #dcfce7;
+      --warning:    #92400e;
+      --warning-bg: #fef3c7;
+      --danger:     #991b1b;
+      --danger-bg:  #fee2e2;
+      --info:       #1d4ed8;
+      --info-bg:    #dbeafe;
+      --purple:     #6b21a8;
+      --purple-bg:  #f3e8ff;
+      --teal:       #0e7490;
+      --teal-bg:    #cffafe;
 
-    <body>
-                <nav>
-            <div id="nav-container">
-                  <a href="/WebDev/pages/home/homepage.html">
-                    <div class="logo">
-                        <span class="black">Hive</span><span class="orange">Minds</span>
-                    </div>
-                </a>
-                <div id="nav-links">
-                    <a class="hover" href="Dean-admin-dashboard.html">Dashboard</a>
-                    <a class="hover active-nav" href="Dean-admin-users.html">Users</a>
-                    <a class="hover" href="Dean-admin-hives.html">Hives</a>
-                </div>
-                <div id="auth-links">
-                    <a class="hover" href="../adminDean/Dean-admin-settings.html">Dean Admin</a>
-                </div>
-            </div>
-        </nav>
+      --sidebar-w:  240px;
+      --nav-h:      58px;
+      --radius:     10px;
+      --radius-lg:  14px;
+      --shadow-sm:  0 1px 4px rgba(0,0,0,0.07);
+      --shadow:     0 2px 12px rgba(0,0,0,0.09);
+      --shadow-lg:  0 6px 24px rgba(0,0,0,0.13);
+    }
 
+    @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Pacifico&display=swap');
 
-        <main>
-            <div id="container">
-                <div id="sidebar">
-                    <div id="menu">
-                        <p>MENU</p>
-                        <hr>
-                        <a href="Dean-admin-dashboard.html">
-                            <div class="sidebar-button menu">
-                                <p>Dashboard</p>
-                            </div>
-                        </a>
-                        <a href="Dean-admin-users.html">
-                            <div class="sidebar-button menu active">
-                                <p>Users</p>
-                            </div>
-                        </a>
-                        <a href="Dean-admin-hives.html">
-                            <div class="sidebar-button menu">
-                                <p>Hives</p>
-                            </div>
-                        </a>
-                         <a href="Dean-admin-verifications.html">
-                            <div class="sidebar-button menu">
-                                <p>Group Verifications</p>
-                            </div>
-                        </a>
-                        <a href="Dean-admin-settings.html">
-                            <div class="sidebar-button menu">
-                                <p>Settings</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div id="my-hives">
-                        <p>QUICK STATS</p>
-                        <hr>
-                        <div class="sidebar-button my-hives">
-                            <span class="hex"></span><p>124 total users</p>
-                        </div>
-                        <div class="sidebar-button my-hives">
-                            <span class="hex"></span><p>38 active hives</p>
-                        </div>
-                        <div class="sidebar-button my-hives">
-                            <span class="hex"></span><p>3 flagged posts</p>
-                        </div>
-                        <div class="sidebar-button my-hives">
-                            <span class="hex"></span><p>12 new today</p>
-                        </div>
-                    </div>
-                </div>
+    body {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      background: #F5EDD5;
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
 
-                <div id="content">
-                    <div id="qotd">Dean Admin — User Oversight</div>
+    /* ── NAVBAR ── */
+    .reg-nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      background: rgba(254,250,240,0.94);
+      backdrop-filter: blur(14px);
+      border-bottom: 1.5px solid #E8C84A;
+      display: flex; align-items: center;
+      padding: 0 28px; z-index: 100; gap: 24px;
+    }
+    .reg-nav .logo {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 1.45rem; font-weight: 700;
+      letter-spacing: -0.03em; color: #0D0B00;
+      text-decoration: none; flex-shrink: 0; margin-right: 8px; line-height: 1;
+    }
+    .reg-nav .logo span { color: #FF5F00; }
+    .nav-links { display: flex; align-items: center; gap: 4px; flex: 1; justify-content: center; }
+    .nav-links a {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.88rem; font-weight: 600; color: #3A2E00;
+      text-decoration: none; padding: 6px 14px; border-radius: 6px;
+      transition: all .18s; letter-spacing: .01em;
+    }
+    .nav-links a:hover { background: rgba(255,212,0,0.18); color: #1A1600; }
+    .nav-links a.active { background: var(--amber); color: #0D0B00; font-weight: 700; border: 1.5px solid rgba(0,0,0,0.15); }
+    .nav-user {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.83rem; font-weight: 600; color: #3A2E00;
+      text-decoration: none; padding: 5px 14px 5px 6px;
+      border-radius: 30px; border: 1.5px solid rgba(0,0,0,0.15);
+      transition: all .18s; cursor: pointer;
+      display: flex; align-items: center; gap: 9px; background: #fff;
+    }
+    .nav-user:hover { background: var(--amber); border-color: rgba(0,0,0,0.2); color: #0D0B00; }
 
-                    <div class="admin-card" style="margin-bottom: 20px; padding: 18px;">
-                        <div class="section-label">Dean Responsibilities</div>
-                        <ul style="margin: 10px 0 0 16px; padding-left: 16px;">
-                            <li>Oversee student behavior and community conduct across the college.</li>
-                            <li>Review flagged students and moderate reports from groups.</li>
-                            <li>Ensure all college members follow system policies and respectful collaboration.</li>
-                        </ul>
-                    </div>
+    /* ── LAYOUT ── */
+    .reg-layout { display: flex; margin-top: var(--nav-h); min-height: calc(100vh - var(--nav-h)); }
 
-                    <div class="admin-page-body">
+    /* ── SIDEBAR ── */
+    .reg-sidebar {
+      width: var(--sidebar-w); flex-shrink: 0;
+      position: fixed; top: var(--nav-h); left: 0; bottom: 0;
+      background: var(--hive); border-right: 3px solid var(--aged);
+      overflow-y: auto; padding: 20px 14px 40px;
+      display: flex; flex-direction: column; gap: 24px;
+    }
+    .sidebar-section-label {
+      font-size: 0.68rem; font-weight: 800; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--pale); padding: 0 8px; margin-bottom: 6px;
+    }
+    .sidebar-divider { height: 1px; background: var(--amber-d); margin: 0 4px 10px; border: none; }
+    .sidebar-link {
+      display: flex; align-items: center; gap: 9px;
+      padding: 9px 12px; border-radius: 9px;
+      font-size: 0.875rem; font-weight: 600; color: var(--pale);
+      text-decoration: none; transition: all .16s; margin-bottom: 2px;
+      cursor: pointer; border-left: 3px solid transparent;
+    }
+    .sidebar-link .sico { width: 18px; text-align: center; font-size: 1rem; flex-shrink: 0; color: var(--aged); }
+    .sidebar-link:hover { background: var(--aged); border-left: 5px solid var(--amber); color: var(--amber); }
+    .sidebar-link:hover .sico { color: var(--amber); }
+    .sidebar-link.active { background: var(--aged); border-left: 5px solid var(--amber-d); color: var(--wax); font-weight: 700; }
+    .sidebar-link.active .sico { color: var(--amber); }
+    .stat-pill {
+      display: flex; align-items: center; gap: 9px;
+      padding: 8px 12px; border-radius: 9px;
+      font-size: 0.82rem; font-weight: 500; color: var(--pale);
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,181,0,0.2);
+      margin-bottom: 5px;
+    }
+    .stat-pill .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--amber); flex-shrink: 0; }
 
-                        <div class="page-topbar">
-                            <div class="page-topbar-title">All Users</div>
-                            <span class="tbl-badge badge-active" style="font-size:0.85em;padding:6px 14px;">124 total</span>
-                        </div>
+    /* ── MAIN ── */
+    .reg-main {
+      flex: 1; margin-left: var(--sidebar-w);
+      padding: 28px 28px 48px; max-width: 1200px;
+    }
+    .page-header { margin-bottom: 24px; }
+    .page-header h1 { font-size: 1.45rem; font-weight: 800; color: var(--hive); letter-spacing: -0.02em; }
+    .page-header p { font-size: 0.87rem; color: var(--aged); margin-top: 3px; }
 
-                        <div class="filter-bar">
-                            <input class="filter-input" type="text" placeholder="Search by name or email...">
-                            <select class="filter-select">
-                                <option value="">All statuses</option>
-                                <option value="active">Active</option>
-                                <option value="inactive">Inactive</option>
-                                <option value="flagged">Flagged</option>
-                                <option value="suspended">Suspended</option>
-                            </select>
-                            <select class="filter-select">
-                                <option value="">Sort by</option>
-                                <option value="newest">Newest first</option>
-                                <option value="oldest">Oldest first</option>
-                                <option value="name">Name A–Z</option>
-                            </select>
-                        </div>
+    /* ── INFO BANNER ── */
+    .info-banner {
+      background: white; border: 1.5px solid var(--accent);
+      box-shadow: 3px 3px 0 var(--accent); border-radius: var(--radius-lg);
+      padding: 16px 20px; margin-bottom: 20px;
+      border-left: 4px solid var(--amber);
+    }
+    .info-banner .banner-label {
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--aged); margin-bottom: 8px;
+    }
+    .info-banner ul {
+      margin: 0; padding-left: 18px;
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .info-banner li { font-size: 0.87rem; color: var(--text); }
 
-                        <div class="full-table-card">
-                            <table class="admin-table-full">
-                                <thead>
-                                    <tr>
-                                        <th>User</th>
-                                        <th>Email</th>
-                                        <th>Joined</th>
-                                        <th>Hives</th>
-                                        <th>Status</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td data-label="User">
-                                            <div class="td-user">
-                                                <img src="../../assets/images/person-profile.jpg">
-                                                <div>
-                                                    <div class="td-name">Rick Buzztley</div>
-                                                    <div class="td-sub">Student</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="td-sub" data-label="Email">rick.buzztley@email.com</td>
-                                        <td data-label="Joined">Mar 20, 2026</td>
-                                        <td data-label="Hives">5 hives</td>
-                                        <td data-label="Status"><span class="tbl-badge badge-active">Active</span></td>
-                                        <td data-label="Actions">
-                                            <div class="td-actions">
-                                                <button class="tbl-btn view">View</button>
-                                                <button class="tbl-btn warn">Warn</button>
-                                                <button class="tbl-btn danger">Suspend</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="td-user">
-                                                <img src="../../assets/images/person-profile.jpg">
-                                                <div>
-                                                    <div class="td-name">Maya Santos</div>
-                                                    <div class="td-sub">Student</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="td-sub">maya.santos@email.com</td>
-                                        <td>Mar 21, 2026</td>
-                                        <td>3 hives</td>
-                                        <td><span class="tbl-badge badge-active">Active</span></td>
-                                        <td>
-                                            <div class="td-actions">
-                                                <button class="tbl-btn view">View</button>
-                                                <button class="tbl-btn warn">Warn</button>
-                                                <button class="tbl-btn danger">Suspend</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="td-user">
-                                                <img src="../../assets/images/person-profile.jpg">
-                                                <div>
-                                                    <div class="td-name">Leo Reyes</div>
-                                                    <div class="td-sub">Student</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="td-sub">leo.reyes@email.com</td>
-                                        <td>Mar 22, 2026</td>
-                                        <td>2 hives</td>
-                                        <td><span class="tbl-badge badge-active">Active</span></td>
-                                        <td>
-                                            <div class="td-actions">
-                                                <button class="tbl-btn view">View</button>
-                                                <button class="tbl-btn warn">Warn</button>
-                                                <button class="tbl-btn danger">Suspend</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="td-user">
-                                                <img src="../../assets/images/person-profile.jpg">
-                                                <div>
-                                                    <div class="td-name">Carla Mendez</div>
-                                                    <div class="td-sub">Student</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="td-sub">carla.mendez@email.com</td>
-                                        <td>Mar 22, 2026</td>
-                                        <td>4 hives</td>
-                                        <td><span class="tbl-badge badge-inactive">Inactive</span></td>
-                                        <td>
-                                            <div class="td-actions">
-                                                <button class="tbl-btn view">View</button>
-                                                <button class="tbl-btn warn">Warn</button>
-                                                <button class="tbl-btn danger">Suspend</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="td-user">
-                                                <img src="../../assets/images/person-profile.jpg">
-                                                <div>
-                                                    <div class="td-name">Sam Uy</div>
-                                                    <div class="td-sub">Student</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="td-sub">sam.uy@email.com</td>
-                                        <td>Mar 23, 2026</td>
-                                        <td>3 hives</td>
-                                        <td><span class="tbl-badge badge-flagged">Flagged</span></td>
-                                        <td>
-                                            <div class="td-actions">
-                                                <button class="tbl-btn view">View</button>
-                                                <button class="tbl-btn warn">Warn</button>
-                                                <button class="tbl-btn danger">Suspend</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="td-user">
-                                                <img src="../../assets/images/person-profile.jpg">
-                                                <div>
-                                                    <div class="td-name">Milky</div>
-                                                    <div class="td-sub">Student</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="td-sub">milky@email.com</td>
-                                        <td>Mar 23, 2026</td>
-                                        <td>2 hives</td>
-                                        <td><span class="tbl-badge badge-active">Active</span></td>
-                                        <td>
-                                            <div class="td-actions">
-                                                <button class="tbl-btn view">View</button>
-                                                <button class="tbl-btn warn">Warn</button>
-                                                <button class="tbl-btn danger">Suspend</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="td-user">
-                                                <img src="../../assets/images/person-profile.jpg">
-                                                <div>
-                                                    <div class="td-name">Anthony</div>
-                                                    <div class="td-sub">Student</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="td-sub">anthony@email.com</td>
-                                        <td>Mar 23, 2026</td>
-                                        <td>1 hive</td>
-                                        <td><span class="tbl-badge badge-active">Active</span></td>
-                                        <td>
-                                            <div class="td-actions">
-                                                <button class="tbl-btn view">View</button>
-                                                <button class="tbl-btn warn">Warn</button>
-                                                <button class="tbl-btn danger">Suspend</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="td-user">
-                                                <img src="../../assets/images/person-profile.jpg">
-                                                <div>
-                                                    <div class="td-name">Nina Cruz</div>
-                                                    <div class="td-sub">Student</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="td-sub">nina.cruz@email.com</td>
-                                        <td>Mar 23, 2026</td>
-                                        <td>3 hives</td>
-                                        <td><span class="tbl-badge badge-banned">Suspended</span></td>
-                                        <td>
-                                            <div class="td-actions">
-                                                <button class="tbl-btn view">View</button>
-                                                <button class="tbl-btn safe">Unsuspend</button>
-                                                <button class="tbl-btn danger">Remove</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div class="pagination">
-                                <span>Showing 8 of 124 users</span>
-                                <div class="pagination-btns">
-                                    <button class="pg-btn active">1</button>
-                                    <button class="pg-btn">2</button>
-                                    <button class="pg-btn">3</button>
-                                    <button class="pg-btn">→</button>
-                                </div>
-                            </div>
-                        </div>
+    /* ── TOPBAR / FILTER ── */
+    .topbar-row {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 16px; gap: 12px; flex-wrap: wrap;
+    }
+    .filter-bar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .filter-input {
+      flex: 1; min-width: 200px; padding: 9px 14px; font-size: 0.9em;
+      font-family: 'Bricolage Grotesque', sans-serif;
+      border: 2px solid var(--accent); border-radius: 6px;
+      background: white; outline: none; transition: 0.2s ease; color: var(--text);
+    }
+    .filter-input:focus { border-color: var(--amber); box-shadow: 0 0 0 3px rgba(255,181,0,0.15); }
+    .filter-select {
+      padding: 9px 14px; font-size: 0.85em;
+      font-family: 'Bricolage Grotesque', sans-serif;
+      border: 2px solid var(--accent); border-radius: 6px;
+      background: white; outline: none; color: var(--text); cursor: pointer;
+    }
+    .filter-select:focus { border-color: var(--amber); }
 
-                    </div>
-                </div>
-            </div>
-        </main>
-            
-    </body>
+    /* ── CARD / TABLE ── */
+    .card {
+      background: white; border: 1.5px solid var(--accent);
+      box-shadow: 3px 3px 0 var(--accent); border-radius: var(--radius-lg);
+      overflow: hidden; width: 100%;
+    }
+    .table-wrap { overflow-x: auto; }
+    table.reg-table { width: 100%; border-collapse: collapse; font-size: 0.88em; }
+    .reg-table thead th {
+      background-color: var(--comb); padding: 11px 16px; text-align: left;
+      font-size: 0.75em; font-weight: 800; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--aged); border-bottom: 1.5px solid var(--pale);
+    }
+    .reg-table tbody tr { border-bottom: 1px solid var(--pale); transition: background 0.12s; }
+    .reg-table tbody tr:last-child td { border-bottom: none; }
+    .reg-table td { padding: 12px 16px; vertical-align: middle; color: var(--text); }
+    .reg-table tbody tr:hover td { background: var(--wax); }
+
+    .td-user { display: flex; align-items: center; gap: 10px; }
+    .td-user .avatar {
+      width: 34px; height: 34px; min-width: 34px; border-radius: 50%;
+      background: var(--comb); border: 2px solid var(--pale);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem; color: var(--aged); font-weight: 700; flex-shrink: 0;
+    }
+    .td-name { font-weight: 700; color: var(--hive); }
+    .td-sub  { font-size: 0.78em; color: var(--aged); margin-top: 1px; }
+    .td-meta { font-size: 0.82rem; color: var(--aged); }
+
+    .td-actions { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+    .tbl-btn {
+      padding: 4px 11px; font-size: 0.75em; font-weight: 700;
+      border-radius: 6px; cursor: pointer;
+      font-family: 'Bricolage Grotesque', sans-serif;
+      transition: 0.2s ease; border: 1.5px solid; white-space: nowrap;
+    }
+    .tbl-btn.view   { border-color: var(--amber-d); color: var(--amber-d); background: var(--comb); }
+    .tbl-btn.view:hover { background: var(--amber); color: var(--hive); border-color: var(--amber); }
+    .tbl-btn.warn   { border-color: var(--warning); color: var(--warning); background: var(--warning-bg); }
+    .tbl-btn.warn:hover { background: var(--warning); color: white; }
+    .tbl-btn.danger { border-color: var(--danger); color: var(--danger); background: var(--danger-bg); }
+    .tbl-btn.danger:hover { background: var(--danger); color: white; }
+    .tbl-btn.safe   { border-color: var(--success); color: var(--success); background: var(--success-bg); }
+    .tbl-btn.safe:hover { background: var(--success); color: white; }
+
+    /* ── BADGES ── */
+    .badge {
+      display: inline-flex; padding: 3px 10px; border-radius: 100px;
+      font-size: 0.75em; font-weight: 700; white-space: nowrap;
+      text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    .badge-active    { background: var(--success-bg); color: var(--success); }
+    .badge-inactive  { background: #F3F4F6; color: var(--warmgray); border: 1px solid #ddd; }
+    .badge-flagged   { background: var(--warning-bg); color: var(--warning); }
+    .badge-banned    { background: var(--danger-bg);  color: var(--danger); }
+    .badge-suspended { background: var(--danger-bg);  color: var(--danger); }
+
+    /* ── PAGINATION ── */
+    .pagination {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 16px; border-top: 1px solid var(--pale);
+      background: var(--wax); font-size: 0.82em; color: var(--aged);
+    }
+    .pg-btns { display: flex; gap: 6px; }
+    .pg-btn {
+      padding: 4px 12px; font-size: 0.82em; font-weight: 700;
+      border-radius: 5px; cursor: pointer; border: 1.5px solid var(--accent);
+      background: white; color: var(--hive);
+      font-family: 'Bricolage Grotesque', sans-serif; transition: 0.15s ease;
+    }
+    .pg-btn:hover  { background: var(--comb); }
+    .pg-btn.active { background: var(--amber); border-color: var(--amber-d); color: var(--hive); }
+
+    /* ── SIDEBAR FILTER ── */
+    .sidebar-filter-btn {
+      display: flex; align-items: center; gap: 9px;
+      padding: 9px 12px; border-radius: 9px;
+      font-size: 0.875rem; font-weight: 600; color: var(--pale);
+      transition: all .16s; margin-bottom: 2px;
+      cursor: pointer; border-left: 3px solid transparent;
+      user-select: none;
+    }
+    .sidebar-filter-btn:hover { background: var(--aged); border-left: 5px solid var(--amber); color: var(--amber); }
+    .sidebar-filter-btn.active { background: var(--aged); border-left: 5px solid var(--amber-d); color: var(--wax); font-weight: 700; }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(26,20,0,0.55);
+      backdrop-filter: blur(3px); z-index: 200;
+      display: none; align-items: center; justify-content: center; padding: 20px;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: var(--wax); border: 2px solid var(--accent);
+      border-radius: var(--radius-lg); padding: 28px 30px 24px;
+      width: min(560px, 96vw); position: relative;
+      box-shadow: var(--shadow-lg), 4px 4px 0 var(--hive);
+      max-height: 90vh; overflow-y: auto;
+    }
+    .modal-close {
+      position: absolute; top: 14px; right: 18px;
+      background: none; border: none; font-size: 1.4rem; color: var(--aged);
+      cursor: pointer; line-height: 1; transition: color 0.15s;
+    }
+    .modal-close:hover { color: var(--amber-d); }
+    .modal-title { font-size: 1.1rem; font-weight: 800; color: var(--hive); margin-bottom: 20px; }
+    .modal-row    { display: flex; gap: 12px; margin-bottom: 13px; }
+    .modal-field  { display: flex; flex-direction: column; gap: 5px; flex: 1; }
+    .modal-field label {
+      font-size: 0.77rem; font-weight: 700; color: var(--aged);
+      letter-spacing: 0.04em; text-transform: uppercase;
+    }
+    .modal-field textarea {
+      padding: 9px 12px; border: 2px solid var(--accent); border-radius: var(--radius);
+      font-family: 'Bricolage Grotesque', sans-serif; font-size: 0.88rem;
+      color: var(--text); background: #fff; outline: none; transition: border-color 0.18s;
+      resize: vertical; min-height: 80px;
+    }
+    .modal-field textarea:focus { border-color: var(--amber); box-shadow: 0 0 0 3px rgba(255,181,0,0.15); }
+    .modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
+    .modal-btn {
+      padding: 9px 22px; border-radius: var(--radius);
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: 0.88rem; font-weight: 700; cursor: pointer;
+      border: 2px solid transparent; transition: all 0.15s;
+    }
+    .modal-btn.primary { background: var(--amber); color: var(--hive); border-color: var(--hive); box-shadow: 2px 2px 0 var(--hive); }
+    .modal-btn.primary:hover { background: var(--amber-d); transform: translate(-1px,-1px); box-shadow: 3px 3px 0 var(--hive); }
+    .modal-btn.secondary { background: #f3f4f6; color: var(--aged); border-color: #e5e7eb; }
+    .modal-btn.secondary:hover { background: #e5e7eb; }
+    .modal-btn.danger-btn { background: var(--danger-bg); color: var(--danger); border-color: var(--danger); }
+    .modal-btn.danger-btn:hover { background: var(--danger); color: white; }
+
+    .info-field {
+      background: #fff; border: 1.5px solid var(--accent);
+      border-radius: var(--radius); padding: 12px 15px;
+    }
+    .info-field label {
+      font-size: 0.69rem; font-weight: 800; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--aged); display: block; margin-bottom: 5px;
+    }
+    .info-field .val { font-size: 0.92rem; font-weight: 700; color: var(--hive); }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed; bottom: 24px; right: 24px;
+      background: var(--hive); color: #fff; padding: 12px 20px;
+      border-radius: 10px; font-size: 0.88rem; font-weight: 600;
+      z-index: 999; transform: translateY(80px); opacity: 0;
+      transition: all 0.3s ease; border-left: 4px solid var(--amber);
+      box-shadow: var(--shadow-lg);
+    }
+    .toast.show    { transform: translateY(0); opacity: 1; }
+    .toast.success { border-color: var(--success); }
+    .toast.warn    { border-color: var(--amber); }
+    .toast.error   { border-color: var(--danger); }
+
+    @media (max-width: 768px) {
+      .reg-sidebar { display: none; }
+      .reg-main { margin-left: 0; padding: 20px 16px 40px; }
+      .modal-row { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="reg-nav">
+  <a href="#" class="logo"><span>Hive</span>Minds</a>
+  <div class="nav-links">
+    <a href="Dean-admin-dashboard.html">Dashboard</a>
+    <a href="Dean-admin-users.html" class="active">Users</a>
+    <a href="Dean-admin-hives.html">Hives</a>
+    <a href="Dean-admin-verifications.html">Verifications</a>
+  </div>
+  <a href="../../pages/auth/login.html" class="nav-user" onclick="return confirm('Are you sure you want to log out?');">👤 Dean Admin &nbsp;·&nbsp; Log out</a>
+</nav>
+
+<div class="reg-layout">
+  <!-- SIDEBAR -->
+  <aside class="reg-sidebar">
+    <div>
+      <div class="sidebar-section-label">Menu</div>
+      <div class="sidebar-divider"></div>
+      <a href="Dean-admin-dashboard.html" class="sidebar-link"><span class="sico">⊞</span> Dashboard</a>
+      <a href="Dean-admin-users.html"      class="sidebar-link active"><span class="sico">👥</span> Users</a>
+      <a href="Dean-admin-hives.html"      class="sidebar-link"><span class="sico">🐝</span> Hives</a>
+      <a href="Dean-admin-verifications.html" class="sidebar-link"><span class="sico">✓</span> Group Verifications</a>
+      <a href="Dean-admin-settings.html"   class="sidebar-link"><span class="sico">⚙</span> Settings</a>
+    </div>
+    <div>
+      <div class="sidebar-section-label">Filter by Status</div>
+      <div class="sidebar-divider"></div>
+      <div class="sidebar-filter-btn active" id="sf-all"       onclick="filterSidebar('all')">All Users</div>
+      <div class="sidebar-filter-btn"        id="sf-active"    onclick="filterSidebar('active')">Active</div>
+      <div class="sidebar-filter-btn"        id="sf-inactive"  onclick="filterSidebar('inactive')">Inactive</div>
+      <div class="sidebar-filter-btn"        id="sf-flagged"   onclick="filterSidebar('flagged')">Flagged</div>
+      <div class="sidebar-filter-btn"        id="sf-suspended" onclick="filterSidebar('suspended')">Suspended</div>
+    </div>
+    <div>
+      <div class="sidebar-section-label">Quick Stats</div>
+      <div class="sidebar-divider"></div>
+      <div class="stat-pill"><span class="dot"></span> 124 total users</div>
+      <div class="stat-pill"><span class="dot"></span> 38 active hives</div>
+      <div class="stat-pill"><span class="dot"></span> 3 flagged posts</div>
+      <div class="stat-pill"><span class="dot"></span> 12 new today</div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="reg-main">
+    <div class="page-header">
+      <h1>Users</h1>
+      <p>124 total users enrolled across the college</p>
+    </div>
+
+    <!-- INFO BANNER -->
+    <div class="info-banner">
+      <div class="banner-label">Dean Responsibilities</div>
+      <ul>
+        <li>Oversee student behavior and community conduct across the college.</li>
+        <li>Review flagged students and moderate reports from groups.</li>
+        <li>Ensure all college members follow system policies and respectful collaboration.</li>
+      </ul>
+    </div>
+
+    <!-- FILTER BAR -->
+    <div class="topbar-row">
+      <div class="filter-bar">
+        <input class="filter-input" type="text" id="searchInput" placeholder="Search by name or email..." oninput="applyFilters()">
+        <select class="filter-select" id="statusFilter" onchange="applyFilters()">
+          <option value="">All Statuses</option>
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
+          <option value="flagged">Flagged</option>
+          <option value="suspended">Suspended</option>
+        </select>
+        <select class="filter-select" id="sortFilter" onchange="applyFilters()">
+          <option value="">Sort by</option>
+          <option value="name">Name A–Z</option>
+          <option value="newest">Newest first</option>
+          <option value="oldest">Oldest first</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- TABLE -->
+    <div class="card">
+      <div class="table-wrap">
+        <table class="reg-table">
+          <thead>
+            <tr>
+              <th>User</th>
+              <th>Email</th>
+              <th>Joined</th>
+              <th>Hives</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="usersBody">
+
+            <tr data-status="active" data-name="Rick Buzztley" data-joined="2026-03-20">
+              <td><div class="td-user"><div class="avatar">R</div><div><div class="td-name">Rick Buzztley</div><div class="td-sub">Student</div></div></div></td>
+              <td class="td-meta">rick.buzztley@email.com</td>
+              <td class="td-meta">Mar 20, 2026</td>
+              <td class="td-meta">5 hives</td>
+              <td><span class="badge badge-active">Active</span></td>
+              <td><div class="td-actions">
+                <button class="tbl-btn view"   onclick="openViewModal('Rick Buzztley','rick.buzztley@email.com','Mar 20, 2026','5 hives','active')">View</button>
+                <button class="tbl-btn warn"   onclick="openWarnModal('Rick Buzztley')">Warn</button>
+                <button class="tbl-btn danger" onclick="confirmSuspend(this)">Suspend</button>
+              </div></td>
+            </tr>
+
+            <tr data-status="active" data-name="Maya Santos" data-joined="2026-03-21">
+              <td><div class="td-user"><div class="avatar">M</div><div><div class="td-name">Maya Santos</div><div class="td-sub">Student</div></div></div></td>
+              <td class="td-meta">maya.santos@email.com</td>
+              <td class="td-meta">Mar 21, 2026</td>
+              <td class="td-meta">3 hives</td>
+              <td><span class="badge badge-active">Active</span></td>
+              <td><div class="td-actions">
+                <button class="tbl-btn view"   onclick="openViewModal('Maya Santos','maya.santos@email.com','Mar 21, 2026','3 hives','active')">View</button>
+                <button class="tbl-btn warn"   onclick="openWarnModal('Maya Santos')">Warn</button>
+                <button class="tbl-btn danger" onclick="confirmSuspend(this)">Suspend</button>
+              </div></td>
+            </tr>
+
+            <tr data-status="active" data-name="Leo Reyes" data-joined="2026-03-22">
+              <td><div class="td-user"><div class="avatar">L</div><div><div class="td-name">Leo Reyes</div><div class="td-sub">Student</div></div></div></td>
+              <td class="td-meta">leo.reyes@email.com</td>
+              <td class="td-meta">Mar 22, 2026</td>
+              <td class="td-meta">2 hives</td>
+              <td><span class="badge badge-active">Active</span></td>
+              <td><div class="td-actions">
+                <button class="tbl-btn view"   onclick="openViewModal('Leo Reyes','leo.reyes@email.com','Mar 22, 2026','2 hives','active')">View</button>
+                <button class="tbl-btn warn"   onclick="openWarnModal('Leo Reyes')">Warn</button>
+                <button class="tbl-btn danger" onclick="confirmSuspend(this)">Suspend</button>
+              </div></td>
+            </tr>
+
+            <tr data-status="inactive" data-name="Carla Mendez" data-joined="2026-03-22">
+              <td><div class="td-user"><div class="avatar">C</div><div><div class="td-name">Carla Mendez</div><div class="td-sub">Student</div></div></div></td>
+              <td class="td-meta">carla.mendez@email.com</td>
+              <td class="td-meta">Mar 22, 2026</td>
+              <td class="td-meta">4 hives</td>
+              <td><span class="badge badge-inactive">Inactive</span></td>
+              <td><div class="td-actions">
+                <button class="tbl-btn view"   onclick="openViewModal('Carla Mendez','carla.mendez@email.com','Mar 22, 2026','4 hives','inactive')">View</button>
+                <button class="tbl-btn warn"   onclick="openWarnModal('Carla Mendez')">Warn</button>
+                <button class="tbl-btn danger" onclick="confirmSuspend(this)">Suspend</button>
+              </div></td>
+            </tr>
+
+            <tr data-status="flagged" data-name="Sam Uy" data-joined="2026-03-23">
+              <td><div class="td-user"><div class="avatar">S</div><div><div class="td-name">Sam Uy</div><div class="td-sub">Student</div></div></div></td>
+              <td class="td-meta">sam.uy@email.com</td>
+              <td class="td-meta">Mar 23, 2026</td>
+              <td class="td-meta">3 hives</td>
+              <td><span class="badge badge-flagged">Flagged</span></td>
+              <td><div class="td-actions">
+                <button class="tbl-btn view"   onclick="openViewModal('Sam Uy','sam.uy@email.com','Mar 23, 2026','3 hives','flagged')">View</button>
+                <button class="tbl-btn warn"   onclick="openWarnModal('Sam Uy')">Warn</button>
+                <button class="tbl-btn danger" onclick="confirmSuspend(this)">Suspend</button>
+              </div></td>
+            </tr>
+
+            <tr data-status="active" data-name="Milky" data-joined="2026-03-23">
+              <td><div class="td-user"><div class="avatar">M</div><div><div class="td-name">Milky</div><div class="td-sub">Student</div></div></div></td>
+              <td class="td-meta">milky@email.com</td>
+              <td class="td-meta">Mar 23, 2026</td>
+              <td class="td-meta">2 hives</td>
+              <td><span class="badge badge-active">Active</span></td>
+              <td><div class="td-actions">
+                <button class="tbl-btn view"   onclick="openViewModal('Milky','milky@email.com','Mar 23, 2026','2 hives','active')">View</button>
+                <button class="tbl-btn warn"   onclick="openWarnModal('Milky')">Warn</button>
+                <button class="tbl-btn danger" onclick="confirmSuspend(this)">Suspend</button>
+              </div></td>
+            </tr>
+
+            <tr data-status="active" data-name="Anthony" data-joined="2026-03-23">
+              <td><div class="td-user"><div class="avatar">A</div><div><div class="td-name">Anthony</div><div class="td-sub">Student</div></div></div></td>
+              <td class="td-meta">anthony@email.com</td>
+              <td class="td-meta">Mar 23, 2026</td>
+              <td class="td-meta">1 hive</td>
+              <td><span class="badge badge-active">Active</span></td>
+              <td><div class="td-actions">
+                <button class="tbl-btn view"   onclick="openViewModal('Anthony','anthony@email.com','Mar 23, 2026','1 hive','active')">View</button>
+                <button class="tbl-btn warn"   onclick="openWarnModal('Anthony')">Warn</button>
+                <button class="tbl-btn danger" onclick="confirmSuspend(this)">Suspend</button>
+              </div></td>
+            </tr>
+
+            <tr data-status="suspended" data-name="Nina Cruz" data-joined="2026-03-23">
+              <td><div class="td-user"><div class="avatar">N</div><div><div class="td-name">Nina Cruz</div><div class="td-sub">Student</div></div></div></td>
+              <td class="td-meta">nina.cruz@email.com</td>
+              <td class="td-meta">Mar 23, 2026</td>
+              <td class="td-meta">3 hives</td>
+              <td><span class="badge badge-suspended">Suspended</span></td>
+              <td><div class="td-actions">
+                <button class="tbl-btn view"   onclick="openViewModal('Nina Cruz','nina.cruz@email.com','Mar 23, 2026','3 hives','suspended')">View</button>
+                <button class="tbl-btn safe"   onclick="unsuspend(this)">Unsuspend</button>
+                <button class="tbl-btn danger" onclick="confirmRemove(this)">Remove</button>
+              </div></td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination">
+        <span id="paginationCount">Showing 8 of 124 users</span>
+        <div class="pg-btns">
+          <button class="pg-btn active">1</button>
+          <button class="pg-btn">2</button>
+          <button class="pg-btn">3</button>
+          <button class="pg-btn">→</button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- VIEW MODAL -->
+<div class="modal-overlay" id="viewModal">
+  <div class="modal-box" style="max-width:520px;">
+    <button class="modal-close" onclick="closeModal('viewModal')">×</button>
+    <div class="modal-title" id="viewModalTitle">User Profile</div>
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;padding:14px;background:var(--comb);border-radius:10px;border:1.5px solid var(--border-lt,var(--pale));">
+      <div class="avatar" style="width:52px;height:52px;border-radius:50%;font-size:1.3rem;background:var(--comb);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;flex-shrink:0;" id="view-avatar">?</div>
+      <div>
+        <div style="font-size:1.05rem;font-weight:700;color:var(--hive);" id="view-name">—</div>
+        <div style="font-size:0.82rem;color:var(--aged);" id="view-email-header">—</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;">
+      <div class="info-field"><label>Email</label><div class="val" id="view-email">—</div></div>
+      <div class="info-field"><label>Joined</label><div class="val" id="view-joined">—</div></div>
+      <div class="info-field"><label>Hives</label><div class="val" id="view-hives">—</div></div>
+      <div class="info-field"><label>Account Status</label><div class="val" id="view-status">—</div></div>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-btn secondary" onclick="closeModal('viewModal')">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- WARN MODAL -->
+<div class="modal-overlay" id="warnModal">
+  <div class="modal-box" style="max-width:480px;">
+    <button class="modal-close" onclick="closeModal('warnModal')">×</button>
+    <div class="modal-title">Issue Warning</div>
+    <p style="font-size:0.88rem;color:var(--aged);margin-bottom:16px;">You are issuing a formal warning to <strong id="warn-target-name" style="color:var(--hive);">—</strong>. This will be logged.</p>
+    <div class="modal-row">
+      <div class="modal-field">
+        <label>Warning Reason</label>
+        <textarea id="warn-reason" placeholder="Describe the reason for this warning..."></textarea>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-btn secondary" onclick="closeModal('warnModal')">Cancel</button>
+      <button class="modal-btn primary"   onclick="sendWarning()">Send Warning</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  let currentStatusFilter = 'all';
+
+  function filterSidebar(status) {
+    currentStatusFilter = status;
+    ['all','active','inactive','flagged','suspended'].forEach(s => {
+      document.getElementById('sf-' + s)?.classList.remove('active');
+    });
+    document.getElementById('sf-' + status)?.classList.add('active');
+    applyFilters();
+  }
+
+  function applyFilters() {
+    const search = document.getElementById('searchInput').value.toLowerCase();
+    const status = document.getElementById('statusFilter').value;
+    const rows = Array.from(document.querySelectorAll('#usersBody tr'));
+
+    rows.forEach(row => {
+      const name   = row.querySelector('.td-name')?.textContent.toLowerCase() || '';
+      const email  = row.querySelectorAll('.td-meta')[0]?.textContent.toLowerCase() || '';
+      const rStatus = row.dataset.status || '';
+      const matchSearch = name.includes(search) || email.includes(search);
+      const matchStatus = (!status || rStatus === status) && (currentStatusFilter === 'all' || rStatus === currentStatusFilter);
+      row.style.display = (matchSearch && matchStatus) ? '' : 'none';
+    });
+
+    const visible = rows.filter(r => r.style.display !== 'none').length;
+    document.getElementById('paginationCount').textContent = `Showing ${visible} of 124 users`;
+  }
+
+  function openViewModal(name, email, joined, hives, status) {
+    document.getElementById('viewModalTitle').textContent = name;
+    document.getElementById('view-avatar').textContent = name.charAt(0);
+    document.getElementById('view-name').textContent = name;
+    document.getElementById('view-email-header').textContent = email;
+    document.getElementById('view-email').textContent = email;
+    document.getElementById('view-joined').textContent = joined;
+    document.getElementById('view-hives').textContent = hives;
+    const classMap = { active:'badge-active', inactive:'badge-inactive', flagged:'badge-flagged', suspended:'badge-suspended' };
+    document.getElementById('view-status').innerHTML = `<span class="badge ${classMap[status]||''}">${status.charAt(0).toUpperCase()+status.slice(1)}</span>`;
+    document.getElementById('viewModal').classList.add('open');
+  }
+
+  let currentWarnTarget = '';
+  function openWarnModal(name) {
+    currentWarnTarget = name;
+    document.getElementById('warn-target-name').textContent = name;
+    document.getElementById('warn-reason').value = '';
+    document.getElementById('warnModal').classList.add('open');
+  }
+  function sendWarning() {
+    const reason = document.getElementById('warn-reason').value.trim();
+    if (!reason) { showToast('Please enter a warning reason.', 'error'); return; }
+    closeModal('warnModal');
+    showToast(`Warning issued to ${currentWarnTarget}.`, 'warn');
+  }
+
+  function confirmSuspend(btn) {
+    if (!confirm('Suspend this user account?')) return;
+    const row = btn.closest('tr');
+    row.dataset.status = 'suspended';
+    row.querySelector('.badge').className = 'badge badge-suspended';
+    row.querySelector('.badge').textContent = 'Suspended';
+    const actions = row.querySelector('.td-actions');
+    const viewBtn = actions.querySelector('.tbl-btn.view');
+    actions.innerHTML = '';
+    actions.appendChild(viewBtn);
+    const unsBtn = document.createElement('button');
+    unsBtn.className = 'tbl-btn safe'; unsBtn.textContent = 'Unsuspend';
+    unsBtn.onclick = function() { unsuspend(this); };
+    const remBtn = document.createElement('button');
+    remBtn.className = 'tbl-btn danger'; remBtn.textContent = 'Remove';
+    remBtn.onclick = function() { confirmRemove(this); };
+    actions.appendChild(unsBtn);
+    actions.appendChild(remBtn);
+    showToast('User suspended.', 'warn');
+  }
+
+  function unsuspend(btn) {
+    const row = btn.closest('tr');
+    row.dataset.status = 'active';
+    row.querySelector('.badge').className = 'badge badge-active';
+    row.querySelector('.badge').textContent = 'Active';
+    const actions = row.querySelector('.td-actions');
+    const viewBtn = actions.querySelector('.tbl-btn.view');
+    const name = row.querySelector('.td-name').textContent;
+    const email = row.querySelectorAll('.td-meta')[0].textContent;
+    const joined = row.querySelectorAll('.td-meta')[1].textContent;
+    const hives = row.querySelectorAll('.td-meta')[2].textContent;
+    actions.innerHTML = '';
+    actions.appendChild(viewBtn);
+    const warnBtn = document.createElement('button');
+    warnBtn.className = 'tbl-btn warn'; warnBtn.textContent = 'Warn';
+    warnBtn.onclick = function() { openWarnModal(name); };
+    const susBtn = document.createElement('button');
+    susBtn.className = 'tbl-btn danger'; susBtn.textContent = 'Suspend';
+    susBtn.onclick = function() { confirmSuspend(this); };
+    actions.appendChild(warnBtn);
+    actions.appendChild(susBtn);
+    showToast('User unsuspended.', 'success');
+  }
+
+  function confirmRemove(btn) {
+    if (!confirm('Permanently remove this user? This cannot be undone.')) return;
+    btn.closest('tr').remove();
+    showToast('User removed.', 'error');
+  }
+
+  function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+  function showToast(msg, type='success') {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast ' + type;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+  }
+
+  document.querySelectorAll('.modal-overlay').forEach(o => {
+    o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); });
+  });
+</script>
+</body>
 </html>

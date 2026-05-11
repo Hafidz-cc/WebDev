@@ -1,339 +1,575 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Verifications — HiveMinds Admin</title>
-        <link rel="stylesheet" href="../../assets/CSS/base/base.css">
-        <link rel="stylesheet" href="../../assets/CSS/base/navbar.css">
-        <link rel="stylesheet" href="../../assets/CSS/base/layout.css">
-        <link rel="stylesheet" href="../../assets/CSS/admin/admin.css">
-        <link rel="stylesheet" href="../../assets/CSS/admin/admin-pages.css">
-        <link rel="stylesheet" href="../../assets/CSS/misc/switcher.css">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verifications — Super Admin | HiveMinds</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Belanosima&family=Bricolage+Grotesque:opsz,wght@12..96,420&family=Coiny&family=McLaren&family=Pacifico&family=Pangolin&display=swap" rel="stylesheet">
+    :root {
+      --amber:      #FFB500;
+      --amber-d:    #E6A000;
+      --hive:       #1A1400;
+      --wax:        #FEFAF0;
+      --comb:       #FDF3D0;
+      --accent:     #EDD97A;
+      --pale:       #F0E6B8;
+      --aged:       #8C7A50;
+      --warmgray:   #6b7280;
+      --text:       #2D2410;
+      --success:    #166534;
+      --success-bg: #dcfce7;
+      --warning:    #92400e;
+      --warning-bg: #fef3c7;
+      --danger:     #991b1b;
+      --danger-bg:  #fee2e2;
+      --sidebar-w:  240px;
+      --nav-h:      58px;
+      --radius:     10px;
+      --radius-lg:  14px;
+      --shadow-sm:  0 1px 4px rgba(0,0,0,0.07);
+      --shadow:     0 2px 12px rgba(0,0,0,0.09);
+      --shadow-lg:  0 6px 24px rgba(0,0,0,0.13);
+    }
 
+    body {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      background: #F5EDD5;
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
 
-        <style>
-            #verification-body { display: flex; flex-direction: column; gap: 28px; padding: 20px 0; }
-            .section-label { font-size: 0.78rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #aaa; margin-bottom: 10px; }
-            .verif-card { background: #fff; border: 1.5px solid #f0f0f0; border-radius: 12px; padding: 18px 22px; display: flex; align-items: flex-start; gap: 18px; margin-bottom: 10px; }
-            .verif-avatar-placeholder { width: 44px; height: 44px; border-radius: 50%; background: #f3f4f6; display: flex; align-items: center; justify-content: center; color: #bbb; font-size: 1.1rem; flex-shrink: 0; border: 2px solid #eee; }
-            .verif-info { flex: 1; display: flex; flex-direction: column; gap: 5px; }
-            .verif-name { font-size: 0.97rem; font-weight: 600; color: #1a1a1a; }
-            .verif-meta { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 3px 16px; }
-            .verif-meta span { font-size: 0.81rem; color: #444; }
-            .verif-meta span b { color: #aaa; font-weight: 500; }
-            .verif-submitted { font-size: 0.77rem; color: #bbb; margin-top: 2px; }
-            .verif-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 7px; flex-shrink: 0; }
-            .badge { font-size: 0.73rem; font-weight: 700; padding: 3px 10px; border-radius: 99px; text-transform: uppercase; letter-spacing: .04em; }
-            .badge-pending  { background: #fef3c7; color: #92400e; }
-            .badge-approved { background: #dcfce7; color: #166534; }
-            .badge-rejected { background: #fee2e2; color: #991b1b; }
-            .btn-approve { padding: 6px 14px; background: #22c55e; color: #fff; border: none; border-radius: 7px; font-size: 0.81rem; font-weight: 600; cursor: pointer; }
-            .btn-reject { padding: 6px 14px; background: #fff; color: #ef4444; border: 1.5px solid #ef4444; border-radius: 7px; font-size: 0.81rem; font-weight: 600; cursor: pointer; }
+    /* ── NAVBAR ── */
+    .reg-nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      background: rgba(254,250,240,0.94);
+      backdrop-filter: blur(14px);
+      border-bottom: 1.5px solid #E8C84A;
+      display: flex; align-items: center;
+      padding: 0 28px; z-index: 100; gap: 24px;
+    }
+    .reg-nav .logo {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 1.45rem; font-weight: 700;
+      letter-spacing: -0.03em; color: #0D0B00;
+      text-decoration: none; flex-shrink: 0; margin-right: 8px; line-height: 1;
+    }
+    .reg-nav .logo span { color: #FF5F00; }
+    .nav-links { display: flex; align-items: center; gap: 4px; flex: 1; justify-content: center; }
+    .nav-links a {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.88rem; font-weight: 600; color: #3A2E00;
+      text-decoration: none; padding: 6px 14px; border-radius: 6px;
+      transition: all .18s; letter-spacing: .01em;
+    }
+    .nav-links a:hover { background: rgba(255,212,0,0.18); color: #1A1600; }
+    .nav-links a.active { background: var(--amber); color: #0D0B00; font-weight: 700; border: 1.5px solid rgba(0,0,0,0.15); }
+    .nav-user {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.83rem; font-weight: 600; color: #3A2E00;
+      text-decoration: none; padding: 5px 14px 5px 6px;
+      border-radius: 30px; border: 1.5px solid rgba(0,0,0,0.15);
+      transition: all .18s; cursor: pointer;
+      display: flex; align-items: center; gap: 9px; background: #fff;
+    }
+    .nav-user:hover { background: var(--amber); border-color: rgba(0,0,0,0.2); color: #0D0B00; }
 
-            /* Modal Styles */
-            .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(3px); display: none; align-items: center; justify-content: center; z-index: 1000; }
-            .modal-overlay.open { display: flex; }
-            .modal-box { background: white; border: 2px solid #000; border-radius: 12px; padding: 24px; max-width: 500px; width: 90%; position: relative; box-shadow: 0 8px 32px rgba(0,0,0,0.15); }
-            .modal-close { position: absolute; top: 10px; right: 15px; font-size: 1.5rem; cursor: pointer; background: none; border: none; font-weight: bold; color: #666; }
-            .doc-placeholder { width: 100%; height: 350px; background: #f3f4f6; border: 2px dashed #ccc; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #999; margin-top: 15px; border-radius: 8px; }
-            .doc-placeholder i { font-size: 3rem; margin-bottom: 10px; }
-            .doc-title { font-weight: 700; color: #333; margin-bottom: 5px; }
+    /* ── LAYOUT ── */
+    .reg-layout { display: flex; margin-top: var(--nav-h); min-height: calc(100vh - var(--nav-h)); }
 
-            #container {
-                display: flex;
-                align-items: flex-start;
-            }
-            #sidebar {
-                width: 230px;
-                flex-shrink: 0;
-            }
-            #content {
-                flex: 1;
-            }
-        </style>
-    </head>
+    /* ── SIDEBAR ── */
+    .reg-sidebar {
+      width: var(--sidebar-w); flex-shrink: 0;
+      position: fixed; top: var(--nav-h); left: 0; bottom: 0;
+      background: var(--hive); border-right: 3px solid var(--aged);
+      overflow-y: auto; padding: 20px 14px 40px;
+      display: flex; flex-direction: column; gap: 24px;
+    }
+    .sidebar-section-label {
+      font-size: 0.68rem; font-weight: 800; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--pale); padding: 0 8px; margin-bottom: 6px;
+    }
+    .sidebar-divider { height: 1px; background: var(--amber-d); margin: 0 4px 10px; border: none; }
+    .sidebar-link {
+      display: flex; align-items: center; gap: 9px;
+      padding: 9px 12px; border-radius: 9px;
+      font-size: 0.875rem; font-weight: 600; color: var(--pale);
+      text-decoration: none; transition: all .16s; margin-bottom: 2px;
+      cursor: pointer; border-left: 3px solid transparent;
+    }
+    .sidebar-link .sico { width: 18px; text-align: center; font-size: 1rem; flex-shrink: 0; color: var(--aged); }
+    .sidebar-link:hover { background: var(--aged); border-left: 5px solid var(--amber); color: var(--amber); }
+    .sidebar-link:hover .sico { color: var(--amber); }
+    .sidebar-link.active { background: var(--aged); border-left: 5px solid var(--amber-d); color: var(--wax); font-weight: 700; }
+    .sidebar-link.active .sico { color: var(--amber); }
+    .stat-pill {
+      display: flex; align-items: center; gap: 9px;
+      padding: 8px 12px; border-radius: 9px;
+      font-size: 0.82rem; font-weight: 500; color: var(--pale);
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,181,0,0.2);
+      margin-bottom: 5px;
+    }
+    .stat-pill .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--amber); flex-shrink: 0; }
 
-    <body>
-                <nav>
-            <div id="nav-container">
-               <a href="/WebDev/pages/home/homepage.html">
-                    <div class="logo">
-                        <span class="black">Hive</span><span class="orange">Minds</span>
-                    </div>
-                </a>
-                <div id="nav-links">
-                    <a class="hover active-nav" href="admin-dashboard.html">Dashboard</a>
-                    <a class="hover" href="admin-users.html">Users</a>
-                    <a class="hover" href="admin-hives.html">Hives</a>
-                </div>
-                <div id="auth-links">
-                    <a class="hover" href="../../pages/misc/profile.html">Admin</a>
-                </div>
-            </div>
-        </nav>
+    /* ── MAIN ── */
+    .reg-main {
+      flex: 1; margin-left: var(--sidebar-w);
+      padding: 28px 28px 48px;
+    }
+    .page-header { margin-bottom: 24px; }
+    .page-header h1 { font-size: 1.45rem; font-weight: 800; color: var(--hive); letter-spacing: -0.02em; }
+    .page-header p  { font-size: 0.87rem; color: var(--aged); margin-top: 3px; }
 
+    /* ── SECTION HEADING ── */
+    .section-heading {
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--aged); margin-bottom: 12px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .section-heading::after { content: ''; flex: 1; height: 1px; background: var(--pale); }
 
-        <main>
-            <div id="container">
-                <div id="sidebar">
-                    <div id="menu">
-                        <p>MENU</p>
-                        <hr>
-                        <a href="admin-dashboard.html">
-                            <div class="sidebar-button menu"><p>Dashboard</p></div>
-                        </a>
-                        <a href="admin-users.html">
-                            <div class="sidebar-button menu"><p>Users</p></div>
-                        </a>
-                        <a href="admin-hives.html">
-                            <div class="sidebar-button menu"><p>Hives</p></div>
-                        </a>
-                        <a href="admin-verifications.html">
-                            <div class="sidebar-button menu active"><p>Verifications</p></div>
-                        </a>
-                        <a href="admin-settings.html">
-                            <div class="sidebar-button menu"><p>Settings</p></div>
-                        </a>
-                    </div>
+    /* ── VERIF SECTION ── */
+    .verif-section { margin-bottom: 30px; }
 
-                    <div id="my-hives">
-                        <p>QUICK STATS</p>
-                        <hr>
-                        <div class="sidebar-button my-hives"><span class="hex"></span><p>124 total users</p></div>
-                        <div class="sidebar-button my-hives"><span class="hex"></span><p>38 active hives</p></div>
-                        <div class="sidebar-button my-hives"><span class="hex"></span><p>3 flagged posts</p></div>
-                        <div class="sidebar-button my-hives"><span class="hex"></span><p>12 new today</p></div>
-                    </div>
-                </div>
+    /* ── VERIF CARD ── */
+    .verif-card {
+      background: white; border: 1.5px solid var(--accent);
+      box-shadow: 3px 3px 0 var(--accent); border-radius: var(--radius-lg);
+      padding: 16px 20px; display: flex; align-items: flex-start; gap: 16px;
+      margin-bottom: 10px; transition: background .12s;
+    }
+    .verif-card:hover { background: var(--wax); }
 
-                <div id="content">
-                    <div id="qotd">Student Verifications — HiveMinds</div>
+    .verif-avatar {
+      width: 42px; height: 42px; min-width: 42px; border-radius: 50%;
+      background: var(--comb); border: 2px solid var(--pale);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; color: var(--aged); flex-shrink: 0;
+    }
 
-                    <div id="verification-body">
+    .verif-info { flex: 1; min-width: 0; }
+    .verif-name {
+      font-size: 0.97rem; font-weight: 700; color: var(--hive);
+      margin-bottom: 7px; letter-spacing: -0.01em;
+    }
+    .verif-meta {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 3px 18px;
+    }
+    .verif-meta span { font-size: 0.8rem; color: var(--text); }
+    .verif-meta span b { color: var(--aged); font-weight: 600; margin-right: 4px; }
+    .verif-submitted { font-size: 0.75rem; color: var(--aged); margin-top: 8px; }
 
-                        <div>
-                            <div class="section-label">Pending Review</div>
+    .verif-actions {
+      display: flex; flex-direction: column; align-items: flex-end;
+      gap: 6px; flex-shrink: 0; min-width: 110px;
+    }
 
-                            <div class="verif-card">
-                                <div class="verif-avatar-placeholder"><i class="fa fa-user"></i></div>
-                                <div class="verif-info">
-                                    <div class="verif-name">Buzztley, Rick A.</div>
-                                    <div class="verif-meta">
-                                        <span><b>Email </b>rb0000000001@wmsu.edu.ph</span>
-                                        <span><b>Student No. </b>2021-00001</span>
-                                        <span><b>Course </b>BS Computer Science</span>
-                                        <span><b>Year Level </b>3rd Year</span>
-                                        <span><b>Department </b>College of Computing Studies</span>
-                                        <span><b>Section </b>BSCS 3-A</span>
-                                    </div>
-                                    <div class="verif-submitted">Submitted: Mar 20, 2026 &middot; 9:14 AM</div>
-                                </div>
-                                <div class="verif-actions">
-                                    <span class="badge badge-pending">Pending</span>
-                                    <span class="badge badge-pending" style="cursor:pointer;" onclick="viewDoc('Buzztley, Rick A.')">View Document +</span>
-                                    <button class="btn-approve">Approve</button>
-                                    <button class="btn-reject">Reject</button>
-                                </div>
-                            </div>
+    /* ── BADGES ── */
+    .badge {
+      display: inline-flex; padding: 3px 10px; border-radius: 100px;
+      font-size: 0.72em; font-weight: 700; white-space: nowrap;
+      text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    .badge-pending  { background: var(--warning-bg); color: var(--warning); }
+    .badge-approved { background: var(--success-bg); color: var(--success); }
+    .badge-rejected { background: var(--danger-bg);  color: var(--danger); }
+    .badge-doc {
+      background: var(--comb); color: var(--hive);
+      border: 1.5px solid var(--accent); cursor: pointer;
+      transition: background .15s;
+    }
+    .badge-doc:hover { background: var(--amber); border-color: var(--amber-d); }
 
-                            <div class="verif-card">
-                                <div class="verif-avatar-placeholder"><i class="fa fa-user"></i></div>
-                                <div class="verif-info">
-                                    <div class="verif-name">Santos, Maya L.</div>
-                                    <div class="verif-meta">
-                                        <span><b>Email </b>ms0000000002@wmsu.edu.ph</span>
-                                        <span><b>Student No. </b>2022-00045</span>
-                                        <span><b>Course </b>BS Biology</span>
-                                        <span><b>Year Level </b>2nd Year</span>
-                                        <span><b>Department </b>College of Science</span>
-                                        <span><b>Section </b>BSBio 2-B</span>
-                                    </div>
-                                    <div class="verif-submitted">Submitted: Mar 21, 2026 &middot; 2:38 PM</div>
-                                </div>
-                                <div class="verif-actions">
-                                    <span class="badge badge-pending">Pending</span>
-                                    <span class="badge badge-pending" style="cursor:pointer;" onclick="viewDoc('Santos, Maya L.')">View Document +</span>
-                                    <button class="btn-approve">Approve</button>
-                                    <button class="btn-reject">Reject</button>
-                                </div>
-                            </div>
+    /* ── BUTTONS ── */
+    .tbl-btn {
+      padding: 5px 13px; font-size: 0.76em; font-weight: 700;
+      border-radius: 6px; cursor: pointer;
+      font-family: 'Bricolage Grotesque', sans-serif;
+      transition: 0.2s ease; border: 1.5px solid; white-space: nowrap;
+    }
+    .tbl-btn.approve {
+      border-color: var(--success); color: var(--success);
+      background: var(--success-bg);
+    }
+    .tbl-btn.approve:hover { background: var(--success); color: white; }
+    .tbl-btn.reject {
+      border-color: var(--danger); color: var(--danger);
+      background: var(--danger-bg);
+    }
+    .tbl-btn.reject:hover { background: var(--danger); color: white; }
+    .tbl-btn.neutral {
+      border-color: var(--accent); color: var(--aged); background: var(--comb);
+    }
+    .tbl-btn.neutral:hover { background: var(--pale); }
 
-                            <div class="verif-card">
-                                <div class="verif-avatar-placeholder"><i class="fa fa-user"></i></div>
-                                <div class="verif-info">
-                                    <div class="verif-name">Reyes, Leo M.</div>
-                                    <div class="verif-meta">
-                                        <span><b>Email </b>lr0000000003@wmsu.edu.ph</span>
-                                        <span><b>Student No. </b>2023-00112</span>
-                                        <span><b>Course </b>BS Mathematics</span>
-                                        <span><b>Year Level </b>1st Year</span>
-                                        <span><b>Department </b>College of Science</span>
-                                        <span><b>Section </b>BSMath 1-A</span>
-                                    </div>
-                                    <div class="verif-submitted">Submitted: Mar 22, 2026 &middot; 8:05 AM</div>
-                                </div>
-                                <div class="verif-actions">
-                                    <span class="badge badge-pending">Pending</span>
-                                    <span class="badge badge-pending" style="cursor:pointer;" onclick="viewDoc('Reyes, Leo M.')">View Document +</span>
-                                    <button class="btn-approve">Approve</button>
-                                    <button class="btn-reject">Reject</button>
-                                </div>
-                            </div>
+    /* ── MODAL ── */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.45); backdrop-filter: blur(4px);
+      display: none; align-items: center; justify-content: center; z-index: 1000;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: white; border: 2px solid var(--accent);
+      box-shadow: 6px 6px 0 var(--accent), var(--shadow-lg);
+      border-radius: var(--radius-lg); padding: 28px;
+      max-width: 520px; width: 90%; position: relative;
+      animation: modalIn .2s ease;
+    }
+    @keyframes modalIn {
+      from { transform: translateY(16px) scale(0.98); opacity: 0; }
+      to   { transform: translateY(0) scale(1); opacity: 1; }
+    }
+    .modal-close {
+      position: absolute; top: 12px; right: 15px;
+      font-size: 1.4rem; cursor: pointer; background: none;
+      border: none; font-weight: bold; color: var(--aged); line-height: 1;
+      transition: color .15s;
+    }
+    .modal-close:hover { color: var(--danger); }
+    .modal-title {
+      font-size: 1.05rem; font-weight: 800; color: var(--hive);
+      letter-spacing: -0.02em; margin-bottom: 4px;
+    }
+    .modal-sub { font-size: 0.82rem; color: var(--aged); margin-bottom: 16px; }
+    .doc-placeholder {
+      width: 100%; height: 300px;
+      background: var(--comb); border: 2px dashed var(--accent);
+      border-radius: var(--radius); display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 8px;
+      color: var(--aged);
+    }
+    .doc-placeholder i { font-size: 2.8rem; color: var(--amber-d); }
+    .doc-placeholder p { font-size: 0.88rem; font-weight: 700; color: var(--hive); }
+    .doc-placeholder small { font-size: 0.76rem; color: var(--aged); }
+    .modal-footer { display: flex; justify-content: flex-end; gap: 8px; margin-top: 18px; }
 
-                            <div class="verif-card">
-                                <div class="verif-avatar-placeholder"><i class="fa fa-user"></i></div>
-                                <div class="verif-info">
-                                    <div class="verif-name">Mendez, Carla B.</div>
-                                    <div class="verif-meta">
-                                        <span><b>Email </b>cm0000000004@wmsu.edu.ph</span>
-                                        <span><b>Student No. </b>2022-00088</span>
-                                        <span><b>Course </b>BS Chemistry</span>
-                                        <span><b>Year Level </b>2nd Year</span>
-                                        <span><b>Department </b>College of Science</span>
-                                        <span><b>Section </b>BSChem 2-A</span>
-                                    </div>
-                                    <div class="verif-submitted">Submitted: Mar 22, 2026 &middot; 11:20 AM</div>
-                                </div>
-                                <div class="verif-actions">
-                                    <span class="badge badge-pending">Pending</span>
-                                    <span class="badge badge-pending" style="cursor:pointer;" onclick="viewDoc('Mendez, Carla B.')">View Document +</span>
-                                    <button class="btn-approve">Approve</button>
-                                    <button class="btn-reject">Reject</button>
-                                </div>
-                            </div>
+    /* ── TOAST ── */
+    .toast {
+      position: fixed; bottom: 24px; right: 24px;
+      background: var(--hive); color: #fff; padding: 12px 20px;
+      border-radius: 10px; font-size: 0.88rem; font-weight: 600;
+      z-index: 999; transform: translateY(80px); opacity: 0;
+      transition: all 0.3s ease; border-left: 4px solid var(--amber);
+      box-shadow: var(--shadow-lg);
+    }
+    .toast.show    { transform: translateY(0); opacity: 1; }
+    .toast.success { border-color: #22c55e; }
+    .toast.warn    { border-color: var(--amber); }
+    .toast.error   { border-color: var(--danger); }
 
-                            <div class="verif-card">
-                                <div class="verif-avatar-placeholder"><i class="fa fa-user"></i></div>
-                                <div class="verif-info">
-                                    <div class="verif-name">Uy, Sam T.</div>
-                                    <div class="verif-meta">
-                                        <span><b>Email </b>su0000000005@wmsu.edu.ph</span>
-                                        <span><b>Student No. </b>2021-00234</span>
-                                        <span><b>Course </b>BS Physics</span>
-                                        <span><b>Year Level </b>3rd Year</span>
-                                        <span><b>Department </b>College of Science</span>
-                                        <span><b>Section </b>BSPhysics 3-B</span>
-                                    </div>
-                                    <div class="verif-submitted">Submitted: Mar 23, 2026 &middot; 4:52 PM</div>
-                                </div>
-                                <div class="verif-actions">
-                                    <span class="badge badge-pending">Pending</span>
-                                    <span class="badge badge-pending" style="cursor:pointer;" onclick="viewDoc('Uy, Sam T.')">View Document +</span>
-                                    <button class="btn-approve">Approve</button>
-                                    <button class="btn-reject">Reject</button>
-                                </div>
-                            </div>
-                        </div>
+    @media (max-width: 768px) {
+      .reg-sidebar { display: none; }
+      .reg-main { margin-left: 0; padding: 20px 16px 40px; }
+      .verif-card { flex-wrap: wrap; }
+      .verif-actions { flex-direction: row; min-width: unset; width: 100%; justify-content: flex-start; flex-wrap: wrap; }
+      .verif-meta { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
 
-                        <div>
-                            <div class="section-label">Approved</div>
+<!-- NAVBAR -->
+<nav class="reg-nav">
+  <a href="#" class="logo"><span>Hive</span>Minds</a>
+  <div class="nav-links">
+    <a href="admin-dashboard.html">Dashboard</a>
+    <a href="admin-users.html">Users</a>
+    <a href="admin-hives.html">Hives</a>
+    <a href="admin-verifications.html" class="active">Verifications</a>
+  </div>
+  <a href="../../pages/auth/login.html" class="nav-user" onclick="handleLogout(event)">
+    👤 Super Admin &nbsp;·&nbsp; Log out
+  </a>
+</nav>
 
-                            <div class="verif-card">
-                                <div class="verif-avatar-placeholder"><i class="fa fa-user"></i></div>
-                                <div class="verif-info">
-                                    <div class="verif-name">Cruz, Ana G.</div>
-                                    <div class="verif-meta">
-                                        <span><b>Email </b>ac0000000010@wmsu.edu.ph</span>
-                                        <span><b>Student No. </b>2020-00301</span>
-                                        <span><b>Course </b>BS Computer Science</span>
-                                        <span><b>Year Level </b>4th Year</span>
-                                        <span><b>Department </b>College of Computing Studies</span>
-                                        <span><b>Section </b>BSCS 4-A</span>
-                                    </div>
-                                    <div class="verif-submitted">Approved: Mar 18, 2026</div>
-                                </div>
-                                <div class="verif-actions">
-                                    <span class="badge badge-approved">Approved</span>
-                                </div>
-                            </div>
+<div class="reg-layout">
+  <!-- SIDEBAR -->
+  <aside class="reg-sidebar">
+    <div>
+      <div class="sidebar-section-label">Menu</div>
+      <div class="sidebar-divider"></div>
+      <a href="admin-dashboard.html"     class="sidebar-link"><span class="sico">⊞</span> Dashboard</a>
+      <a href="admin-users.html"         class="sidebar-link"><span class="sico">👥</span> Users</a>
+      <a href="admin-hives.html"         class="sidebar-link"><span class="sico">🐝</span> Hives</a>
+      <a href="admin-verifications.html" class="sidebar-link active"><span class="sico">✓</span> Verifications</a>
+      <a href="admin-settings.html"      class="sidebar-link"><span class="sico">⚙</span> Settings</a>
+    </div>
+    <div>
+      <div class="sidebar-section-label">Quick Stats</div>
+      <div class="sidebar-divider"></div>
+      <div class="stat-pill"><span class="dot"></span> 124 total users</div>
+      <div class="stat-pill"><span class="dot"></span> 38 active hives</div>
+      <div class="stat-pill"><span class="dot"></span> 3 flagged posts</div>
+      <div class="stat-pill"><span class="dot"></span> 12 new today</div>
+    </div>
+  </aside>
 
-                            <div class="verif-card">
-                                <div class="verif-avatar-placeholder"><i class="fa fa-user"></i></div>
-                                <div class="verif-info">
-                                    <div class="verif-name">Torres, Ben R.</div>
-                                    <div class="verif-meta">
-                                        <span><b>Email </b>bt0000000011@wmsu.edu.ph</span>
-                                        <span><b>Student No. </b>2021-00405</span>
-                                        <span><b>Course </b>BS English</span>
-                                        <span><b>Year Level </b>3rd Year</span>
-                                        <span><b>Department </b>College of Arts &amp; Sciences</span>
-                                        <span><b>Section </b>BSEng 3-C</span>
-                                    </div>
-                                    <div class="verif-submitted">Approved: Mar 19, 2026</div>
-                                </div>
-                                <div class="verif-actions">
-                                    <span class="badge badge-approved">Approved</span>
-                                </div>
-                            </div>
-                        </div>
+  <!-- MAIN -->
+  <main class="reg-main">
+    <div class="page-header">
+      <h1>Student Verifications</h1>
+      <p>Review and manage student identity submissions — HiveMinds</p>
+    </div>
 
-                        <div>
-                            <div class="section-label">Rejected</div>
+    <!-- PENDING -->
+    <div class="verif-section">
+      <div class="section-heading">Pending Review</div>
 
-                            <div class="verif-card">
-                                <div class="verif-avatar-placeholder"><i class="fa fa-user"></i></div>
-                                <div class="verif-info">
-                                    <div class="verif-name">Flores, Dan K.</div>
-                                    <div class="verif-meta">
-                                        <span><b>Email </b>df0000000020@wmsu.edu.ph</span>
-                                        <span><b>Student No. </b>2022-00199</span>
-                                        <span><b>Course </b>BS Biology</span>
-                                        <span><b>Year Level </b>2nd Year</span>
-                                        <span><b>Department </b>College of Science</span>
-                                        <span><b>Section </b>BSBio 2-A</span>
-                                    </div>
-                                    <div class="verif-submitted">Rejected: Mar 17, 2026 &middot; Reason: COR unreadable</div>
-                                </div>
-                                <div class="verif-actions">
-                                    <span class="badge badge-rejected">Rejected</span>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </main>
-
-            <div id="role-switcher">
-            <span class="switcher-label">View as</span>
-       
-            <a href="/WebDev/pages/admin/admin-dashboard.html" class="switcher-btn">Super-Admin</a>
-            <a href="/WebDev/pages/adminRegistrar/Registrar-admin-verifications.html" class="switcher-btn">Registrar-Admin</a>
-            <a href="/WebDev/pages/adminDean/Dean-admin-dashboard.html" class="switcher-btn">Dean</a>
-            <a href="/WebDev/pages/adminAdviser/Adviser_dashboard.html" class="switcher-btn">Adviser</a>
+      <div class="verif-card" id="verif-rick">
+        <div class="verif-avatar"><i class="fa fa-user"></i></div>
+        <div class="verif-info">
+          <div class="verif-name">Buzztley, Rick A.</div>
+          <div class="verif-meta">
+            <span><b>Email</b>rb0000000001@wmsu.edu.ph</span>
+            <span><b>Student No.</b>2021-00001</span>
+            <span><b>Course</b>BS Computer Science</span>
+            <span><b>Year Level</b>3rd Year</span>
+            <span><b>Department</b>College of Computing Studies</span>
+            <span><b>Section</b>BSCS 3-A</span>
+          </div>
+          <div class="verif-submitted">Submitted: Mar 20, 2026 · 9:14 AM</div>
         </div>
-
-        <!-- Document Viewer Modal -->
-        <div class="modal-overlay" id="docModal">
-            <div class="modal-box">
-                <button class="modal-close" onclick="closeModal()">×</button>
-                <div class="doc-title">Certificate of Registration (COR)</div>
-                <div style="font-size: 0.85rem; color: #666;">Student: <span id="modalStudentName"></span></div>
-                <div class="doc-placeholder">
-                    <i class="fa-solid fa-file-invoice"></i>
-                    <p>Enrolled Student Document Preview</p>
-                    <small>Official WMSU COR for SY 2025-2026</small>
-                </div>
-            </div>
+        <div class="verif-actions">
+          <span class="badge badge-pending">Pending</span>
+          <span class="badge badge-doc" onclick="viewDoc('Buzztley, Rick A.')">View Document +</span>
+          <button class="tbl-btn approve" onclick="approveVerif(this, 'Buzztley, Rick A.')">Approve</button>
+          <button class="tbl-btn reject"  onclick="rejectVerif(this, 'Buzztley, Rick A.')">Reject</button>
         </div>
+      </div>
 
-        <script>
-            function viewDoc(name) {
-                document.getElementById('modalStudentName').textContent = name;
-                document.getElementById('docModal').classList.add('open');
-            }
+      <div class="verif-card" id="verif-maya">
+        <div class="verif-avatar"><i class="fa fa-user"></i></div>
+        <div class="verif-info">
+          <div class="verif-name">Santos, Maya L.</div>
+          <div class="verif-meta">
+            <span><b>Email</b>ms0000000002@wmsu.edu.ph</span>
+            <span><b>Student No.</b>2022-00045</span>
+            <span><b>Course</b>BS Biology</span>
+            <span><b>Year Level</b>2nd Year</span>
+            <span><b>Department</b>College of Science</span>
+            <span><b>Section</b>BSBio 2-B</span>
+          </div>
+          <div class="verif-submitted">Submitted: Mar 21, 2026 · 2:38 PM</div>
+        </div>
+        <div class="verif-actions">
+          <span class="badge badge-pending">Pending</span>
+          <span class="badge badge-doc" onclick="viewDoc('Santos, Maya L.')">View Document +</span>
+          <button class="tbl-btn approve" onclick="approveVerif(this, 'Santos, Maya L.')">Approve</button>
+          <button class="tbl-btn reject"  onclick="rejectVerif(this, 'Santos, Maya L.')">Reject</button>
+        </div>
+      </div>
 
-            function closeModal() {
-                document.getElementById('docModal').classList.remove('open');
-            }
-        </script>
-            
-    </body>
+      <div class="verif-card" id="verif-leo">
+        <div class="verif-avatar"><i class="fa fa-user"></i></div>
+        <div class="verif-info">
+          <div class="verif-name">Reyes, Leo M.</div>
+          <div class="verif-meta">
+            <span><b>Email</b>lr0000000003@wmsu.edu.ph</span>
+            <span><b>Student No.</b>2023-00112</span>
+            <span><b>Course</b>BS Mathematics</span>
+            <span><b>Year Level</b>1st Year</span>
+            <span><b>Department</b>College of Science</span>
+            <span><b>Section</b>BSMath 1-A</span>
+          </div>
+          <div class="verif-submitted">Submitted: Mar 22, 2026 · 8:05 AM</div>
+        </div>
+        <div class="verif-actions">
+          <span class="badge badge-pending">Pending</span>
+          <span class="badge badge-doc" onclick="viewDoc('Reyes, Leo M.')">View Document +</span>
+          <button class="tbl-btn approve" onclick="approveVerif(this, 'Reyes, Leo M.')">Approve</button>
+          <button class="tbl-btn reject"  onclick="rejectVerif(this, 'Reyes, Leo M.')">Reject</button>
+        </div>
+      </div>
+
+      <div class="verif-card" id="verif-carla">
+        <div class="verif-avatar"><i class="fa fa-user"></i></div>
+        <div class="verif-info">
+          <div class="verif-name">Mendez, Carla B.</div>
+          <div class="verif-meta">
+            <span><b>Email</b>cm0000000004@wmsu.edu.ph</span>
+            <span><b>Student No.</b>2022-00088</span>
+            <span><b>Course</b>BS Chemistry</span>
+            <span><b>Year Level</b>2nd Year</span>
+            <span><b>Department</b>College of Science</span>
+            <span><b>Section</b>BSChem 2-A</span>
+          </div>
+          <div class="verif-submitted">Submitted: Mar 22, 2026 · 11:20 AM</div>
+        </div>
+        <div class="verif-actions">
+          <span class="badge badge-pending">Pending</span>
+          <span class="badge badge-doc" onclick="viewDoc('Mendez, Carla B.')">View Document +</span>
+          <button class="tbl-btn approve" onclick="approveVerif(this, 'Mendez, Carla B.')">Approve</button>
+          <button class="tbl-btn reject"  onclick="rejectVerif(this, 'Mendez, Carla B.')">Reject</button>
+        </div>
+      </div>
+
+      <div class="verif-card" id="verif-sam">
+        <div class="verif-avatar"><i class="fa fa-user"></i></div>
+        <div class="verif-info">
+          <div class="verif-name">Uy, Sam T.</div>
+          <div class="verif-meta">
+            <span><b>Email</b>su0000000005@wmsu.edu.ph</span>
+            <span><b>Student No.</b>2021-00234</span>
+            <span><b>Course</b>BS Physics</span>
+            <span><b>Year Level</b>3rd Year</span>
+            <span><b>Department</b>College of Science</span>
+            <span><b>Section</b>BSPhysics 3-B</span>
+          </div>
+          <div class="verif-submitted">Submitted: Mar 23, 2026 · 4:52 PM</div>
+        </div>
+        <div class="verif-actions">
+          <span class="badge badge-pending">Pending</span>
+          <span class="badge badge-doc" onclick="viewDoc('Uy, Sam T.')">View Document +</span>
+          <button class="tbl-btn approve" onclick="approveVerif(this, 'Uy, Sam T.')">Approve</button>
+          <button class="tbl-btn reject"  onclick="rejectVerif(this, 'Uy, Sam T.')">Reject</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- APPROVED -->
+    <div class="verif-section">
+      <div class="section-heading">Approved</div>
+
+      <div class="verif-card">
+        <div class="verif-avatar"><i class="fa fa-user"></i></div>
+        <div class="verif-info">
+          <div class="verif-name">Cruz, Ana G.</div>
+          <div class="verif-meta">
+            <span><b>Email</b>ac0000000010@wmsu.edu.ph</span>
+            <span><b>Student No.</b>2020-00301</span>
+            <span><b>Course</b>BS Computer Science</span>
+            <span><b>Year Level</b>4th Year</span>
+            <span><b>Department</b>College of Computing Studies</span>
+            <span><b>Section</b>BSCS 4-A</span>
+          </div>
+          <div class="verif-submitted">Approved: Mar 18, 2026</div>
+        </div>
+        <div class="verif-actions">
+          <span class="badge badge-approved">Approved</span>
+        </div>
+      </div>
+
+      <div class="verif-card">
+        <div class="verif-avatar"><i class="fa fa-user"></i></div>
+        <div class="verif-info">
+          <div class="verif-name">Torres, Ben R.</div>
+          <div class="verif-meta">
+            <span><b>Email</b>bt0000000011@wmsu.edu.ph</span>
+            <span><b>Student No.</b>2021-00405</span>
+            <span><b>Course</b>BS English</span>
+            <span><b>Year Level</b>3rd Year</span>
+            <span><b>Department</b>College of Arts &amp; Sciences</span>
+            <span><b>Section</b>BSEng 3-C</span>
+          </div>
+          <div class="verif-submitted">Approved: Mar 19, 2026</div>
+        </div>
+        <div class="verif-actions">
+          <span class="badge badge-approved">Approved</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- REJECTED -->
+    <div class="verif-section">
+      <div class="section-heading">Rejected</div>
+
+      <div class="verif-card">
+        <div class="verif-avatar"><i class="fa fa-user"></i></div>
+        <div class="verif-info">
+          <div class="verif-name">Flores, Dan K.</div>
+          <div class="verif-meta">
+            <span><b>Email</b>df0000000020@wmsu.edu.ph</span>
+            <span><b>Student No.</b>2022-00199</span>
+            <span><b>Course</b>BS Biology</span>
+            <span><b>Year Level</b>2nd Year</span>
+            <span><b>Department</b>College of Science</span>
+            <span><b>Section</b>BSBio 2-A</span>
+          </div>
+          <div class="verif-submitted">Rejected: Mar 17, 2026 · Reason: COR unreadable</div>
+        </div>
+        <div class="verif-actions">
+          <span class="badge badge-rejected">Rejected</span>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- DOCUMENT VIEWER MODAL -->
+<div class="modal-overlay" id="docModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div class="modal-title">Certificate of Registration (COR)</div>
+    <div class="modal-sub">Student: <strong id="modalStudentName"></strong></div>
+    <div class="doc-placeholder">
+      <i class="fa-solid fa-file-invoice"></i>
+      <p>Enrolled Student Document Preview</p>
+      <small>Official WMSU COR for SY 2025–2026</small>
+    </div>
+    <div class="modal-footer">
+      <button class="tbl-btn neutral" onclick="closeModal()">Close</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  function viewDoc(name) {
+    document.getElementById('modalStudentName').textContent = name;
+    document.getElementById('docModal').classList.add('open');
+  }
+
+  function closeModal() {
+    document.getElementById('docModal').classList.remove('open');
+  }
+
+  document.getElementById('docModal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+
+  function approveVerif(btn, name) {
+    if (!confirm(`Approve verification for ${name}?`)) return;
+    const card = btn.closest('.verif-card');
+    const actions = card.querySelector('.verif-actions');
+    // Replace action buttons with approved badge
+    actions.innerHTML = '<span class="badge badge-approved">Approved</span>';
+    card.style.transition = 'opacity .3s';
+    card.style.opacity = '0.6';
+    showToast(`${name} approved.`, 'success');
+  }
+
+  function rejectVerif(btn, name) {
+    if (!confirm(`Reject verification for ${name}?`)) return;
+    const card = btn.closest('.verif-card');
+    const actions = card.querySelector('.verif-actions');
+    actions.innerHTML = '<span class="badge badge-rejected">Rejected</span>';
+    card.style.transition = 'opacity .3s';
+    card.style.opacity = '0.6';
+    showToast(`${name} rejected.`, 'error');
+  }
+
+  function showToast(msg, type = 'success') {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast ' + type + ' show';
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => t.classList.remove('show'), 3200);
+  }
+
+  function handleLogout(e) {
+    e.preventDefault();
+    if (confirm('Are you sure you want to log out?')) {
+      window.location.href = '../../pages/auth/login.html';
+    }
+  }
+</script>
+</body>
 </html>

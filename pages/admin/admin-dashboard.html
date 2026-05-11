@@ -1,466 +1,679 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../../assets/CSS/base/base.css">
-        <link rel="stylesheet" href="../../assets/CSS/base/navbar.css">
-        <link rel="stylesheet" href="../../assets/CSS/base/layout.css">
-        <link rel="stylesheet" href="../../assets/CSS/admin/admin.css">
-        <link rel="stylesheet" href="../../assets/CSS/admin/admin-pages.css">
-        <link rel="stylesheet" href="../../assets/CSS/misc/switcher.css">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — Super Admin | HiveMinds</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Belanosima&family=Bricolage+Grotesque:opsz,wght@12..96,420&family=Coiny&family=McLaren&family=Pacifico&family=Pangolin&display=swap" rel="stylesheet">
+    :root {
+      --amber:      #FFB500;
+      --amber-d:    #E6A000;
+      --hive:       #1A1400;
+      --wax:        #FEFAF0;
+      --comb:       #FDF3D0;
+      --accent:     #EDD97A;
+      --pale:       #F0E6B8;
+      --aged:       #8C7A50;
+      --warmgray:   #6b7280;
+      --text:       #2D2410;
+      --success:    #166534;
+      --success-bg: #dcfce7;
+      --warning:    #92400e;
+      --warning-bg: #fef3c7;
+      --danger:     #991b1b;
+      --danger-bg:  #fee2e2;
+      --info:       #1d4ed8;
+      --info-bg:    #dbeafe;
+      --sidebar-w:  240px;
+      --nav-h:      58px;
+      --radius:     10px;
+      --radius-lg:  14px;
+      --shadow-sm:  0 1px 4px rgba(0,0,0,0.07);
+      --shadow:     0 2px 12px rgba(0,0,0,0.09);
+      --shadow-lg:  0 6px 24px rgba(0,0,0,0.13);
+    }
 
-        <style>
-            #container {
-                display: flex;
-                align-items: flex-start;
-            }
-            #sidebar {
-                width: 230px;
-                flex-shrink: 0;
-            }
-            #content {
-                flex: 1;
-            }
-            :root { --amber: #FFB500; --amber-d: #E6A000; --wax: #FEFAF0; --pale: #F0E6B8; --aged: #8C7A50; }
+    body {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      background: #F5EDD5;
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
 
-            /* Bar Chart Styles */
-            .chart-card { padding: 24px; margin-bottom: 24px; }
-            .bar-chart { display: flex; align-items: flex-end; justify-content: space-between; height: 160px; gap: 12px; margin-top: 15px; padding-bottom: 5px; }
-            .bar-item { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; }
-            .bar-container { width: 100%; height: 100%; background: var(--wax); border-radius: 6px; position: relative; overflow: hidden; display: flex; align-items: flex-end; border: 1.5px solid var(--pale); }
-            .bar-fill { width: 100%; background: (0.95); cursor: help; }
-            .bar-label { font-size: 0.7rem; font-weight: 800; color: var(--aged); text-transform: uppercase; letter-spacing: 0.05em; }
-            .chart-header { display: flex; align-items: center; justify-content: space-between; }
-            .legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.75rem; font-weight: 700; color: var(--aged); }
-            .legend-dot { width: 10px; height: 10px; border-radius: 2px; background: var(--amber); }
-        </style>
-    </head>
+    /* ── NAVBAR ── */
+    .reg-nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      background: rgba(254,250,240,0.94);
+      backdrop-filter: blur(14px);
+      border-bottom: 1.5px solid #E8C84A;
+      display: flex; align-items: center;
+      padding: 0 28px; z-index: 100; gap: 24px;
+    }
+    .reg-nav .logo {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 1.45rem; font-weight: 700;
+      letter-spacing: -0.03em; color: #0D0B00;
+      text-decoration: none; flex-shrink: 0; margin-right: 8px; line-height: 1;
+    }
+    .reg-nav .logo span { color: #FF5F00; }
+    .nav-links { display: flex; align-items: center; gap: 4px; flex: 1; justify-content: center; }
+    .nav-links a {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.88rem; font-weight: 600; color: #3A2E00;
+      text-decoration: none; padding: 6px 14px; border-radius: 6px;
+      transition: all .18s; letter-spacing: .01em;
+    }
+    .nav-links a:hover { background: rgba(255,212,0,0.18); color: #1A1600; }
+    .nav-links a.active { background: var(--amber); color: #0D0B00; font-weight: 700; border: 1.5px solid rgba(0,0,0,0.15); }
+    .nav-user {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.83rem; font-weight: 600; color: #3A2E00;
+      text-decoration: none; padding: 5px 14px 5px 6px;
+      border-radius: 30px; border: 1.5px solid rgba(0,0,0,0.15);
+      transition: all .18s; cursor: pointer;
+      display: flex; align-items: center; gap: 9px; background: #fff;
+    }
+    .nav-user:hover { background: var(--amber); border-color: rgba(0,0,0,0.2); color: #0D0B00; }
 
-    <body>
-                <nav>
-            <div id="nav-container">
-                  <a href="/WebDev/pages/home/homepage.html">
-                    <div class="logo">
-                        <span class="black">Hive</span><span class="orange">Minds</span>
-                    </div>
-                </a>
-                <div id="nav-links">
-                    <a class="hover active-nav" href="admin-dashboard.html">Dashboard</a>
-                    <a class="hover" href="admin-users.html">Users</a>
-                    <a class="hover" href="admin-hives.html">Hives</a>
-                </div>
-                <div id="auth-links">
-                    <a class="hover" href="../../pages/misc/profile.html">Admin</a>
-                </div>
+    /* ── LAYOUT ── */
+    .reg-layout { display: flex; margin-top: var(--nav-h); min-height: calc(100vh - var(--nav-h)); }
+
+    /* ── SIDEBAR ── */
+    .reg-sidebar {
+      width: var(--sidebar-w); flex-shrink: 0;
+      position: fixed; top: var(--nav-h); left: 0; bottom: 0;
+      background: var(--hive); border-right: 3px solid var(--aged);
+      overflow-y: auto; padding: 20px 14px 40px;
+      display: flex; flex-direction: column; gap: 24px;
+    }
+    .sidebar-section-label {
+      font-size: 0.68rem; font-weight: 800; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--pale); padding: 0 8px; margin-bottom: 6px;
+    }
+    .sidebar-divider { height: 1px; background: var(--amber-d); margin: 0 4px 10px; border: none; }
+    .sidebar-link {
+      display: flex; align-items: center; gap: 9px;
+      padding: 9px 12px; border-radius: 9px;
+      font-size: 0.875rem; font-weight: 600; color: var(--pale);
+      text-decoration: none; transition: all .16s; margin-bottom: 2px;
+      cursor: pointer; border-left: 3px solid transparent;
+    }
+    .sidebar-link .sico { width: 18px; text-align: center; font-size: 1rem; flex-shrink: 0; color: var(--aged); }
+    .sidebar-link:hover { background: var(--aged); border-left: 5px solid var(--amber); color: var(--amber); }
+    .sidebar-link:hover .sico { color: var(--amber); }
+    .sidebar-link.active { background: var(--aged); border-left: 5px solid var(--amber-d); color: var(--wax); font-weight: 700; }
+    .sidebar-link.active .sico { color: var(--amber); }
+    .stat-pill {
+      display: flex; align-items: center; gap: 9px;
+      padding: 8px 12px; border-radius: 9px;
+      font-size: 0.82rem; font-weight: 500; color: var(--pale);
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,181,0,0.2);
+      margin-bottom: 5px;
+    }
+    .stat-pill .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--amber); flex-shrink: 0; }
+
+    /* ── MAIN ── */
+    .reg-main {
+      flex: 1; margin-left: var(--sidebar-w);
+      padding: 28px 28px 48px;
+    }
+    .page-header { margin-bottom: 24px; }
+    .page-header h1 { font-size: 1.45rem; font-weight: 800; color: var(--hive); letter-spacing: -0.02em; }
+    .page-header p  { font-size: 0.87rem; color: var(--aged); margin-top: 3px; }
+
+    /* ── STAT CARDS ── */
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 16px; margin-bottom: 24px;
+    }
+    .stat-card {
+      background: white; border: 1.5px solid var(--accent);
+      box-shadow: 3px 3px 0 var(--accent); border-radius: var(--radius-lg);
+      padding: 18px 20px;
+    }
+    .stat-card-label {
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--aged); margin-bottom: 8px;
+    }
+    .stat-card-value { font-size: 2rem; font-weight: 900; color: var(--hive); line-height: 1; }
+    .stat-card-sub   { font-size: 0.78rem; color: var(--aged); margin-top: 6px; }
+
+    /* ── CHART CARD ── */
+    .chart-card {
+      background: white; border: 1.5px solid var(--accent);
+      box-shadow: 3px 3px 0 var(--accent); border-radius: var(--radius-lg);
+      padding: 20px 24px; margin-bottom: 24px;
+    }
+    .chart-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 18px;
+    }
+    .chart-title {
+      font-size: 0.8rem; font-weight: 800; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--aged);
+    }
+    .legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.75rem; font-weight: 700; color: var(--aged); }
+    .legend-dot  { width: 10px; height: 10px; border-radius: 2px; background: var(--amber); }
+
+    .bar-chart {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      height: 160px; gap: 10px; padding-bottom: 2px;
+    }
+    .bar-item  { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; height: 100%; }
+    .bar-track {
+      width: 100%; flex: 1; background: var(--comb);
+      border-radius: 6px; border: 1.5px solid var(--pale);
+      display: flex; align-items: flex-end; overflow: hidden;
+    }
+    .bar-fill {
+      width: 100%; background: var(--amber);
+      border-radius: 4px 4px 0 0; transition: height .3s ease; cursor: help;
+    }
+    .bar-fill.current { background: rgba(255,181,0,0.45); }
+    .bar-label {
+      font-size: 0.7rem; font-weight: 800; color: var(--aged);
+      text-transform: uppercase; letter-spacing: 0.05em; flex-shrink: 0;
+    }
+    .bar-label.current { color: var(--amber-d); }
+    .chart-note {
+      font-size: 0.75rem; color: var(--aged); margin-top: 14px; text-align: center;
+    }
+
+    /* ── TWO COLUMN ── */
+    .dash-columns {
+      display: grid; grid-template-columns: 1fr 340px;
+      gap: 20px; align-items: start;
+    }
+    .dash-left  { display: flex; flex-direction: column; gap: 20px; }
+    .dash-right { display: flex; flex-direction: column; gap: 20px; }
+
+    /* ── SECTION HEADING ── */
+    .section-heading {
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--aged); margin-bottom: 10px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .section-heading::after { content: ''; flex: 1; height: 1px; background: var(--pale); }
+
+    /* ── CARD / TABLE ── */
+    .card {
+      background: white; border: 1.5px solid var(--accent);
+      box-shadow: 3px 3px 0 var(--accent); border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .table-wrap { overflow-x: auto; }
+    table.reg-table { width: 100%; border-collapse: collapse; font-size: 0.88em; }
+    .reg-table thead th {
+      background-color: var(--comb); padding: 10px 16px; text-align: left;
+      font-size: 0.72em; font-weight: 800; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--aged); border-bottom: 1.5px solid var(--pale);
+    }
+    .reg-table tbody tr { border-bottom: 1px solid var(--pale); transition: background 0.12s; }
+    .reg-table tbody tr:last-child td { border-bottom: none; }
+    .reg-table td { padding: 10px 16px; vertical-align: middle; color: var(--text); }
+    .reg-table tbody tr:hover td { background: var(--wax); }
+
+    .td-user { display: flex; align-items: center; gap: 8px; }
+    .td-user .avatar {
+      width: 28px; height: 28px; min-width: 28px; border-radius: 50%;
+      background: var(--comb); border: 1.5px solid var(--pale);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; color: var(--aged); font-weight: 700; flex-shrink: 0;
+    }
+    .td-meta { font-size: 0.82rem; color: var(--aged); }
+    .td-name { font-weight: 700; color: var(--hive); }
+
+    /* ── BADGES ── */
+    .badge {
+      display: inline-flex; padding: 3px 10px; border-radius: 100px;
+      font-size: 0.72em; font-weight: 700; white-space: nowrap;
+      text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    .badge-active   { background: var(--success-bg); color: var(--success); }
+    .badge-inactive { background: #F3F4F6; color: var(--warmgray); border: 1px solid #ddd; }
+    .badge-flagged  { background: var(--warning-bg); color: var(--warning); }
+
+    .tbl-tag {
+      display: inline-flex; background: var(--amber); color: var(--hive);
+      font-size: 9px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase;
+      padding: 3px 8px; border: 1.5px solid var(--hive); border-radius: 3px; white-space: nowrap;
+    }
+
+    /* ── BUTTONS ── */
+    .td-actions { display: flex; gap: 5px; flex-wrap: wrap; align-items: center; }
+    .tbl-btn {
+      padding: 4px 11px; font-size: 0.74em; font-weight: 700;
+      border-radius: 6px; cursor: pointer;
+      font-family: 'Bricolage Grotesque', sans-serif;
+      transition: 0.2s ease; border: 1.5px solid; white-space: nowrap;
+    }
+    .tbl-btn.danger  { border-color: var(--danger); color: var(--danger); background: var(--danger-bg); }
+    .tbl-btn.danger:hover { background: var(--danger); color: white; }
+    .tbl-btn.neutral { border-color: var(--accent); color: var(--aged); background: var(--comb); }
+    .tbl-btn.neutral:hover { background: var(--pale); }
+
+    /* ── HIVE ROWS ── */
+    .hive-row {
+      display: flex; align-items: center; gap: 12px;
+      padding: 11px 16px; border-bottom: 1px solid var(--pale);
+      transition: background .12s;
+    }
+    .hive-row:last-child { border-bottom: none; }
+    .hive-row:hover { background: var(--wax); }
+    .hive-row-icon {
+      width: 34px; height: 34px; min-width: 34px; border-radius: 8px;
+      background: var(--comb); border: 1.5px solid var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem; flex-shrink: 0;
+    }
+    .hive-row-info { flex: 1; min-width: 0; }
+    .hive-row-name { font-size: 0.86rem; font-weight: 700; color: var(--hive); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .hive-row-meta { font-size: 0.75rem; color: var(--aged); margin-top: 1px; }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed; bottom: 24px; right: 24px;
+      background: var(--hive); color: #fff; padding: 12px 20px;
+      border-radius: 10px; font-size: 0.88rem; font-weight: 600;
+      z-index: 999; transform: translateY(80px); opacity: 0;
+      transition: all 0.3s ease; border-left: 4px solid var(--amber);
+      box-shadow: var(--shadow-lg);
+    }
+    .toast.show    { transform: translateY(0); opacity: 1; }
+    .toast.success { border-color: #22c55e; }
+    .toast.warn    { border-color: var(--amber); }
+    .toast.error   { border-color: var(--danger); }
+
+    @media (max-width: 1100px) {
+      .dash-columns { grid-template-columns: 1fr; }
+      .stats-grid   { grid-template-columns: repeat(2,1fr); }
+    }
+    @media (max-width: 768px) {
+      .reg-sidebar { display: none; }
+      .reg-main { margin-left: 0; padding: 20px 16px 40px; }
+      .stats-grid { grid-template-columns: repeat(2,1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="reg-nav">
+  <a href="#" class="logo"><span>Hive</span>Minds</a>
+  <div class="nav-links">
+    <a href="admin-dashboard.html" class="active">Dashboard</a>
+    <a href="admin-users.html">Users</a>
+    <a href="admin-hives.html">Hives</a>
+    <a href="admin-verifications.html">Verifications</a>
+  </div>
+  <a href="../../pages/auth/login.html" class="nav-user" onclick="handleLogout(event)">
+    👤 Super Admin &nbsp;·&nbsp; Log out
+  </a>
+</nav>
+
+<div class="reg-layout">
+  <!-- SIDEBAR -->
+  <aside class="reg-sidebar">
+    <div>
+      <div class="sidebar-section-label">Menu</div>
+      <div class="sidebar-divider"></div>
+      <a href="admin-dashboard.html"     class="sidebar-link active"><span class="sico">⊞</span> Dashboard</a>
+      <a href="admin-users.html"         class="sidebar-link"><span class="sico">👥</span> Users</a>
+      <a href="admin-hives.html"         class="sidebar-link"><span class="sico">🐝</span> Hives</a>
+      <a href="admin-verifications.html" class="sidebar-link"><span class="sico">✓</span> Verifications</a>
+      <a href="admin-settings.html"      class="sidebar-link"><span class="sico">⚙</span> Settings</a>
+    </div>
+    <div>
+      <div class="sidebar-section-label">Quick Stats</div>
+      <div class="sidebar-divider"></div>
+      <div class="stat-pill"><span class="dot"></span> 243 total users</div>
+      <div class="stat-pill"><span class="dot"></span> 38 active hives</div>
+      <div class="stat-pill"><span class="dot"></span> 3 flagged posts</div>
+      <div class="stat-pill"><span class="dot"></span> 12 new today</div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="reg-main">
+    <div class="page-header">
+      <h1>Super-Admin Dashboard</h1>
+      <p>System-wide overview — HiveMinds</p>
+    </div>
+
+    <!-- STAT CARDS -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-card-label">Total Users</div>
+        <div class="stat-card-value">124</div>
+        <div class="stat-card-sub">+12 this week</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Active Hives</div>
+        <div class="stat-card-value">38</div>
+        <div class="stat-card-sub">6 one-time, 32 recurring</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Posts Today</div>
+        <div class="stat-card-value">47</div>
+        <div class="stat-card-sub">3 flagged for review</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Sessions Today</div>
+        <div class="stat-card-value">9</div>
+        <div class="stat-card-sub">2 in progress now</div>
+      </div>
+    </div>
+
+    <!-- BAR CHART -->
+    <div class="chart-card">
+      <div class="chart-header">
+        <div class="chart-title">System-wide Hive Activity (Last 6 Months)</div>
+        <div class="legend-item"><span class="legend-dot"></span> Monthly Hive Sessions</div>
+      </div>
+      <div class="bar-chart">
+        <div class="bar-item">
+          <div class="bar-track"><div class="bar-fill" style="height:35%;" title="Oct: 14 sessions"></div></div>
+          <span class="bar-label">Oct</span>
+        </div>
+        <div class="bar-item">
+          <div class="bar-track"><div class="bar-fill" style="height:55%;" title="Nov: 22 sessions"></div></div>
+          <span class="bar-label">Nov</span>
+        </div>
+        <div class="bar-item">
+          <div class="bar-track"><div class="bar-fill" style="height:40%;" title="Dec: 18 sessions"></div></div>
+          <span class="bar-label">Dec</span>
+        </div>
+        <div class="bar-item">
+          <div class="bar-track"><div class="bar-fill" style="height:70%;" title="Jan: 28 sessions"></div></div>
+          <span class="bar-label">Jan</span>
+        </div>
+        <div class="bar-item">
+          <div class="bar-track"><div class="bar-fill" style="height:65%;" title="Feb: 26 sessions"></div></div>
+          <span class="bar-label">Feb</span>
+        </div>
+        <div class="bar-item">
+          <div class="bar-track"><div class="bar-fill" style="height:92%;" title="Mar: 38 sessions"></div></div>
+          <span class="bar-label">Mar</span>
+        </div>
+        <div class="bar-item">
+          <div class="bar-track"><div class="bar-fill current" style="height:20%;" title="Apr: 9 sessions (ongoing)"></div></div>
+          <span class="bar-label current">Apr</span>
+        </div>
+      </div>
+      <p class="chart-note">
+        <i class="fa-solid fa-circle-info" style="color:var(--amber-d);margin-right:5px;"></i>
+        Activity peaks recorded in March due to mid-term exam preparations across Technical departments.
+      </p>
+    </div>
+
+    <!-- TWO COLUMNS -->
+    <div class="dash-columns">
+
+      <!-- LEFT -->
+      <div class="dash-left">
+
+        <!-- Recent Users -->
+        <div>
+          <div class="section-heading">Recent Users</div>
+          <div class="card">
+            <div class="table-wrap">
+              <table class="reg-table">
+                <thead>
+                  <tr>
+                    <th>User</th>
+                    <th>Joined</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><div class="td-user"><div class="avatar">R</div><span class="td-name">Rick Buzztley</span></div></td>
+                    <td class="td-meta">Mar 20</td>
+                    <td><span class="badge badge-active">Active</span></td>
+                    <td><div class="td-actions"><button class="tbl-btn danger" onclick="banUser(this)">Ban</button></div></td>
+                  </tr>
+                  <tr>
+                    <td><div class="td-user"><div class="avatar">M</div><span class="td-name">Maya Santos</span></div></td>
+                    <td class="td-meta">Mar 21</td>
+                    <td><span class="badge badge-active">Active</span></td>
+                    <td><div class="td-actions"><button class="tbl-btn danger" onclick="banUser(this)">Ban</button></div></td>
+                  </tr>
+                  <tr>
+                    <td><div class="td-user"><div class="avatar">L</div><span class="td-name">Leo Reyes</span></div></td>
+                    <td class="td-meta">Mar 22</td>
+                    <td><span class="badge badge-active">Active</span></td>
+                    <td><div class="td-actions"><button class="tbl-btn danger" onclick="banUser(this)">Ban</button></div></td>
+                  </tr>
+                  <tr>
+                    <td><div class="td-user"><div class="avatar">C</div><span class="td-name">Carla Mendez</span></div></td>
+                    <td class="td-meta">Mar 22</td>
+                    <td><span class="badge badge-inactive">Inactive</span></td>
+                    <td><div class="td-actions"><button class="tbl-btn danger" onclick="banUser(this)">Ban</button></div></td>
+                  </tr>
+                  <tr>
+                    <td><div class="td-user"><div class="avatar">S</div><span class="td-name">Sam Uy</span></div></td>
+                    <td class="td-meta">Mar 23</td>
+                    <td><span class="badge badge-flagged">Flagged</span></td>
+                    <td><div class="td-actions"><button class="tbl-btn danger" onclick="banUser(this)">Ban</button></div></td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-        </nav>
-
-
-        <main>
-            <div id="container">
-                <div id="sidebar">
-
-                    <div id="menu">
-                        <p>MENU</p>
-                        <hr>
-                        <a href="admin-dashboard.html">
-                            <div class="sidebar-button menu active">
-                                <p>Dashboard</p>
-                            </div>
-                        </a>
-                        <a href="admin-users.html">
-                            <div class="sidebar-button menu">
-                                <p>Users</p>
-                            </div>
-                        </a>
-                        <a href="admin-hives.html">
-                            <div class="sidebar-button menu">
-                                <p>Hives</p>
-                            </div>
-                        </a>
-                        <a href="admin-verifications.html">
-                            <div class="sidebar-button menu">
-                                <p>Verifications</p>
-                            </div>
-                        </a>
-                        <a href="admin-settings.html">
-                            <div class="sidebar-button menu">
-                                <p>Settings</p>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div id="my-hives">
-                        <p>QUICK STATS</p>
-                        <hr>
-                        <div class="sidebar-button my-hives">
-                            <span class="hex"></span><p>243 total users</p>
-                        </div>
-                        <div class="sidebar-button my-hives">
-                            <span class="hex"></span><p>38 active hives</p>
-                        </div>
-                        <div class="sidebar-button my-hives">
-                            <span class="hex"></span><p>3 flagged posts</p>
-                        </div>
-                        <div class="sidebar-button my-hives">
-                            <span class="hex"></span><p>12 new today</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="content">
-                    <div id="qotd">
-                        Super-Admin Dashboard — HiveMinds
-                    </div>
-
-                    <div id="admin-body">
-
-                        <!-- Stats row -->
-                        <div class="admin-stats-grid">
-                            <div class="stat-card">
-                                <div class="stat-label">Total Users</div>
-                                <div class="stat-value">124</div>
-                                <div class="stat-sub">+12 this week</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-label">Active Hives</div>
-                                <div class="stat-value">38</div>
-                                <div class="stat-sub">6 one-time, 32 recurring</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-label">Posts Today</div>
-                                <div class="stat-value">47</div>
-                                <div class="stat-sub">3 flagged for review</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-label">Sessions Today</div>
-                                <div class="stat-value">9</div>
-                                <div class="stat-sub">2 in progress now</div>
-                            </div>
-                        </div>
-
-                        <!-- System Growth Chart -->
-                        <div class="admin-card chart-card">
-                            <div class="chart-header">
-                                <div class="section-label" style="margin-bottom: 0; border-bottom: none;">System-wide Hive Activity (Last 6 Months)</div>
-                                <div class="legend-item"><span class="legend-dot"></span> Monthly Hive Sessions</div>
-                            </div>
-                            <div class="bar-chart">
-                                <div class="bar-item">
-                                    <div class="bar-container"><div class="bar-fill" style="height: 35%;" title="Oct: 14 sessions"></div></div>
-                                    <span class="bar-label">Oct</span>
-                                </div>
-                                <div class="bar-item">
-                                    <div class="bar-container"><div class="bar-fill" style="height: 55%;" title="Nov: 22 sessions"></div></div>
-                                    <span class="bar-label">Nov</span>
-                                </div>
-                                <div class="bar-item">
-                                    <div class="bar-container"><div class="bar-fill" style="height: 40%;" title="Dec: 18 sessions"></div></div>
-                                    <span class="bar-label">Dec</span>
-                                </div>
-                                <div class="bar-item">
-                                    <div class="bar-container"><div class="bar-fill" style="height: 70%;" title="Jan: 28 sessions"></div></div>
-                                    <span class="bar-label">Jan</span>
-                                </div>
-                                <div class="bar-item">
-                                    <div class="bar-container"><div class="bar-fill" style="height: 65%;" title="Feb: 26 sessions"></div></div>
-                                    <span class="bar-label">Feb</span>
-                                </div>
-                                <div class="bar-item">
-                                    <div class="bar-container"><div class="bar-fill" style="height: 92%;" title="Mar: 38 sessions"></div></div>
-                                    <span class="bar-label">Mar</span>
-                                </div>
-                                <div class="bar-item">
-                                    <div class="bar-container"><div class="bar-fill" style="height: 20%; background-color: var(--orange); opacity: 0.6;" title="Current: 9 sessions"></div></div>
-                                    <span class="bar-label" style="color: var(--orange);">Apr</span>
-                                </div>
-                            </div>
-                            <p style="font-size: 0.75rem; color: var(--muted); margin-top: 15px; text-align: center;">
-                                <i class="fa-solid fa-circle-info" style="color: var(--amber-d);"></i>
-                                Activity peaks recorded in March due to mid-term exam preparations across Technical departments.
-                            </p>
-                        </div>
-
-                        <div class="admin-columns">
-
-                            <!-- Left: recent users, flagged posts -->
-                            <div class="admin-left">
-
-                                <div>
-                                    <div class="section-label">Recent Users</div>
-                                    <div class="admin-card">
-                                        <table class="admin-table">
-                                            <thead>
-                                                <tr>
-                                                    <th>User</th>
-                                                    <th>Joined</th>
-                                                    <th>Status</th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <div class="user-row">
-                                                            <img src="../../assets/images/person-profile.jpg">
-                                                            Rick Buzztley
-                                                        </div>
-                                                    </td>
-                                                    <td>Mar 20</td>
-                                                    <td><span class="status-badge status-active">Active</span></td>
-                                                    <td><button class="action-btn danger" onclick="handleUserAction(this, 'Ban')">Ban</button></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="user-row">
-                                                            <img src="../../assets/images/person-profile.jpg">
-                                                            Maya Santos
-                                                        </div>
-                                                    </td>
-                                                    <td>Mar 21</td>
-                                                    <td><span class="status-badge status-active">Active</span></td>
-                                                    <td><button class="action-btn danger" onclick="handleUserAction(this, 'Ban')">Ban</button></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="user-row">
-                                                            <img src="../../assets/images/person-profile.jpg">
-                                                            Leo Reyes
-                                                        </div>
-                                                    </td>
-                                                    <td>Mar 22</td>
-                                                    <td><span class="status-badge status-active">Active</span></td>
-                                                    <td><button class="action-btn danger" onclick="handleUserAction(this, 'Ban')">Ban</button></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="user-row">
-                                                            <img src="../../assets/images/person-profile.jpg">
-                                                            Carla Mendez
-                                                        </div>
-                                                    </td>
-                                                    <td>Mar 22</td>
-                                                    <td><span class="status-badge status-inactive">Inactive</span></td>
-                                                    <td><button class="action-btn danger" onclick="handleUserAction(this, 'Ban')">Ban</button></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="user-row">
-                                                            <img src="../../assets/images/person-profile.jpg">
-                                                            Sam Uy
-                                                        </div>
-                                                    </td>
-                                                    <td>Mar 23</td>
-                                                    <td><span class="status-badge status-flagged">Flagged</span></td>
-                                                    <td><button class="action-btn danger" onclick="handleUserAction(this, 'Ban')">Ban</button></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <div class="section-label">Flagged Posts</div>
-                                    <div class="admin-card">
-                                        <table class="admin-table">
-                                            <thead>
-                                                <tr>
-                                                    <th>User</th>
-                                                    <th>Hive</th>
-                                                    <th>Reason</th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <div class="user-row">
-                                                            <img src="../../assets/images/person-profile.jpg">
-                                                            Sam Uy
-                                                        </div>
-                                                    </td>
-                                                    <td>OS Security Fundamentals</td>
-                                                    <td>Spam</td>
-                                                    <td>
-                                                        <button class="action-btn" onclick="removeElement(this, 'tr', false)">Dismiss</button>
-                                                        <button class="action-btn danger" style="margin-left:5px;" onclick="removeElement(this, 'tr', true)">Remove</button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="user-row">
-                                                            <img src="../../assets/images/person-profile.jpg">
-                                                           Charla Cruz
-                                                        </div>
-                                                    </td>
-                                                    <td>C++ Advanced Patterns</td>
-                                                    <td>prolonged Inactivity</td>
-                                                    <td>
-                                                        <button class="action-btn" onclick="removeElement(this, 'tr', false)">Dismiss</button>
-                                                        <button class="action-btn danger" style="margin-left:5px;" onclick="removeElement(this, 'tr', true)">Remove</button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="user-row">
-                                                            <img src="../../assets/images/person-profile.jpg">
-                                                            Anthony
-                                                        </div>
-                                                    </td>
-                                                    <td>Network Protocols Review</td>
-                                                    <td>Off-topic</td>
-                                                    <td>
-                                                        <button class="action-btn" onclick="removeElement(this, 'tr', false)">Dismiss</button>
-                                                        <button class="action-btn danger" style="margin-left:5px;" onclick="removeElement(this, 'tr', true)">Remove</button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="user-row">
-                                                            <img src="../../assets/images/person-profile.jpg">
-                                                            Milky
-                                                        </div>
-                                                    </td>
-                                                    <td>Database Management Systems</td>
-                                                    <td>Inappropriate</td>
-                                                    <td>
-                                                        <button class="action-btn" onclick="removeElement(this, 'tr', false)">Dismiss</button>
-                                                        <button class="action-btn danger" style="margin-left:5px;" onclick="removeElement(this, 'tr', true)">Remove</button>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <!-- Right: active hives -->
-                            <div class="admin-right">
-
-                                <div>
-                                    <div class="section-label">Active Hives</div>
-                                    <div class="admin-card">
-                                        <div class="hive-admin-row">
-                                            <span class="hex"></span>
-                                            <div class="hive-admin-info">
-                                                <div class="hive-admin-name">Web Development Collective</div>
-                                                <div class="hive-admin-meta">18 members &mdash; Recurring &mdash; Online</div>
-                                            </div>
-                                            <span class="tag">Technology</span>
-                                            <button class="action-btn danger" onclick="removeElement(this, '.hive-admin-row', true)">Remove</button>
-                                        </div>
-                                        <div class="hive-admin-row">
-                                            <span class="hex"></span>
-                                            <div class="hive-admin-info">
-                                                <div class="hive-admin-name">Python Programming Basics</div>
-                                                <div class="hive-admin-meta">12 members &mdash; One-time &mdash; In-person</div>
-                                            </div>
-                                            <span class="tag">Technology</span>
-                                            <button class="action-btn danger" onclick="removeElement(this, '.hive-admin-row', true)">Remove</button>
-                                        </div>
-                                        <div class="hive-admin-row">
-                                            <span class="hex"></span>
-                                            <div class="hive-admin-info">
-                                                <div class="hive-admin-name">Data Structures & Algorithms</div>
-                                                <div class="hive-admin-meta">55 members &mdash; Recurring &mdash; Online</div>
-                                            </div>
-                                            <span class="tag">Technology</span>
-                                            <button class="action-btn danger" onclick="removeElement(this, '.hive-admin-row', true)">Remove</button>
-                                        </div>
-                                        <div class="hive-admin-row">
-                                            <span class="hex"></span>
-                                            <div class="hive-admin-info">
-                                                <div class="hive-admin-name">Cybersecurity Essentials</div>
-                                                <div class="hive-admin-meta">42 members &mdash; Recurring &mdash; Online</div>
-                                            </div>
-                                            <span class="tag">Technology</span>
-                                            <button class="action-btn danger" onclick="removeElement(this, '.hive-admin-row', true)">Remove</button>
-                                        </div>
-                                        <div class="hive-admin-row">
-                                            <span class="hex"></span>
-                                            <div class="hive-admin-info">
-                                                <div class="hive-admin-name">Machine Learning Mastery</div>
-                                                <div class="hive-admin-meta">38 members &mdash; Recurring &mdash; Online</div>
-                                            </div>
-                                            <span class="tag">Technology</span>
-                                            <button class="action-btn danger" onclick="removeElement(this, '.hive-admin-row', true)">Remove</button>
-                                        </div>
-                                        <div class="hive-admin-row">
-                                            <span class="hex"></span>
-                                            <div class="hive-admin-info">
-                                                <div class="hive-admin-name">Full Stack Developers Hub</div>
-                                                <div class="hive-admin-meta">29 members &mdash; Recurring &mdash; In-person</div>
-                                            </div>
-                                            <span class="tag">Technology</span>
-                                            <button class="action-btn danger" onclick="removeElement(this, '.hive-admin-row', true)">Remove</button>
-                                        </div>
-                                        <div class="hive-admin-row">
-                                            <span class="hex"></span>
-                                            <div class="hive-admin-info">
-                                                <div class="hive-admin-name">Mobile App Design (UI/UX)</div>
-                                                <div class="hive-admin-meta">21 members &mdash; One-time &mdash; Online</div>
-                                            </div>
-                                            <span class="tag">Technology</span>
-                                            <button class="action-btn danger" onclick="removeElement(this, '.hive-admin-row', true)">Remove</button>
-                                        </div>
-                                        <div class="hive-admin-row">
-                                            <span class="hex"></span>
-                                            <div class="hive-admin-info">
-                                                <div class="hive-admin-name">Cloud Architecture Prep</div>
-                                                <div class="hive-admin-meta">15 members &mdash; One-time &mdash; In-person</div>
-                                            </div>
-                                            <span class="tag">Technology</span>
-                                            <button class="action-btn danger" onclick="removeElement(this, '.hive-admin-row', true)">Remove</button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </main>
-
-        <!-- Role switcher -->
-        <div id="role-switcher">
-            <span class="switcher-label">View as</span>
-      
-              <a href="/WebDev/pages/admin/admin-dashboard.html" class="switcher-btn">Super-Admin</a>
-            <a href="/WebDev/pages/adminRegistrar/Registrar-admin-verifications.html" class="switcher-btn">Registrar-Admin</a>
-            <a href="/WebDev/pages/adminDean/Dean-admin-dashboard.html" class="switcher-btn">Dean</a>
-            <a href="/WebDev/pages/adminAdviser/Adviser_dashboard.html" class="switcher-btn">Adviser</a>
+          </div>
         </div>
 
-        <script>
-            function handleUserAction(btn, action) {
-                const userName = btn.closest('tr').querySelector('.user-row').textContent.trim();
-                if (confirm(`Are you sure you want to ${action.toLowerCase()} ${userName}?`)) {
-                    const row = btn.closest('tr');
-                    row.style.transition = 'opacity 0.3s ease';
-                    row.style.opacity = '0.5';
-                    btn.disabled = true;
-                    btn.textContent = action === 'Ban' ? 'Banned' : 'Suspended';
-                }
-            }
+        <!-- Flagged Posts -->
+        <div>
+          <div class="section-heading">Flagged Posts</div>
+          <div class="card">
+            <div class="table-wrap">
+              <table class="reg-table">
+                <thead>
+                  <tr>
+                    <th>User</th>
+                    <th>Hive</th>
+                    <th>Reason</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="flaggedBody">
+                  <tr>
+                    <td><div class="td-user"><div class="avatar">S</div><span class="td-name">Sam Uy</span></div></td>
+                    <td class="td-meta">OS Security Fundamentals</td>
+                    <td class="td-meta">Spam</td>
+                    <td><div class="td-actions">
+                      <button class="tbl-btn neutral" onclick="dismissPost(this)">Dismiss</button>
+                      <button class="tbl-btn danger"  onclick="removePost(this)">Remove</button>
+                    </div></td>
+                  </tr>
+                  <tr>
+                    <td><div class="td-user"><div class="avatar">C</div><span class="td-name">Charla Cruz</span></div></td>
+                    <td class="td-meta">C++ Advanced Patterns</td>
+                    <td class="td-meta">Prolonged Inactivity</td>
+                    <td><div class="td-actions">
+                      <button class="tbl-btn neutral" onclick="dismissPost(this)">Dismiss</button>
+                      <button class="tbl-btn danger"  onclick="removePost(this)">Remove</button>
+                    </div></td>
+                  </tr>
+                  <tr>
+                    <td><div class="td-user"><div class="avatar">A</div><span class="td-name">Anthony</span></div></td>
+                    <td class="td-meta">Network Protocols Review</td>
+                    <td class="td-meta">Off-topic</td>
+                    <td><div class="td-actions">
+                      <button class="tbl-btn neutral" onclick="dismissPost(this)">Dismiss</button>
+                      <button class="tbl-btn danger"  onclick="removePost(this)">Remove</button>
+                    </div></td>
+                  </tr>
+                  <tr>
+                    <td><div class="td-user"><div class="avatar">M</div><span class="td-name">Milky</span></div></td>
+                    <td class="td-meta">Database Management Systems</td>
+                    <td class="td-meta">Inappropriate</td>
+                    <td><div class="td-actions">
+                      <button class="tbl-btn neutral" onclick="dismissPost(this)">Dismiss</button>
+                      <button class="tbl-btn danger"  onclick="removePost(this)">Remove</button>
+                    </div></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
 
-            function removeElement(btn, selector, askConfirm) {
-                if (!askConfirm || confirm('Are you sure you want to remove this item?')) {
-                    const item = btn.closest(selector);
-                    item.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-                    item.style.opacity = '0';
-                    item.style.transform = 'translateX(20px)';
-                    setTimeout(() => item.remove(), 300);
-                }
-            }
-        </script>
-    </body>
+      </div>
+
+      <!-- RIGHT: Active Hives -->
+      <div class="dash-right">
+        <div>
+          <div class="section-heading">Active Hives</div>
+          <div class="card">
+            <div id="hivesList">
+              <div class="hive-row">
+                <div class="hive-row-icon">🌐</div>
+                <div class="hive-row-info">
+                  <div class="hive-row-name">Web Development Collective</div>
+                  <div class="hive-row-meta">18 members · Recurring · Online</div>
+                </div>
+                <span class="tbl-tag">Tech</span>
+                <button class="tbl-btn danger" onclick="removeHive(this)">Remove</button>
+              </div>
+              <div class="hive-row">
+                <div class="hive-row-icon">🐍</div>
+                <div class="hive-row-info">
+                  <div class="hive-row-name">Python Programming Basics</div>
+                  <div class="hive-row-meta">12 members · One-time · In-person</div>
+                </div>
+                <span class="tbl-tag">Tech</span>
+                <button class="tbl-btn danger" onclick="removeHive(this)">Remove</button>
+              </div>
+              <div class="hive-row">
+                <div class="hive-row-icon">🧮</div>
+                <div class="hive-row-info">
+                  <div class="hive-row-name">Data Structures & Algorithms</div>
+                  <div class="hive-row-meta">55 members · Recurring · Online</div>
+                </div>
+                <span class="tbl-tag">Tech</span>
+                <button class="tbl-btn danger" onclick="removeHive(this)">Remove</button>
+              </div>
+              <div class="hive-row">
+                <div class="hive-row-icon">🔐</div>
+                <div class="hive-row-info">
+                  <div class="hive-row-name">Cybersecurity Essentials</div>
+                  <div class="hive-row-meta">42 members · Recurring · Online</div>
+                </div>
+                <span class="tbl-tag">Tech</span>
+                <button class="tbl-btn danger" onclick="removeHive(this)">Remove</button>
+              </div>
+              <div class="hive-row">
+                <div class="hive-row-icon">🤖</div>
+                <div class="hive-row-info">
+                  <div class="hive-row-name">Machine Learning Mastery</div>
+                  <div class="hive-row-meta">38 members · Recurring · Online</div>
+                </div>
+                <span class="tbl-tag">Tech</span>
+                <button class="tbl-btn danger" onclick="removeHive(this)">Remove</button>
+              </div>
+              <div class="hive-row">
+                <div class="hive-row-icon">💻</div>
+                <div class="hive-row-info">
+                  <div class="hive-row-name">Full Stack Developers Hub</div>
+                  <div class="hive-row-meta">29 members · Recurring · In-person</div>
+                </div>
+                <span class="tbl-tag">Tech</span>
+                <button class="tbl-btn danger" onclick="removeHive(this)">Remove</button>
+              </div>
+              <div class="hive-row">
+                <div class="hive-row-icon">📱</div>
+                <div class="hive-row-info">
+                  <div class="hive-row-name">Mobile App Design (UI/UX)</div>
+                  <div class="hive-row-meta">21 members · One-time · Online</div>
+                </div>
+                <span class="tbl-tag">Tech</span>
+                <button class="tbl-btn danger" onclick="removeHive(this)">Remove</button>
+              </div>
+              <div class="hive-row">
+                <div class="hive-row-icon">☁️</div>
+                <div class="hive-row-info">
+                  <div class="hive-row-name">Cloud Architecture Prep</div>
+                  <div class="hive-row-meta">15 members · One-time · In-person</div>
+                </div>
+                <span class="tbl-tag">Tech</span>
+                <button class="tbl-btn danger" onclick="removeHive(this)">Remove</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  // ── BAN USER ──
+  function banUser(btn) {
+    const row  = btn.closest('tr');
+    const name = row.querySelector('.td-name').textContent.trim();
+    if (!confirm(`Ban ${name}? They will lose access immediately.`)) return;
+    row.style.transition = 'opacity .3s';
+    row.style.opacity = '0.4';
+    btn.disabled = true;
+    btn.textContent = 'Banned';
+    showToast(`${name} has been banned.`, 'error');
+  }
+
+  // ── FLAGGED POSTS ──
+  function dismissPost(btn) {
+    const row = btn.closest('tr');
+    fadeRemove(row);
+    showToast('Post dismissed from queue.', 'warn');
+  }
+  function removePost(btn) {
+    const row = btn.closest('tr');
+    if (!confirm('Permanently remove this post?')) return;
+    fadeRemove(row);
+    showToast('Post removed.', 'error');
+  }
+
+  // ── HIVE REMOVE ──
+  function removeHive(btn) {
+    const row  = btn.closest('.hive-row');
+    const name = row.querySelector('.hive-row-name').textContent;
+    if (!confirm(`Remove "${name}"? This cannot be undone.`)) return;
+    fadeRemove(row);
+    showToast(`"${name}" removed.`, 'error');
+  }
+
+  function fadeRemove(el) {
+    el.style.transition = 'opacity .25s, transform .25s';
+    el.style.opacity = '0';
+    el.style.transform = 'translateX(16px)';
+    setTimeout(() => el.remove(), 260);
+  }
+
+  // ── TOAST ──
+  function showToast(msg, type = 'success') {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast ' + type + ' show';
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => t.classList.remove('show'), 3200);
+  }
+
+  // ── LOGOUT ──
+  function handleLogout(e) {
+    e.preventDefault();
+    if (confirm('Are you sure you want to log out?')) {
+      window.location.href = '../../pages/auth/login.html';
+    }
+  }
+</script>
+</body>
 </html>
