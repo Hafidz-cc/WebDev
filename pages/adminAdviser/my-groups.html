@@ -5,42 +5,46 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Groups — HiveMinds</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Pacifico&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --amber:#FFB500;--amber-d:#E6A000;--amber-dk:#CC8800;--hive:#1A1400;--wax:#FEFAF0;--comb:#FDF3D0;--yellow-pale:#FFFDF0;
-      --accent:#EDD97A;--pale:#F0E6B8;--aged:#8C7A50;--warmgray:#6b7280;--text:#2D2410;--muted:#8C7A50;
-      --success:#166534;--success-bg:#dcfce7;--warning:#92400e;--warning-bg:#fef3c7;
-      --danger:#991b1b;--danger-bg:#fee2e2;--info:#1d4ed8;--info-bg:#dbeafe;
-      --purple:#6b21a8;--purple-bg:#f3e8ff;
-      --sidebar-w:240px;--nav-h:58px;--radius:10px;--radius-lg:14px;
-      --shadow-sm:0 1px 4px rgba(0,0,0,0.07);--shadow:0 2px 12px rgba(0,0,0,0.09);--shadow-lg:0 6px 24px rgba(0,0,0,0.13);
+      --amber:#FFB500; --amber-d:#E6A000; --amber-dk:#CC8800;
+      --hive:#1A1400; --wax:#FEFAF0; --comb:#FDF3D0; --yellow-pale:#FFFDF0;
+      --yellow:#FFD400; --yellow-mid:#FFF3B0; --orange:#FF5F00;
+      --accent:#EDD97A; --pale:#F0E6B8; --aged:#8C7A50; --muted:#9A8A60;
+      --warmgray:#6b7280; --text:#2D2410;
+      --success:#166534; --success-bg:#dcfce7;
+      --warning:#92400e; --warning-bg:#fef3c7;
+      --danger:#991b1b; --danger-bg:#fee2e2;
+      --info:#1d4ed8; --info-bg:#dbeafe;
+      --border-y:#E8C84A;
+      --sidebar-w:240px; --nav-h:58px; --radius:10px; --radius-lg:14px;
+      --shadow-sm:0 1px 4px rgba(0,0,0,0.07);
+      --shadow:0 2px 12px rgba(0,0,0,0.09);
+      --shadow-lg:0 6px 24px rgba(0,0,0,0.13);
     }
     body { font-family:'Bricolage Grotesque',sans-serif; background:#F5EDD5; color:var(--text); min-height:100vh; overflow-x:hidden; }
- 
+
     /* NAVBAR */
-    /* NAVBAR — light frosted, cohesive with Adviser dashboard */
-    .reg-nav { position:fixed;top:0;left:0;right:0;height:var(--nav-h);background:rgba(254,250,240,0.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1.5px solid #E8C84A;display:flex;align-items:center;padding:0 28px;z-index:100;gap:24px; }
+    .reg-nav { position:fixed;top:0;left:0;right:0;height:var(--nav-h);background:rgba(254,250,240,0.94);backdrop-filter:blur(14px);border-bottom:1.5px solid #E8C84A;display:flex;align-items:center;padding:0 28px;z-index:100;gap:24px; }
     .reg-nav .logo { font-family:'Fraunces',Georgia,serif;font-size:1.45rem;font-weight:700;letter-spacing:-0.03em;color:#0D0B00;text-decoration:none;flex-shrink:0;margin-right:8px;line-height:1; }
     .reg-nav .logo span { color:#FF5F00; }
     .nav-links { display:flex;align-items:center;gap:4px;flex:1;justify-content:center; }
     .nav-links a { font-family:'Plus Jakarta Sans',sans-serif;font-size:0.88rem;font-weight:600;color:#3A2E00;text-decoration:none;padding:6px 14px;border-radius:6px;transition:all .18s;letter-spacing:.01em;display:flex;align-items:center; }
     .nav-links a:hover { background:rgba(255,212,0,0.18);color:#1A1600; }
     .nav-links a.active { background:var(--amber);color:#0D0B00;font-weight:700;border:1.5px solid rgba(0,0,0,0.15); }
-    .nav-right { display:flex;align-items:center;gap:10px; }
     .nav-right { display:flex;align-items:center;gap:8px;flex-shrink:0; }
     .nav-user { font-family:'Plus Jakarta Sans',sans-serif;font-size:0.83rem;font-weight:600;color:#3A2E00;text-decoration:none;padding:5px 14px 5px 6px;border-radius:30px;border:1.5px solid rgba(0,0,0,0.15);transition:all .18s;cursor:pointer;display:flex;align-items:center;gap:9px;background:#fff; }
     .nav-user:hover { background:var(--amber);border-color:rgba(0,0,0,0.2);color:#0D0B00; }
     .nav-user .avatar-dot { width:28px;height:28px;border-radius:50%;background:var(--amber);color:var(--hive);font-size:0.75rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1.5px solid rgba(0,0,0,0.12); }
     .nav-logout { font-family:'Plus Jakarta Sans',sans-serif;font-size:0.83rem;font-weight:600;color:#3A2E00;text-decoration:none;padding:7px 14px;border-radius:6px;border:1.5px solid rgba(0,0,0,0.18);transition:all .18s;background:#fff; }
     .nav-logout:hover { background:var(--amber);border-color:rgba(0,0,0,0.2);color:#0D0B00; }
- 
+
     /* LAYOUT */
     .reg-layout { display:flex;margin-top:var(--nav-h);min-height:calc(100vh - var(--nav-h)); }
- 
+
     /* SIDEBAR */
-    /* SIDEBAR — dark theme matching admin.css */
     .reg-sidebar { width:var(--sidebar-w);flex-shrink:0;position:fixed;top:var(--nav-h);left:0;bottom:0;background:var(--hive);border-right:3px solid var(--aged);overflow-y:auto;padding:20px 14px 40px;display:flex;flex-direction:column;gap:24px; }
     .sidebar-section-label { font-size:0.68rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--pale);padding:0 8px;margin-bottom:6px; }
     .sidebar-divider { height:1px;background:var(--amber-d);margin:0 4px 10px;border:none; }
@@ -54,31 +58,25 @@
     .stat-pill .dot { width:7px;height:7px;border-radius:50%;background:var(--amber);flex-shrink:0; }
     .sico-wrap { position:relative;display:inline-flex; }
     .notif-dot { position:absolute;top:-3px;right:-4px;width:8px;height:8px;border-radius:50%;background:#ef4444;border:1.5px solid var(--hive); }
- 
+
     /* MAIN */
     .reg-main { flex:1;margin-left:var(--sidebar-w);padding:28px 28px 48px; }
     .page-header { margin-bottom:24px;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px; }
     .page-header-left h1 { font-size:1.45rem;font-weight:800;color:var(--hive);letter-spacing:-.02em; }
     .page-header-left p { font-size:0.87rem;color:var(--aged);margin-top:3px; }
- 
-    /* PRIMARY BUTTON */
+
+    /* BUTTONS */
     .btn-primary { display:inline-flex;align-items:center;gap:7px;padding:9px 18px;background:var(--amber);color:var(--hive);border:2px solid var(--hive);border-radius:var(--radius);font-family:'Bricolage Grotesque',sans-serif;font-size:0.85rem;font-weight:700;cursor:pointer;box-shadow:2px 2px 0 var(--hive);transition:all .15s; }
     .btn-primary:hover { background:var(--amber-d);transform:translate(-1px,-1px);box-shadow:3px 3px 0 var(--hive); }
     .btn-ghost { display:inline-flex;align-items:center;gap:7px;padding:8px 16px;background:#fff;color:var(--text);border:1.5px solid var(--accent);border-radius:var(--radius);font-family:'Bricolage Grotesque',sans-serif;font-size:0.84rem;font-weight:600;cursor:pointer;transition:all .15s; }
     .btn-ghost:hover { background:var(--comb);border-color:var(--amber); }
     .btn-danger { display:inline-flex;align-items:center;gap:7px;padding:8px 16px;background:#fff;color:var(--danger);border:1.5px solid var(--danger);border-radius:var(--radius);font-family:'Bricolage Grotesque',sans-serif;font-size:0.84rem;font-weight:700;cursor:pointer;transition:all .15s; }
     .btn-danger:hover { background:var(--danger-bg); }
- 
-    /* TABS */
-    .view-toggle { display:flex;gap:0;background:#fff;border:1.5px solid var(--accent);border-radius:9px;padding:3px;margin-bottom:20px;width:fit-content; }
-    .view-tab { padding:6px 16px;border-radius:7px;font-size:0.82rem;font-weight:700;cursor:pointer;border:none;background:none;font-family:'Bricolage Grotesque',sans-serif;color:var(--aged);transition:all .15s; }
-    .view-tab.active { background:var(--amber);color:var(--hive); }
- 
+
     /* GROUP CARD GRID */
     .groups-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px;margin-bottom:28px; }
     .group-card { background:#fff;border:1.5px solid var(--accent);border-radius:var(--radius-lg);box-shadow:3px 3px 0 var(--accent);overflow:hidden;cursor:pointer;transition:all .18s; }
     .group-card:hover { transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--accent); }
-    .group-card.selected { border-color:var(--amber);box-shadow:3px 3px 0 var(--amber); }
     .group-card-top { padding:18px 18px 14px;border-bottom:1px solid var(--pale);display:flex;align-items:flex-start;gap:12px; }
     .group-icon { width:42px;height:42px;background:var(--comb);border:1.5px solid var(--accent);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0; }
     .group-card-meta { flex:1;min-width:0; }
@@ -90,29 +88,37 @@
     .badge-pending { background:var(--warning-bg);color:var(--warning); }
     .badge-approved { background:var(--success-bg);color:var(--success); }
     .badge-info { background:var(--info-bg);color:var(--info); }
+    .badge-flagged { background:#fff7ed;color:#c2410c; }
     .tbl-tag { display:inline-flex;background:var(--amber);color:var(--hive);font-size:9px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border:1.5px solid var(--hive);border-radius:3px;white-space:nowrap; }
     .group-stat-chips { display:flex;gap:6px;flex:1;justify-content:flex-end;flex-wrap:wrap; }
     .g-chip { font-size:0.74rem;font-weight:600;color:var(--aged);display:flex;align-items:center;gap:4px; }
     .g-chip i { font-size:0.7rem;color:var(--amber-d); }
- 
-    /* GROUP DETAIL PANEL */
+
+    /* DETAIL VIEW */
     .group-detail-wrap { display:none; }
     .group-detail-wrap.open { display:block; }
     .group-detail-back { display:inline-flex;align-items:center;gap:7px;font-size:0.83rem;font-weight:700;color:var(--aged);cursor:pointer;margin-bottom:18px;padding:6px 12px;border-radius:8px;border:1.5px solid var(--pale);background:#fff;transition:all .15s; }
     .group-detail-back:hover { color:var(--amber-d);border-color:var(--amber); }
- 
+
+    /* DETAIL TABS */
+    .detail-tabs { display:flex;gap:2px;margin-bottom:20px;background:#fff;border:1.5px solid var(--accent);border-radius:var(--radius);padding:4px;box-shadow:2px 2px 0 var(--accent); }
+    .detail-tab { flex:1;padding:8px 14px;border-radius:7px;font-size:0.84rem;font-weight:700;cursor:pointer;border:none;background:transparent;color:var(--aged);font-family:'Bricolage Grotesque',sans-serif;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:6px; }
+    .detail-tab.active { background:var(--amber);color:var(--hive);box-shadow:1px 1px 0 var(--hive); }
+    .detail-tab:hover:not(.active) { background:var(--comb); }
+    .tab-badge { background:var(--danger);color:#fff;font-size:0.65rem;font-weight:900;padding:1px 5px;border-radius:10px;min-width:16px;text-align:center; }
+
     /* DETAIL HEADER */
     .detail-header { background:#fff;border:1.5px solid var(--accent);border-radius:var(--radius-lg);box-shadow:3px 3px 0 var(--accent);padding:22px 24px;margin-bottom:20px;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap; }
     .detail-header-left { display:flex;align-items:flex-start;gap:14px; }
     .detail-icon-lg { width:52px;height:52px;background:var(--comb);border:2px solid var(--accent);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0; }
-    .detail-title { font-size:1.3rem;font-weight:800;color:var(--hive);letter-spacing:-.02em; }
+    .detail-title { font-family:'Fraunces',Georgia,serif;font-size:1.5rem;font-weight:600;color:var(--hive);letter-spacing:-.02em; }
     .detail-sub { font-size:0.82rem;color:var(--aged);margin-top:4px;display:flex;align-items:center;gap:8px;flex-wrap:wrap; }
     .detail-header-actions { display:flex;gap:8px;flex-wrap:wrap;align-items:flex-start; }
- 
-    /* ADVISER BANNER */
+
+    /* OWNER BANNER */
     .adviser-banner { display:flex;align-items:center;gap:8px;background:var(--comb);border:1.5px dashed var(--accent);border-radius:8px;padding:10px 16px;font-size:0.82rem;font-weight:700;color:var(--aged);margin-bottom:20px; }
- 
-    /* STATS ROW */
+
+    /* STATS */
     .stats-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;margin-bottom:22px; }
     .stat-card { background:#fff;border:1.5px solid var(--accent);border-radius:var(--radius-lg);box-shadow:3px 3px 0 var(--accent);padding:16px 18px;position:relative;overflow:hidden; }
     .stat-card::before { content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--amber); }
@@ -122,16 +128,16 @@
     .stat-label { font-size:.73rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--aged);margin-bottom:6px; }
     .stat-value { font-size:1.7rem;font-weight:800;color:var(--hive);line-height:1;letter-spacing:-.03em; }
     .stat-sub { font-size:.76rem;color:var(--aged);margin-top:4px; }
- 
+
     /* TWO COLS */
     .detail-cols { display:grid;grid-template-columns:1fr 320px;gap:20px;align-items:start; }
     .section-title { font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--aged);margin-bottom:10px; }
- 
+
     /* CARDS */
     .dash-card { background:#fff;border:1.5px solid var(--accent);box-shadow:3px 3px 0 var(--accent);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:18px; }
     .dash-card-header { padding:13px 16px;border-bottom:1px solid var(--pale);background:var(--comb);display:flex;align-items:center;justify-content:space-between; }
     .dash-card-header h3 { font-size:.9rem;font-weight:700;color:var(--hive); }
- 
+
     /* SESSION LOG */
     .session-log-card { background:#fff;border:1.5px solid var(--accent);border-radius:var(--radius-lg);box-shadow:3px 3px 0 var(--accent);overflow:hidden;margin-bottom:18px; }
     .slc-header { background:var(--amber);border-bottom:1.5px solid var(--hive);padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px; }
@@ -160,7 +166,7 @@
     .att-summary { font-size:0.8rem;font-weight:700;color:var(--text); }
     .att-member-row { display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--pale); }
     .att-member-row:last-of-type { border-bottom:none; }
-    .att-avatar { width:30px;height:30px;min-width:30px;border-radius:50%;object-fit:cover;border:1.5px solid var(--pale);flex-shrink:0;background:var(--comb);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;color:var(--aged); }
+    .att-avatar { width:30px;height:30px;min-width:30px;border-radius:50%;border:1.5px solid var(--pale);flex-shrink:0;background:var(--comb);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;color:var(--aged); }
     .att-name { flex:1;font-size:0.86rem;font-weight:600;color:var(--text); }
     .att-toggle { display:flex;border:1.5px solid var(--pale);border-radius:5px;overflow:hidden;flex-shrink:0; }
     .att-btn { padding:5px 10px;font-size:0.72rem;font-weight:700;cursor:pointer;border:none;background:#f9f5ec;color:#888;font-family:'Bricolage Grotesque',sans-serif;transition:.15s;display:flex;align-items:center;gap:4px;border-right:1px solid var(--pale); }
@@ -180,13 +186,13 @@
     .btn-cancel-att:hover { background:var(--comb); }
     .att-saved-badge { display:none;font-size:0.7rem;font-weight:800;background:#22c55e;color:#000;border:1.5px solid var(--hive);border-radius:4px;padding:2px 8px;align-items:center;gap:4px; }
     .att-saved-badge.show { display:inline-flex; }
- 
+
     /* ACTIVITY BAR */
     .bar-wrap { display:flex;flex-direction:column;gap:5px; }
     .bar-labels { display:flex;justify-content:space-between;font-size:0.75rem;font-weight:700;color:var(--aged); }
     .bar-track { width:100%;height:12px;background:#f5edd5;border:1.5px solid var(--pale);border-radius:4px;overflow:hidden; }
     .bar-fill { height:100%;background:var(--amber);border-right:1.5px solid var(--amber-d);transition:width .6s ease;background-image:repeating-linear-gradient(-45deg,transparent,transparent 5px,rgba(0,0,0,.05) 5px,rgba(0,0,0,.05) 10px); }
- 
+
     /* SESSION DOTS */
     .session-dots-row { display:flex;align-items:center;gap:5px;flex-wrap:wrap; }
     .dots-label { font-size:0.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--aged);margin-right:4px; }
@@ -196,80 +202,217 @@
     .s-dot.upcoming{ background:#f5f0e8;border-style:dashed; }
     .s-dot:hover .s-tip { display:block; }
     .s-tip { display:none;position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:var(--hive);color:var(--amber);font-size:9px;font-weight:700;padding:4px 8px;border-radius:4px;white-space:nowrap;z-index:10;pointer-events:none; }
- 
-    /* DETAIL INFO CARD */
+
+    /* DETAIL INFO */
     .detail-row { display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--pale); }
     .detail-row:last-child { border-bottom:none; }
     .detail-icon-sm { width:20px;text-align:center;color:var(--amber-d);flex-shrink:0;padding-top:2px;font-size:0.9rem; }
     .detail-key { width:90px;font-size:0.78rem;color:var(--aged);flex-shrink:0; }
     .detail-value { font-size:0.88rem;color:var(--text);flex:1;font-weight:600; }
- 
+
     /* MEMBER LIST */
     .member-row { display:flex;align-items:center;gap:10px;padding:10px 16px;border-bottom:1px solid var(--pale); }
     .member-row:last-child { border-bottom:none; }
     .member-avatar { width:34px;height:34px;border-radius:50%;background:var(--comb);border:2px solid var(--pale);display:flex;align-items:center;justify-content:center;font-size:0.82rem;font-weight:700;color:var(--aged);flex-shrink:0; }
-    .member-avatar img { width:34px;height:34px;border-radius:50%;object-fit:cover; }
     .member-name { flex:1;font-weight:700;font-size:0.88rem;color:var(--hive); }
     .member-sub { font-size:0.75rem;color:var(--aged);margin-top:1px; }
     .tbl-btn { padding:4px 11px;font-size:.75em;font-weight:700;border-radius:6px;cursor:pointer;font-family:'Bricolage Grotesque',sans-serif;transition:.2s;border:1.5px solid;white-space:nowrap; }
     .tbl-btn.view { border-color:var(--amber-d);color:var(--amber-d);background:var(--comb); }
     .tbl-btn.view:hover { background:var(--amber);color:var(--hive);border-color:var(--amber); }
-    .tbl-btn.reject { background:#fff;color:var(--danger);border-color:var(--danger); }
-    .tbl-btn.reject:hover { background:var(--danger-bg); }
- 
+
     /* LIVE BADGE */
     .live-badge { display:inline-flex;align-items:center;gap:6px;background:#dcfce7;border:1.5px solid #22c55e;border-radius:20px;padding:3px 10px;font-size:0.76rem;font-weight:700;color:var(--success); }
     .live-dot { width:8px;height:8px;background:#22c55e;border-radius:50%;animation:blink 1.6s infinite; }
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.25} }
- 
+
+    /* SCHEDULE / RULES */
+    .schedule-row { display:flex;align-items:center;gap:12px;padding:9px 16px;border-bottom:1px solid var(--pale);font-size:0.9em; }
+    .schedule-row:last-child { border-bottom:none; }
+    .schedule-day { width:90px;font-weight:700;flex-shrink:0;color:var(--hive); }
+    .schedule-time { color:var(--orange);font-size:0.85em; }
+    .schedule-topic { color:var(--muted);font-size:0.82em;margin-left:auto; }
+    .rule-item { display:flex;gap:12px;align-items:flex-start;font-size:0.9em;line-height:1.55;padding:10px 16px;border-bottom:1px solid var(--pale); }
+    .rule-item:last-child { border-bottom:none; }
+    .rule-num { width:22px;height:22px;background:var(--amber);border:1.5px solid var(--hive);border-radius:3px;font-size:0.72em;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px; }
+
+    /* ─── DISCUSSION PANEL ─── */
+    .disc-panel { background:#fff;border:1.5px solid var(--accent);border-radius:var(--radius-lg);box-shadow:3px 3px 0 var(--accent);overflow:hidden; }
+    .disc-panel-header { background:var(--amber);border-bottom:2px solid var(--hive);padding:13px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px; }
+    .disc-panel-header h4 { font-size:0.84rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--hive); }
+    .disc-filter-row { display:flex;gap:6px;padding:12px 18px;border-bottom:1px solid var(--pale);background:var(--wax);flex-wrap:wrap; }
+    .disc-filter-btn { padding:4px 12px;font-size:0.76rem;font-weight:700;border-radius:20px;border:1.5px solid var(--pale);background:#fff;color:var(--aged);cursor:pointer;font-family:'Bricolage Grotesque',sans-serif;transition:.15s; }
+    .disc-filter-btn.active { background:var(--hive);color:var(--amber);border-color:var(--hive); }
+    .disc-filter-btn:hover:not(.active) { background:var(--comb);border-color:var(--accent); }
+    .disc-moderation-bar { display:flex;align-items:center;gap:10px;padding:10px 18px;background:#fff7ed;border-bottom:1px solid #fed7aa;font-size:0.78rem;color:#c2410c;font-weight:600; }
+
+    /* Thread */
+    .disc-thread-list { padding:0; }
+    .disc-comment-wrap { border-bottom:1px solid var(--pale);transition:background .2s; }
+    .disc-comment-wrap:last-child { border-bottom:none; }
+    .disc-comment-wrap.flagged-comment { background:#fff7f7;border-left:3px solid #ef4444; }
+    .disc-comment-wrap.hidden-comment { opacity:0.45; }
+    .disc-comment-wrap.pinned-comment { background:#fffdf0;border-left:3px solid var(--amber); }
+    .disc-comment-inner { display:flex;gap:10px;padding:14px 18px;align-items:flex-start; }
+    .disc-avatar { width:32px;height:32px;border-radius:50%;background:var(--comb);border:1.5px solid var(--accent);display:flex;align-items:center;justify-content:center;font-size:0.76rem;font-weight:800;color:var(--aged);flex-shrink:0; }
+    .disc-body { flex:1;min-width:0; }
+    .disc-meta { display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap; }
+    .disc-name { font-size:0.88rem;font-weight:800;color:var(--hive); }
+    .disc-time { font-size:0.74rem;color:var(--aged); }
+    .disc-pin-badge { font-size:0.68rem;font-weight:900;background:var(--amber);color:var(--hive);border:1.5px solid var(--hive);border-radius:3px;padding:1px 6px;text-transform:uppercase;letter-spacing:.05em; }
+    .disc-text { font-size:0.88rem;line-height:1.55;color:var(--text); }
+    .disc-text.deleted-text { font-style:italic;color:var(--aged);font-size:0.82rem; }
+    .disc-flag-bar { display:flex;align-items:center;gap:6px;margin-top:6px;font-size:0.74rem;color:#c2410c;font-weight:700; }
+    .disc-flag-bar i { font-size:0.72rem; }
+
+    /* Adviser action row */
+    .disc-actions { display:flex;align-items:center;gap:6px;margin-top:8px;flex-wrap:wrap; }
+    .disc-act-btn { display:inline-flex;align-items:center;gap:5px;padding:4px 10px;font-size:0.73rem;font-weight:700;border-radius:5px;border:1.5px solid;cursor:pointer;font-family:'Bricolage Grotesque',sans-serif;transition:all .15s; }
+    .disc-act-btn.warn   { border-color:#f97316;color:#c2410c;background:#fff7ed; }
+    .disc-act-btn.warn:hover { background:#fed7aa; }
+    .disc-act-btn.delete { border-color:#ef4444;color:#991b1b;background:#fff5f5; }
+    .disc-act-btn.delete:hover { background:#fecaca; }
+    .disc-act-btn.hide   { border-color:var(--aged);color:var(--aged);background:#f9f5ec; }
+    .disc-act-btn.hide:hover { background:var(--pale); }
+    .disc-act-btn.pin    { border-color:var(--amber-dk);color:var(--amber-dk);background:#fffdf0; }
+    .disc-act-btn.pin:hover { background:var(--yellow-mid); }
+    .disc-act-btn.restore { border-color:#22c55e;color:#166534;background:#f0fdf4; }
+    .disc-act-btn.restore:hover { background:#dcfce7; }
+    .disc-act-btn.reply-link { border-color:var(--pale);color:var(--aged);background:#fff; }
+    .disc-act-btn.reply-link:hover { background:var(--comb); }
+
+    /* Replies */
+    .disc-replies { margin-left:42px;border-top:1px solid var(--pale); }
+    .disc-reply-wrap { border-bottom:1px solid var(--pale);transition:background .2s; }
+    .disc-reply-wrap:last-child { border-bottom:none; }
+    .disc-reply-wrap.flagged-comment { background:#fff7f7;border-left:3px solid #ef4444; }
+    .disc-reply-inner { display:flex;gap:10px;padding:10px 18px 10px 0;align-items:flex-start; }
+    .disc-reply-avatar { width:26px;height:26px;border-radius:50%;background:var(--pale);border:1.5px solid var(--accent);display:flex;align-items:center;justify-content:center;font-size:0.68rem;font-weight:800;color:var(--aged);flex-shrink:0; }
+
+    /* New comment composer */
+    .disc-composer { padding:16px 18px;border-top:2px solid var(--accent);background:var(--wax); }
+    .disc-composer-label { font-size:0.7rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--aged);margin-bottom:8px;display:flex;align-items:center;gap:6px; }
+    .disc-composer-label span { background:var(--amber);color:var(--hive);font-size:0.68rem;padding:1px 6px;border-radius:3px;border:1px solid var(--hive); }
+    .disc-composer-inner { display:flex;gap:10px;align-items:flex-end; }
+    .disc-composer textarea { flex:1;font-family:'Bricolage Grotesque',sans-serif;font-size:0.85rem;padding:9px 12px;border:1.5px solid var(--pale);border-radius:8px;background:#fff;resize:none;height:70px;outline:none;transition:border-color .18s; }
+    .disc-composer textarea:focus { border-color:var(--amber); }
+    .disc-composer-actions { display:flex;flex-direction:column;gap:6px; }
+    .disc-post-btn { padding:9px 14px;font-size:0.8rem;font-weight:700;border-radius:6px;cursor:pointer;border:2px solid var(--hive);background:var(--amber);color:var(--hive);font-family:'Bricolage Grotesque',sans-serif;transition:.18s;box-shadow:2px 2px 0 var(--hive);white-space:nowrap; }
+    .disc-post-btn:hover { background:var(--amber-d); }
+    .disc-cancel-reply-btn { padding:6px 14px;font-size:0.78rem;font-weight:700;border-radius:6px;cursor:pointer;border:1.5px solid var(--pale);background:#fff;color:var(--aged);font-family:'Bricolage Grotesque',sans-serif;transition:.15s;white-space:nowrap;display:none; }
+    .disc-cancel-reply-btn:hover { background:var(--comb); }
+
+    /* Stats summary in disc panel */
+    .disc-stats-row { display:flex;gap:12px;padding:10px 18px;background:var(--comb);border-bottom:1px solid var(--pale);flex-wrap:wrap; }
+    .disc-stat-chip { font-size:0.76rem;font-weight:700;color:var(--aged);display:flex;align-items:center;gap:5px; }
+    .disc-stat-chip i { color:var(--amber-d); }
+
+    /* Empty disc state */
+    .disc-empty { text-align:center;padding:40px 24px;color:var(--aged); }
+    .disc-empty i { font-size:2.4rem;margin-bottom:10px;opacity:.35;display:block; }
+
+    /* Confirm overlay (inline) */
+    .confirm-bar { display:none;background:#fff5f5;border:1.5px solid #fecaca;border-radius:6px;padding:10px 14px;margin-top:6px;font-size:0.8rem; }
+    .confirm-bar.open { display:flex;align-items:center;gap:10px;flex-wrap:wrap; }
+    .confirm-bar-msg { flex:1;font-weight:700;color:#991b1b; }
+    .confirm-bar-btns { display:flex;gap:6px; }
+    .cfm-btn { padding:4px 12px;font-size:0.76rem;font-weight:700;border-radius:4px;cursor:pointer;font-family:'Bricolage Grotesque',sans-serif;border:1.5px solid; }
+    .cfm-btn.yes { background:#ef4444;color:#fff;border-color:#991b1b; }
+    .cfm-btn.yes:hover { background:#dc2626; }
+    .cfm-btn.no { background:#fff;color:var(--aged);border-color:var(--pale); }
+    .cfm-btn.no:hover { background:var(--comb); }
+
     /* MODALS */
     .modal-overlay { position:fixed;inset:0;background:rgba(26,20,0,0.55);backdrop-filter:blur(3px);z-index:200;display:none;align-items:center;justify-content:center;padding:20px; }
     .modal-overlay.open { display:flex; }
-    .modal-box { background:var(--wax);border:2px solid var(--accent);border-radius:var(--radius-lg);padding:28px 30px 24px;width:min(520px,96vw);position:relative;box-shadow:var(--shadow-lg),4px 4px 0 var(--hive);max-height:90vh;overflow-y:auto; }
-    .modal-close { position:absolute;top:14px;right:18px;background:none;border:none;font-size:1.4rem;color:var(--aged);cursor:pointer;transition:color .15s; }
-    .modal-close:hover { color:var(--amber-d); }
-    .modal-title { font-size:1.1rem;font-weight:800;color:var(--hive);margin-bottom:18px; }
-    .modal-field { display:flex;flex-direction:column;gap:5px;margin-bottom:13px; }
+    .modal-box { background:var(--wax);border:2px solid var(--accent);border-radius:var(--radius-lg);padding:0;width:min(580px,96vw);position:relative;box-shadow:var(--shadow-lg),4px 4px 0 var(--hive);max-height:90vh;overflow-y:auto; }
+    .modal-head { background:var(--amber);border-bottom:2px solid var(--hive);padding:15px 20px;display:flex;align-items:center;justify-content:space-between;border-radius:var(--radius-lg) var(--radius-lg) 0 0; }
+    .modal-head h3 { font-size:0.95rem;font-weight:800;color:var(--hive); }
+    .modal-head.danger-head { background:#fee2e2;border-color:#ef4444; }
+    .modal-head.danger-head h3 { color:#991b1b; }
+    .modal-close { background:none;border:none;font-size:1.4rem;color:var(--hive);cursor:pointer;transition:opacity .15s; }
+    .modal-close:hover { opacity:0.6; }
+    .modal-body { padding:20px 22px; display:flex;flex-direction:column;gap:13px; }
+    .modal-field { display:flex;flex-direction:column;gap:5px; }
     .modal-field label { font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--hive); }
-    .modal-field input, .modal-field select, .modal-field textarea { font-family:'Bricolage Grotesque',sans-serif;font-size:0.88rem;padding:9px 12px;border:1.5px solid var(--pale);border-radius:6px;background:#fff;outline:none;transition:border-color .18s;width:100%; }
-    .modal-field input:focus, .modal-field select:focus, .modal-field textarea:focus { border-color:var(--amber); }
+    .modal-field input,.modal-field select,.modal-field textarea { font-family:'Bricolage Grotesque',sans-serif;font-size:0.88rem;padding:9px 12px;border:1.5px solid var(--pale);border-radius:6px;background:#fff;outline:none;transition:border-color .18s;width:100%; }
+    .modal-field input:focus,.modal-field select:focus,.modal-field textarea:focus { border-color:var(--amber); }
     .modal-field textarea { resize:none;height:65px; }
     .modal-row { display:grid;grid-template-columns:1fr 1fr;gap:12px; }
-    .modal-footer { display:flex;justify-content:flex-end;gap:10px;margin-top:6px; }
-    .modal-info-box { background:var(--comb);border:1.5px solid var(--accent);border-radius:6px;padding:9px 13px;font-size:0.8rem;color:var(--aged);margin-bottom:13px; }
+    .modal-footer { padding:13px 22px;border-top:1px solid var(--pale);display:flex;justify-content:flex-end;gap:10px; }
+    .modal-info-box { background:var(--comb);border:1.5px solid var(--accent);border-radius:6px;padding:9px 13px;font-size:0.8rem;color:var(--aged); }
     .modal-btn { padding:9px 22px;border-radius:var(--radius);font-family:'Bricolage Grotesque',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;border:2px solid transparent;transition:all .15s; }
     .modal-btn.primary { background:var(--amber);color:var(--hive);border-color:var(--hive);box-shadow:2px 2px 0 var(--hive); }
     .modal-btn.primary:hover { background:var(--amber-d);transform:translate(-1px,-1px);box-shadow:3px 3px 0 var(--hive); }
+    .modal-btn.danger { background:#ef4444;color:#fff;border-color:#991b1b;box-shadow:2px 2px 0 #991b1b; }
+    .modal-btn.danger:hover { background:#dc2626; }
     .modal-btn.secondary { background:#f3f4f6;color:var(--aged);border-color:#e5e7eb; }
     .modal-btn.secondary:hover { background:#e5e7eb; }
- 
+
+    /* CREATE HIVE STEPS */
+    .step-indicator { display:flex;align-items:center;gap:0;padding:16px 22px 0; }
+    .step-dot { display:flex;align-items:center;gap:6px; }
+    .step-circle { width:28px;height:28px;border-radius:50%;border:2px solid var(--pale);background:#fff;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:800;color:var(--aged);transition:all .2s;flex-shrink:0; }
+    .step-circle.active { background:var(--amber);border-color:var(--hive);color:var(--hive); }
+    .step-circle.done { background:#22c55e;border-color:var(--hive);color:#fff; }
+    .step-label { font-size:0.72rem;font-weight:700;color:var(--aged); }
+    .step-label.active { color:var(--hive); }
+    .step-line { flex:1;height:2px;background:var(--pale);margin:0 6px; }
+    .step-line.done { background:#22c55e; }
+    .step-panel { display:none; }
+    .step-panel.active { display:flex;flex-direction:column;gap:13px; }
+    .emoji-grid { display:flex;flex-wrap:wrap;gap:8px;margin-top:4px; }
+    .emoji-opt { width:40px;height:40px;border:2px solid var(--pale);border-radius:8px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:1.2rem;cursor:pointer;transition:all .15s; }
+    .emoji-opt:hover,.emoji-opt.selected { border-color:var(--amber);background:var(--comb);transform:scale(1.1); }
+    .cat-grid { display:grid;grid-template-columns:1fr 1fr;gap:8px; }
+    .cat-opt { padding:10px 14px;border:2px solid var(--pale);border-radius:8px;background:#fff;cursor:pointer;transition:all .15s;font-size:0.84rem;font-weight:600;color:var(--text);display:flex;align-items:center;gap:8px; }
+    .cat-opt:hover,.cat-opt.selected { border-color:var(--amber);background:var(--comb); }
+    .cat-opt i { width:16px;text-align:center;color:var(--amber-d); }
+    .rule-add-row { display:flex;gap:8px; }
+    .rule-add-row input { flex:1; }
+    .rule-list { display:flex;flex-direction:column;gap:6px;margin-top:4px; }
+    .rule-entry { display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1.5px solid var(--pale);border-radius:6px;font-size:0.84rem; }
+    .rule-entry .rule-n { width:22px;height:22px;background:var(--amber);border:1.5px solid var(--hive);border-radius:3px;font-size:0.7rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0; }
+    .rule-entry .rule-text { flex:1;color:var(--text); }
+    .rule-entry .rule-del { background:none;border:none;cursor:pointer;color:#ccc;font-size:0.9rem;transition:color .15s; }
+    .rule-entry .rule-del:hover { color:#ef4444; }
+    .create-preview { background:var(--comb);border:1.5px solid var(--accent);border-radius:10px;padding:16px; }
+    .preview-title { font-family:'Fraunces',Georgia,serif;font-size:1.2rem;font-weight:600;color:var(--hive);margin-bottom:6px; }
+    .preview-rows { display:flex;flex-direction:column;gap:6px;margin-top:10px; }
+    .preview-row { display:flex;gap:8px;font-size:0.83rem; }
+    .preview-key { font-weight:700;color:var(--aged);width:80px;flex-shrink:0; }
+    .preview-val { color:var(--text); }
+
     /* EMPTY STATE */
     .empty-state { text-align:center;padding:56px 24px;color:var(--aged); }
     .empty-state .empty-icon { font-size:2.8rem;margin-bottom:12px;opacity:.4; }
     .empty-state h3 { font-size:1rem;font-weight:700;color:var(--hive);margin-bottom:6px; }
     .empty-state p { font-size:0.84rem;line-height:1.6; }
- 
+
     /* TOAST */
     .toast { position:fixed;bottom:24px;right:24px;background:var(--hive);color:#fff;padding:12px 20px;border-radius:10px;font-size:.88rem;font-weight:600;z-index:999;transform:translateY(80px);opacity:0;transition:all .3s;border-left:4px solid var(--amber);box-shadow:var(--shadow-lg); }
     .toast.show { transform:translateY(0);opacity:1; }
     .toast.success { border-color:#22c55e; }
     .toast.error { border-color:#ef4444; }
     .toast.warn { border-color:var(--amber); }
- 
-    @media (max-width:900px) { .detail-cols { grid-template-columns:1fr; } }
-    @media (max-width:768px) { .reg-sidebar { display:none; } .reg-main { margin-left:0;padding:20px 16px 40px; } }
+
+    /* TAB PANELS */
+    .tab-panel { display:none; }
+    .tab-panel.active { display:block; }
+
+    @media(max-width:900px){.detail-cols{grid-template-columns:1fr;}}
+    @media(max-width:768px){.reg-sidebar{display:none;}.reg-main{margin-left:0;padding:20px 16px 40px;}}
   </style>
 </head>
 <body>
 
 <!-- NAVBAR -->
 <nav class="reg-nav">
-  <a href="Adviser_dashboard.html" class="logo"><span>Hive</span>Minds</a>
+  <a href="#" class="logo"><span>Hive</span>Minds</a>
   <div class="nav-links">
-    <a href="Adviser_dashboard.html">Dashboard</a>
-    <a href="join-requests.html">Join Requests</a>
-    <a href="my-groups.html" class="active">My Groups</a>
-    <a href="members.html">Members</a>
+    <a href="#">Dashboard</a>
+    <a href="#">Join Requests</a>
+    <a href="#" class="active">My Groups</a>
+    <a href="#">Members</a>
   </div>
   <div class="nav-right">
     <button class="nav-user">
@@ -277,8 +420,9 @@
       Prof. Rivera
       <i class="fa-solid fa-chevron-down" style="font-size:.65rem;opacity:.6;"></i>
     </button>
-    <a href="../auth/login.html" class="nav-logout"><i class="fa-solid fa-arrow-right-from-bracket"></i> Log out</a>
-  </div>
+<a href="#" class="nav-logout" onclick="handleLogout(event)">
+  <i class="fa-solid fa-arrow-right-from-bracket"></i> Log out
+</a>  </div>
 </nav>
 
 <div class="reg-layout">
@@ -287,28 +431,16 @@
     <div>
       <div class="sidebar-section-label">Menu</div>
       <div class="sidebar-divider"></div>
-      <a class="sidebar-link" href="adviser_dashboard.html">
-        <span class="sico"><i class="fa-solid fa-gauge"></i></span> Dashboard
-      </a>
-      <a class="sidebar-link" href="join-requests.html">
-        <span class="sico sico-wrap"><i class="fa-solid fa-inbox"></i><span class="notif-dot"></span></span> Join Requests
-      </a>
-      <a class="sidebar-link active" href="my-groups.html">
-        <span class="sico"><i class="fa-solid fa-layer-group"></i></span> My Groups
-      </a>
-      <a class="sidebar-link" href="members.html">
-        <span class="sico"><i class="fa-solid fa-users"></i></span> Members
-      </a>
+      <a class="sidebar-link" href="#"><span class="sico"><i class="fa-solid fa-gauge"></i></span> Dashboard</a>
+      <a class="sidebar-link" href="#"><span class="sico sico-wrap"><i class="fa-solid fa-inbox"></i><span class="notif-dot"></span></span> Join Requests</a>
+      <a class="sidebar-link active" href="#"><span class="sico"><i class="fa-solid fa-layer-group"></i></span> My Groups</a>
+      <a class="sidebar-link" href="#"><span class="sico"><i class="fa-solid fa-users"></i></span> Members</a>
     </div>
     <div>
       <div class="sidebar-section-label">My Groups</div>
       <div class="sidebar-divider"></div>
-      <a class="sidebar-link" href="#" onclick="openGroupDetail('programming');return false;">
-        <span class="sico"><i class="fa-solid fa-code" style="font-size:.85rem;"></i></span> Programming Study
-      </a>
-      <a class="sidebar-link" href="#" onclick="openGroupDetail('networking');return false;">
-        <span class="sico"><i class="fa-solid fa-network-wired" style="font-size:.85rem;"></i></span> Networking Study
-      </a>
+      <a class="sidebar-link" href="#" onclick="openGroupDetail('programming');return false;"><span class="sico"><i class="fa-solid fa-code" style="font-size:.85rem;"></i></span> Programming Study</a>
+      <a class="sidebar-link" href="#" onclick="openGroupDetail('networking');return false;"><span class="sico"><i class="fa-solid fa-network-wired" style="font-size:.85rem;"></i></span> Networking Study</a>
     </div>
     <div>
       <div class="sidebar-section-label">Quick Stats</div>
@@ -329,64 +461,19 @@
           <h1>My Groups</h1>
           <p>Manage your advised study groups, log sessions, and track member attendance.</p>
         </div>
-        <button class="btn-primary" onclick="openModal('modal-new-group')">
+        <button class="btn-primary" onclick="openModal('modal-create-hive')">
           <i class="fa-solid fa-plus"></i> New Group
         </button>
       </div>
-
-      <div class="groups-grid">
-
-        <!-- Group Card: Programming -->
-        <div class="group-card" onclick="openGroupDetail('programming')">
-          <div class="group-card-top">
-            <div class="group-icon">🐝</div>
-            <div class="group-card-meta">
-              <div class="group-card-name">Programming Study Group</div>
-              <div class="group-card-sub">Recurring · Online · CS 201 / CS 301</div>
-            </div>
-            <span class="tbl-badge badge-pending">4 pending</span>
-          </div>
-          <div class="group-card-bottom">
-            <span class="tbl-tag">Programming</span>
-            <span class="tbl-badge badge-approved">Verified</span>
-            <div class="group-stat-chips">
-              <span class="g-chip"><i class="fa-solid fa-users"></i> 14</span>
-              <span class="g-chip"><i class="fa-solid fa-clipboard-list"></i> 3 sessions</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Group Card: Networking -->
-        <div class="group-card" onclick="openGroupDetail('networking')">
-          <div class="group-card-top">
-            <div class="group-icon">🌐</div>
-            <div class="group-card-meta">
-              <div class="group-card-name">Networking Study Group</div>
-              <div class="group-card-sub">One-time · In-person · CS 312</div>
-            </div>
-            <span class="tbl-badge badge-active">Open</span>
-          </div>
-          <div class="group-card-bottom">
-            <span class="tbl-tag">Networking</span>
-            <span class="tbl-badge badge-approved">Verified</span>
-            <div class="group-stat-chips">
-              <span class="g-chip"><i class="fa-solid fa-users"></i> 4</span>
-              <span class="g-chip"><i class="fa-solid fa-clipboard-list"></i> 1 session</span>
-            </div>
-          </div>
-        </div>
-
-      </div>
+      <div class="groups-grid" id="groups-grid"></div>
     </div>
 
     <!-- === GROUP DETAIL VIEW === -->
     <div id="view-detail" class="group-detail-wrap">
-
       <div class="group-detail-back" onclick="closeGroupDetail()">
         <i class="fa-solid fa-arrow-left"></i> Back to My Groups
       </div>
 
-      <!-- Group data containers, filled by JS -->
       <div class="detail-header">
         <div class="detail-header-left">
           <div class="detail-icon-lg" id="d-icon">🐝</div>
@@ -396,7 +483,7 @@
               <span id="d-tag" class="tbl-tag">Programming</span>
               <span id="d-members">14 members</span>
               <span>·</span>
-              <span id="d-type">Recurring · Online</span>
+              <span id="d-type"></span>
               <span class="tbl-badge badge-approved" style="margin-left:2px;">Verified</span>
             </div>
           </div>
@@ -404,179 +491,185 @@
         <div class="detail-header-actions">
           <button class="btn-ghost" onclick="openModal('modal-edit-group')"><i class="fa-solid fa-pen"></i> Edit</button>
           <button class="btn-primary" onclick="openModal('modal-log-session')"><i class="fa-solid fa-clipboard-list"></i> Log Session</button>
-          <button class="btn-danger"><i class="fa-solid fa-trash"></i></button>
+          <button class="btn-danger" onclick="confirmDelete()"><i class="fa-solid fa-trash"></i></button>
         </div>
       </div>
 
       <div class="adviser-banner">
         <i class="fa-solid fa-chalkboard-user" style="color:var(--amber-d);"></i>
-        You are the adviser of this group. You can log sessions, track attendance, and manage membership.
+        You are the adviser of this group. You can log sessions, track attendance, moderate discussions, and manage membership.
       </div>
 
-      <div class="stats-grid" id="d-stats">
-        <div class="stat-card">
-          <div class="stat-label">Members</div>
-          <div class="stat-value" id="ds-members">14</div>
-          <div class="stat-sub">Active students</div>
+      <!-- TABS -->
+      <div class="detail-tabs">
+        <button class="detail-tab active" onclick="switchTab('overview')" id="tab-overview"><i class="fa-solid fa-gauge"></i> Overview</button>
+        <button class="detail-tab" onclick="switchTab('sessions')" id="tab-sessions"><i class="fa-solid fa-clipboard-list"></i> Sessions</button>
+        <button class="detail-tab" onclick="switchTab('discussion')" id="tab-discussion"><i class="fa-solid fa-comments"></i> Discussion <span class="tab-badge" id="flag-badge" style="display:none;">0</span></button>
+        <button class="detail-tab" onclick="switchTab('members')" id="tab-members"><i class="fa-solid fa-users"></i> Members</button>
+      </div>
+
+      <!-- TAB: OVERVIEW -->
+      <div class="tab-panel active" id="panel-overview">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-label">Members</div>
+            <div class="stat-value" id="ds-members">14</div>
+            <div class="stat-sub">Active students</div>
+          </div>
+          <div class="stat-card green">
+            <div class="stat-label">Sessions Held</div>
+            <div class="stat-value" id="ds-sessions">3</div>
+            <div class="stat-sub" id="ds-hours">6h total</div>
+          </div>
+          <div class="stat-card blue">
+            <div class="stat-label">Avg Attendance</div>
+            <div class="stat-value" id="ds-att">—</div>
+            <div class="stat-sub">Across all sessions</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Pending</div>
+            <div class="stat-value" id="ds-pending">4</div>
+            <div class="stat-sub">Awaiting approval</div>
+          </div>
         </div>
-        <div class="stat-card green">
-          <div class="stat-label">Sessions Held</div>
-          <div class="stat-value" id="ds-sessions">3</div>
-          <div class="stat-sub" id="ds-hours">6h total</div>
-        </div>
-        <div class="stat-card blue">
-          <div class="stat-label">Avg Attendance</div>
-          <div class="stat-value" id="ds-att">—</div>
-          <div class="stat-sub">Across all sessions</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Pending</div>
-          <div class="stat-value" id="ds-pending">4</div>
-          <div class="stat-sub">Awaiting approval</div>
+        <div class="detail-cols">
+          <div>
+            <div class="section-title" style="display:flex;align-items:center;justify-content:space-between;">
+              <span>Activity Overview</span>
+              <div class="live-badge"><span class="live-dot"></span> Active</div>
+            </div>
+            <div class="dash-card" style="padding:16px 18px;margin-bottom:18px;">
+              <div class="bar-wrap" style="margin-bottom:14px;">
+                <div class="bar-labels"><span>Overall attendance rate</span><span id="d-bar-pct">—</span></div>
+                <div class="bar-track"><div class="bar-fill" id="d-bar-fill" style="width:0%"></div></div>
+              </div>
+              <div class="session-dots-row"><span class="dots-label">Sessions</span><div id="d-dot-strip"></div></div>
+            </div>
+          </div>
+          <div>
+            <div class="section-title">Group Details</div>
+            <div class="dash-card" style="padding:4px 16px;margin-bottom:18px;">
+              <div class="detail-row"><div class="detail-icon-sm"><i class="fa-solid fa-layer-group"></i></div><div class="detail-key">Group</div><div class="detail-value" id="dr-name">—</div></div>
+              <div class="detail-row"><div class="detail-icon-sm"><i class="fa-solid fa-tag"></i></div><div class="detail-key">Category</div><div class="detail-value" id="dr-cat">—</div></div>
+              <div class="detail-row"><div class="detail-icon-sm"><i class="fa-solid fa-wifi"></i></div><div class="detail-key">Mode</div><div class="detail-value" id="dr-mode">—</div></div>
+              <div class="detail-row"><div class="detail-icon-sm"><i class="fa-regular fa-calendar"></i></div><div class="detail-key">Type</div><div class="detail-value" id="dr-type">—</div></div>
+              <div class="detail-row"><div class="detail-icon-sm"><i class="fa-solid fa-clock"></i></div><div class="detail-key">Schedule</div><div class="detail-value" id="dr-schedule">—</div></div>
+              <div class="detail-row"><div class="detail-icon-sm"><i class="fa-solid fa-location-dot"></i></div><div class="detail-key">Location</div><div class="detail-value" id="dr-location">—</div></div>
+              <div class="detail-row"><div class="detail-icon-sm"><i class="fa-solid fa-users"></i></div><div class="detail-key">Capacity</div><div class="detail-value" id="dr-capacity">—</div></div>
+            </div>
+            <div class="section-title">Recurring Schedule</div>
+            <div class="dash-card" style="margin-bottom:18px;" id="dr-schedule-card"></div>
+            <div class="section-title">Group Rules</div>
+            <div class="dash-card" style="margin-bottom:18px;" id="dr-rules-card"></div>
+          </div>
         </div>
       </div>
 
-      <div class="detail-cols">
-        <!-- LEFT -->
-        <div>
-          <div class="section-title" style="display:flex;align-items:center;justify-content:space-between;">
-            <span>Activity Overview</span>
-            <div class="live-badge"><span class="live-dot"></span> Active</div>
+      <!-- TAB: SESSIONS -->
+      <div class="tab-panel" id="panel-sessions">
+        <div class="section-title" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+          <span>Session Log</span>
+          <button class="btn-primary" style="padding:5px 12px;font-size:.76rem;" onclick="openModal('modal-log-session')"><i class="fa-solid fa-plus"></i> Log Session</button>
+        </div>
+        <div class="session-log-card">
+          <div class="slc-header">
+            <h4><i class="fa-solid fa-clipboard-list"></i>&nbsp; Session History</h4>
+            <span id="d-session-count-badge" class="tbl-badge badge-active">0 sessions</span>
           </div>
-          <div class="dash-card" style="padding:16px 18px;margin-bottom:18px;">
-            <div class="bar-wrap" style="margin-bottom:14px;">
-              <div class="bar-labels">
-                <span>Overall attendance rate</span>
-                <span id="d-bar-pct">—</span>
-              </div>
-              <div class="bar-track">
-                <div class="bar-fill" id="d-bar-fill" style="width:0%"></div>
-              </div>
-            </div>
-            <div class="session-dots-row">
-              <span class="dots-label">Sessions</span>
-              <div id="d-dot-strip">
-                <!-- populated by JS -->
-              </div>
+          <div id="d-session-log"></div>
+        </div>
+      </div>
+
+      <!-- TAB: DISCUSSION -->
+      <div class="tab-panel" id="panel-discussion">
+        <div class="disc-panel" id="disc-panel">
+          <div class="disc-panel-header">
+            <h4><i class="fa-solid fa-comments"></i>&nbsp; Group Discussion</h4>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span id="disc-count-badge" class="tbl-badge badge-active">0 comments</span>
+              <span id="disc-flag-summary" class="tbl-badge badge-flagged" style="display:none;"><i class="fa-solid fa-flag"></i> 0 flagged</span>
             </div>
           </div>
 
-          <div class="section-title" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
-            <span>Session Log</span>
-            <button class="btn-primary" style="padding:5px 12px;font-size:.76rem;" onclick="openModal('modal-log-session')">
-              <i class="fa-solid fa-plus"></i> Log Session
-            </button>
+          <!-- Moderation bar for flagged content -->
+          <div class="disc-moderation-bar" id="disc-mod-bar" style="display:none;">
+            <i class="fa-solid fa-shield-halved"></i>
+            <span id="disc-mod-bar-text">Some posts need your attention.</span>
+            <button class="disc-act-btn warn" onclick="showFlaggedOnly()" style="margin-left:auto;font-size:0.72rem;">View flagged posts</button>
+            <button class="disc-act-btn hide" onclick="resetFilter()">Show all</button>
           </div>
-          <div class="session-log-card">
-            <div class="slc-header">
-              <h4><i class="fa-solid fa-clipboard-list"></i>&nbsp; Session History</h4>
-              <span id="d-session-count-badge" class="tbl-badge badge-active">3 sessions</span>
+
+          <div class="disc-stats-row">
+            <span class="disc-stat-chip"><i class="fa-solid fa-comments"></i> <span id="disc-total-count">0</span> total posts</span>
+            <span class="disc-stat-chip"><i class="fa-solid fa-flag" style="color:#ef4444;"></i> <span id="disc-flag-count">0</span> flagged</span>
+            <span class="disc-stat-chip"><i class="fa-solid fa-eye-slash"></i> <span id="disc-hidden-count">0</span> hidden</span>
+            <span class="disc-stat-chip"><i class="fa-solid fa-trash"></i> <span id="disc-deleted-count">0</span> deleted</span>
+          </div>
+
+          <!-- Filter row -->
+          <div class="disc-filter-row">
+            <button class="disc-filter-btn active" onclick="setDiscFilter('all',this)">All Posts</button>
+            <button class="disc-filter-btn" onclick="setDiscFilter('flagged',this)"><i class="fa-solid fa-flag" style="font-size:.72rem;"></i> Flagged</button>
+            <button class="disc-filter-btn" onclick="setDiscFilter('hidden',this)">Hidden</button>
+            <button class="disc-filter-btn" onclick="setDiscFilter('deleted',this)">Deleted</button>
+            <button class="disc-filter-btn" onclick="setDiscFilter('pinned',this)"><i class="fa-solid fa-thumbtack" style="font-size:.72rem;"></i> Pinned</button>
+          </div>
+
+          <div class="disc-thread-list" id="disc-thread-list"></div>
+
+          <!-- Composer -->
+          <div class="disc-composer">
+            <div class="disc-composer-label">Post as <span>Adviser</span></div>
+            <div class="disc-composer-inner">
+              <textarea id="disc-compose-text" placeholder="Write an announcement, note, or reply…"></textarea>
+              <div class="disc-composer-actions">
+                <button class="disc-post-btn" onclick="postComment()"><i class="fa-solid fa-paper-plane"></i> Post</button>
+                <button class="disc-cancel-reply-btn" id="disc-cancel-reply" onclick="cancelReply()">Cancel reply</button>
+              </div>
             </div>
-            <div id="d-session-log">
-              <!-- Populated by JS -->
-            </div>
+            <div id="disc-reply-target" style="display:none;margin-top:6px;font-size:0.76rem;color:var(--aged);font-weight:700;padding:5px 10px;background:var(--comb);border-radius:5px;border:1.5px solid var(--pale);"></div>
           </div>
         </div>
+      </div>
 
-        <!-- RIGHT -->
-        <div>
-          <div class="section-title">Group Details</div>
-          <div class="dash-card" style="padding:4px 16px;">
-            <div class="detail-row">
-              <div class="detail-icon-sm"><i class="fa-solid fa-layer-group"></i></div>
-              <div class="detail-key">Group</div>
-              <div class="detail-value" id="dr-name">Programming Study Group</div>
-            </div>
-            <div class="detail-row">
-              <div class="detail-icon-sm"><i class="fa-solid fa-tag"></i></div>
-              <div class="detail-key">Category</div>
-              <div class="detail-value" id="dr-cat">Programming</div>
-            </div>
-            <div class="detail-row">
-              <div class="detail-icon-sm"><i class="fa-solid fa-wifi"></i></div>
-              <div class="detail-key">Mode</div>
-              <div class="detail-value" id="dr-mode">Online</div>
-            </div>
-            <div class="detail-row">
-              <div class="detail-icon-sm"><i class="fa-regular fa-calendar"></i></div>
-              <div class="detail-key">Type</div>
-              <div class="detail-value" id="dr-type">Recurring</div>
-            </div>
-            <div class="detail-row">
-              <div class="detail-icon-sm"><i class="fa-solid fa-clock"></i></div>
-              <div class="detail-key">Schedule</div>
-              <div class="detail-value" id="dr-schedule">Fridays · 4:00–6:00 PM</div>
-            </div>
-            <div class="detail-row">
-              <div class="detail-icon-sm"><i class="fa-solid fa-location-dot"></i></div>
-              <div class="detail-key">Location</div>
-              <div class="detail-value" id="dr-location">Discord / Google Meet</div>
-            </div>
-            <div class="detail-row">
-              <div class="detail-icon-sm"><i class="fa-solid fa-users"></i></div>
-              <div class="detail-key">Capacity</div>
-              <div class="detail-value" id="dr-capacity">14 / 20</div>
-            </div>
+      <!-- TAB: MEMBERS -->
+      <div class="tab-panel" id="panel-members">
+        <div class="dash-card" style="overflow:hidden;">
+          <div class="dash-card-header">
+            <h3>Active Members</h3>
+            <a href="#" style="font-size:.78rem;color:var(--amber-d);text-decoration:none;font-weight:700;">See all →</a>
           </div>
-
-          <div class="section-title">Members</div>
-          <div class="dash-card" style="overflow:hidden;">
-            <div class="dash-card-header">
-              <h3>Active Members</h3>
-              <a href="members.html" style="font-size:.78rem;color:var(--amber-d);text-decoration:none;font-weight:700;">See all →</a>
-            </div>
-            <div id="d-member-list">
-              <!-- populated by JS -->
-            </div>
-          </div>
+          <div id="d-member-list"></div>
         </div>
       </div>
 
     </div><!-- /view-detail -->
-
   </main>
 </div>
 
 <!-- MODAL: Log Session -->
 <div class="modal-overlay" id="modal-log-session">
   <div class="modal-box">
-    <button class="modal-close" onclick="closeModal('modal-log-session')"><i class="fa-solid fa-xmark"></i></button>
-    <div class="modal-title"><i class="fa-solid fa-clipboard-list" style="color:var(--amber-d);margin-right:8px;"></i>Log a New Session</div>
-    <div class="modal-row">
-      <div class="modal-field">
-        <label>Session Date</label>
-        <input type="date" id="ls-date">
-      </div>
-      <div class="modal-field">
-        <label>Duration</label>
-        <select id="ls-duration">
-          <option>1 hour</option>
-          <option selected>2 hours</option>
-          <option>3 hours</option>
-          <option>4 hours</option>
-        </select>
-      </div>
+    <div class="modal-head">
+      <h3><i class="fa-solid fa-clipboard-list"></i>&nbsp; Log a New Session</h3>
+      <button class="modal-close" onclick="closeModal('modal-log-session')">&#x2715;</button>
     </div>
-    <div class="modal-field">
-      <label>Topic Covered</label>
-      <input type="text" id="ls-topic" placeholder="e.g. Recursion and backtracking">
-    </div>
-    <div class="modal-row">
-      <div class="modal-field">
-       
+    <div class="modal-body">
+      <div class="modal-row">
+        <div class="modal-field"><label>Session Date</label><input type="date" id="ls-date"></div>
+        <div class="modal-field"><label>Duration</label>
+          <select id="ls-duration"><option>1 hour</option><option selected>2 hours</option><option>3 hours</option><option>4 hours</option></select>
+        </div>
       </div>
-      <div class="modal-field">
-        <label>Location / Link</label>
-        <input type="text" id="ls-loc" placeholder="e.g. Discord or Room 301">
+      <div class="modal-field"><label>Topic Covered</label><input type="text" id="ls-topic" placeholder="e.g. Recursion and backtracking"></div>
+      <div class="modal-row">
+        <div class="modal-field"><label>Mode</label>
+          <select id="ls-mode"><option>Online</option><option>In-person</option><option>Hybrid</option></select>
+        </div>
+        <div class="modal-field"><label>Location / Link</label><input type="text" id="ls-loc" placeholder="e.g. Discord or Room 301"></div>
       </div>
-    </div>
-    <div class="modal-field">
-      <label>Notes (optional)</label>
-      <textarea id="ls-notes" placeholder="Takeaways, follow-ups, or reminders…"></textarea>
-    </div>
-    <div class="modal-info-box">
-      <i class="fa-solid fa-circle-info" style="color:var(--amber-d);margin-right:5px;"></i>
-      After logging, mark attendance for each member directly in the session history.
+      <div class="modal-field"><label>Notes (optional)</label><textarea id="ls-notes" placeholder="Takeaways, follow-ups, or reminders…"></textarea></div>
+      <div class="modal-info-box"><i class="fa-solid fa-circle-info" style="color:var(--amber-d);margin-right:5px;"></i>After logging, mark attendance for each member directly in the session history.</div>
     </div>
     <div class="modal-footer">
       <button class="modal-btn secondary" onclick="closeModal('modal-log-session')">Cancel</button>
@@ -585,88 +678,137 @@
   </div>
 </div>
 
-<!-- MODAL: New Group -->
-<div class="modal-overlay" id="modal-new-group">
+<!-- MODAL: Edit Group -->
+<div class="modal-overlay" id="modal-edit-group">
   <div class="modal-box">
-    <button class="modal-close" onclick="closeModal('modal-new-group')"><i class="fa-solid fa-xmark"></i></button>
-    <div class="modal-title"><i class="fa-solid fa-plus" style="color:var(--amber-d);margin-right:8px;"></i>Create New Group</div>
-    <div class="modal-field">
-      <label>Group Name</label>
-      <input type="text" placeholder="e.g. Algorithms Review Circle">
+    <div class="modal-head">
+      <h3><i class="fa-solid fa-pen"></i>&nbsp; Edit Group</h3>
+      <button class="modal-close" onclick="closeModal('modal-edit-group')">&#x2715;</button>
     </div>
-    <div class="modal-row">
-      <div class="modal-field">
-        <label>Category</label>
-        <select>
-          <option>Programming</option>
-          <option>Networking</option>
-          <option>Mathematics</option>
-          <option>Science</option>
-          <option>General</option>
-        </select>
+    <div class="modal-body">
+      <div class="modal-field"><label>Group Name</label><input type="text" id="edit-name"></div>
+      <div class="modal-row">
+        <div class="modal-field"><label>Category</label>
+          <select id="edit-cat"><option>Programming</option><option>Networking</option><option>Mathematics</option><option>Science</option><option>General</option></select>
+        </div>
+        <div class="modal-field"><label>Max Members</label><input type="number" id="edit-cap" value="20"></div>
       </div>
-      <div class="modal-field">
-        <label>Group activity length Type</label>
-        <select>
-          <option>1 semester period</option>
-          <option>for the current A.Y</option>
-          <option>other</option>
-        </select>
-      </div>
-    </div>
-    <div class="modal-row">
-      <div class="modal-field">
-        <label>Mode</label>
-        <select>
-          <option>Online</option>
-          <option>In-person</option>
-          <option>Hybrid</option>
-        </select>
-      </div>
-      <div class="modal-field">
-        <label>Max Members</label>
-        <input type="number" value="20" min="2" max="50">
-      </div>
-    </div>
-    <div class="modal-field">
-      <label>Description (optional)</label>
-      <textarea placeholder="What will this group focus on?"></textarea>
+      <div class="modal-field"><label>Schedule</label><input type="text" id="edit-schedule"></div>
+      <div class="modal-field"><label>Location / Link</label><input type="text" id="edit-location"></div>
     </div>
     <div class="modal-footer">
-      <button class="modal-btn secondary" onclick="closeModal('modal-new-group')">Cancel</button>
-      <button class="modal-btn primary" onclick="closeModal('modal-new-group');showToast('Group created successfully!','success')"><i class="fa-solid fa-plus"></i> Create Group</button>
+      <button class="modal-btn secondary" onclick="closeModal('modal-edit-group')">Cancel</button>
+      <button class="modal-btn primary" onclick="saveEditGroup()"><i class="fa-solid fa-floppy-disk"></i> Save Changes</button>
     </div>
   </div>
 </div>
 
-<!-- MODAL: Edit Group -->
-<div class="modal-overlay" id="modal-edit-group">
+<!-- MODAL: Warn Member -->
+<div class="modal-overlay" id="modal-warn-member">
   <div class="modal-box">
-    <button class="modal-close" onclick="closeModal('modal-edit-group')"><i class="fa-solid fa-xmark"></i></button>
-    <div class="modal-title"><i class="fa-solid fa-pen" style="color:var(--amber-d);margin-right:8px;"></i>Edit Group</div>
-    <div class="modal-field">
-      <label>Group Name</label>
-      <input type="text" id="edit-name" value="Programming Study Group">
+    <div class="modal-head">
+      <h3><i class="fa-solid fa-triangle-exclamation"></i>&nbsp; Warn Member</h3>
+      <button class="modal-close" onclick="closeModal('modal-warn-member')">&#x2715;</button>
     </div>
-    <div class="modal-row">
-      <div class="modal-field">
-       
-      <div class="modal-field">
-        <label>Max Members</label>
-        <input type="number" value="20">
+    <div class="modal-body">
+      <div class="modal-info-box" style="background:#fff7ed;border-color:#fed7aa;"><i class="fa-solid fa-triangle-exclamation" style="color:#f97316;margin-right:5px;"></i>This will send a formal warning notification to <strong id="warn-member-name">the member</strong>. It will be logged in their record.</div>
+      <div class="modal-field"><label>Warning Reason</label>
+        <select id="warn-reason">
+          <option>Inappropriate language</option>
+          <option>Irrelevant or off-topic content</option>
+          <option>Disrespectful behavior</option>
+          <option>Spamming</option>
+          <option>Other</option>
+        </select>
       </div>
-    </div>
-    <div class="modal-field">
-      <label>Schedule</label>
-      <input type="text" value="Fridays · 4:00–6:00 PM">
-    </div>
-    <div class="modal-field">
-      <label>Location / Link</label>
-      <input type="text" value="Discord / Google Meet">
+      <div class="modal-field"><label>Message to Member (optional)</label><textarea id="warn-message" placeholder="Add context or guidance for the member…"></textarea></div>
     </div>
     <div class="modal-footer">
-      <button class="modal-btn secondary" onclick="closeModal('modal-edit-group')">Cancel</button>
-      <button class="modal-btn primary" onclick="closeModal('modal-edit-group');showToast('Group updated.','success')"><i class="fa-solid fa-floppy-disk"></i> Save Changes</button>
+      <button class="modal-btn secondary" onclick="closeModal('modal-warn-member')">Cancel</button>
+      <button class="modal-btn primary" style="background:#f97316;border-color:#c2410c;box-shadow:2px 2px 0 #c2410c;" onclick="sendWarning()"><i class="fa-solid fa-triangle-exclamation"></i> Send Warning</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Create Hive (multi-step) -->
+<div class="modal-overlay" id="modal-create-hive">
+  <div class="modal-box" style="width:min(600px,96vw);">
+    <div class="modal-head">
+      <h3><i class="fa-solid fa-hexagon-nodes"></i>&nbsp; Create New Group</h3>
+      <button class="modal-close" onclick="closeModal('modal-create-hive')">&#x2715;</button>
+    </div>
+    <div class="step-indicator" id="step-indicator">
+      <div class="step-dot"><div class="step-circle active" id="sc-1">1</div><span class="step-label active" id="sl-1">Basics</span></div>
+      <div class="step-line" id="sline-1"></div>
+      <div class="step-dot"><div class="step-circle" id="sc-2">2</div><span class="step-label" id="sl-2">Schedule</span></div>
+      <div class="step-line" id="sline-2"></div>
+      <div class="step-dot"><div class="step-circle" id="sc-3">3</div><span class="step-label" id="sl-3">Rules</span></div>
+      <div class="step-line" id="sline-3"></div>
+      <div class="step-dot"><div class="step-circle" id="sc-4">4</div><span class="step-label" id="sl-4">Review</span></div>
+    </div>
+    <div class="modal-body">
+      <div class="step-panel active" id="step-1">
+        <div class="modal-field"><label>Group Name</label><input type="text" id="c-name" placeholder="e.g. Algorithms Review Circle"></div>
+        <div class="modal-field"><label>Icon</label>
+          <div class="emoji-grid">
+            <div class="emoji-opt selected" data-val="🐝" onclick="selectEmoji(this)">🐝</div>
+            <div class="emoji-opt" data-val="🌐" onclick="selectEmoji(this)">🌐</div>
+            <div class="emoji-opt" data-val="📚" onclick="selectEmoji(this)">📚</div>
+            <div class="emoji-opt" data-val="💡" onclick="selectEmoji(this)">💡</div>
+            <div class="emoji-opt" data-val="🔬" onclick="selectEmoji(this)">🔬</div>
+            <div class="emoji-opt" data-val="🧮" onclick="selectEmoji(this)">🧮</div>
+            <div class="emoji-opt" data-val="💻" onclick="selectEmoji(this)">💻</div>
+            <div class="emoji-opt" data-val="🎯" onclick="selectEmoji(this)">🎯</div>
+            <div class="emoji-opt" data-val="🌱" onclick="selectEmoji(this)">🌱</div>
+            <div class="emoji-opt" data-val="⚡" onclick="selectEmoji(this)">⚡</div>
+          </div>
+        </div>
+        <div class="modal-field"><label>Category</label>
+          <div class="cat-grid">
+            <div class="cat-opt selected" data-val="Programming" onclick="selectCat(this)"><i class="fa-solid fa-code"></i> Programming</div>
+            <div class="cat-opt" data-val="Networking" onclick="selectCat(this)"><i class="fa-solid fa-network-wired"></i> Networking</div>
+            <div class="cat-opt" data-val="Mathematics" onclick="selectCat(this)"><i class="fa-solid fa-square-root-variable"></i> Mathematics</div>
+            <div class="cat-opt" data-val="Science" onclick="selectCat(this)"><i class="fa-solid fa-flask"></i> Science</div>
+            <div class="cat-opt" data-val="Language" onclick="selectCat(this)"><i class="fa-solid fa-language"></i> Language</div>
+            <div class="cat-opt" data-val="General" onclick="selectCat(this)"><i class="fa-solid fa-star"></i> General</div>
+          </div>
+        </div>
+        <div class="modal-row">
+          <div class="modal-field"><label>Mode</label><select id="c-mode"><option>Online</option><option>In-person</option><option>Hybrid</option></select></div>
+          <div class="modal-field"><label>Max Members</label><input type="number" id="c-cap" value="20" min="2" max="100"></div>
+        </div>
+        <div class="modal-field"><label>Description (optional)</label><textarea id="c-desc" placeholder="What will this group focus on?"></textarea></div>
+      </div>
+      <div class="step-panel" id="step-2">
+        <div class="modal-field"><label>Activity Type</label><select id="c-type"><option>Recurring</option><option>One-time</option><option>Flexible</option></select></div>
+        <div class="modal-row">
+          <div class="modal-field"><label>Day</label><select id="c-day"><option>Monday</option><option>Tuesday</option><option>Wednesday</option><option>Thursday</option><option selected>Friday</option><option>Saturday</option><option>Sunday</option></select></div>
+          <div class="modal-field"><label>Time</label><input type="time" id="c-time" value="16:00"></div>
+        </div>
+        <div class="modal-field"><label>Duration</label><select id="c-dur"><option>1 hour</option><option selected>2 hours</option><option>3 hours</option><option>Other</option></select></div>
+        <div class="modal-field"><label>Location / Link</label><input type="text" id="c-loc" placeholder="e.g. Discord, Room 301, Google Meet link"></div>
+        <div class="modal-field"><label>Subject / Course Code (optional)</label><input type="text" id="c-course" placeholder="e.g. CS 201 / CS 301"></div>
+      </div>
+      <div class="step-panel" id="step-3">
+        <p style="font-size:0.84rem;color:var(--aged);">Add up to 5 ground rules for your group members.</p>
+        <div class="rule-add-row">
+          <input type="text" id="c-rule-input" placeholder="e.g. Be on time — sessions start promptly." maxlength="120">
+          <button class="modal-btn primary" style="padding:9px 14px;white-space:nowrap;" onclick="addRule()"><i class="fa-solid fa-plus"></i> Add</button>
+        </div>
+        <div class="rule-list" id="c-rule-list"></div>
+        <div class="modal-info-box">Rules are optional — you can skip this step and add them later.</div>
+      </div>
+      <div class="step-panel" id="step-4">
+        <p style="font-size:0.84rem;color:var(--aged);">Review your group details before creating.</p>
+        <div class="create-preview" id="c-preview"></div>
+      </div>
+    </div>
+    <div class="modal-footer" style="justify-content:space-between;">
+      <button class="modal-btn secondary" id="btn-back" onclick="stepBack()" style="display:none;"><i class="fa-solid fa-arrow-left"></i> Back</button>
+      <div style="display:flex;gap:10px;margin-left:auto;">
+        <button class="modal-btn secondary" onclick="closeModal('modal-create-hive')">Cancel</button>
+        <button class="modal-btn primary" id="btn-next" onclick="stepNext()">Next <i class="fa-solid fa-arrow-right"></i></button>
+      </div>
     </div>
   </div>
 </div>
@@ -674,84 +816,240 @@
 <div class="toast" id="toast"></div>
 
 <script>
-// ─── DATA ─────────────────────────────────────────────────────────────────────
+  function handleLogout(e) {
+  e.preventDefault();
+  if (confirm('Are you sure you want to log out?')) {
+    // Replace this with your actual logout URL or auth logic:
+    window.location.href = '../auth/login.html';
+    // or: window.location.reload();
+  }
+}
+  function viewMemberProfile(memberName, groupKey) {
+  const g = GROUPS[groupKey];
+
+  // Basic info
+  const memberData = g.memberList.find(m => m.name === memberName);
+  const initials = memberName.split(' ').map(w => w[0]).join('').slice(0, 2);
+
+  document.getElementById('profile-avatar').textContent = initials;
+  document.getElementById('profile-name').textContent = memberName;
+  document.getElementById('profile-sub').textContent = memberData ? memberData.sub : '—';
+  document.getElementById('profile-group').textContent = g.title;
+
+  // Attendance stats across all sessions
+  let present = 0, late = 0, absent = 0, total = 0;
+  const sessionBreakdown = [];
+
+  g.sessions.forEach(sess => {
+    const record = (sess.members || []).find(m => m.n === memberName);
+    if (record) {
+      total++;
+      if (record.s === 'present') present++;
+      else if (record.s === 'late') late++;
+      else if (record.s === 'absent') absent++;
+      sessionBreakdown.push({ date: sess.date, topic: sess.topic, status: record.s });
+    }
+  });
+
+  const attPct = total > 0 ? Math.round(((present + late) / total) * 100) : 0;
+
+  document.getElementById('profile-attendance').textContent = total > 0 ? `${attPct}%` : 'No sessions yet';
+  document.getElementById('profile-present').textContent = present;
+  document.getElementById('profile-late').textContent = late;
+  document.getElementById('profile-absent').textContent = absent;
+
+  // Session breakdown list
+  const statusColors = { present: '#22c55e', late: '#f97316', absent: '#ef4444' };
+  const statusIcons  = { present: 'fa-check', late: 'fa-clock', absent: 'fa-xmark' };
+  document.getElementById('profile-sessions-list').innerHTML = sessionBreakdown.length
+    ? sessionBreakdown.map(s => `
+        <div style="display:flex;align-items:center;gap:10px;padding:8px 12px;background:#fff;border:1.5px solid var(--pale);border-radius:7px;font-size:0.82rem;">
+          <i class="fa-solid ${statusIcons[s.status]}" style="color:${statusColors[s.status]};width:14px;text-align:center;"></i>
+          <div style="flex:1;">
+            <div style="font-weight:700;color:var(--hive);">${s.date.split(',')[0]}</div>
+            <div style="color:var(--aged);font-size:0.76rem;">${s.topic.split('—')[0].trim()}</div>
+          </div>
+          <span style="font-size:0.72rem;font-weight:700;text-transform:uppercase;color:${statusColors[s.status]};">${s.status}</span>
+        </div>`)
+      .join('')
+    : `<div style="color:var(--aged);font-size:0.83rem;">No session records found.</div>`;
+
+  openModal('modal-member-profile');
+}
+// ─── DISCUSSION DATA ──────────────────────────────────────────────────────────
+const DISCUSSION = {
+  programming: [
+    {
+      id:'c1', author:'Marco Dela Cruz', initials:'MD', time:'March 21 · 6:14 PM',
+      text:'Quick reminder: next week we\'re covering dynamic programming. Make sure to review the recursion notes from today!',
+      flags:0, status:'normal', pinned:true,
+      replies:[
+        {id:'r1a', author:'Aisha Reyes', initials:'AR', time:'6:18 PM', text:'Thanks for the heads up! Already started reviewing 😊', flags:0, status:'normal'},
+        {id:'r1b', author:'Juan Santos', initials:'JS', time:'6:45 PM', text:'Finally hahaha this is what i\'ve been waiting for. btw can we move the time to 5pm next week?', flags:0, status:'normal'},
+      ]
+    },
+    {
+      id:'c2', author:'Lena Cruz', initials:'LC', time:'March 19 · 10:02 AM',
+      text:'Anyone else struggling with the scope exercises? Some of them are really confusing 😅',
+      flags:0, status:'normal', pinned:false,
+      replies:[
+        {id:'r2a', author:'Marco Dela Cruz', initials:'MD', time:'10:15 AM', text:'Yeah the closures part especially! Let\'s make it a discussion point for Friday.', flags:0, status:'normal'},
+      ]
+    },
+    {
+      id:'c3', author:'Juan Santos', initials:'JS', time:'March 14 · 8:01 PM',
+      text:'Session recording link: discord.gg/example — check the pinned message for the access code',
+      flags:0, status:'normal', pinned:false,
+      replies:[]
+    },
+    {
+      id:'c4', author:'Unknown User', initials:'??', time:'March 13 · 3:30 PM',
+      text:'JOIN MY DISCORD SERVER FOR FREE CHEATS AND ANSWERS!! discord.gg/freestuff',
+      flags:5, status:'normal', pinned:false,
+      replies:[]
+    },
+    {
+      id:'c5', author:'Aisha Reyes', initials:'AR', time:'March 12 · 1:10 PM',
+      text:'Has anyone tried using Copilot for the exercises? Kind of defeats the purpose but it\'s tempting lol',
+      flags:2, status:'normal', pinned:false,
+      replies:[
+        {id:'r5a', author:'Lena Cruz', initials:'LC', time:'1:22 PM', text:'I don\'t think that\'s the best idea for a study group 😬', flags:0, status:'normal'},
+        {id:'r5b', author:'Bad Actor', initials:'BA', time:'1:45 PM', text:'Lol who cares just cheat lmaooo this group is pointless', flags:4, status:'normal'},
+      ]
+    },
+  ],
+  networking: [
+    {
+      id:'nc1', author:'Ben Morales', initials:'BM', time:'March 15 · 12:05 PM',
+      text:'Great session today! The subnetting examples were really clear. See everyone next week!',
+      flags:0, status:'normal', pinned:false,
+      replies:[
+        {id:'nr1a', author:'Sophia Villanueva', initials:'SV', time:'12:20 PM', text:'Agreed! Finally clicked for me. Can we get the worksheet PDF?', flags:0, status:'normal'},
+      ]
+    }
+  ]
+};
+
+let discFilter = 'all';
+let replyingToId = null;
+let replyingToAuthor = null;
+let warnTargetId = null;
+
+// ─── DATA ────────────────────────────────────────────────────────────────────
 const GROUPS = {
   programming: {
-    icon: '🐝',
-    title: 'Programming Study Group',
-    tag: 'Programming',
-    members: 14,
-    capacity: 20,
-    type: 'Recurring',
-    mode: 'Online',
-    schedule: 'Fridays · 4:00–6:00 PM',
-    location: 'Discord / Google Meet',
-    pending: 4,
-    memberList: [
-      { initials:'MD', name:'Marco Dela Cruz', sub:'2nd Year · BSCS' },
-      { initials:'AR', name:'Aisha Reyes',     sub:'3rd Year · BSCE' },
-      { initials:'JS', name:'Juan Santos',     sub:'2nd Year · BSCS' },
-      { initials:'LC', name:'Lena Cruz',       sub:'1st Year · BSIT' },
+    icon:'🐝', title:'Programming Study Group', tag:'Programming',
+    members:14, capacity:20, type:'Recurring', mode:'Online',
+    schedule:'Fridays · 4:00–6:00 PM', location:'Discord / Google Meet',
+    pending:4, course:'CS 201 / CS 301',
+    rules:['Be on time — sessions start promptly at 4 PM.','Come prepared with questions or topics to cover.','Keep it respectful — everyone is here to learn.'],
+    memberList:[
+      {initials:'MD',name:'Marco Dela Cruz',sub:'2nd Year · BSCS'},
+      {initials:'AR',name:'Aisha Reyes',sub:'3rd Year · BSCE'},
+      {initials:'JS',name:'Juan Santos',sub:'2nd Year · BSCS'},
+      {initials:'LC',name:'Lena Cruz',sub:'1st Year · BSIT'},
     ],
-    sessions: [
-      { num:3, date:'Friday, March 21, 2025', topic:'Recursion and backtracking — 2 hours — Discord', missed:false,
-        members: [{n:'Marco Dela Cruz',s:'present'},{n:'Aisha Reyes',s:'present'},{n:'Juan Santos',s:'present'},{n:'Lena Cruz',s:'late'}],
-        note:'Great energy. Covered recursive tree traversal and memoization intro.' },
-      { num:2, date:'Friday, March 14, 2025', topic:'Functions & scope — 2 hours — Discord', missed:false,
-        members: [{n:'Marco Dela Cruz',s:'present'},{n:'Aisha Reyes',s:'present'},{n:'Juan Santos',s:'absent'},{n:'Lena Cruz',s:'present'}],
-        note:'Covered scope rules and function overloading. Juan missed but reviewed recording.' },
-      { num:1, date:'Friday, March 7, 2025',  topic:'Intro session — topic planning — 2 hours — Discord', missed:false,
-        members: [{n:'Marco Dela Cruz',s:'present'},{n:'Aisha Reyes',s:'absent'},{n:'Juan Santos',s:'present'},{n:'Lena Cruz',s:'present'}],
-        note:'First session! Covered semester plan and divided topics.' },
+    sessions:[
+      {num:3,date:'Friday, March 21, 2025',topic:'Recursion and backtracking — 2 hours — Discord',missed:false,
+       members:[{n:'Marco Dela Cruz',s:'present'},{n:'Aisha Reyes',s:'present'},{n:'Juan Santos',s:'present'},{n:'Lena Cruz',s:'late'}],note:'Great energy. Covered recursive tree traversal and memoization intro.'},
+      {num:2,date:'Friday, March 14, 2025',topic:'Functions & scope — 2 hours — Discord',missed:false,
+       members:[{n:'Marco Dela Cruz',s:'present'},{n:'Aisha Reyes',s:'present'},{n:'Juan Santos',s:'absent'},{n:'Lena Cruz',s:'present'}],note:'Covered scope rules and function overloading. Juan missed but reviewed recording.'},
+      {num:1,date:'Friday, March 7, 2025',topic:'Intro session — topic planning — 2 hours — Discord',missed:false,
+       members:[{n:'Marco Dela Cruz',s:'present'},{n:'Aisha Reyes',s:'absent'},{n:'Juan Santos',s:'present'},{n:'Lena Cruz',s:'present'}],note:'First session! Covered semester plan and divided topics.'},
     ]
   },
   networking: {
-    icon: '🌐',
-    title: 'Networking Study Group',
-    tag: 'Networking',
-    members: 4,
-    capacity: 15,
-    type: 'One-time',
-    mode: 'In-person',
-    schedule: 'Saturdays · 10:00 AM–12:00 PM',
-    location: 'CCS Room 204',
-    pending: 0,
-    memberList: [
-      { initials:'BM', name:'Ben Morales',   sub:'3rd Year · BSCE' },
-      { initials:'NR', name:'Nina Ramos',    sub:'2nd Year · BSCS' },
-      { initials:'KT', name:'Karl Torres',   sub:'3rd Year · BSIT' },
-      { initials:'SV', name:'Sophia Villanueva', sub:'2nd Year · BSCE' },
+    icon:'🌐', title:'Networking Study Group', tag:'Networking',
+    members:4, capacity:15, type:'One-time', mode:'In-person',
+    schedule:'Saturdays · 10:00 AM–12:00 PM', location:'CCS Room 204',
+    pending:0, course:'CS 312',
+    rules:['Arrive 5 minutes early to set up.','Bring your own laptop or materials.'],
+    memberList:[
+      {initials:'BM',name:'Ben Morales',sub:'3rd Year · BSCE'},
+      {initials:'NR',name:'Nina Ramos',sub:'2nd Year · BSCS'},
+      {initials:'KT',name:'Karl Torres',sub:'3rd Year · BSIT'},
+      {initials:'SV',name:'Sophia Villanueva',sub:'2nd Year · BSCE'},
     ],
-    sessions: [
-      { num:1, date:'Saturday, March 15, 2025', topic:'Subnetting workshop — 2 hours — CCS Room 204', missed:false,
-        members: [{n:'Ben Morales',s:'present'},{n:'Nina Ramos',s:'present'},{n:'Karl Torres',s:'late'},{n:'Sophia Villanueva',s:'present'}],
-        note:'Covered CIDR notation and subnet mask exercises.' },
+    sessions:[
+      {num:1,date:'Saturday, March 15, 2025',topic:'Subnetting workshop — 2 hours — CCS Room 204',missed:false,
+       members:[{n:'Ben Morales',s:'present'},{n:'Nina Ramos',s:'present'},{n:'Karl Torres',s:'late'},{n:'Sophia Villanueva',s:'present'}],note:'Covered CIDR notation and subnet mask exercises.'},
     ]
   }
 };
 
 let currentGroup = null;
-let sessionCounters = { programming: 3, networking: 1 };
+let sessionCounters = {programming:3,networking:1};
+let groupKeys = ['programming','networking'];
+let activeTab = 'overview';
 
-// ─── NAVIGATION ───────────────────────────────────────────────────────────────
+// ─── TABS ──────────────────────────────────────────────────────────────────
+function switchTab(tab) {
+  activeTab = tab;
+  document.querySelectorAll('.detail-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('tab-'+tab).classList.add('active');
+  document.getElementById('panel-'+tab).classList.add('active');
+}
+
+// ─── RENDER GROUP CARDS ───────────────────────────────────────────────────────
+function renderGroupCards() {
+  const grid = document.getElementById('groups-grid');
+  if (!groupKeys.length) {
+    grid.innerHTML = `<div class="empty-state"><div class="empty-icon">🏠</div><h3>No groups yet</h3><p>Create your first group to get started.</p></div>`;
+    return;
+  }
+  grid.innerHTML = groupKeys.map(key => {
+    const g = GROUPS[key];
+    const disc = DISCUSSION[key] || [];
+    const flagged = countAllFlags(key);
+    const pendingBadge = g.pending > 0 ? `<span class="tbl-badge badge-pending">${g.pending} pending</span>` : `<span class="tbl-badge badge-active">Open</span>`;
+    const flagBadge = flagged > 0 ? `<span class="tbl-badge badge-flagged" title="${flagged} flagged posts"><i class="fa-solid fa-flag" style="font-size:.65rem;"></i> ${flagged}</span>` : '';
+    return `
+    <div class="group-card" onclick="openGroupDetail('${key}')">
+      <div class="group-card-top">
+        <div class="group-icon">${g.icon}</div>
+        <div class="group-card-meta">
+          <div class="group-card-name">${g.title}</div>
+          <div class="group-card-sub">${g.mode} · ${g.course || g.tag}</div>
+        </div>
+        ${pendingBadge}
+      </div>
+      <div class="group-card-bottom">
+        <span class="tbl-tag">${g.tag}</span>
+        <span class="tbl-badge badge-approved">Verified</span>
+        ${flagBadge}
+        <div class="group-stat-chips">
+          <span class="g-chip"><i class="fa-solid fa-users"></i> ${g.members}</span>
+          <span class="g-chip"><i class="fa-solid fa-comments"></i> ${disc.length}</span>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function countAllFlags(key) {
+  const disc = DISCUSSION[key] || [];
+  let total = 0;
+  disc.forEach(c => {
+    if (c.flags > 0 && c.status !== 'deleted') total++;
+    (c.replies||[]).forEach(r => { if (r.flags > 0 && r.status !== 'deleted') total++; });
+  });
+  return total;
+}
+
+// ─── OPEN/CLOSE DETAIL ────────────────────────────────────────────────────────
 function openGroupDetail(key) {
   currentGroup = key;
   const g = GROUPS[key];
-
-  // Header
   document.getElementById('d-icon').textContent = g.icon;
   document.getElementById('d-title').textContent = g.title;
   document.getElementById('d-tag').textContent = g.tag;
   document.getElementById('d-members').textContent = g.members + ' members';
   document.getElementById('d-type').textContent = g.type + ' · ' + g.mode;
-
-  // Stats
   document.getElementById('ds-members').textContent = g.members;
-  document.getElementById('ds-sessions').textContent = g.sessions.length;
+  document.getElementById('ds-sessions').textContent = g.sessions.filter(s=>!s.missed).length;
   document.getElementById('ds-hours').textContent = (g.sessions.filter(s=>!s.missed).length * 2) + 'h total';
   document.getElementById('ds-pending').textContent = g.pending;
-
-  // Right panel
   document.getElementById('dr-name').textContent = g.title;
   document.getElementById('dr-cat').textContent = g.tag;
   document.getElementById('dr-mode').textContent = g.mode;
@@ -759,30 +1057,34 @@ function openGroupDetail(key) {
   document.getElementById('dr-schedule').textContent = g.schedule;
   document.getElementById('dr-location').textContent = g.location;
   document.getElementById('dr-capacity').textContent = g.members + ' / ' + g.capacity;
-
-  // Edit modal pre-fill
   document.getElementById('edit-name').value = g.title;
+  document.getElementById('edit-schedule').value = g.schedule;
+  document.getElementById('edit-location').value = g.location;
+  document.getElementById('edit-cap').value = g.capacity;
 
-  // Members
-  const ml = document.getElementById('d-member-list');
-  ml.innerHTML = g.memberList.map(m => `
-    <div class="member-row">
-      <div class="member-avatar" style="background:var(--comb);">${m.initials}</div>
-      <div style="flex:1;">
-        <div class="member-name">${m.name}</div>
-        <div class="member-sub">${m.sub}</div>
-      </div>
-      <button class="tbl-btn view">View</button>
-    </div>
-  `).join('');
+  const schedParts = g.schedule.split('·');
+  document.getElementById('dr-schedule-card').innerHTML = `<div class="schedule-row"><div class="schedule-day">${schedParts[0]?.trim()}</div><div class="schedule-time">${schedParts[1]?.trim()||''}</div><div class="schedule-topic">${g.type}</div></div>`;
 
-  // Session log
+  const rules = g.rules || [];
+  document.getElementById('dr-rules-card').innerHTML = rules.length
+    ? rules.map((r,i)=>`<div class="rule-item"><div class="rule-num">${i+1}</div>${r}</div>`).join('')
+    : `<div style="padding:14px 16px;font-size:0.84rem;color:var(--aged);">No rules set yet.</div>`;
+
+  document.getElementById('d-member-list').innerHTML = g.memberList.map(m => `
+  <div class="member-row">
+    <div class="member-avatar">${m.initials}</div>
+    <div style="flex:1;"><div class="member-name">${m.name}</div><div class="member-sub">${m.sub}</div></div>
+    <button class="tbl-btn view" onclick="viewMemberProfile('${m.name}', '${key}')">View</button>
+  </div>`).join('');
+
   renderSessionLog(key);
-
-  // Dot strip
   renderDotStrip(key);
+  renderDiscussion(key);
+  updateFlagBadge(key);
 
-  // Show detail view
+  // Reset to overview tab
+  switchTab('overview');
+
   document.getElementById('view-list').style.display = 'none';
   document.getElementById('view-detail').classList.add('open');
   recalcMasterBar();
@@ -794,81 +1096,394 @@ function closeGroupDetail() {
   currentGroup = null;
 }
 
-// ─── SESSION LOG RENDER ───────────────────────────────────────────────────────
+// ─── FLAG BADGE ───────────────────────────────────────────────────────────────
+function updateFlagBadge(key) {
+  const count = countAllFlags(key);
+  const badge = document.getElementById('flag-badge');
+  if (count > 0) {
+    badge.textContent = count;
+    badge.style.display = 'inline-flex';
+  } else {
+    badge.style.display = 'none';
+  }
+  // Update moderation bar
+  const modBar = document.getElementById('disc-mod-bar');
+  const modText = document.getElementById('disc-mod-bar-text');
+  if (count > 0) {
+    modBar.style.display = 'flex';
+    modText.textContent = `${count} post${count!==1?'s':''} ha${count!==1?'ve':'s'} been flagged by members and may need your attention.`;
+  } else {
+    modBar.style.display = 'none';
+  }
+}
+
+// ─── DISCUSSION RENDER ────────────────────────────────────────────────────────
+function setDiscFilter(f, btn) {
+  discFilter = f;
+  document.querySelectorAll('.disc-filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderDiscussion(currentGroup);
+}
+function showFlaggedOnly() {
+  discFilter = 'flagged';
+  document.querySelectorAll('.disc-filter-btn').forEach(b => b.classList.remove('active'));
+  renderDiscussion(currentGroup);
+}
+function resetFilter() {
+  discFilter = 'all';
+  document.querySelectorAll('.disc-filter-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('.disc-filter-btn').classList.add('active');
+  renderDiscussion(currentGroup);
+}
+
+function renderDiscussion(key) {
+  if (!DISCUSSION[key]) DISCUSSION[key] = [];
+  const threads = DISCUSSION[key];
+  const container = document.getElementById('disc-thread-list');
+
+  // Count stats
+  let totalPosts = 0, flaggedCount = 0, hiddenCount = 0, deletedCount = 0;
+  threads.forEach(c => {
+    totalPosts++;
+    if (c.flags > 0 && c.status !== 'deleted') flaggedCount++;
+    if (c.status === 'hidden') hiddenCount++;
+    if (c.status === 'deleted') deletedCount++;
+    (c.replies||[]).forEach(r => {
+      totalPosts++;
+      if (r.flags > 0 && r.status !== 'deleted') flaggedCount++;
+      if (r.status === 'hidden') hiddenCount++;
+      if (r.status === 'deleted') deletedCount++;
+    });
+  });
+  document.getElementById('disc-total-count').textContent = totalPosts;
+  document.getElementById('disc-flag-count').textContent = flaggedCount;
+  document.getElementById('disc-hidden-count').textContent = hiddenCount;
+  document.getElementById('disc-deleted-count').textContent = deletedCount;
+
+  const visibleThreads = threads.filter(c => {
+    if (discFilter === 'flagged') return c.flags > 0 || (c.replies||[]).some(r=>r.flags>0);
+    if (discFilter === 'hidden') return c.status === 'hidden' || (c.replies||[]).some(r=>r.status==='hidden');
+    if (discFilter === 'deleted') return c.status === 'deleted' || (c.replies||[]).some(r=>r.status==='deleted');
+    if (discFilter === 'pinned') return c.pinned;
+    return true;
+  });
+
+  // Badge for flag summary
+  const flagSummary = document.getElementById('disc-flag-summary');
+  if (flaggedCount > 0) {
+    flagSummary.textContent = '';
+    flagSummary.innerHTML = `<i class="fa-solid fa-flag"></i> ${flaggedCount} flagged`;
+    flagSummary.style.display = 'inline-flex';
+  } else {
+    flagSummary.style.display = 'none';
+  }
+
+  const visCount = threads.length;
+  document.getElementById('disc-count-badge').textContent = visCount + ' comment' + (visCount!==1?'s':'');
+
+  if (!visibleThreads.length) {
+    container.innerHTML = `<div class="disc-empty"><i class="fa-solid fa-comments"></i><p style="font-size:0.88rem;color:var(--aged);">${discFilter==='all'?'No posts yet. Be the first to start a discussion!':'No posts match this filter.'}</p></div>`;
+    return;
+  }
+
+  container.innerHTML = visibleThreads.map(c => renderThread(c, key)).join('');
+}
+
+function renderThread(c, key) {
+  const isFlagged = c.flags > 0 && c.status !== 'deleted';
+  const isHidden = c.status === 'hidden';
+  const isDeleted = c.status === 'deleted';
+  const wrapClass = isDeleted ? '' : isFlagged ? 'flagged-comment' : isHidden ? 'hidden-comment' : c.pinned ? 'pinned-comment' : '';
+
+  const flagBar = isFlagged ? `<div class="disc-flag-bar"><i class="fa-solid fa-flag"></i> ${c.flags} member report${c.flags!==1?'s':''} — needs review</div>` : '';
+
+  let statusBadge = '';
+  if (isHidden) statusBadge = `<span style="font-size:0.68rem;font-weight:800;background:#f1f5f9;color:#64748b;border:1.5px solid #cbd5e1;border-radius:3px;padding:1px 7px;margin-left:4px;">Hidden</span>`;
+  if (isDeleted) statusBadge = `<span style="font-size:0.68rem;font-weight:800;background:#fee2e2;color:#991b1b;border:1.5px solid #fca5a5;border-radius:3px;padding:1px 7px;margin-left:4px;">Deleted</span>`;
+
+  const textContent = isDeleted
+    ? `<div class="disc-text deleted-text"><i class="fa-solid fa-trash" style="margin-right:4px;"></i>This post was removed by the adviser.</div>`
+    : `<div class="disc-text">${escHtml(c.text)}</div>`;
+
+  const pinBtn = c.pinned
+    ? `<button class="disc-act-btn pin" onclick="togglePin('${c.id}','${key}')"><i class="fa-solid fa-thumbtack"></i> Unpin</button>`
+    : `<button class="disc-act-btn pin" onclick="togglePin('${c.id}','${key}')"><i class="fa-solid fa-thumbtack"></i> Pin</button>`;
+
+  const actionRow = isDeleted
+    ? `<div class="disc-actions"><button class="disc-act-btn restore" onclick="restorePost('${c.id}','${key}')"><i class="fa-solid fa-rotate-left"></i> Restore</button></div>`
+    : `<div class="disc-actions">
+        <button class="disc-act-btn reply-link" onclick="setReply('${c.id}','${c.author}')"><i class="fa-solid fa-reply"></i> Reply</button>
+        ${pinBtn}
+        ${isHidden
+          ? `<button class="disc-act-btn restore" onclick="unhidePost('${c.id}','${key}')"><i class="fa-solid fa-eye"></i> Show</button>`
+          : `<button class="disc-act-btn hide" onclick="hidePost('${c.id}','${key}')"><i class="fa-solid fa-eye-slash"></i> Hide</button>`}
+        <button class="disc-act-btn warn" onclick="openWarnModal('${c.id}','${c.author}')"><i class="fa-solid fa-triangle-exclamation"></i> Warn</button>
+        <button class="disc-act-btn delete" onclick="showDeleteConfirm('${c.id}','${key}')"><i class="fa-solid fa-trash"></i> Delete</button>
+       </div>
+       <div class="confirm-bar" id="confirm-${c.id}">
+         <span class="confirm-bar-msg"><i class="fa-solid fa-triangle-exclamation"></i> Delete this post? This cannot be undone.</span>
+         <div class="confirm-bar-btns">
+           <button class="cfm-btn yes" onclick="deletePost('${c.id}','${key}')">Yes, delete</button>
+           <button class="cfm-btn no" onclick="hideDeleteConfirm('${c.id}')">Cancel</button>
+         </div>
+       </div>`;
+
+  const replies = (c.replies||[]).map(r => renderReply(r, c.id, key)).join('');
+  const repliesHtml = replies ? `<div class="disc-replies">${replies}</div>` : '';
+
+  return `
+    <div class="disc-comment-wrap ${wrapClass}" id="wrap-${c.id}">
+      <div class="disc-comment-inner">
+        <div class="disc-avatar">${c.initials}</div>
+        <div class="disc-body">
+          <div class="disc-meta">
+            <span class="disc-name">${escHtml(c.author)}</span>
+            ${c.pinned ? `<span class="disc-pin-badge"><i class="fa-solid fa-thumbtack" style="font-size:.6rem;"></i> Pinned</span>` : ''}
+            ${statusBadge}
+            <span class="disc-time">${c.time}</span>
+          </div>
+          ${textContent}
+          ${flagBar}
+          ${actionRow}
+        </div>
+      </div>
+      ${repliesHtml}
+    </div>`;
+}
+
+function renderReply(r, parentId, key) {
+  const isFlagged = r.flags > 0 && r.status !== 'deleted';
+  const isHidden = r.status === 'hidden';
+  const isDeleted = r.status === 'deleted';
+  const wrapClass = isDeleted ? '' : isFlagged ? 'flagged-comment' : isHidden ? 'hidden-comment' : '';
+
+  const flagBar = isFlagged ? `<div class="disc-flag-bar"><i class="fa-solid fa-flag"></i> ${r.flags} report${r.flags!==1?'s':''}</div>` : '';
+
+  let statusBadge = '';
+  if (isHidden) statusBadge = `<span style="font-size:0.68rem;font-weight:800;background:#f1f5f9;color:#64748b;border:1.5px solid #cbd5e1;border-radius:3px;padding:1px 7px;margin-left:4px;">Hidden</span>`;
+  if (isDeleted) statusBadge = `<span style="font-size:0.68rem;font-weight:800;background:#fee2e2;color:#991b1b;border:1.5px solid #fca5a5;border-radius:3px;padding:1px 7px;margin-left:4px;">Deleted</span>`;
+
+  const textContent = isDeleted
+    ? `<div class="disc-text deleted-text"><i class="fa-solid fa-trash" style="margin-right:4px;"></i>This reply was removed by the adviser.</div>`
+    : `<div class="disc-text">${escHtml(r.text)}</div>`;
+
+  const actionRow = isDeleted
+    ? `<div class="disc-actions"><button class="disc-act-btn restore" onclick="restoreReply('${r.id}','${parentId}','${key}')"><i class="fa-solid fa-rotate-left"></i> Restore</button></div>`
+    : `<div class="disc-actions">
+        ${isHidden
+          ? `<button class="disc-act-btn restore" onclick="unhideReply('${r.id}','${parentId}','${key}')"><i class="fa-solid fa-eye"></i> Show</button>`
+          : `<button class="disc-act-btn hide" onclick="hideReply('${r.id}','${parentId}','${key}')"><i class="fa-solid fa-eye-slash"></i> Hide</button>`}
+        <button class="disc-act-btn warn" onclick="openWarnModal('${r.id}','${r.author}')"><i class="fa-solid fa-triangle-exclamation"></i> Warn</button>
+        <button class="disc-act-btn delete" onclick="showDeleteConfirmReply('${r.id}','${parentId}','${key}')"><i class="fa-solid fa-trash"></i> Delete</button>
+       </div>
+       <div class="confirm-bar" id="confirm-${r.id}">
+         <span class="confirm-bar-msg"><i class="fa-solid fa-triangle-exclamation"></i> Delete this reply?</span>
+         <div class="confirm-bar-btns">
+           <button class="cfm-btn yes" onclick="deleteReply('${r.id}','${parentId}','${key}')">Yes, delete</button>
+           <button class="cfm-btn no" onclick="hideDeleteConfirm('${r.id}')">Cancel</button>
+         </div>
+       </div>`;
+
+  return `
+    <div class="disc-reply-wrap ${wrapClass}" id="wrap-${r.id}">
+      <div class="disc-reply-inner">
+        <div class="disc-reply-avatar">${r.initials}</div>
+        <div class="disc-body">
+          <div class="disc-meta">
+            <span class="disc-name">${escHtml(r.author)}</span>
+            ${statusBadge}
+            <span class="disc-time">${r.time}</span>
+          </div>
+          ${textContent}
+          ${flagBar}
+          ${actionRow}
+        </div>
+      </div>
+    </div>`;
+}
+
+// ─── MODERATION ACTIONS ───────────────────────────────────────────────────────
+function findComment(key, id) {
+  return (DISCUSSION[key]||[]).find(c => c.id === id);
+}
+function findReplyAndParent(key, rid, parentId) {
+  const parent = findComment(key, parentId);
+  if (!parent) return null;
+  return parent.replies.find(r => r.id === rid);
+}
+
+function showDeleteConfirm(id, key) {
+  const el = document.getElementById('confirm-'+id);
+  if (el) el.classList.add('open');
+}
+function hideDeleteConfirm(id) {
+  const el = document.getElementById('confirm-'+id);
+  if (el) el.classList.remove('open');
+}
+function showDeleteConfirmReply(rid, parentId, key) {
+  const el = document.getElementById('confirm-'+rid);
+  if (el) el.classList.add('open');
+}
+
+function deletePost(id, key) {
+  const c = findComment(key, id);
+  if (c) { c.status = 'deleted'; c.flags = 0; }
+  renderDiscussion(key);
+  updateFlagBadge(key);
+  renderGroupCards();
+  showToast('Post deleted.','error');
+}
+function deleteReply(rid, parentId, key) {
+  const r = findReplyAndParent(key, rid, parentId);
+  if (r) { r.status = 'deleted'; r.flags = 0; }
+  renderDiscussion(key);
+  updateFlagBadge(key);
+  renderGroupCards();
+  showToast('Reply deleted.','error');
+}
+function hidePost(id, key) {
+  const c = findComment(key, id);
+  if (c) c.status = 'hidden';
+  renderDiscussion(key);
+  updateFlagBadge(key);
+  showToast('Post hidden from members.','warn');
+}
+function unhidePost(id, key) {
+  const c = findComment(key, id);
+  if (c) c.status = 'normal';
+  renderDiscussion(key);
+  updateFlagBadge(key);
+  showToast('Post is now visible.','success');
+}
+function hideReply(rid, parentId, key) {
+  const r = findReplyAndParent(key, rid, parentId);
+  if (r) r.status = 'hidden';
+  renderDiscussion(key);
+  showToast('Reply hidden from members.','warn');
+}
+function unhideReply(rid, parentId, key) {
+  const r = findReplyAndParent(key, rid, parentId);
+  if (r) r.status = 'normal';
+  renderDiscussion(key);
+  showToast('Reply is now visible.','success');
+}
+function restorePost(id, key) {
+  const c = findComment(key, id);
+  if (c) { c.status = 'normal'; }
+  renderDiscussion(key);
+  showToast('Post restored.','success');
+}
+function restoreReply(rid, parentId, key) {
+  const r = findReplyAndParent(key, rid, parentId);
+  if (r) r.status = 'normal';
+  renderDiscussion(key);
+  showToast('Reply restored.','success');
+}
+function togglePin(id, key) {
+  const c = findComment(key, id);
+  if (c) { c.pinned = !c.pinned; }
+  renderDiscussion(key);
+  showToast(c && c.pinned ? 'Post pinned.' : 'Post unpinned.','success');
+}
+
+function openWarnModal(postId, authorName) {
+  warnTargetId = postId;
+  document.getElementById('warn-member-name').textContent = authorName;
+  openModal('modal-warn-member');
+}
+function sendWarning() {
+  closeModal('modal-warn-member');
+  showToast('Warning sent to member.','warn');
+}
+
+// ─── COMPOSER ────────────────────────────────────────────────────────────────
+function setReply(commentId, authorName) {
+  replyingToId = commentId;
+  replyingToAuthor = authorName;
+  const target = document.getElementById('disc-reply-target');
+  target.style.display = 'block';
+  target.innerHTML = `<i class="fa-solid fa-reply" style="margin-right:5px;"></i>Replying to <strong>${escHtml(authorName)}</strong>`;
+  document.getElementById('disc-cancel-reply').style.display = 'block';
+  document.getElementById('disc-compose-text').placeholder = `Reply to ${authorName}…`;
+  document.getElementById('disc-compose-text').focus();
+}
+function cancelReply() {
+  replyingToId = null;
+  replyingToAuthor = null;
+  document.getElementById('disc-reply-target').style.display = 'none';
+  document.getElementById('disc-cancel-reply').style.display = 'none';
+  document.getElementById('disc-compose-text').placeholder = 'Write an announcement, note, or reply…';
+}
+function postComment() {
+  const text = document.getElementById('disc-compose-text').value.trim();
+  if (!text || !currentGroup) return;
+  const now = new Date();
+  const timeStr = now.toLocaleDateString('en-US',{month:'long',day:'numeric'}) + ' · ' + now.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
+
+  if (replyingToId) {
+    const parent = findComment(currentGroup, replyingToId);
+    if (parent) {
+      const rid = 'r' + Date.now();
+      parent.replies.push({id:rid, author:'Prof. Rivera', initials:'PR', time:timeStr, text, flags:0, status:'normal'});
+    }
+    cancelReply();
+  } else {
+    const cid = 'c' + Date.now();
+    DISCUSSION[currentGroup].unshift({id:cid, author:'Prof. Rivera', initials:'PR', time:timeStr, text, flags:0, status:'normal', pinned:false, replies:[]});
+  }
+  document.getElementById('disc-compose-text').value = '';
+  renderDiscussion(currentGroup);
+  showToast('Posted to discussion.','success');
+}
+
+function escHtml(str) {
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ─── SESSION LOG ──────────────────────────────────────────────────────────────
 function renderSessionLog(key) {
   const g = GROUPS[key];
   const container = document.getElementById('d-session-log');
   container.innerHTML = '';
-
   if (!g.sessions.length) {
     container.innerHTML = `<div class="empty-state"><div class="empty-icon">📋</div><h3>No sessions logged yet</h3><p>Use "Log Session" to record your first group session.</p></div>`;
     return;
   }
-
-  document.getElementById('d-session-count-badge').textContent = g.sessions.length + ' session' + (g.sessions.length !== 1 ? 's' : '');
-
+  document.getElementById('d-session-count-badge').textContent = g.sessions.length + ' session' + (g.sessions.length!==1?'s':'');
   g.sessions.forEach(sess => {
-    const entryId = key + '-entry-' + sess.num;
+    const eId = key+'-entry-'+sess.num;
     const present = sess.members ? sess.members.filter(m=>m.s==='present').length : 0;
     const absent  = sess.members ? sess.members.filter(m=>m.s==='absent').length : 0;
     const late    = sess.members ? sess.members.filter(m=>m.s==='late').length : 0;
     const total   = sess.members ? sess.members.length : 0;
-    const pct     = total > 0 ? Math.round(((present+late)/total)*100) : 0;
-    const fillClass = pct >= 85 ? 'att-high' : pct >= 60 ? 'att-mid' : 'att-low';
-
-    const memberRows = sess.missed ? '' : (sess.members || []).map(m => `
+    const pct = total > 0 ? Math.round(((present+late)/total)*100) : 0;
+    const fc = pct>=85?'att-high':pct>=60?'att-mid':'att-low';
+    const memberRows = sess.missed ? '' : (sess.members||[]).map(m=>`
       <div class="att-member-row">
         <div class="att-avatar">${m.n.split(' ').map(w=>w[0]).join('').slice(0,2)}</div>
         <span class="att-name">${m.n}</span>
         <div class="att-toggle">
-          <button class="att-btn present ${m.s==='present'?'active':''}" onclick="markAtt(this,'${entryId}','${m.n}','present')"><i class="fa-solid fa-check"></i> Present</button>
-          <button class="att-btn late ${m.s==='late'?'active':''}"    onclick="markAtt(this,'${entryId}','${m.n}','late')"><i class="fa-solid fa-clock"></i> Late</button>
-          <button class="att-btn absent ${m.s==='absent'?'active':''}" onclick="markAtt(this,'${entryId}','${m.n}','absent')"><i class="fa-solid fa-xmark"></i> Absent</button>
+          <button class="att-btn present ${m.s==='present'?'active':''}" onclick="markAtt(this,'${eId}','${m.n}','present')"><i class="fa-solid fa-check"></i> Present</button>
+          <button class="att-btn late ${m.s==='late'?'active':''}" onclick="markAtt(this,'${eId}','${m.n}','late')"><i class="fa-solid fa-clock"></i> Late</button>
+          <button class="att-btn absent ${m.s==='absent'?'active':''}" onclick="markAtt(this,'${eId}','${m.n}','absent')"><i class="fa-solid fa-xmark"></i> Absent</button>
         </div>
       </div>`).join('');
-
-    const attSection = sess.missed
-      ? `<div class="att-body-top"><span class="abt-label">No session was held.</span></div>`
-      : `<div class="att-body-top">
-           <span class="abt-label"><i class="fa-solid fa-users"></i>&nbsp; Attendance</span>
-           <span class="att-summary" id="sum-${entryId}">${present} present · ${absent} absent · ${late} late</span>
-         </div>
-         ${memberRows}
-         <div class="session-note-row">
-           <label><i class="fa-solid fa-note-sticky"></i>&nbsp; Session notes</label>
-           <textarea>${sess.note || ''}</textarea>
-         </div>
-         <div class="session-att-actions">
-           <button class="btn-cancel-att">Undo changes</button>
-           <button class="btn-save-att" onclick="saveAtt('${entryId}')"><i class="fa-solid fa-floppy-disk"></i> Save attendance</button>
-         </div>`;
-
     const rightBadge = sess.missed
       ? `<span class="tbl-badge" style="background:#fee2e2;color:#991b1b;">Missed</span>`
-      : `<div class="mini-att-bar">
-           <div class="mini-att-track"><div class="mini-att-fill ${fillClass}" id="fill-${entryId}" style="width:${pct}%"></div></div>
-           <span id="cnt-${entryId}" style="font-weight:700;font-size:.85em;">${present+late}/${total}</span>
-         </div>
-         <span class="att-saved-badge show" id="badge-${entryId}"><i class="fa-solid fa-check"></i> Saved</span>`;
-
-    container.insertAdjacentHTML('beforeend', `
-      <div class="session-entry" id="${entryId}">
-        <div class="session-entry-header" onclick="toggleEntry('${entryId}')">
-          <div class="seh-left">
-            <div class="seh-num">${sess.num}</div>
-            <div>
-              <div class="seh-date">${sess.date}</div>
-              <div class="seh-topic">${sess.missed ? 'Missed — no session held' : sess.topic}</div>
-            </div>
-          </div>
-          <div class="seh-right">
-            ${rightBadge}
-            <i class="fa-solid fa-chevron-down seh-chevron"></i>
-          </div>
+      : `<div class="mini-att-bar"><div class="mini-att-track"><div class="mini-att-fill ${fc}" id="fill-${eId}" style="width:${pct}%"></div></div><span id="cnt-${eId}">${present+late}/${total}</span></div><span class="att-saved-badge show" id="badge-${eId}"><i class="fa-solid fa-check"></i> Saved</span>`;
+    const attSection = sess.missed
+      ? `<div class="att-body-top"><span class="abt-label">No session was held.</span></div>`
+      : `<div class="att-body-top"><span class="abt-label"><i class="fa-solid fa-users"></i>&nbsp; Attendance</span><span class="att-summary" id="sum-${eId}">${present} present · ${absent} absent · ${late} late</span></div>
+         ${memberRows}
+         <div class="session-note-row"><label><i class="fa-solid fa-note-sticky"></i>&nbsp; Session notes</label><textarea>${sess.note||''}</textarea></div>
+         <div class="session-att-actions"><button class="btn-cancel-att">Undo changes</button><button class="btn-save-att" onclick="saveAtt('${eId}')"><i class="fa-solid fa-floppy-disk"></i> Save attendance</button></div>`;
+    container.insertAdjacentHTML('beforeend',`
+      <div class="session-entry" id="${eId}">
+        <div class="session-entry-header" onclick="toggleEntry('${eId}')">
+          <div class="seh-left"><div class="seh-num">${sess.num}</div><div><div class="seh-date">${sess.date}</div><div class="seh-topic">${sess.missed?'Missed — no session held':sess.topic}</div></div></div>
+          <div class="seh-right">${rightBadge}<i class="fa-solid fa-chevron-down seh-chevron"></i></div>
         </div>
-        <div class="session-att-body">
-          ${attSection}
-        </div>
+        <div class="session-att-body">${attSection}</div>
       </div>`);
   });
 }
@@ -877,154 +1492,162 @@ function renderDotStrip(key) {
   const g = GROUPS[key];
   const strip = document.getElementById('d-dot-strip');
   strip.innerHTML = '';
-  g.sessions.forEach(s => {
+  g.sessions.forEach(s=>{
     const d = document.createElement('div');
-    d.className = 's-dot ' + (s.missed ? 'missed' : 'held');
-    const present = s.members ? s.members.filter(m=>m.s==='present').length : 0;
-    const late    = s.members ? s.members.filter(m=>m.s==='late').length : 0;
-    const total   = s.members ? s.members.length : 0;
-    d.innerHTML = `${s.missed ? '<i class="fa-solid fa-xmark" style="font-size:8px"></i>' : '<i class="fa-solid fa-check" style="font-size:8px"></i>'}<div class="s-tip">${s.date.split(',')[0]} — ${s.missed ? 'Missed' : (present+late)+'/'+total+' present'}</div>`;
+    d.className = 's-dot '+(s.missed?'missed':'held');
+    const p = s.members?s.members.filter(m=>m.s==='present').length:0;
+    const l = s.members?s.members.filter(m=>m.s==='late').length:0;
+    const t = s.members?s.members.length:0;
+    d.innerHTML = `${s.missed?'<i class="fa-solid fa-xmark" style="font-size:8px"></i>':'<i class="fa-solid fa-check" style="font-size:8px"></i>'}<div class="s-tip">${s.date.split(',')[0]} — ${s.missed?'Missed':(p+l)+'/'+t+' present'}</div>`;
     strip.appendChild(d);
   });
-  // upcoming placeholders
-  for (let i = 0; i < 2; i++) {
-    const d = document.createElement('div');
-    d.className = 's-dot upcoming';
-    d.innerHTML = `<div class="s-tip">Upcoming</div>`;
-    strip.appendChild(d);
-  }
+  for(let i=0;i<2;i++){const d=document.createElement('div');d.className='s-dot upcoming';d.innerHTML='<div class="s-tip">Upcoming</div>';strip.appendChild(d);}
 }
 
-// ─── ATTENDANCE ───────────────────────────────────────────────────────────────
-function toggleEntry(id) { document.getElementById(id).classList.toggle('open'); }
-
-function markAtt(btn, entryId) {
-  btn.closest('.att-toggle').querySelectorAll('.att-btn').forEach(b => b.classList.remove('active'));
+function toggleEntry(id){document.getElementById(id).classList.toggle('open');}
+function markAtt(btn){
+  btn.closest('.att-toggle').querySelectorAll('.att-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  recalcEntry(entryId);
+  recalcEntry(btn.closest('.session-entry').id);
+}
+function recalcEntry(eId){
+  const entry=document.getElementById(eId);if(!entry)return;
+  const rows=entry.querySelectorAll('.att-member-row');let p=0,a=0,l=0;
+  rows.forEach(row=>{const act=row.querySelector('.att-btn.active');if(!act)return;if(act.classList.contains('present'))p++;else if(act.classList.contains('absent'))a++;else if(act.classList.contains('late'))l++;});
+  const total=rows.length;const sumEl=document.getElementById('sum-'+eId);if(sumEl)sumEl.textContent=`${p} present · ${a} absent · ${l} late`;
+  const fill=document.getElementById('fill-'+eId);const pct=total>0?Math.round(((p+l)/total)*100):0;
+  if(fill){fill.style.width=pct+'%';fill.className='mini-att-fill '+(pct>=85?'att-high':pct>=60?'att-mid':'att-low');}
+  const cnt=document.getElementById('cnt-'+eId);if(cnt)cnt.textContent=`${p+l}/${total}`;
+}
+function saveAtt(eId){
+  recalcEntry(eId);
+  const badge=document.getElementById('badge-'+eId);if(badge)badge.classList.add('show');
+  const btn=document.getElementById(eId)?.querySelector('.btn-save-att');
+  if(btn){btn.innerHTML='<i class="fa-solid fa-check"></i> Saved!';setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-floppy-disk"></i> Save attendance';},1800);}
+  recalcMasterBar();showToast('Attendance saved.','success');
+}
+function recalcMasterBar(){
+  let tp=0,tm=0;
+  document.querySelectorAll('#d-session-log .att-member-row').forEach(row=>{tm++;const act=row.querySelector('.att-btn.active');if(act&&(act.classList.contains('present')||act.classList.contains('late')))tp++;});
+  const pct=tm>0?Math.round((tp/tm)*100):0;
+  const fill=document.getElementById('d-bar-fill'),pctEl=document.getElementById('d-bar-pct'),attEl=document.getElementById('ds-att');
+  if(fill)fill.style.width=pct+'%';if(pctEl)pctEl.textContent=pct?pct+'%':'—';if(attEl)attEl.textContent=pct?pct+'%':'—';
 }
 
-function recalcEntry(entryId) {
-  const entry = document.getElementById(entryId);
-  if (!entry) return;
-  const rows = entry.querySelectorAll('.att-member-row');
-  let p=0, a=0, l=0;
-  rows.forEach(row => {
-    const active = row.querySelector('.att-btn.active');
-    if (!active) return;
-    if (active.classList.contains('present')) p++;
-    else if (active.classList.contains('absent')) a++;
-    else if (active.classList.contains('late'))   l++;
-  });
-  const total = rows.length;
-  const sumEl = document.getElementById('sum-'+entryId);
-  if (sumEl) sumEl.textContent = `${p} present · ${a} absent · ${l} late`;
-  const fill = document.getElementById('fill-'+entryId);
-  const pct = total > 0 ? Math.round(((p+l)/total)*100) : 0;
-  if (fill) {
-    fill.style.width = pct+'%';
-    fill.className = 'mini-att-fill '+(pct>=85?'att-high':pct>=60?'att-mid':'att-low');
-  }
-  const cnt = document.getElementById('cnt-'+entryId);
-  if (cnt) cnt.textContent = `${p+l}/${total}`;
-}
-
-function saveAtt(entryId) {
-  recalcEntry(entryId);
-  const badge = document.getElementById('badge-'+entryId);
-  if (badge) badge.classList.add('show');
-  const entry = document.getElementById(entryId);
-  const btn = entry.querySelector('.btn-save-att');
-  if (btn) {
-    const orig = btn.innerHTML;
-    btn.innerHTML = '<i class="fa-solid fa-check"></i> Saved!';
-    setTimeout(() => { btn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Save attendance'; }, 1800);
-  }
-  recalcMasterBar();
-  showToast('Attendance saved.','success');
-}
-
-function recalcMasterBar() {
-  let totalP=0, totalM=0;
-  document.querySelectorAll('#d-session-log .att-member-row').forEach(row => {
-    totalM++;
-    const active = row.querySelector('.att-btn.active');
-    if (active && (active.classList.contains('present') || active.classList.contains('late'))) totalP++;
-  });
-  const pct = totalM > 0 ? Math.round((totalP/totalM)*100) : 0;
-  const fill = document.getElementById('d-bar-fill');
-  const pctEl = document.getElementById('d-bar-pct');
-  const attEl = document.getElementById('ds-att');
-  if (fill) fill.style.width = pct+'%';
-  if (pctEl) pctEl.textContent = pct ? pct+'%' : '—';
-  if (attEl) attEl.textContent = pct ? pct+'%' : '—';
-}
-
-// ─── LOG SESSION ──────────────────────────────────────────────────────────────
-function logSession() {
-  if (!currentGroup) return;
-  const date     = document.getElementById('ls-date').value;
-  const topic    = document.getElementById('ls-topic').value.trim() || 'Untitled session';
-  const duration = document.getElementById('ls-duration').value;
-  const mode     = document.getElementById('ls-mode').value;
-  const loc      = document.getElementById('ls-loc').value.trim() || mode;
-  const notes    = document.getElementById('ls-notes').value.trim();
-
-  const g = GROUPS[currentGroup];
+function logSession(){
+  if(!currentGroup)return;
+  const date=document.getElementById('ls-date').value;
+  const topic=document.getElementById('ls-topic').value.trim()||'Untitled session';
+  const duration=document.getElementById('ls-duration').value;
+  const mode=document.getElementById('ls-mode').value;
+  const loc=document.getElementById('ls-loc').value.trim()||mode;
+  const notes=document.getElementById('ls-notes').value.trim();
+  const g=GROUPS[currentGroup];
   sessionCounters[currentGroup]++;
-  const num = sessionCounters[currentGroup];
-
-  const d = date ? new Date(date+'T00:00:00') : new Date();
-  const pretty = d.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
-
-  const newSession = {
-    num,
-    date: pretty,
-    topic: `${topic} — ${duration} — ${loc}`,
-    missed: false,
-    members: g.memberList.map(m => ({ n: m.name, s: 'present' })),
-    note: notes
-  };
-
-  g.sessions.unshift(newSession);
-  g.sessions.forEach((s,i) => s.num = g.sessions.length - i);
-
-  // Update stats
-  document.getElementById('ds-sessions').textContent = g.sessions.length;
-  document.getElementById('ds-hours').textContent = (g.sessions.filter(s=>!s.missed).length * 2) + 'h total';
-  document.getElementById('d-session-count-badge').textContent = g.sessions.length + ' session' + (g.sessions.length !== 1 ? 's' : '');
-
-  renderSessionLog(currentGroup);
-  renderDotStrip(currentGroup);
-  recalcMasterBar();
-  closeModal('modal-log-session');
-  showToast('Session logged! Mark attendance below.','success');
-  setTimeout(() => {
-    const first = document.querySelector('#d-session-log .session-entry');
-    if (first) { first.classList.add('open'); first.scrollIntoView({behavior:'smooth',block:'center'}); }
-  }, 150);
+  const num=sessionCounters[currentGroup];
+  const d=date?new Date(date+'T00:00:00'):new Date();
+  const pretty=d.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  g.sessions.unshift({num,date:pretty,topic:`${topic} — ${duration} — ${loc}`,missed:false,members:g.memberList.map(m=>({n:m.name,s:'present'})),note:notes});
+  g.sessions.forEach((s,i)=>s.num=g.sessions.length-i);
+  document.getElementById('ds-sessions').textContent=g.sessions.filter(s=>!s.missed).length;
+  document.getElementById('ds-hours').textContent=(g.sessions.filter(s=>!s.missed).length*2)+'h total';
+  renderSessionLog(currentGroup);renderDotStrip(currentGroup);recalcMasterBar();
+  closeModal('modal-log-session');showToast('Session logged! Mark attendance below.','success');
+  switchTab('sessions');
+  setTimeout(()=>{const first=document.querySelector('#d-session-log .session-entry');if(first){first.classList.add('open');first.scrollIntoView({behavior:'smooth',block:'center'});}},150);
 }
+
+function saveEditGroup(){
+  if(!currentGroup)return;
+  const g=GROUPS[currentGroup];
+  g.title=document.getElementById('edit-name').value||g.title;
+  g.schedule=document.getElementById('edit-schedule').value||g.schedule;
+  g.location=document.getElementById('edit-location').value||g.location;
+  g.capacity=parseInt(document.getElementById('edit-cap').value)||g.capacity;
+  closeModal('modal-edit-group');openGroupDetail(currentGroup);renderGroupCards();showToast('Group updated successfully.','success');
+}
+function confirmDelete(){
+  if(!currentGroup)return;
+  if(confirm(`Delete "${GROUPS[currentGroup].title}"? This cannot be undone.`)){
+    delete GROUPS[currentGroup];delete DISCUSSION[currentGroup];
+    groupKeys=groupKeys.filter(k=>k!==currentGroup);
+    closeGroupDetail();renderGroupCards();showToast('Group deleted.','error');
+  }
+}
+
+// ─── CREATE HIVE WIZARD ───────────────────────────────────────────────────────
+let currentStep=1;const totalSteps=4;let selectedEmoji='🐝';let selectedCat='Programming';let hiveRules=[];
+function selectEmoji(el){document.querySelectorAll('.emoji-opt').forEach(e=>e.classList.remove('selected'));el.classList.add('selected');selectedEmoji=el.dataset.val;}
+function selectCat(el){document.querySelectorAll('.cat-opt').forEach(e=>e.classList.remove('selected'));el.classList.add('selected');selectedCat=el.dataset.val;}
+function addRule(){const input=document.getElementById('c-rule-input');const val=input.value.trim();if(!val||hiveRules.length>=5)return;hiveRules.push(val);input.value='';renderRuleList();}
+function removeRule(i){hiveRules.splice(i,1);renderRuleList();}
+function renderRuleList(){document.getElementById('c-rule-list').innerHTML=hiveRules.map((r,i)=>`<div class="rule-entry"><div class="rule-n">${i+1}</div><span class="rule-text">${r}</span><button class="rule-del" onclick="removeRule(${i})"><i class="fa-solid fa-xmark"></i></button></div>`).join('');}
+function buildPreview(){
+  const name=document.getElementById('c-name').value||'Untitled Group',mode=document.getElementById('c-mode').value,cap=document.getElementById('c-cap').value,type=document.getElementById('c-type').value,day=document.getElementById('c-day').value,time=document.getElementById('c-time').value,dur=document.getElementById('c-dur').value,loc=document.getElementById('c-loc').value||'TBD',course=document.getElementById('c-course').value||'—',desc=document.getElementById('c-desc').value;
+  document.getElementById('c-preview').innerHTML=`<div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;"><div style="font-size:2rem;">${selectedEmoji}</div><div><div class="preview-title">${name}</div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px;"><span class="tbl-tag">${selectedCat}</span><span class="tbl-badge badge-active">${mode}</span></div></div></div>${desc?`<p style="font-size:0.83rem;color:var(--aged);margin-bottom:10px;">${desc}</p>`:''}<div class="preview-rows"><div class="preview-row"><span class="preview-key">Schedule</span><span class="preview-val">${day}s · ${time}</span></div><div class="preview-row"><span class="preview-key">Duration</span><span class="preview-val">${dur}</span></div><div class="preview-row"><span class="preview-key">Type</span><span class="preview-val">${type}</span></div><div class="preview-row"><span class="preview-key">Location</span><span class="preview-val">${loc}</span></div><div class="preview-row"><span class="preview-key">Course</span><span class="preview-val">${course}</span></div><div class="preview-row"><span class="preview-key">Capacity</span><span class="preview-val">0 / ${cap}</span></div>${hiveRules.length?`<div class="preview-row"><span class="preview-key">Rules</span><span class="preview-val">${hiveRules.length} set</span></div>`:''}</div>`;
+}
+function updateStepUI(){
+  for(let i=1;i<=totalSteps;i++){document.getElementById('step-'+i).classList.toggle('active',i===currentStep);const sc=document.getElementById('sc-'+i);const sl=document.getElementById('sl-'+i);sc.className='step-circle'+(i<currentStep?' done':i===currentStep?' active':'');sc.innerHTML=i<currentStep?'<i class="fa-solid fa-check" style="font-size:10px"></i>':i;sl.className='step-label'+(i===currentStep?' active':'');if(i<totalSteps){const line=document.getElementById('sline-'+i);if(line)line.className='step-line'+(i<currentStep?' done':'');}}
+  document.getElementById('btn-back').style.display=currentStep>1?'inline-flex':'none';
+  const nextBtn=document.getElementById('btn-next');nextBtn.innerHTML=currentStep===totalSteps?'<i class="fa-solid fa-hexagon-nodes"></i> Create Group':'Next <i class="fa-solid fa-arrow-right"></i>';
+}
+function stepNext(){if(currentStep===1&&!document.getElementById('c-name').value.trim()){showToast('Please enter a group name.','warn');return;}if(currentStep===totalSteps){createGroup();return;}currentStep++;if(currentStep===4)buildPreview();updateStepUI();}
+function stepBack(){if(currentStep>1){currentStep--;updateStepUI();}}
+function createGroup(){
+  const name=document.getElementById('c-name').value.trim()||'New Group',mode=document.getElementById('c-mode').value,cap=parseInt(document.getElementById('c-cap').value)||20,type=document.getElementById('c-type').value,day=document.getElementById('c-day').value,time=document.getElementById('c-time').value,dur=document.getElementById('c-dur').value,loc=document.getElementById('c-loc').value||mode,course=document.getElementById('c-course').value;
+  const key=name.toLowerCase().replace(/\s+/g,'_').replace(/[^a-z0-9_]/g,'')+'_'+Date.now();
+  GROUPS[key]={icon:selectedEmoji,title:name,tag:selectedCat,members:0,capacity:cap,type,mode,schedule:`${day}s · ${time}`,location:loc,pending:0,course:course||selectedCat,rules:[...hiveRules],memberList:[],sessions:[]};
+  DISCUSSION[key]=[];groupKeys.push(key);sessionCounters[key]=0;
+  closeModal('modal-create-hive');renderGroupCards();showToast(`"${name}" created!`,'success');resetCreateForm();
+}
+function resetCreateForm(){currentStep=1;selectedEmoji='🐝';selectedCat='Programming';hiveRules=[];document.getElementById('c-name').value='';document.getElementById('c-desc').value='';document.getElementById('c-rule-input').value='';document.getElementById('c-rule-list').innerHTML='';document.querySelectorAll('.emoji-opt').forEach((e,i)=>e.classList.toggle('selected',i===0));document.querySelectorAll('.cat-opt').forEach((e,i)=>e.classList.toggle('selected',i===0));updateStepUI();}
 
 // ─── MODALS ───────────────────────────────────────────────────────────────────
-function openModal(id) {
-  if (id === 'modal-log-session') {
-    document.getElementById('ls-date').value = new Date().toISOString().split('T')[0];
-    document.getElementById('ls-topic').value = '';
-    document.getElementById('ls-notes').value = '';
-  }
-  document.getElementById(id).classList.add('open');
-}
-function closeModal(id) { document.getElementById(id).classList.remove('open'); }
-document.querySelectorAll('.modal-overlay').forEach(o => {
-  o.addEventListener('click', e => { if(e.target===o) o.classList.remove('open'); });
-});
+function openModal(id){if(id==='modal-log-session')document.getElementById('ls-date').value=new Date().toISOString().split('T')[0];if(id==='modal-create-hive')resetCreateForm();document.getElementById(id).classList.add('open');}
+function closeModal(id){document.getElementById(id).classList.remove('open');}
+document.querySelectorAll('.modal-overlay').forEach(o=>{o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open');});});
 
-// ─── TOAST ────────────────────────────────────────────────────────────────────
-function showToast(msg, type='success') {
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.className = 'toast '+type+' show';
-  clearTimeout(t._timer); t._timer = setTimeout(() => t.classList.remove('show'), 3000);
-}
+// ─── TOAST ───────────────────────────────────────────────────────────────────
+function showToast(msg,type='success'){const t=document.getElementById('toast');t.textContent=msg;t.className='toast '+type+' show';clearTimeout(t._timer);t._timer=setTimeout(()=>t.classList.remove('show'),3200);}
+
+document.getElementById('c-rule-input').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();addRule();}});
+document.getElementById('disc-compose-text').addEventListener('keydown',e=>{if(e.key==='Enter'&&(e.ctrlKey||e.metaKey)){e.preventDefault();postComment();}});
+
+// ─── INIT ─────────────────────────────────────────────────────────────────────
+renderGroupCards();
 </script>
+<!-- MODAL: View Member Profile -->
+<div class="modal-overlay" id="modal-member-profile">
+  <div class="modal-box" style="width:min(480px,96vw);">
+    <div class="modal-head">
+      <h3><i class="fa-solid fa-user"></i>&nbsp; Member Profile</h3>
+      <button class="modal-close" onclick="closeModal('modal-member-profile')">&#x2715;</button>
+    </div>
+    <div class="modal-body">
+      <div style="display:flex;align-items:center;gap:16px;margin-bottom:8px;">
+        <div id="profile-avatar" style="width:56px;height:56px;border-radius:50%;background:var(--comb);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:800;color:var(--aged);flex-shrink:0;"></div>
+        <div>
+          <div id="profile-name" style="font-size:1.1rem;font-weight:800;color:var(--hive);"></div>
+          <div id="profile-sub" style="font-size:0.8rem;color:var(--aged);margin-top:2px;"></div>
+        </div>
+      </div>
+      <div class="dash-card" style="padding:4px 16px;">
+        <div class="detail-row"><div class="detail-icon-sm"><i class="fa-solid fa-layer-group"></i></div><div class="detail-key">Group</div><div class="detail-value" id="profile-group">—</div></div>
+        <div class="detail-row"><div class="detail-icon-sm"><i class="fa-solid fa-chart-bar"></i></div><div class="detail-key">Attendance</div><div class="detail-value" id="profile-attendance">—</div></div>
+        <div class="detail-row"><div class="detail-icon-sm"><i class="fa-solid fa-check"></i></div><div class="detail-key">Present</div><div class="detail-value" id="profile-present">—</div></div>
+        <div class="detail-row"><div class="detail-icon-sm"><i class="fa-solid fa-clock"></i></div><div class="detail-key">Late</div><div class="detail-value" id="profile-late">—</div></div>
+        <div class="detail-row"><div class="detail-icon-sm"><i class="fa-solid fa-xmark"></i></div><div class="detail-key">Absent</div><div class="detail-value" id="profile-absent">—</div></div>
+      </div>
+      <div id="profile-sessions-section">
+        <div class="section-title" style="margin-bottom:8px;">Session Breakdown</div>
+        <div id="profile-sessions-list" style="display:flex;flex-direction:column;gap:6px;"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="modal-btn secondary" onclick="closeModal('modal-member-profile')">Close</button>
+      <button class="modal-btn primary" style="background:#f97316;border-color:#c2410c;box-shadow:2px 2px 0 #c2410c;" onclick="openWarnModal(null, document.getElementById('profile-name').textContent)"><i class="fa-solid fa-triangle-exclamation"></i> Warn Member</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>

@@ -1,185 +1,705 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dean Dashboard — HiveMinds Admin</title>
-    <link rel="stylesheet" href="../../assets/CSS/base/base.css">
-    <link rel="stylesheet" href="../../assets/CSS/base/navbar.css">
-    <link rel="stylesheet" href="../../assets/CSS/base/layout.css">
-    <link rel="stylesheet" href="../../assets/CSS/admin/admin.css">
-    <link rel="stylesheet" href="../../assets/CSS/admin/admin-pages.css">
-    <link rel="stylesheet" href="../../assets/CSS/misc/switcher.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Belanosima&family=Bricolage+Grotesque:opsz,wght@12..96,420&family=Coiny&family=McLaren&family=Pacifico&family=Pangolin&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dean Dashboard — HiveMinds Admin</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    <style>
-        #container { display: flex; align-items: flex-start; }
-        #sidebar { width: 230px; flex-shrink: 0; }
-        #content { flex: 1; }
-        :root { --amber: #FFB500; --amber-d: #E6A000; --wax: #FEFAF0; --pale: #F0E6B8; --aged: #8C7A50; }
+    :root {
+      --amber:      #FFB500;
+      --amber-d:    #E6A000;
+      --hive:       #1A1400;
+      --wax:        #FEFAF0;
+      --comb:       #FDF3D0;
+      --accent:     #EDD97A;
+      --pale:       #F0E6B8;
+      --aged:       #8C7A50;
+      --warmgray:   #6b7280;
+      --text:       #2D2410;
+      --dark:       #1A1400;
+      --muted:      #8C7A50;
+      --border:     #EDD97A;
+      --border-lt:  #F0E6B8;
 
-        /* Bar Chart Styles */
-        .chart-card { padding: 24px; margin-bottom: 24px; }
-        .bar-chart { display: flex; align-items: flex-end; justify-content: space-between; height: 160px; gap: 12px; margin-top: 15px; padding-bottom: 5px; }
-        .bar-item { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; }
-        .bar-container { width: 100%; height: 100%; background: var(--wax); border-radius: 6px; position: relative; overflow: hidden; display: flex; align-items: flex-end; border: 1.5px solid var(--pale); }
-        .bar-fill { width: 100%; background-color: var(--amber); border-radius: 3px 3px 0 0; transition: height 1s ease; background-image: repeating-linear-gradient(-45deg,transparent,transparent 5px,rgba(0,0,0,.05) 5px,rgba(0,0,0,.05) 10px); }
-        .bar-fill:hover { filter: brightness(0.95); cursor: help; }
-        .bar-label { font-size: 0.7rem; font-weight: 800; color: var(--aged); text-transform: uppercase; letter-spacing: 0.05em; }
-        .chart-header { display: flex; align-items: center; justify-content: space-between; }
-        .legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.75rem; font-weight: 700; color: var(--aged); }
-        .legend-dot { width: 10px; height: 10px; border-radius: 2px; background: var(--amber); }
-    </style>
+      --success:    #166534;
+      --success-bg: #dcfce7;
+      --warning:    #92400e;
+      --warning-bg: #fef3c7;
+      --danger:     #991b1b;
+      --danger-bg:  #fee2e2;
+      --info:       #1d4ed8;
+      --info-bg:    #dbeafe;
+      --purple:     #6b21a8;
+      --purple-bg:  #f3e8ff;
+      --teal:       #0e7490;
+      --teal-bg:    #cffafe;
+
+      --sidebar-w:  240px;
+      --nav-h:      58px;
+      --radius:     10px;
+      --radius-lg:  14px;
+      --shadow-sm:  0 1px 4px rgba(0,0,0,0.07);
+      --shadow:     0 2px 12px rgba(0,0,0,0.09);
+      --shadow-lg:  0 6px 24px rgba(0,0,0,0.13);
+    }
+
+    @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Pacifico&display=swap');
+
+    body {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      background: #F5EDD5;
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── NAVBAR ── */
+    .reg-nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      background: rgba(254,250,240,0.94);
+      backdrop-filter: blur(14px);
+      border-bottom: 1.5px solid #E8C84A;
+      display: flex; align-items: center;
+      padding: 0 28px; z-index: 100; gap: 24px;
+    }
+    .reg-nav .logo {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 1.45rem; font-weight: 700;
+      letter-spacing: -0.03em; color: #0D0B00;
+      text-decoration: none; flex-shrink: 0; margin-right: 8px; line-height: 1;
+    }
+    .reg-nav .logo span { color: #FF5F00; }
+    .nav-links { display: flex; align-items: center; gap: 4px; flex: 1; justify-content: center; }
+    .nav-links a {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.88rem; font-weight: 600; color: #3A2E00;
+      text-decoration: none; padding: 6px 14px; border-radius: 6px;
+      transition: all .18s; letter-spacing: .01em; display: flex; align-items: center;
+    }
+    .nav-links a:hover { background: rgba(255,212,0,0.18); color: #1A1600; }
+    .nav-links a.active {
+      background: var(--amber); color: #0D0B00; font-weight: 700;
+      border: 1.5px solid rgba(0,0,0,0.15);
+    }
+    .nav-user {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.83rem; font-weight: 600; color: #3A2E00;
+      text-decoration: none; padding: 5px 14px 5px 6px;
+      border-radius: 30px; border: 1.5px solid rgba(0,0,0,0.15);
+      transition: all .18s; cursor: pointer;
+      display: flex; align-items: center; gap: 9px; background: #fff;
+    }
+    .nav-user:hover { background: var(--amber); border-color: rgba(0,0,0,0.2); color: #0D0B00; }
+
+    /* ── LAYOUT ── */
+    .reg-layout { display: flex; margin-top: var(--nav-h); min-height: calc(100vh - var(--nav-h)); }
+
+    /* ── SIDEBAR ── */
+    .reg-sidebar {
+      width: var(--sidebar-w); flex-shrink: 0;
+      position: fixed; top: var(--nav-h); left: 0; bottom: 0;
+      background: var(--hive); border-right: 3px solid var(--aged);
+      overflow-y: auto; padding: 20px 14px 40px;
+      display: flex; flex-direction: column; gap: 24px;
+    }
+    .sidebar-section-label {
+      font-size: 0.68rem; font-weight: 800; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--pale); padding: 0 8px; margin-bottom: 6px;
+    }
+    .sidebar-divider { height: 1px; background: var(--amber-d); margin: 0 4px 10px; border: none; }
+    .sidebar-link {
+      display: flex; align-items: center; gap: 9px;
+      padding: 9px 12px; border-radius: 9px;
+      font-size: 0.875rem; font-weight: 600; color: var(--pale);
+      text-decoration: none; transition: all .16s; margin-bottom: 2px;
+      cursor: pointer; border-left: 3px solid transparent;
+    }
+    .sidebar-link .sico { width: 18px; text-align: center; font-size: 1rem; flex-shrink: 0; color: var(--aged); }
+    .sidebar-link:hover { background: var(--aged); border-left: 5px solid var(--amber); color: var(--amber); }
+    .sidebar-link:hover .sico { color: var(--amber); }
+    .sidebar-link.active { background: var(--aged); border-left: 5px solid var(--amber-d); color: var(--wax); font-weight: 700; }
+    .sidebar-link.active .sico { color: var(--amber); }
+    .stat-pill {
+      display: flex; align-items: center; gap: 9px;
+      padding: 8px 12px; border-radius: 9px;
+      font-size: 0.82rem; font-weight: 500; color: var(--pale);
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,181,0,0.2);
+      margin-bottom: 5px;
+    }
+    .stat-pill .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--amber); flex-shrink: 0; }
+
+    /* ── MAIN ── */
+    .reg-main {
+      flex: 1; margin-left: var(--sidebar-w);
+      padding: 28px 28px 48px; max-width: 1200px;
+    }
+
+    .page-header { margin-bottom: 24px; }
+    .page-header h1 { font-size: 1.45rem; font-weight: 800; color: var(--hive); letter-spacing: -0.02em; }
+    .page-header p { font-size: 0.87rem; color: var(--aged); margin-top: 3px; }
+
+    /* ── STATS GRID ── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 14px; margin-bottom: 26px;
+    }
+    .stat-card {
+      background: #fff; border: 1.5px solid var(--accent);
+      border-radius: var(--radius-lg); box-shadow: 3px 3px 0 var(--accent);
+      padding: 18px 20px; position: relative; overflow: hidden;
+    }
+    .stat-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 3px; background: var(--amber);
+    }
+    .stat-card.green::before { background: #22c55e; }
+    .stat-card.red::before   { background: #ef4444; }
+    .stat-card.blue::before  { background: #3b82f6; }
+    .stat-card .stat-label { font-size: 0.73rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--aged); margin-bottom: 8px; }
+    .stat-card .stat-value { font-size: 2rem; font-weight: 800; color: var(--hive); line-height: 1; letter-spacing: -0.03em; }
+    .stat-card .stat-sub { font-size: 0.78rem; color: var(--aged); margin-top: 6px; }
+
+    /* ── CARD / TABLE ── */
+    .card, .full-table-card {
+      background: white; border: 1.5px solid var(--accent);
+      box-shadow: 3px 3px 0 var(--accent); border-radius: var(--radius-lg);
+      overflow: hidden; width: 100%; margin-bottom: 24px;
+    }
+    .card-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 13px 16px 12px; border-bottom: 1px solid var(--pale); background: var(--comb);
+    }
+    .card-header h3 { font-size: 0.9rem; font-weight: 700; color: var(--hive); }
+
+    .section-label {
+      font-size: 0.78rem; font-weight: 800; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--aged); margin-bottom: 12px;
+    }
+
+    .table-wrap { overflow-x: auto; }
+    table.reg-table { width: 100%; border-collapse: collapse; font-size: 0.88em; table-layout: auto; }
+    .reg-table thead th {
+      background-color: var(--comb); padding: 11px 16px; text-align: left;
+      font-size: 0.75em; font-weight: 800; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--aged); border-bottom: 1.5px solid var(--pale);
+    }
+    .reg-table tbody tr { border-bottom: 1px solid var(--pale); transition: background 0.12s; }
+    .reg-table tbody tr:last-child td { border-bottom: none; }
+    .reg-table td { padding: 12px 16px; vertical-align: middle; color: var(--text); }
+    .reg-table tbody tr:hover td { background: var(--wax); }
+
+    .td-user { display: flex; align-items: center; gap: 10px; }
+    .td-user .avatar {
+      width: 34px; height: 34px; min-width: 34px; border-radius: 50%;
+      background: var(--comb); border: 2px solid var(--pale);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem; color: var(--aged); font-weight: 700; flex-shrink: 0;
+    }
+    .td-name { font-weight: 700; color: var(--hive); }
+    .td-sub  { font-size: 0.78em; color: var(--aged); margin-top: 1px; }
+    .td-meta { font-size: 0.82rem; color: var(--aged); }
+
+    .td-actions { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+    .tbl-btn {
+      padding: 4px 11px; font-size: 0.75em; font-weight: 700;
+      border-radius: 6px; cursor: pointer;
+      font-family: 'Bricolage Grotesque', sans-serif;
+      transition: 0.2s ease; border: 1.5px solid; white-space: nowrap;
+    }
+    .tbl-btn.view    { border-color: var(--amber-d); color: var(--amber-d); background: var(--comb); }
+    .tbl-btn.view:hover { background: var(--amber); color: var(--hive); border-color: var(--amber); }
+    .tbl-btn.approve { background: var(--success); color: #fff; border-color: var(--success); }
+    .tbl-btn.approve:hover { background: #15803d; }
+    .tbl-btn.reject  { background: #fff; color: var(--danger); border-color: var(--danger); }
+    .tbl-btn.reject:hover { background: var(--danger-bg); }
+    .tbl-btn.warn    { border-color: var(--warning); color: var(--warning); background: var(--warning-bg); }
+    .tbl-btn.warn:hover { background: var(--warning); color: white; }
+
+    /* ── BADGES ── */
+    .badge {
+      display: inline-flex; padding: 3px 10px; border-radius: 100px;
+      font-size: 0.75em; font-weight: 700; white-space: nowrap;
+      text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    .badge-active   { background: var(--success-bg); color: var(--success); }
+    .badge-inactive { background: #F3F4F6; color: var(--warmgray); border: 1px solid #ddd; }
+    .badge-pending  { background: var(--warning-bg); color: var(--warning); }
+    .badge-approved { background: var(--success-bg); color: var(--success); }
+    .badge-rejected { background: var(--danger-bg);  color: var(--danger); }
+    .badge-open     { background: var(--info-bg);    color: var(--info); }
+    .badge-full     { background: var(--purple-bg);  color: var(--purple); }
+
+    .tag-subject {
+      display: inline-flex; background: var(--amber); color: var(--hive);
+      font-size: 9px; font-weight: 900; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 3px 8px;
+      border: 1.5px solid var(--hive); border-radius: 3px; white-space: nowrap;
+    }
+
+    /* ── PAGINATION ── */
+    .pagination {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 16px; border-top: 1px solid var(--pale);
+      background: var(--wax); font-size: 0.82em; color: var(--aged);
+    }
+    .pg-btns { display: flex; gap: 6px; }
+    .pg-btn {
+      padding: 4px 12px; font-size: 0.82em; font-weight: 700;
+      border-radius: 5px; cursor: pointer; border: 1.5px solid var(--accent);
+      background: white; color: var(--hive);
+      font-family: 'Bricolage Grotesque', sans-serif; transition: 0.15s ease;
+    }
+    .pg-btn:hover  { background: var(--comb); }
+    .pg-btn.active { background: var(--amber); border-color: var(--amber-d); color: var(--hive); }
+
+    /* ── BAR CHART ── */
+    .bar-chart {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      height: 160px; gap: 12px; margin-top: 16px; padding-bottom: 5px;
+    }
+    .bar-item { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; height: 100%; }
+    .bar-container {
+      width: 100%; flex: 1; background: var(--wax); border-radius: 6px;
+      position: relative; overflow: hidden; display: flex; align-items: flex-end;
+      border: 1.5px solid var(--pale);
+    }
+    .bar-fill {
+      width: 100%; background-color: var(--amber); border-radius: 3px 3px 0 0;
+      transition: height 1s ease;
+      background-image: repeating-linear-gradient(-45deg,transparent,transparent 5px,rgba(0,0,0,.05) 5px,rgba(0,0,0,.05) 10px);
+    }
+    .bar-fill:hover { filter: brightness(0.92); cursor: help; }
+    .bar-label { font-size: 0.7rem; font-weight: 800; color: var(--aged); text-transform: uppercase; letter-spacing: 0.05em; }
+
+    /* ── TOPBAR / FILTER ── */
+    .topbar-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; gap: 12px; flex-wrap: wrap; }
+    .filter-bar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .filter-input {
+      flex: 1; min-width: 200px; padding: 9px 14px; font-size: 0.9em;
+      font-family: 'Bricolage Grotesque', sans-serif;
+      border: 2px solid var(--accent); border-radius: 6px;
+      background: white; outline: none; transition: 0.2s ease; color: var(--text);
+    }
+    .filter-input:focus { border-color: var(--amber); box-shadow: 0 0 0 3px rgba(255,181,0,0.15); }
+    .filter-select {
+      padding: 9px 14px; font-size: 0.85em;
+      font-family: 'Bricolage Grotesque', sans-serif;
+      border: 2px solid var(--accent); border-radius: 6px;
+      background: white; outline: none; color: var(--text); cursor: pointer;
+    }
+    .filter-select:focus { border-color: var(--amber); }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(26,20,0,0.55);
+      backdrop-filter: blur(3px); z-index: 200;
+      display: none; align-items: center; justify-content: center; padding: 20px;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: var(--wax); border: 2px solid var(--accent);
+      border-radius: var(--radius-lg); padding: 28px 30px 24px;
+      width: min(560px, 96vw); position: relative;
+      box-shadow: var(--shadow-lg), 4px 4px 0 var(--hive);
+      max-height: 90vh; overflow-y: auto;
+    }
+    .modal-close {
+      position: absolute; top: 14px; right: 18px;
+      background: none; border: none; font-size: 1.4rem; color: var(--aged);
+      cursor: pointer; line-height: 1; transition: color 0.15s;
+    }
+    .modal-close:hover { color: var(--amber-d); }
+    .modal-title { font-size: 1.1rem; font-weight: 800; color: var(--hive); margin-bottom: 20px; }
+    .modal-row    { display: flex; gap: 12px; margin-bottom: 13px; }
+    .modal-field  { display: flex; flex-direction: column; gap: 5px; flex: 1; }
+    .modal-field label {
+      font-size: 0.77rem; font-weight: 700; color: var(--aged);
+      letter-spacing: 0.04em; text-transform: uppercase;
+    }
+    .modal-field input, .modal-field select, .modal-field textarea {
+      padding: 9px 12px; border: 2px solid var(--accent); border-radius: var(--radius);
+      font-family: 'Bricolage Grotesque', sans-serif; font-size: 0.88rem;
+      color: var(--text); background: #fff; outline: none; transition: border-color 0.18s;
+    }
+    .modal-field input:focus, .modal-field select:focus, .modal-field textarea:focus {
+      border-color: var(--amber); box-shadow: 0 0 0 3px rgba(255,181,0,0.15);
+    }
+    .modal-field textarea { resize: vertical; min-height: 70px; }
+    .modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
+    .modal-btn {
+      padding: 9px 22px; border-radius: var(--radius);
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: 0.88rem; font-weight: 700; cursor: pointer;
+      border: 2px solid transparent; transition: all 0.15s;
+    }
+    .modal-btn.primary {
+      background: var(--amber); color: var(--hive); border-color: var(--hive);
+      box-shadow: 2px 2px 0 var(--hive);
+    }
+    .modal-btn.primary:hover { background: var(--amber-d); transform: translate(-1px,-1px); box-shadow: 3px 3px 0 var(--hive); }
+    .modal-btn.secondary { background: #f3f4f6; color: var(--aged); border-color: #e5e7eb; }
+    .modal-btn.secondary:hover { background: #e5e7eb; }
+    .modal-btn.danger-btn { background: var(--danger-bg); color: var(--danger); border-color: var(--danger); }
+    .modal-btn.danger-btn:hover { background: var(--danger); color: white; }
+
+    /* ── INFO FIELDS (for view modal) ── */
+    .info-field {
+      background: #fff; border: 1.5px solid var(--accent);
+      border-radius: var(--radius); padding: 12px 15px;
+    }
+    .info-field label {
+      font-size: 0.69rem; font-weight: 800; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--aged); display: block; margin-bottom: 5px;
+    }
+    .info-field .val { font-size: 0.92rem; font-weight: 700; color: var(--hive); }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed; bottom: 24px; right: 24px;
+      background: var(--hive); color: #fff; padding: 12px 20px;
+      border-radius: 10px; font-size: 0.88rem; font-weight: 600;
+      z-index: 999; transform: translateY(80px); opacity: 0;
+      transition: all 0.3s ease; border-left: 4px solid var(--amber);
+      box-shadow: var(--shadow-lg);
+    }
+    .toast.show  { transform: translateY(0); opacity: 1; }
+    .toast.success { border-color: var(--success); }
+    .toast.warn    { border-color: var(--amber); }
+    .toast.error   { border-color: var(--danger); }
+
+    /* ── DASH COLS ── */
+    .dash-cols { display: grid; grid-template-columns: 1fr 320px; gap: 20px; align-items: start; }
+
+    @media (max-width: 900px) { .dash-cols { grid-template-columns: 1fr; } }
+    @media (max-width: 768px) {
+      .reg-sidebar { display: none; }
+      .reg-main { margin-left: 0; padding: 20px 16px 40px; }
+      .modal-row { flex-direction: column; }
+    }
+  </style>
 </head>
 <body>
-    <nav>
-        <div id="nav-container">
-            <a href="/WebDev/pages/home/homepage.html">
-                <div class="logo">
-                    <span class="black">Hive</span><span class="orange">Minds</span>
-                </div>
-            </a>
-            <div id="nav-links">
-                <a class="hover active-nav" href="Dean-admin-dashboard.html">Dashboard</a>
-                <a class="hover" href="Dean-admin-users.html">Users</a>
-                <a class="hover" href="Dean-admin-hives.html">Hives</a>
-            </div>
-            <div id="auth-links">
-                <a class="hover" href="../adminDean/Dean-admin-settings.html">Dean Admin</a>
-            </div>
-        </div>
-    </nav>
 
-    <main>
-        <div id="container">
-            <div id="sidebar">
-                <div id="menu">
-                    <p>MENU</p>
-                    <hr>
-                    <a href="Dean-admin-dashboard.html"><div class="sidebar-button menu active"><p>Dashboard</p></div></a>
-                    <a href="Dean-admin-users.html"><div class="sidebar-button menu"><p>Users</p></div></a>
-                    <a href="Dean-admin-hives.html"><div class="sidebar-button menu"><p>Hives</p></div></a>
-                    <a href="Dean-admin-verifications.html"><div class="sidebar-button menu"><p>Group Verifications</p></div></a>
-                    <a href="Dean-admin-settings.html"><div class="sidebar-button menu"><p>Settings</p></div></a>
-                </div>
-                <div id="my-hives">
-                    <p>QUICK STATS</p>
-                    <hr>
-                    <div class="sidebar-button my-hives"><span class="hex"></span><p>124 total users</p></div>
-                    <div class="sidebar-button my-hives"><span class="hex"></span><p>38 active hives</p></div>
-                    <div class="sidebar-button my-hives"><span class="hex"></span><p>3 flagged posts</p></div>
-                    <div class="sidebar-button my-hives"><span class="hex"></span><p>12 new today</p></div>
-                </div>
-            </div>
+<!-- NAVBAR -->
+<nav class="reg-nav">
+  <a href="#" class="logo"><span>Hive</span>Minds</a>
+  <div class="nav-links">
+    <a href="Dean-admin-dashboard.html" class="active">Dashboard</a>
+    <a href="Dean-admin-users.html">Users</a>
+    <a href="Dean-admin-hives.html">Hives</a>
+    <a href="Dean-admin-verifications.html">Verifications</a>
+  </div>
+  <a href="../../pages/auth/login.html" class="nav-user" onclick="return confirm('Are you sure you want to log out?');">👤 Dean Admin &nbsp;·&nbsp; Log out</a>
+</nav>
 
-            <div id="content">
-                <div id="qotd">Dean Admin Dashboard — HiveMinds Oversight</div>
+<div class="reg-layout">
+  <!-- SIDEBAR -->
+  <aside class="reg-sidebar">
+    <div>
+      <div class="sidebar-section-label">Menu</div>
+      <div class="sidebar-divider"></div>
+      <a href="Dean-admin-dashboard.html" class="sidebar-link active"><span class="sico">⊞</span> Dashboard</a>
+      <a href="Dean-admin-users.html" class="sidebar-link"><span class="sico">👥</span> Users</a>
+      <a href="Dean-admin-hives.html" class="sidebar-link"><span class="sico">🐝</span> Hives</a>
+      <a href="Dean-admin-verifications.html" class="sidebar-link"><span class="sico">✓</span> Group Verifications</a>
+      <a href="Dean-admin-settings.html" class="sidebar-link"><span class="sico">⚙</span> Settings</a>
+    </div>
+    <div>
+      <div class="sidebar-section-label">Quick Stats</div>
+      <div class="sidebar-divider"></div>
+      <div class="stat-pill"><span class="dot"></span> 124 total users</div>
+      <div class="stat-pill"><span class="dot"></span> 38 active hives</div>
+      <div class="stat-pill"><span class="dot"></span> 3 flagged posts</div>
+      <div class="stat-pill"><span class="dot"></span> 12 new today</div>
+    </div>
+  </aside>
 
-                <div id="admin-body">
-                    <div class="admin-stats-grid">
-                        <div class="stat-card">
-                            <div class="stat-label">Pending Review</div>
-                            <div class="stat-value" id="count-pending">0</div>
-                            <div class="stat-sub">New hive requests</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-label">Approved Hives</div>
-                            <div class="stat-value" id="count-approved">0</div>
-                            <div class="stat-sub">Active in college</div>
-                        </div>
-                    </div>
-
-                    <!-- System Growth Chart -->
-                    <div class="admin-card chart-card">
-                        <div class="chart-header">
-                            <div class="section-label" style="margin-bottom: 0; border-bottom: none;">College Hive Activity (Last 6 Months)</div>
-                            <div class="legend-item"><span class="legend-dot"></span> Monthly Hive Sessions</div>
-                        </div>
-                        <div class="bar-chart">
-                            <div class="bar-item">
-                                <div class="bar-container"><div class="bar-fill" style="height: 35%;" title="Oct: 14 sessions"></div></div>
-                                <span class="bar-label">Oct</span>
-                            </div>
-                            <div class="bar-item">
-                                <div class="bar-container"><div class="bar-fill" style="height: 55%;" title="Nov: 22 sessions"></div></div>
-                                <span class="bar-label">Nov</span>
-                            </div>
-                            <div class="bar-item">
-                                <div class="bar-container"><div class="bar-fill" style="height: 92%;" title="Mar: 38 sessions"></div></div>
-                                <span class="bar-label">Mar</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="section-label">Hive Requests</div>
-                    <div class="full-table-card">
-                        <table class="admin-table-full">
-                            <thead>
-                                <tr>
-                                    <th>Hive Name</th>
-                                    <th>Subject</th>
-                                    <th>Creator</th>
-                                    <th>Date</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="pending-table-body">
-                                <!-- Rows will be injected here -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <div id="role-switcher">
-        <span class="switcher-label">View as</span>
-        <a href="/WebDev/pages/admin/admin-dashboard.html" class="switcher-btn">Super-Admin</a>
-        <a href="/WebDev/pages/adminRegistrar/Registrar-admin-verifications.html" class="switcher-btn">Registrar-Admin</a>
-        <a href="/WebDev/pages/adminDean/Dean-admin-dashboard.html" class="switcher-btn active">Dean</a>
-        <a href="/WebDev/pages/adminAdviser/Adviser_dashboard.html" class="switcher-btn">Adviser</a>
+  <!-- MAIN -->
+  <main class="reg-main">
+    <div class="page-header">
+      <h1>Dean Admin Dashboard</h1>
+      <p>HiveMinds College Oversight — College of Computing Studies</p>
     </div>
 
-    <script>
-        function renderDashboard() {
-            const allHives = JSON.parse(localStorage.getItem('allHives') || '[]');
-            const tbody = document.getElementById('pending-table-body');
-            const pendingCount = allHives.filter(h => h.status === 'pending').length;
-            const approvedCount = allHives.filter(h => h.status === 'approved').length;
+    <!-- STATS -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Pending Review</div>
+        <div class="stat-value" id="count-pending">0</div>
+        <div class="stat-sub">New hive requests</div>
+      </div>
+      <div class="stat-card green">
+        <div class="stat-label">Approved Hives</div>
+        <div class="stat-value" id="count-approved">0</div>
+        <div class="stat-sub">Active in college</div>
+      </div>
+      <div class="stat-card red">
+        <div class="stat-label">Rejected</div>
+        <div class="stat-value" id="count-rejected">0</div>
+        <div class="stat-sub">This semester</div>
+      </div>
+      <div class="stat-card blue">
+        <div class="stat-label">Total Hives</div>
+        <div class="stat-value" id="count-total">0</div>
+        <div class="stat-sub">All time</div>
+      </div>
+    </div>
 
-            document.getElementById('count-pending').textContent = pendingCount;
-            document.getElementById('count-approved').textContent = approvedCount;
+    <div class="dash-cols">
+      <div>
+        <!-- CHART -->
+        <div class="card" style="padding: 20px 22px 18px; margin-bottom: 20px;">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:4px;">
+            <div class="section-label" style="margin-bottom:0;">College Hive Activity (Last 6 Months)</div>
+            <div style="display:flex;align-items:center;gap:6px;font-size:0.75rem;font-weight:700;color:var(--aged);">
+              <span style="width:10px;height:10px;border-radius:2px;background:var(--amber);display:inline-block;"></span>
+              Monthly Sessions
+            </div>
+          </div>
+          <div class="bar-chart">
+            <div class="bar-item">
+              <div class="bar-container"><div class="bar-fill" style="height:35%;" title="Oct: 14 sessions"></div></div>
+              <span class="bar-label">Oct</span>
+            </div>
+            <div class="bar-item">
+              <div class="bar-container"><div class="bar-fill" style="height:55%;" title="Nov: 22 sessions"></div></div>
+              <span class="bar-label">Nov</span>
+            </div>
+            <div class="bar-item">
+              <div class="bar-container"><div class="bar-fill" style="height:48%;" title="Dec: 19 sessions"></div></div>
+              <span class="bar-label">Dec</span>
+            </div>
+            <div class="bar-item">
+              <div class="bar-container"><div class="bar-fill" style="height:70%;" title="Jan: 28 sessions"></div></div>
+              <span class="bar-label">Jan</span>
+            </div>
+            <div class="bar-item">
+              <div class="bar-container"><div class="bar-fill" style="height:80%;" title="Feb: 32 sessions"></div></div>
+              <span class="bar-label">Feb</span>
+            </div>
+            <div class="bar-item">
+              <div class="bar-container"><div class="bar-fill" style="height:92%;" title="Mar: 38 sessions"></div></div>
+              <span class="bar-label">Mar</span>
+            </div>
+          </div>
+        </div>
 
-            tbody.innerHTML = allHives.map((hive, index) => `
+        <!-- HIVE REQUESTS TABLE -->
+        <div class="topbar-row">
+          <div class="section-label" style="margin-bottom:0;">Hive Requests</div>
+          <div class="filter-bar">
+            <input class="filter-input" type="text" id="searchInput" placeholder="Search hive name..." oninput="applyFilters()" style="min-width:160px;">
+            <select class="filter-select" id="statusFilter" onchange="applyFilters()">
+              <option value="">All Statuses</option>
+              <option value="pending">Pending</option>
+              <option value="approved">Approved</option>
+              <option value="rejected">Rejected</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="table-wrap">
+            <table class="reg-table">
+              <thead>
                 <tr>
-                    <td class="td-name">${hive.name}</td>
-                    <td><span class="tag-subject">${hive.subject}</span></td>
-                    <td>Student Member</td>
-                    <td class="td-meta">${hive.dateCreated}</td>
-                    <td><span class="badge badge-${hive.status}">${hive.status}</span></td>
-                    <td class="td-actions">
-                        ${hive.status === 'pending' ? `
-                            <button class="tbl-btn approve" onclick="updateStatus(${index}, 'approved')">Approve</button>
-                            <button class="tbl-btn reject" onclick="updateStatus(${index}, 'rejected')">Reject</button>
-                        ` : `—`}
-                    </td>
+                  <th>Hive Name</th>
+                  <th>Subject</th>
+                  <th>Creator</th>
+                  <th>Date</th>
+                  <th>Status</th>
+                  <th>Actions</th>
                 </tr>
-            `).join('') || '<tr><td colspan="6" style="text-align:center; padding: 20px;">No requests found.</td></tr>';
-        }
+              </thead>
+              <tbody id="hiveTableBody">
+                <!-- injected by JS -->
+              </tbody>
+            </table>
+          </div>
+          <div class="pagination">
+            <span id="tableCount">Showing 0 hives</span>
+            <div class="pg-btns">
+              <button class="pg-btn active">1</button>
+              <button class="pg-btn">2</button>
+              <button class="pg-btn">→</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
-        function updateStatus(index, newStatus) {
-            const allHives = JSON.parse(localStorage.getItem('allHives') || '[]');
-            allHives[index].status = newStatus;
-            localStorage.setItem('allHives', JSON.stringify(allHives));
-            renderDashboard();
-        }
+      <!-- SIDEBAR PANEL -->
+      <div>
+        <!-- Recent Activity -->
+        <div class="card" style="overflow:visible;">
+          <div class="card-header"><h3>Recent Activity</h3></div>
+          <div id="activityFeed" style="padding: 0 0 4px;">
+            <!-- injected -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
 
-        window.onload = renderDashboard;
-    </script>
+<!-- VIEW MODAL -->
+<div class="modal-overlay" id="viewModal">
+  <div class="modal-box" style="max-width:560px;">
+    <button class="modal-close" onclick="closeModal('viewModal')">×</button>
+    <div class="modal-title" id="viewModalTitle">Hive Details</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;">
+      <div class="info-field"><label>Hive Name</label><div class="val" id="view-name">—</div></div>
+      <div class="info-field"><label>Subject</label><div class="val" id="view-subject">—</div></div>
+      <div class="info-field"><label>Creator</label><div class="val" id="view-creator">—</div></div>
+      <div class="info-field"><label>Date Created</label><div class="val" id="view-date">—</div></div>
+      <div class="info-field" style="grid-column:span 2;"><label>Status</label><div class="val" id="view-status">—</div></div>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-btn secondary" onclick="closeModal('viewModal')">Close</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  // ── Sample / fallback data ──
+  const sampleHives = [
+    { name: 'CS Study Group Alpha', subject: 'BSCS', creator: 'Juan Dela Cruz', dateCreated: 'Apr 2, 2025', status: 'pending' },
+    { name: 'IT Lab Assistants', subject: 'BSIT', creator: 'Maria Santos', dateCreated: 'Apr 5, 2025', status: 'approved' },
+    { name: 'Algorithm Wizards', subject: 'BSCS', creator: 'Ricardo Pabustan', dateCreated: 'Mar 28, 2025', status: 'approved' },
+    { name: 'Data Structures Club', subject: 'BSCS', creator: 'Ana Reyes', dateCreated: 'Mar 15, 2025', status: 'rejected' },
+    { name: 'Web Dev Collective', subject: 'BSIT', creator: 'Ben Narciso', dateCreated: 'Apr 10, 2025', status: 'pending' },
+    { name: 'Networks Study Pod', subject: 'BSIT', creator: 'Liza Buenaventura', dateCreated: 'Apr 8, 2025', status: 'pending' },
+  ];
+
+  function getHives() {
+    const stored = localStorage.getItem('allHives');
+    return stored ? JSON.parse(stored) : sampleHives;
+  }
+  function saveHives(hives) {
+    localStorage.setItem('allHives', JSON.stringify(hives));
+  }
+
+  let currentFilter = '';
+  let currentSearch = '';
+
+  function applyFilters() {
+    currentSearch = document.getElementById('searchInput').value.toLowerCase();
+    currentFilter = document.getElementById('statusFilter').value;
+    renderTable();
+  }
+
+  function renderTable() {
+    const hives = getHives();
+    const tbody = document.getElementById('hiveTableBody');
+
+    const filtered = hives.filter(h => {
+      const matchSearch = h.name.toLowerCase().includes(currentSearch) || h.creator.toLowerCase().includes(currentSearch);
+      const matchStatus = !currentFilter || h.status === currentFilter;
+      return matchSearch && matchStatus;
+    });
+
+    document.getElementById('tableCount').textContent = `Showing ${filtered.length} of ${hives.length} hives`;
+
+    if (!filtered.length) {
+      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:24px;color:var(--aged);font-size:0.88rem;">No hive requests found.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = filtered.map((hive, i) => {
+      const realIdx = hives.indexOf(hive);
+      const actions = hive.status === 'pending'
+        ? `<button class="tbl-btn approve" onclick="updateStatus(${realIdx},'approved')">Approve</button>
+           <button class="tbl-btn reject"  onclick="updateStatus(${realIdx},'rejected')">Reject</button>
+           <button class="tbl-btn view"    onclick="openViewModal(${realIdx})">View</button>`
+        : `<button class="tbl-btn view" onclick="openViewModal(${realIdx})">View</button>`;
+
+      return `<tr data-status="${hive.status}">
+        <td><div class="td-user"><div class="avatar">${hive.name.charAt(0)}</div><div><div class="td-name">${hive.name}</div></div></div></td>
+        <td><span class="tag-subject">${hive.subject}</span></td>
+        <td class="td-meta">${hive.creator}</td>
+        <td class="td-meta">${hive.dateCreated}</td>
+        <td><span class="badge badge-${hive.status}">${hive.status.charAt(0).toUpperCase()+hive.status.slice(1)}</span></td>
+        <td><div class="td-actions">${actions}</div></td>
+      </tr>`;
+    }).join('');
+  }
+
+  function renderStats() {
+    const hives = getHives();
+    document.getElementById('count-pending').textContent  = hives.filter(h=>h.status==='pending').length;
+    document.getElementById('count-approved').textContent = hives.filter(h=>h.status==='approved').length;
+    document.getElementById('count-rejected').textContent = hives.filter(h=>h.status==='rejected').length;
+    document.getElementById('count-total').textContent    = hives.length;
+  }
+
+  function renderActivity() {
+    const hives = getHives();
+    const feed = document.getElementById('activityFeed');
+    const recent = [...hives].reverse().slice(0, 5);
+    if (!recent.length) {
+      feed.innerHTML = '<div style="padding:16px;color:var(--aged);font-size:0.85rem;text-align:center;">No recent activity.</div>';
+      return;
+    }
+    const colorMap = { pending: 'var(--warning)', approved: 'var(--success)', rejected: 'var(--danger)' };
+    feed.innerHTML = recent.map(h => `
+      <div style="display:flex;align-items:flex-start;gap:12px;padding:11px 16px;border-bottom:1px solid var(--pale);">
+        <div style="width:8px;height:8px;border-radius:50%;background:${colorMap[h.status]||'var(--aged)'};margin-top:5px;flex-shrink:0;"></div>
+        <div>
+          <div style="font-size:0.86rem;font-weight:700;color:var(--hive);">${h.name}</div>
+          <div style="font-size:0.76rem;color:var(--aged);margin-top:2px;">${h.status.charAt(0).toUpperCase()+h.status.slice(1)} · ${h.dateCreated}</div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function updateStatus(index, newStatus) {
+    const hives = getHives();
+    hives[index].status = newStatus;
+    saveHives(hives);
+    renderStats();
+    renderTable();
+    renderActivity();
+    showToast(newStatus === 'approved' ? 'Hive approved successfully.' : 'Hive request rejected.', newStatus === 'approved' ? 'success' : 'error');
+  }
+
+  function openViewModal(index) {
+    const hives = getHives();
+    const h = hives[index];
+    document.getElementById('viewModalTitle').textContent = h.name;
+    document.getElementById('view-name').textContent    = h.name;
+    document.getElementById('view-subject').textContent = h.subject;
+    document.getElementById('view-creator').textContent = h.creator;
+    document.getElementById('view-date').textContent    = h.dateCreated;
+    const statusClass = { pending:'badge-pending', approved:'badge-approved', rejected:'badge-rejected' }[h.status] || '';
+    document.getElementById('view-status').innerHTML = `<span class="badge ${statusClass}">${h.status.charAt(0).toUpperCase()+h.status.slice(1)}</span>`;
+    document.getElementById('viewModal').classList.add('open');
+  }
+
+  function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+  function showToast(msg, type='success') {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast ' + type;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+  }
+
+  document.querySelectorAll('.modal-overlay').forEach(o => {
+    o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); });
+  });
+
+  window.onload = () => {
+    renderStats();
+    renderTable();
+    renderActivity();
+  };
+</script>
 </body>
 </html>

@@ -1,394 +1,631 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../../assets/CSS/base/base.css">
-        <link rel="stylesheet" href="../../assets/CSS/base/navbar.css">
-        <link rel="stylesheet" href="../../assets/CSS/base/layout.css">
-        <link rel="stylesheet" href="../../assets/CSS/admin/admin.css">
-        <link rel="stylesheet" href="../../assets/CSS/admin/admin-pages.css">
-        <link rel="stylesheet" href="../../assets/CSS/misc/switcher.css">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hives — Super Admin | HiveMinds</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Belanosima&family=Bricolage+Grotesque:opsz,wght@12..96,420&family=Coiny&family=McLaren&family=Pacifico&family=Pangolin&display=swap" rel="stylesheet">
-    
-        <style>
-            #container {
-                display: flex;
-                align-items: flex-start;
-            }
-            #sidebar {
-                width: 230px;
-                flex-shrink: 0;
-            }
-            #content {
-                flex: 1;
-            }
-            /* Modal Styles */
-            .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(3px); display: none; align-items: center; justify-content: center; z-index: 1000; }
-            .modal-overlay.open { display: flex; }
-            .modal-box { background: white; border: 2px solid #000; border-radius: 12px; padding: 28px; max-width: 600px; width: 90%; position: relative; box-shadow: 0 8px 32px rgba(0,0,0,0.15); }
-            .modal-close { position: absolute; top: 10px; right: 15px; font-size: 1.5rem; cursor: pointer; background: none; border: none; font-weight: bold; color: #666; }
-            .modal-title { font-family: 'Fraunces', Georgia, serif; font-size: 1.4rem; font-weight: 700; color: var(--dark); margin-bottom: 20px; }
-        </style>
-    </head>
+    :root {
+      --amber:      #FFB500;
+      --amber-d:    #E6A000;
+      --hive:       #1A1400;
+      --wax:        #FEFAF0;
+      --comb:       #FDF3D0;
+      --accent:     #EDD97A;
+      --pale:       #F0E6B8;
+      --aged:       #8C7A50;
+      --warmgray:   #6b7280;
+      --text:       #2D2410;
+      --success:    #166534;
+      --success-bg: #dcfce7;
+      --warning:    #92400e;
+      --warning-bg: #fef3c7;
+      --danger:     #991b1b;
+      --danger-bg:  #fee2e2;
+      --info:       #1d4ed8;
+      --info-bg:    #dbeafe;
+      --sidebar-w:  240px;
+      --nav-h:      58px;
+      --radius:     10px;
+      --radius-lg:  14px;
+      --shadow-sm:  0 1px 4px rgba(0,0,0,0.07);
+      --shadow:     0 2px 12px rgba(0,0,0,0.09);
+      --shadow-lg:  0 6px 24px rgba(0,0,0,0.13);
+    }
 
-    <body>
-                <nav>
-            <div id="nav-container">
-                 <a href="/WebDev/pages/home/homepage.html">
-                    <div class="logo">
-                        <span class="black">Hive</span><span class="orange">Minds</span>
-                    </div>
-                </a>
-                <div id="nav-links">
-                    <a class="hover" href="admin-dashboard.html">Dashboard</a>
-                    <a class="hover" href="admin-users.html">Users</a>
-                    <a class="hover active-nav" href="admin-hives.html">Hives</a>
-                </div>
-                <div id="auth-links">
-                    <a class="hover" href="../../pages/misc/profile.html">Admin</a>
-                </div>
-            </div>
-        </nav>
+    body {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      background: #F5EDD5;
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
 
+    /* ── NAVBAR ── */
+    .reg-nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      background: rgba(254,250,240,0.94);
+      backdrop-filter: blur(14px);
+      border-bottom: 1.5px solid #E8C84A;
+      display: flex; align-items: center;
+      padding: 0 28px; z-index: 100; gap: 24px;
+    }
+    .reg-nav .logo {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 1.45rem; font-weight: 700;
+      letter-spacing: -0.03em; color: #0D0B00;
+      text-decoration: none; flex-shrink: 0; margin-right: 8px; line-height: 1;
+    }
+    .reg-nav .logo span { color: #FF5F00; }
+    .nav-links { display: flex; align-items: center; gap: 4px; flex: 1; justify-content: center; }
+    .nav-links a {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.88rem; font-weight: 600; color: #3A2E00;
+      text-decoration: none; padding: 6px 14px; border-radius: 6px;
+      transition: all .18s; letter-spacing: .01em;
+    }
+    .nav-links a:hover { background: rgba(255,212,0,0.18); color: #1A1600; }
+    .nav-links a.active { background: var(--amber); color: #0D0B00; font-weight: 700; border: 1.5px solid rgba(0,0,0,0.15); }
+    .nav-user {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.83rem; font-weight: 600; color: #3A2E00;
+      text-decoration: none; padding: 5px 14px 5px 6px;
+      border-radius: 30px; border: 1.5px solid rgba(0,0,0,0.15);
+      transition: all .18s; cursor: pointer;
+      display: flex; align-items: center; gap: 9px; background: #fff;
+    }
+    .nav-user:hover { background: var(--amber); border-color: rgba(0,0,0,0.2); color: #0D0B00; }
 
-        <main>
-            <div id="container">
-                <div id="sidebar">
-                    <div id="menu">
-                        <p>MENU</p>
-                        <hr>
-                        <a href="admin-dashboard.html">
-                            <div class="sidebar-button menu">
-                                <p>Dashboard</p>
-                            </div>
-                        </a>
-                        <a href="admin-users.html">
-                            <div class="sidebar-button menu">
-                                <p>Users</p>
-                            </div>
-                        </a>
-                        <a href="admin-hives.html">
-                            <div class="sidebar-button menu active">
-                                <p>Hives</p>
-                            </div>
-                        </a>
-                         <a href="admin-verifications.html">
-                            <div class="sidebar-button menu">
-                                <p>Verifications</p>
-                            </div>
-                        </a>
-                        <a href="admin-settings.html">
-                            <div class="sidebar-button menu">
-                                <p>Settings</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div id="my-hives">
-                        <p>QUICK STATS</p>
-                        <hr>
-                        <div class="sidebar-button my-hives">
-                            <span class="hex"></span><p>124 total users</p>
-                        </div>
-                        <div class="sidebar-button my-hives">
-                            <span class="hex"></span><p>38 active hives</p>
-                        </div>
-                        <div class="sidebar-button my-hives">
-                            <span class="hex"></span><p>3 flagged posts</p>
-                        </div>
-                        <div class="sidebar-button my-hives">
-                            <span class="hex"></span><p>12 new today</p>
-                        </div>
-                    </div>
-                </div>
+    /* ── LAYOUT ── */
+    .reg-layout { display: flex; margin-top: var(--nav-h); min-height: calc(100vh - var(--nav-h)); }
 
-                <div id="content">
-                    <div id="qotd">Admin — Hives</div>
+    /* ── SIDEBAR ── */
+    .reg-sidebar {
+      width: var(--sidebar-w); flex-shrink: 0;
+      position: fixed; top: var(--nav-h); left: 0; bottom: 0;
+      background: var(--hive); border-right: 3px solid var(--aged);
+      overflow-y: auto; padding: 20px 14px 40px;
+      display: flex; flex-direction: column; gap: 24px;
+    }
+    .sidebar-section-label {
+      font-size: 0.68rem; font-weight: 800; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--pale); padding: 0 8px; margin-bottom: 6px;
+    }
+    .sidebar-divider { height: 1px; background: var(--amber-d); margin: 0 4px 10px; border: none; }
+    .sidebar-link {
+      display: flex; align-items: center; gap: 9px;
+      padding: 9px 12px; border-radius: 9px;
+      font-size: 0.875rem; font-weight: 600; color: var(--pale);
+      text-decoration: none; transition: all .16s; margin-bottom: 2px;
+      cursor: pointer; border-left: 3px solid transparent;
+    }
+    .sidebar-link .sico { width: 18px; text-align: center; font-size: 1rem; flex-shrink: 0; color: var(--aged); }
+    .sidebar-link:hover { background: var(--aged); border-left: 5px solid var(--amber); color: var(--amber); }
+    .sidebar-link:hover .sico { color: var(--amber); }
+    .sidebar-link.active { background: var(--aged); border-left: 5px solid var(--amber-d); color: var(--wax); font-weight: 700; }
+    .sidebar-link.active .sico { color: var(--amber); }
+    .stat-pill {
+      display: flex; align-items: center; gap: 9px;
+      padding: 8px 12px; border-radius: 9px;
+      font-size: 0.82rem; font-weight: 500; color: var(--pale);
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,181,0,0.2);
+      margin-bottom: 5px;
+    }
+    .stat-pill .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--amber); flex-shrink: 0; }
 
-                    <div class="admin-page-body">
+    /* ── MAIN ── */
+    .reg-main {
+      flex: 1; margin-left: var(--sidebar-w);
+      padding: 28px 28px 48px;
+    }
+    .page-header { margin-bottom: 24px; display: flex; align-items: flex-end; justify-content: space-between; }
+    .page-header-left h1 { font-size: 1.45rem; font-weight: 800; color: var(--hive); letter-spacing: -0.02em; }
+    .page-header-left p  { font-size: 0.87rem; color: var(--aged); margin-top: 3px; }
 
-                        <div class="page-topbar">
-                            <div class="page-topbar-title">All Hives</div>
-                            <span class="tbl-badge badge-active" style="font-size:0.85em;padding:6px 14px;">38 active</span>
-                        </div>
+    /* ── BADGE ── */
+    .badge {
+      display: inline-flex; padding: 3px 10px; border-radius: 100px;
+      font-size: 0.72em; font-weight: 700; white-space: nowrap;
+      text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    .badge-active   { background: var(--success-bg); color: var(--success); }
+    .badge-open     { background: var(--success-bg); color: var(--success); }
+    .badge-full     { background: var(--warning-bg); color: var(--warning); }
+    .badge-inactive { background: #F3F4F6; color: var(--warmgray); border: 1px solid #ddd; }
+    .badge-count    { background: var(--amber); color: var(--hive); border: 1.5px solid rgba(0,0,0,0.12); }
 
-                        <div class="filter-bar">
-                            <input class="filter-input" type="text" placeholder="Search by hive name or owner...">
-                            <select class="filter-select">
-                                <option value="">All subjects</option>
-                                <option>Mathematics</option>
-                                <option>Biology</option>
-                                <option>Chemistry</option>
-                                <option>Physics</option>
-                                <option>History</option>
-                                <option>English</option>
-                            </select>
-                            <select class="filter-select">
-                                <option value="">All modes</option>
-                                <option>Online</option>
-                                <option>In-person</option>
-                            </select>
-                        </div>
+    /* ── FILTER BAR ── */
+    .filter-bar {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 18px; flex-wrap: wrap;
+    }
+    .filter-input {
+      flex: 1; min-width: 200px; padding: 9px 14px;
+      background: white; border: 1.5px solid var(--accent);
+      border-radius: var(--radius); font-size: 0.875rem;
+      font-family: 'Bricolage Grotesque', sans-serif;
+      color: var(--text); outline: none; transition: border-color .18s;
+      box-shadow: var(--shadow-sm);
+    }
+    .filter-input:focus { border-color: var(--amber-d); }
+    .filter-select {
+      padding: 9px 14px; background: white;
+      border: 1.5px solid var(--accent); border-radius: var(--radius);
+      font-size: 0.875rem; font-family: 'Bricolage Grotesque', sans-serif;
+      color: var(--text); outline: none; cursor: pointer; transition: border-color .18s;
+      box-shadow: var(--shadow-sm);
+    }
+    .filter-select:focus { border-color: var(--amber-d); }
 
-                        <div class="full-table-card">
-                            <table class="admin-table-full">
-                                <thead>
-                                    <tr>
-                                        <th>Hive</th>
-                                        <th>Owner</th>
-                                        <th>Subject</th>
-                                        <th>Mode</th>
-                                        <th>Members</th>
-                                        <th>Status</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><div class="td-name">Web Development Collective</div><div class="td-sub">Created Mar 10</div></td>
-                                        <td>
-                                            <div class="td-user" style="gap:7px;">
-                                                <img src="../../assets/images/person-profile.jpg">
-                                                <span>Rick Buzztley</span>
-                                            </div>
-                                        </td>
-                                        <td><span class="tbl-tag">Technology</span></td>
-                                        <td>Online</td>
-                                        <td>18 / 30</td>
-                                        <td><span class="tbl-badge badge-open">Open</span></td>
-                                        <td>
-                                            <div class="td-actions">
-                                                <button class="tbl-btn view" onclick="viewHive('Web Development Collective', 'Rick Buzztley', 'Technology', '18 / 30', 'Open', 'Mar 10')">View</button>
-                                                <button class="tbl-btn danger" onclick="handleRemoveHive(this)">Remove</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><div class="td-name">Python Programming Basics</div><div class="td-sub">Created Mar 15</div></td>
-                                        <td>
-                                            <div class="td-user" style="gap:7px;">
-                                                <img src="../../assets/images/person-profile.jpg">
-                                                <span>Maya Santos</span>
-                                            </div>
-                                        </td>
-                                        <td><span class="tbl-tag">Technology</span></td>
-                                        <td>In-person</td>
-                                        <td>12 / 20</td>
-                                        <td><span class="tbl-badge badge-open">Open</span></td>
-                                        <td>
-                                            <div class="td-actions">
-                                                <button class="tbl-btn view" onclick="viewHive('Python Programming Basics', 'Maya Santos', 'Technology', '12 / 20', 'Open', 'Mar 15')">View</button>
-                                                <button class="tbl-btn danger" onclick="handleRemoveHive(this)">Remove</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><div class="td-name">Data Structures & Algorithms</div><div class="td-sub">Created Mar 5</div></td>
-                                        <td>
-                                            <div class="td-user" style="gap:7px;">
-                                                <img src="../../assets/images/person-profile.jpg">
-                                                <span>Jake Almeida</span>
-                                            </div>
-                                        </td>
-                                        <td><span class="tbl-tag">Technology</span></td>
-                                        <td>Online</td>
-                                        <td>55 / 60</td>
-                                        <td><span class="tbl-badge badge-open">Open</span></td>
-                                        <td>
-                                            <div class="td-actions">
-                                                <button class="tbl-btn view" onclick="viewHive('Data Structures & Algorithms', 'Jake Almeida', 'Technology', '55 / 60', 'Open', 'Mar 5')">View</button>
-                                                <button class="tbl-btn danger" onclick="handleRemoveHive(this)">Remove</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><div class="td-name">Cybersecurity Essentials</div><div class="td-sub">Created Mar 8</div></td>
-                                        <td>
-                                            <div class="td-user" style="gap:7px;">
-                                                <img src="../../assets/images/person-profile.jpg">
-                                                <span>Nina Cruz</span>
-                                            </div>
-                                        </td>
-                                        <td><span class="tbl-tag">Technology</span></td>
-                                        <td>Online</td>
-                                        <td>42 / 50</td>
-                                        <td><span class="tbl-badge badge-open">Open</span></td>
-                                        <td>
-                                            <div class="td-actions">
-                                                <button class="tbl-btn view" onclick="viewHive('Cybersecurity Essentials', 'Nina Cruz', 'Technology', '42 / 50', 'Open', 'Mar 8')">View</button>
-                                                <button class="tbl-btn danger" onclick="handleRemoveHive(this)">Remove</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><div class="td-name">Machine Learning Mastery</div><div class="td-sub">Created Mar 12</div></td>
-                                        <td>
-                                            <div class="td-user" style="gap:7px;">
-                                                <img src="../../assets/images/person-profile.jpg">
-                                                <span>Carla Mendez</span>
-                                            </div>
-                                        </td>
-                                        <td><span class="tbl-tag">Technology</span></td>
-                                        <td>Online</td>
-                                        <td>38 / 40</td>
-                                        <td><span class="tbl-badge badge-open">Open</span></td>
-                                        <td>
-                                            <div class="td-actions">
-                                                <button class="tbl-btn view" onclick="viewHive('Machine Learning Mastery', 'Carla Mendez', 'Technology', '38 / 40', 'Open', 'Mar 12')">View</button>
-                                                <button class="tbl-btn danger" onclick="handleRemoveHive(this)">Remove</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><div class="td-name">Full Stack Developers Hub</div><div class="td-sub">Created Mar 9</div></td>
-                                        <td>
-                                            <div class="td-user" style="gap:7px;">
-                                                <img src="../../assets/images/person-profile.jpg">
-                                                <span>Leo Reyes</span>
-                                            </div>
-                                        </td>
-                                        <td><span class="tbl-tag">Technology</span></td>
-                                        <td>In-person</td>
-                                        <td>29 / 30</td>
-                                        <td><span class="tbl-badge badge-full">Full</span></td>
-                                        <td>
-                                            <div class="td-actions">
-                                                <button class="tbl-btn view" onclick="viewHive('Full Stack Developers Hub', 'Leo Reyes', 'Technology', '29 / 30', 'Full', 'Mar 9')">View</button>
-                                                <button class="tbl-btn danger" onclick="handleRemoveHive(this)">Remove</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><div class="td-name">Mobile App Design (UI/UX)</div><div class="td-sub">Created Mar 18</div></td>
-                                        <td>
-                                            <div class="td-user" style="gap:7px;">
-                                                <img src="../../assets/images/person-profile.jpg">
-                                                <span>Sam Uy</span>
-                                            </div>
-                                        </td>
-                                        <td><span class="tbl-tag">Technology</span></td>
-                                        <td>Online</td>
-                                        <td>21 / 40</td>
-                                        <td><span class="tbl-badge badge-open">Open</span></td>
-                                        <td>
-                                            <div class="td-actions">
-                                                <button class="tbl-btn view" onclick="viewHive('Mobile App Design (UI/UX)', 'Sam Uy', 'Technology', '21 / 40', 'Open', 'Mar 18')">View</button>
-                                                <button class="tbl-btn danger" onclick="handleRemoveHive(this)">Remove</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><div class="td-name">Cloud Architecture Prep</div><div class="td-sub">Created Mar 19</div></td>
-                                        <td>
-                                            <div class="td-user" style="gap:7px;">
-                                                <img src="../../assets/images/person-profile.jpg">
-                                                <span>Carla Mendez</span>
-                                            </div>
-                                        </td>
-                                        <td><span class="tbl-tag">Technology</span></td>
-                                        <td>In-person</td>
-                                        <td>15 / 25</td>
-                                        <td><span class="tbl-badge badge-open">Open</span></td>
-                                        <td>
-                                            <div class="td-actions">
-                                                <button class="tbl-btn view" onclick="viewHive('Cloud Architecture Prep', 'Carla Mendez', 'Technology', '15 / 25', 'Open', 'Mar 19')">View</button>
-                                                <button class="tbl-btn danger" onclick="handleRemoveHive(this)">Remove</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div class="pagination">
-                                <span>Showing 8 of 38 hives</span>
-                                <div class="pagination-btns">
-                                    <button class="pg-btn active">1</button>
-                                    <button class="pg-btn">2</button>
-                                    <button class="pg-btn">3</button>
-                                    <button class="pg-btn">→</button>
-                                </div>
-                            </div>
-                        </div>
+    /* ── CARD / TABLE ── */
+    .card {
+      background: white; border: 1.5px solid var(--accent);
+      box-shadow: 3px 3px 0 var(--accent); border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .table-wrap { overflow-x: auto; }
+    table.reg-table { width: 100%; border-collapse: collapse; font-size: 0.88em; }
+    .reg-table thead th {
+      background-color: var(--comb); padding: 10px 16px; text-align: left;
+      font-size: 0.72em; font-weight: 800; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--aged); border-bottom: 1.5px solid var(--pale);
+    }
+    .reg-table tbody tr { border-bottom: 1px solid var(--pale); transition: background 0.12s; }
+    .reg-table tbody tr:last-child td { border-bottom: none; }
+    .reg-table td { padding: 11px 16px; vertical-align: middle; color: var(--text); }
+    .reg-table tbody tr:hover td { background: var(--wax); }
 
-                    </div>
-                </div>
-            </div>
-        </main>
+    .td-user { display: flex; align-items: center; gap: 8px; }
+    .td-user .avatar {
+      width: 28px; height: 28px; min-width: 28px; border-radius: 50%;
+      background: var(--comb); border: 1.5px solid var(--pale);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; color: var(--aged); font-weight: 700; flex-shrink: 0;
+    }
+    .td-name { font-weight: 700; color: var(--hive); }
+    .td-sub  { font-size: 0.78rem; color: var(--aged); margin-top: 2px; }
 
-                 <div id="role-switcher">
-            <span class="switcher-label">View as</span>
-      
-             <a href="/WebDev/pages/admin/admin-dashboard.html" class="switcher-btn">Super-Admin</a>
-            <a href="/WebDev/pages/adminRegistrar/Registrar-admin-verifications.html" class="switcher-btn">Registrar-Admin</a>
-            <a href="/WebDev/pages/adminDean/Dean-admin-dashboard.html" class="switcher-btn">Dean</a>
-            <a href="/WebDev/pages/adminAdviser/Adviser_dashboard.html" class="switcher-btn">Adviser</a>
+    .tbl-tag {
+      display: inline-flex; background: var(--amber); color: var(--hive);
+      font-size: 9px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase;
+      padding: 3px 8px; border: 1.5px solid var(--hive); border-radius: 3px; white-space: nowrap;
+    }
+
+    /* ── BUTTONS ── */
+    .td-actions { display: flex; gap: 5px; flex-wrap: wrap; align-items: center; }
+    .tbl-btn {
+      padding: 4px 11px; font-size: 0.74em; font-weight: 700;
+      border-radius: 6px; cursor: pointer;
+      font-family: 'Bricolage Grotesque', sans-serif;
+      transition: 0.2s ease; border: 1.5px solid; white-space: nowrap;
+    }
+    .tbl-btn.danger  { border-color: var(--danger); color: var(--danger); background: var(--danger-bg); }
+    .tbl-btn.danger:hover { background: var(--danger); color: white; }
+    .tbl-btn.neutral { border-color: var(--accent); color: var(--aged); background: var(--comb); }
+    .tbl-btn.neutral:hover { background: var(--pale); }
+    .tbl-btn.view   { border-color: var(--amber-d); color: var(--hive); background: var(--comb); }
+    .tbl-btn.view:hover { background: var(--amber); }
+
+    /* ── PAGINATION ── */
+    .pagination {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 16px; border-top: 1px solid var(--pale);
+      font-size: 0.8rem; color: var(--aged);
+    }
+    .pagination-btns { display: flex; gap: 5px; }
+    .pg-btn {
+      padding: 5px 11px; border-radius: 6px; font-size: 0.78rem; font-weight: 700;
+      border: 1.5px solid var(--pale); background: white; cursor: pointer;
+      font-family: 'Bricolage Grotesque', sans-serif; color: var(--aged); transition: .15s;
+    }
+    .pg-btn:hover  { background: var(--comb); border-color: var(--accent); }
+    .pg-btn.active { background: var(--amber); border-color: var(--amber-d); color: var(--hive); }
+
+    /* ── SECTION HEADING ── */
+    .section-heading {
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--aged); margin-bottom: 10px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .section-heading::after { content: ''; flex: 1; height: 1px; background: var(--pale); }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.45); backdrop-filter: blur(4px);
+      display: none; align-items: center; justify-content: center; z-index: 1000;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: white; border: 2px solid var(--accent);
+      box-shadow: 6px 6px 0 var(--accent), var(--shadow-lg);
+      border-radius: var(--radius-lg); padding: 28px;
+      max-width: 600px; width: 90%; position: relative;
+      animation: modalIn .2s ease;
+    }
+    @keyframes modalIn {
+      from { transform: translateY(16px) scale(0.98); opacity: 0; }
+      to   { transform: translateY(0) scale(1); opacity: 1; }
+    }
+    .modal-close {
+      position: absolute; top: 12px; right: 15px;
+      font-size: 1.4rem; cursor: pointer; background: none;
+      border: none; font-weight: bold; color: var(--aged); line-height: 1;
+      transition: color .15s;
+    }
+    .modal-close:hover { color: var(--danger); }
+    .modal-title {
+      font-size: 1.15rem; font-weight: 800; color: var(--hive);
+      letter-spacing: -0.02em; margin-bottom: 20px;
+    }
+    .modal-hive-header {
+      display: flex; align-items: center; gap: 14px;
+      padding: 16px 18px; background: var(--comb);
+      border-radius: var(--radius); border: 1.5px dashed var(--accent);
+      margin-bottom: 18px;
+    }
+    .modal-hive-icon {
+      width: 44px; height: 44px; min-width: 44px;
+      background: var(--amber); border-radius: 10px;
+      border: 2px solid var(--hive);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+    }
+    .modal-hive-name { font-size: 1.05rem; font-weight: 700; color: var(--hive); }
+    .modal-hive-owner { font-size: 0.82rem; color: var(--aged); margin-top: 2px; }
+    .modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 18px; }
+    .modal-info-block {
+      background: var(--wax); border: 1.5px solid var(--pale);
+      border-radius: var(--radius); padding: 14px;
+    }
+    .modal-info-label {
+      font-size: 0.65rem; font-weight: 800; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--aged); margin-bottom: 10px;
+    }
+    .modal-info-row { font-size: 0.84rem; color: var(--text); margin-bottom: 5px; }
+    .modal-info-row strong { color: var(--hive); }
+    .modal-footer { display: flex; justify-content: flex-end; gap: 8px; }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed; bottom: 24px; right: 24px;
+      background: var(--hive); color: #fff; padding: 12px 20px;
+      border-radius: 10px; font-size: 0.88rem; font-weight: 600;
+      z-index: 999; transform: translateY(80px); opacity: 0;
+      transition: all 0.3s ease; border-left: 4px solid var(--amber);
+      box-shadow: var(--shadow-lg);
+    }
+    .toast.show    { transform: translateY(0); opacity: 1; }
+    .toast.success { border-color: #22c55e; }
+    .toast.warn    { border-color: var(--amber); }
+    .toast.error   { border-color: var(--danger); }
+
+    @media (max-width: 768px) {
+      .reg-sidebar { display: none; }
+      .reg-main { margin-left: 0; padding: 20px 16px 40px; }
+      .modal-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="reg-nav">
+  <a href="#" class="logo"><span>Hive</span>Minds</a>
+  <div class="nav-links">
+    <a href="admin-dashboard.html">Dashboard</a>
+    <a href="admin-users.html">Users</a>
+    <a href="admin-hives.html" class="active">Hives</a>
+    <a href="admin-verifications.html">Verifications</a>
+  </div>
+  <a href="../../pages/auth/login.html" class="nav-user" onclick="handleLogout(event)">
+    👤 Super Admin &nbsp;·&nbsp; Log out
+  </a>
+</nav>
+
+<div class="reg-layout">
+  <!-- SIDEBAR -->
+  <aside class="reg-sidebar">
+    <div>
+      <div class="sidebar-section-label">Menu</div>
+      <div class="sidebar-divider"></div>
+      <a href="admin-dashboard.html"     class="sidebar-link"><span class="sico">⊞</span> Dashboard</a>
+      <a href="admin-users.html"         class="sidebar-link"><span class="sico">👥</span> Users</a>
+      <a href="admin-hives.html"         class="sidebar-link active"><span class="sico">🐝</span> Hives</a>
+      <a href="admin-verifications.html" class="sidebar-link"><span class="sico">✓</span> Verifications</a>
+      <a href="admin-settings.html"      class="sidebar-link"><span class="sico">⚙</span> Settings</a>
+    </div>
+    <div>
+      <div class="sidebar-section-label">Quick Stats</div>
+      <div class="sidebar-divider"></div>
+      <div class="stat-pill"><span class="dot"></span> 124 total users</div>
+      <div class="stat-pill"><span class="dot"></span> 38 active hives</div>
+      <div class="stat-pill"><span class="dot"></span> 3 flagged posts</div>
+      <div class="stat-pill"><span class="dot"></span> 12 new today</div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="reg-main">
+    <div class="page-header">
+      <div class="page-header-left">
+        <h1>All Hives</h1>
+        <p>System-wide hive management — HiveMinds</p>
+      </div>
+      <span class="badge badge-count">38 Active</span>
+    </div>
+
+    <!-- FILTER BAR -->
+    <div class="filter-bar">
+      <input class="filter-input" type="text" id="searchInput" placeholder="🔍  Search by hive name or owner..." oninput="filterTable()">
+      <select class="filter-select" id="subjectFilter" onchange="filterTable()">
+        <option value="">All subjects</option>
+        <option>Technology</option>
+        <option>Mathematics</option>
+        <option>Biology</option>
+        <option>Chemistry</option>
+        <option>Physics</option>
+        <option>History</option>
+        <option>English</option>
+      </select>
+      <select class="filter-select" id="modeFilter" onchange="filterTable()">
+        <option value="">All modes</option>
+        <option>Online</option>
+        <option>In-person</option>
+      </select>
+    </div>
+
+    <!-- TABLE -->
+    <div class="section-heading">Hive List</div>
+    <div class="card">
+      <div class="table-wrap">
+        <table class="reg-table" id="hivesTable">
+          <thead>
+            <tr>
+              <th>Hive</th>
+              <th>Owner</th>
+              <th>Subject</th>
+              <th>Mode</th>
+              <th>Members</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="hivesBody">
+            <tr data-name="Web Development Collective" data-owner="Rick Buzztley" data-subject="Technology" data-mode="Online">
+              <td><div class="td-name">Web Development Collective</div><div class="td-sub">Created Mar 10</div></td>
+              <td><div class="td-user"><div class="avatar">R</div><span>Rick Buzztley</span></div></td>
+              <td><span class="tbl-tag">Technology</span></td>
+              <td>Online</td>
+              <td>18 / 30</td>
+              <td><span class="badge badge-open">Open</span></td>
+              <td><div class="td-actions">
+                <button class="tbl-btn view" onclick="viewHive(this, 'Web Development Collective', 'Rick Buzztley', 'Technology', '18 / 30', 'Open', 'Mar 10', 'Online')">View</button>
+                <button class="tbl-btn danger" onclick="handleRemoveHive(this)">Remove</button>
+              </div></td>
+            </tr>
+            <tr data-name="Python Programming Basics" data-owner="Maya Santos" data-subject="Technology" data-mode="In-person">
+              <td><div class="td-name">Python Programming Basics</div><div class="td-sub">Created Mar 15</div></td>
+              <td><div class="td-user"><div class="avatar">M</div><span>Maya Santos</span></div></td>
+              <td><span class="tbl-tag">Technology</span></td>
+              <td>In-person</td>
+              <td>12 / 20</td>
+              <td><span class="badge badge-open">Open</span></td>
+              <td><div class="td-actions">
+                <button class="tbl-btn view" onclick="viewHive(this, 'Python Programming Basics', 'Maya Santos', 'Technology', '12 / 20', 'Open', 'Mar 15', 'In-person')">View</button>
+                <button class="tbl-btn danger" onclick="handleRemoveHive(this)">Remove</button>
+              </div></td>
+            </tr>
+            <tr data-name="Data Structures & Algorithms" data-owner="Jake Almeida" data-subject="Technology" data-mode="Online">
+              <td><div class="td-name">Data Structures & Algorithms</div><div class="td-sub">Created Mar 5</div></td>
+              <td><div class="td-user"><div class="avatar">J</div><span>Jake Almeida</span></div></td>
+              <td><span class="tbl-tag">Technology</span></td>
+              <td>Online</td>
+              <td>55 / 60</td>
+              <td><span class="badge badge-open">Open</span></td>
+              <td><div class="td-actions">
+                <button class="tbl-btn view" onclick="viewHive(this, 'Data Structures & Algorithms', 'Jake Almeida', 'Technology', '55 / 60', 'Open', 'Mar 5', 'Online')">View</button>
+                <button class="tbl-btn danger" onclick="handleRemoveHive(this)">Remove</button>
+              </div></td>
+            </tr>
+            <tr data-name="Cybersecurity Essentials" data-owner="Nina Cruz" data-subject="Technology" data-mode="Online">
+              <td><div class="td-name">Cybersecurity Essentials</div><div class="td-sub">Created Mar 8</div></td>
+              <td><div class="td-user"><div class="avatar">N</div><span>Nina Cruz</span></div></td>
+              <td><span class="tbl-tag">Technology</span></td>
+              <td>Online</td>
+              <td>42 / 50</td>
+              <td><span class="badge badge-open">Open</span></td>
+              <td><div class="td-actions">
+                <button class="tbl-btn view" onclick="viewHive(this, 'Cybersecurity Essentials', 'Nina Cruz', 'Technology', '42 / 50', 'Open', 'Mar 8', 'Online')">View</button>
+                <button class="tbl-btn danger" onclick="handleRemoveHive(this)">Remove</button>
+              </div></td>
+            </tr>
+            <tr data-name="Machine Learning Mastery" data-owner="Carla Mendez" data-subject="Technology" data-mode="Online">
+              <td><div class="td-name">Machine Learning Mastery</div><div class="td-sub">Created Mar 12</div></td>
+              <td><div class="td-user"><div class="avatar">C</div><span>Carla Mendez</span></div></td>
+              <td><span class="tbl-tag">Technology</span></td>
+              <td>Online</td>
+              <td>38 / 40</td>
+              <td><span class="badge badge-open">Open</span></td>
+              <td><div class="td-actions">
+                <button class="tbl-btn view" onclick="viewHive(this, 'Machine Learning Mastery', 'Carla Mendez', 'Technology', '38 / 40', 'Open', 'Mar 12', 'Online')">View</button>
+                <button class="tbl-btn danger" onclick="handleRemoveHive(this)">Remove</button>
+              </div></td>
+            </tr>
+            <tr data-name="Full Stack Developers Hub" data-owner="Leo Reyes" data-subject="Technology" data-mode="In-person">
+              <td><div class="td-name">Full Stack Developers Hub</div><div class="td-sub">Created Mar 9</div></td>
+              <td><div class="td-user"><div class="avatar">L</div><span>Leo Reyes</span></div></td>
+              <td><span class="tbl-tag">Technology</span></td>
+              <td>In-person</td>
+              <td>29 / 30</td>
+              <td><span class="badge badge-full">Full</span></td>
+              <td><div class="td-actions">
+                <button class="tbl-btn view" onclick="viewHive(this, 'Full Stack Developers Hub', 'Leo Reyes', 'Technology', '29 / 30', 'Full', 'Mar 9', 'In-person')">View</button>
+                <button class="tbl-btn danger" onclick="handleRemoveHive(this)">Remove</button>
+              </div></td>
+            </tr>
+            <tr data-name="Mobile App Design (UI/UX)" data-owner="Sam Uy" data-subject="Technology" data-mode="Online">
+              <td><div class="td-name">Mobile App Design (UI/UX)</div><div class="td-sub">Created Mar 18</div></td>
+              <td><div class="td-user"><div class="avatar">S</div><span>Sam Uy</span></div></td>
+              <td><span class="tbl-tag">Technology</span></td>
+              <td>Online</td>
+              <td>21 / 40</td>
+              <td><span class="badge badge-open">Open</span></td>
+              <td><div class="td-actions">
+                <button class="tbl-btn view" onclick="viewHive(this, 'Mobile App Design (UI/UX)', 'Sam Uy', 'Technology', '21 / 40', 'Open', 'Mar 18', 'Online')">View</button>
+                <button class="tbl-btn danger" onclick="handleRemoveHive(this)">Remove</button>
+              </div></td>
+            </tr>
+            <tr data-name="Cloud Architecture Prep" data-owner="Carla Mendez" data-subject="Technology" data-mode="In-person">
+              <td><div class="td-name">Cloud Architecture Prep</div><div class="td-sub">Created Mar 19</div></td>
+              <td><div class="td-user"><div class="avatar">C</div><span>Carla Mendez</span></div></td>
+              <td><span class="tbl-tag">Technology</span></td>
+              <td>In-person</td>
+              <td>15 / 25</td>
+              <td><span class="badge badge-open">Open</span></td>
+              <td><div class="td-actions">
+                <button class="tbl-btn view" onclick="viewHive(this, 'Cloud Architecture Prep', 'Carla Mendez', 'Technology', '15 / 25', 'Open', 'Mar 19', 'In-person')">View</button>
+                <button class="tbl-btn danger" onclick="handleRemoveHive(this)">Remove</button>
+              </div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination">
+        <span id="paginationLabel">Showing 8 of 38 hives</span>
+        <div class="pagination-btns">
+          <button class="pg-btn active">1</button>
+          <button class="pg-btn">2</button>
+          <button class="pg-btn">3</button>
+          <button class="pg-btn">→</button>
         </div>
-            
-        <!-- Hive Details Modal -->
-        <div class="modal-overlay" id="hiveModal">
-            <div class="modal-box">
-                <button class="modal-close" onclick="closeHiveModal()">×</button>
-                <div class="modal-title" id="modalHiveName">Group Details</div>
-                
-                <div style="display:flex; align-items:center; gap:15px; margin-bottom:20px; padding:18px; background:var(--yellow-pale); border-radius:12px; border:2px dashed var(--border-y);">
-                    <div style="width:44px; height:44px; background:var(--orange); clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%); display:flex; align-items:center; justify-content:center; color:white; font-size:1.2rem;"></div>
-                    <div>
-                        <div id="displayHiveName" style="font-size:1.2rem; font-weight:700; color:var(--dark);">Hive Name</div>
-                        <div id="displayHiveOwner" style="font-size:0.9rem; color:var(--aged);">Owner: Name</div>
-                    </div>
-                </div>
+      </div>
+    </div>
+  </main>
+</div>
 
-                <div style="display:grid; grid-template-columns:1fr 1fr; gap:15px; margin-bottom:20px;">
-                    <div class="admin-card" style="padding:15px; border-color: var(--pale);">
-                        <div class="section-label" style="font-size:0.65rem; margin-bottom:8px;">Group Information</div>
-                        <p style="font-size:0.85rem; margin-bottom:4px;"><strong>Subject:</strong> <span id="displaySubject"></span></p>
-                        <p style="font-size:0.85rem; margin-bottom:4px;"><strong>Members:</strong> <span id="displayMembers"></span></p>
-                        <p style="font-size:0.85rem; margin-bottom:4px;"><strong>Status:</strong> <span id="displayStatus"></span></p>
-                        <p style="font-size:0.85rem;"><strong>Created:</strong> <span id="displayDate"></span></p>
-                    </div>
-                    <div class="admin-card" style="padding:15px; border-color: var(--pale);">
-                        <div class="section-label" style="font-size:0.65rem; margin-bottom:8px;">Activity Statistics</div>
-                        <p style="font-size:0.85rem; margin-bottom:4px;"><strong>Sessions Held:</strong> 18</p>
-                        <p style="font-size:0.85rem; margin-bottom:4px;"><strong>Attendance:</strong> 92%</p>
-                        <p style="font-size:0.85rem; margin-bottom:4px;"><strong>Avg Duration:</strong> 2.5 hrs</p>
-                        <p style="font-size:0.85rem;"><strong>Flagged Posts:</strong> 0</p>
-                    </div>
-                </div>
+<!-- MODAL -->
+<div class="modal-overlay" id="hiveModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeHiveModal()">×</button>
+    <div class="modal-title">Hive Details</div>
 
-                <div style="display:flex; justify-content:flex-end; gap:10px;">
-                    <button class="tbl-btn view" onclick="closeHiveModal()">Close</button>
-                </div>
-            </div>
-        </div>
+    <div class="modal-hive-header">
+      <div class="modal-hive-icon" id="modalIcon">🐝</div>
+      <div>
+        <div class="modal-hive-name" id="modalHiveName">Hive Name</div>
+        <div class="modal-hive-owner" id="modalHiveOwner">Owner: —</div>
+      </div>
+    </div>
 
-        <script>
-            function viewHive(name, owner, subject, members, status, date) {
-                document.getElementById('displayHiveName').textContent = name;
-                document.getElementById('displayHiveOwner').textContent = 'Owner: ' + owner;
-                document.getElementById('displaySubject').textContent = subject;
-                document.getElementById('displayMembers').textContent = members;
-                document.getElementById('displayStatus').textContent = status;
-                document.getElementById('displayDate').textContent = date;
-                document.getElementById('hiveModal').classList.add('open');
-            }
+    <div class="modal-grid">
+      <div class="modal-info-block">
+        <div class="modal-info-label">Group Information</div>
+        <div class="modal-info-row"><strong>Subject:</strong> <span id="modalSubject"></span></div>
+        <div class="modal-info-row"><strong>Members:</strong> <span id="modalMembers"></span></div>
+        <div class="modal-info-row"><strong>Mode:</strong> <span id="modalMode"></span></div>
+        <div class="modal-info-row"><strong>Status:</strong> <span id="modalStatus"></span></div>
+        <div class="modal-info-row"><strong>Created:</strong> <span id="modalDate"></span></div>
+      </div>
+      <div class="modal-info-block">
+        <div class="modal-info-label">Activity Statistics</div>
+        <div class="modal-info-row"><strong>Sessions Held:</strong> 18</div>
+        <div class="modal-info-row"><strong>Attendance:</strong> 92%</div>
+        <div class="modal-info-row"><strong>Avg Duration:</strong> 2.5 hrs</div>
+        <div class="modal-info-row"><strong>Flagged Posts:</strong> 0</div>
+      </div>
+    </div>
 
-            function closeHiveModal() {
-                document.getElementById('hiveModal').classList.remove('open');
-            }
+    <div class="modal-footer">
+      <button class="tbl-btn view" onclick="closeHiveModal()">Close</button>
+    </div>
+  </div>
+</div>
 
-            function handleRemoveHive(btn) {
-                const hiveName = btn.closest('tr').querySelector('.td-name').textContent.trim();
-                if (confirm(`Are you sure you want to permanently remove "${hiveName}"?`)) {
-                    const row = btn.closest('tr');
-                    row.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-                    row.style.opacity = '0';
-                    row.style.transform = 'translateX(20px)';
-                    setTimeout(() => row.remove(), 300);
-                }
-            }
-        </script>
-    </body>
+<div class="toast" id="toast"></div>
+
+<script>
+  const hiveIcons = {
+    'Web Development Collective': '🌐',
+    'Python Programming Basics': '🐍',
+    'Data Structures & Algorithms': '🧮',
+    'Cybersecurity Essentials': '🔐',
+    'Machine Learning Mastery': '🤖',
+    'Full Stack Developers Hub': '💻',
+    'Mobile App Design (UI/UX)': '📱',
+    'Cloud Architecture Prep': '☁️',
+  };
+
+  function viewHive(btn, name, owner, subject, members, status, date, mode) {
+    document.getElementById('modalHiveName').textContent = name;
+    document.getElementById('modalHiveOwner').textContent = 'Owner: ' + owner;
+    document.getElementById('modalSubject').textContent = subject;
+    document.getElementById('modalMembers').textContent = members;
+    document.getElementById('modalMode').textContent = mode;
+    document.getElementById('modalStatus').textContent = status;
+    document.getElementById('modalDate').textContent = date;
+    document.getElementById('modalIcon').textContent = hiveIcons[name] || '🐝';
+    document.getElementById('hiveModal').classList.add('open');
+  }
+
+  function closeHiveModal() {
+    document.getElementById('hiveModal').classList.remove('open');
+  }
+
+  // Close modal on backdrop click
+  document.getElementById('hiveModal').addEventListener('click', function(e) {
+    if (e.target === this) closeHiveModal();
+  });
+
+  function handleRemoveHive(btn) {
+    const row = btn.closest('tr');
+    const name = row.querySelector('.td-name').textContent.trim();
+    if (!confirm(`Remove "${name}"? This cannot be undone.`)) return;
+    row.style.transition = 'opacity .25s, transform .25s';
+    row.style.opacity = '0';
+    row.style.transform = 'translateX(16px)';
+    setTimeout(() => row.remove(), 260);
+    showToast(`"${name}" removed.`, 'error');
+  }
+
+  function filterTable() {
+    const search  = document.getElementById('searchInput').value.toLowerCase();
+    const subject = document.getElementById('subjectFilter').value.toLowerCase();
+    const mode    = document.getElementById('modeFilter').value.toLowerCase();
+    const rows    = document.querySelectorAll('#hivesBody tr');
+    let visible   = 0;
+    rows.forEach(row => {
+      const name  = (row.dataset.name  || '').toLowerCase();
+      const owner = (row.dataset.owner || '').toLowerCase();
+      const subj  = (row.dataset.subject || '').toLowerCase();
+      const md    = (row.dataset.mode  || '').toLowerCase();
+      const matchSearch  = !search  || name.includes(search) || owner.includes(search);
+      const matchSubject = !subject || subj === subject;
+      const matchMode    = !mode    || md === mode;
+      const show = matchSearch && matchSubject && matchMode;
+      row.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    document.getElementById('paginationLabel').textContent = `Showing ${visible} of 38 hives`;
+  }
+
+  function showToast(msg, type = 'success') {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast ' + type + ' show';
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => t.classList.remove('show'), 3200);
+  }
+
+  function handleLogout(e) {
+    e.preventDefault();
+    if (confirm('Are you sure you want to log out?')) {
+      window.location.href = '../../pages/auth/login.html';
+    }
+  }
+</script>
+</body>
 </html>

@@ -1,324 +1,772 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Verifications — HiveMinds Admin</title>
-        <link rel="stylesheet" href="../../assets/CSS/base/base.css">
-        <link rel="stylesheet" href="../../assets/CSS/base/navbar.css">
-        <link rel="stylesheet" href="../../assets/CSS/base/layout.css">
-        <link rel="stylesheet" href="../../assets/CSS/admin/admin.css">
-        <link rel="stylesheet" href="../../assets/CSS/admin/admin-pages.css">
-        <link rel="stylesheet" href="../../assets/CSS/misc/switcher.css">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verifications — Dean Admin | HiveMinds</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Belanosima&family=Bricolage+Grotesque:opsz,wght@12..96,420&family=Coiny&family=McLaren&family=Pacifico&family=Pangolin&display=swap" rel="stylesheet">
+    :root {
+      --amber:      #FFB500;
+      --amber-d:    #E6A000;
+      --hive:       #1A1400;
+      --wax:        #FEFAF0;
+      --comb:       #FDF3D0;
+      --accent:     #EDD97A;
+      --pale:       #F0E6B8;
+      --aged:       #8C7A50;
+      --warmgray:   #6b7280;
+      --text:       #2D2410;
+      --success:    #166534;
+      --success-bg: #dcfce7;
+      --warning:    #92400e;
+      --warning-bg: #fef3c7;
+      --danger:     #991b1b;
+      --danger-bg:  #fee2e2;
+      --info:       #1d4ed8;
+      --info-bg:    #dbeafe;
+      --sidebar-w:  240px;
+      --nav-h:      58px;
+      --radius:     10px;
+      --radius-lg:  14px;
+      --shadow-sm:  0 1px 4px rgba(0,0,0,0.07);
+      --shadow:     0 2px 12px rgba(0,0,0,0.09);
+      --shadow-lg:  0 6px 24px rgba(0,0,0,0.13);
+    }
 
-        <style>
-            #verification-body { display: flex; flex-direction: column; gap: 28px; padding: 20px 0; }
-            .section-label { font-size: 0.78rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #aaa; margin-bottom: 10px; }
-            .verif-card { background: #fff; border: 1.5px solid #f0f0f0; border-radius: 12px; padding: 18px 22px; display: flex; align-items: flex-start; gap: 18px; margin-bottom: 10px; }
-            .verif-avatar-placeholder { width: 44px; height: 44px; border-radius: 50%; background: #f3f4f6; display: flex; align-items: center; justify-content: center; color: #bbb; font-size: 1.1rem; flex-shrink: 0; border: 2px solid #eee; }
-            .verif-info { flex: 1; display: flex; flex-direction: column; gap: 5px; }
-            .verif-name { font-size: 0.97rem; font-weight: 600; color: #1a1a1a; }
-            .verif-meta { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 3px 16px; }
-            .verif-meta span { font-size: 0.81rem; color: #444; }
-            .verif-meta span b { color: #aaa; font-weight: 500; }
-            .verif-submitted { font-size: 0.77rem; color: #bbb; margin-top: 2px; }
-            .verif-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 7px; flex-shrink: 0; }
-            .badge { font-size: 0.73rem; font-weight: 700; padding: 3px 10px; border-radius: 99px; text-transform: uppercase; letter-spacing: .04em; }
-            .badge-pending  { background: #fef3c7; color: #92400e; }
-            .badge-approved { background: #dcfce7; color: #166534; }
-            .badge-rejected { background: #fee2e2; color: #991b1b; }
-            .btn-approve { padding: 6px 14px; background: #22c55e; color: #fff; border: none; border-radius: 7px; font-size: 0.81rem; font-weight: 600; cursor: pointer; }
-            .btn-reject { padding: 6px 14px; background: #fff; color: #ef4444; border: 1.5px solid #ef4444; border-radius: 7px; font-size: 0.81rem; font-weight: 600; cursor: pointer; }
+    body {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      background: #F5EDD5;
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
 
-           
+    /* ── NAVBAR ── */
+    .reg-nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      background: rgba(254,250,240,0.94);
+      backdrop-filter: blur(14px);
+      border-bottom: 1.5px solid #E8C84A;
+      display: flex; align-items: center;
+      padding: 0 28px; z-index: 100; gap: 24px;
+    }
+    .reg-nav .logo {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 1.45rem; font-weight: 700;
+      letter-spacing: -0.03em; color: #0D0B00;
+      text-decoration: none; flex-shrink: 0; margin-right: 8px; line-height: 1;
+    }
+    .reg-nav .logo span { color: #FF5F00; }
+    .nav-links { display: flex; align-items: center; gap: 4px; flex: 1; justify-content: center; }
+    .nav-links a {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.88rem; font-weight: 600; color: #3A2E00;
+      text-decoration: none; padding: 6px 14px; border-radius: 6px;
+      transition: all .18s; letter-spacing: .01em;
+    }
+    .nav-links a:hover { background: rgba(255,212,0,0.18); color: #1A1600; }
+    .nav-links a.active { background: var(--amber); color: #0D0B00; font-weight: 700; border: 1.5px solid rgba(0,0,0,0.15); }
+    .nav-user {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.83rem; font-weight: 600; color: #3A2E00;
+      text-decoration: none; padding: 5px 14px 5px 6px;
+      border-radius: 30px; border: 1.5px solid rgba(0,0,0,0.15);
+      transition: all .18s; cursor: pointer;
+      display: flex; align-items: center; gap: 9px; background: #fff;
+    }
+    .nav-user:hover { background: var(--amber); border-color: rgba(0,0,0,0.2); color: #0D0B00; }
 
-        </style>
-    </head>
+    /* ── LAYOUT ── */
+    .reg-layout { display: flex; margin-top: var(--nav-h); min-height: calc(100vh - var(--nav-h)); }
 
-    <body>
-                <nav>
-            <div id="nav-container">
-                <a href="/WebDev/pages/home/homepage.html">
-                    <div class="logo">
-                        <span class="black">Hive</span><span class="orange">Minds</span>
-                    </div>
-                </a>
-                <div id="nav-links">
-                    <a class="hover active-nav" href="Dean-admin-dashboard.html">Dashboard</a>
-                    <a class="hover" href="Dean-admin-users.html">Users</a>
-                    <a class="hover" href="Dean-admin-hives.html">Hives</a>
-                </div>
-                <div id="auth-links">
-                    <a class="hover" href="../adminDean/Dean-admin-settings.html">Dean Admin</a>
-                </div>
+    /* ── SIDEBAR ── */
+    .reg-sidebar {
+      width: var(--sidebar-w); flex-shrink: 0;
+      position: fixed; top: var(--nav-h); left: 0; bottom: 0;
+      background: var(--hive); border-right: 3px solid var(--aged);
+      overflow-y: auto; padding: 20px 14px 40px;
+      display: flex; flex-direction: column; gap: 24px;
+    }
+    .sidebar-section-label {
+      font-size: 0.68rem; font-weight: 800; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--pale); padding: 0 8px; margin-bottom: 6px;
+    }
+    .sidebar-divider { height: 1px; background: var(--amber-d); margin: 0 4px 10px; border: none; }
+    .sidebar-link {
+      display: flex; align-items: center; gap: 9px;
+      padding: 9px 12px; border-radius: 9px;
+      font-size: 0.875rem; font-weight: 600; color: var(--pale);
+      text-decoration: none; transition: all .16s; margin-bottom: 2px;
+      cursor: pointer; border-left: 3px solid transparent;
+    }
+    .sidebar-link .sico { width: 18px; text-align: center; font-size: 1rem; flex-shrink: 0; color: var(--aged); }
+    .sidebar-link:hover { background: var(--aged); border-left: 5px solid var(--amber); color: var(--amber); }
+    .sidebar-link:hover .sico { color: var(--amber); }
+    .sidebar-link.active { background: var(--aged); border-left: 5px solid var(--amber-d); color: var(--wax); font-weight: 700; }
+    .sidebar-link.active .sico { color: var(--amber); }
+    .stat-pill {
+      display: flex; align-items: center; gap: 9px;
+      padding: 8px 12px; border-radius: 9px;
+      font-size: 0.82rem; font-weight: 500; color: var(--pale);
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,181,0,0.2);
+      margin-bottom: 5px;
+    }
+    .stat-pill .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--amber); flex-shrink: 0; }
+    .sidebar-filter-btn {
+      display: flex; align-items: center; gap: 9px;
+      padding: 9px 12px; border-radius: 9px;
+      font-size: 0.875rem; font-weight: 600; color: var(--pale);
+      transition: all .16s; margin-bottom: 2px;
+      cursor: pointer; border-left: 3px solid transparent;
+      user-select: none;
+    }
+    .sidebar-filter-btn:hover { background: var(--aged); border-left: 5px solid var(--amber); color: var(--amber); }
+    .sidebar-filter-btn.active { background: var(--aged); border-left: 5px solid var(--amber-d); color: var(--wax); font-weight: 700; }
+
+    /* ── MAIN ── */
+    .reg-main {
+      flex: 1; margin-left: var(--sidebar-w);
+      padding: 28px 28px 48px; max-width: 1200px;
+    }
+    .page-header { margin-bottom: 24px; }
+    .page-header h1 { font-size: 1.45rem; font-weight: 800; color: var(--hive); letter-spacing: -0.02em; }
+    .page-header p { font-size: 0.87rem; color: var(--aged); margin-top: 3px; }
+
+    /* ── INFO BANNER ── */
+    .info-banner {
+      background: white; border: 1.5px solid var(--accent);
+      box-shadow: 3px 3px 0 var(--accent); border-radius: var(--radius-lg);
+      padding: 16px 20px; margin-bottom: 24px;
+      border-left: 4px solid var(--amber);
+    }
+    .info-banner .banner-label {
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--aged); margin-bottom: 8px;
+    }
+    .info-banner ul {
+      margin: 0; padding-left: 18px;
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .info-banner li { font-size: 0.87rem; color: var(--text); }
+
+    /* ── SECTION BLOCK ── */
+    .section-block { margin-bottom: 28px; }
+    .section-heading {
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--aged); margin-bottom: 10px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .section-heading::after {
+      content: ''; flex: 1; height: 1px; background: var(--pale);
+    }
+    .section-count {
+      background: var(--comb); border: 1.5px solid var(--accent);
+      border-radius: 100px; padding: 1px 9px; font-size: 0.7rem; font-weight: 800;
+      color: var(--aged);
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: white; border: 1.5px solid var(--accent);
+      box-shadow: 3px 3px 0 var(--accent); border-radius: var(--radius-lg);
+      overflow: hidden; width: 100%;
+    }
+
+    /* ── VERIF CARD ── */
+    .verif-card {
+      background: white; border: 1.5px solid var(--accent);
+      box-shadow: 3px 3px 0 var(--accent); border-radius: var(--radius-lg);
+      padding: 16px 20px; margin-bottom: 10px;
+      display: flex; align-items: flex-start; gap: 16px;
+      transition: box-shadow .15s, transform .15s;
+    }
+    .verif-card:hover { box-shadow: 4px 4px 0 var(--amber-d); transform: translate(-1px,-1px); }
+    .verif-card:last-child { margin-bottom: 0; }
+
+    .verif-icon {
+      width: 44px; height: 44px; min-width: 44px; border-radius: 11px;
+      background: var(--comb); border: 1.5px solid var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.15rem; color: var(--aged); flex-shrink: 0;
+    }
+    .verif-info { flex: 1; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+    .verif-name { font-size: 0.97rem; font-weight: 800; color: var(--hive); }
+    .verif-meta {
+      display: flex; flex-wrap: wrap; gap: 4px 20px;
+    }
+    .verif-meta span { font-size: 0.81rem; color: var(--text); }
+    .verif-meta span b { color: var(--aged); font-weight: 600; margin-right: 3px; }
+    .verif-submitted { font-size: 0.76rem; color: var(--aged); }
+
+    .verif-actions {
+      display: flex; flex-direction: column; align-items: flex-end;
+      gap: 7px; flex-shrink: 0;
+    }
+
+    /* ── BADGES ── */
+    .badge {
+      display: inline-flex; padding: 3px 10px; border-radius: 100px;
+      font-size: 0.75em; font-weight: 700; white-space: nowrap;
+      text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    .badge-pending  { background: var(--warning-bg); color: var(--warning); }
+    .badge-approved { background: var(--success-bg); color: var(--success); }
+    .badge-rejected { background: var(--danger-bg); color: var(--danger); }
+
+    .tbl-tag {
+      display: inline-flex; background: var(--amber); color: var(--hive);
+      font-size: 9px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase;
+      padding: 3px 8px; border: 1.5px solid var(--hive); border-radius: 3px; white-space: nowrap;
+    }
+
+    /* ── ACTION BUTTONS ── */
+    .tbl-btn {
+      padding: 5px 13px; font-size: 0.76em; font-weight: 700;
+      border-radius: 6px; cursor: pointer;
+      font-family: 'Bricolage Grotesque', sans-serif;
+      transition: 0.2s ease; border: 1.5px solid; white-space: nowrap;
+    }
+    .tbl-btn.safe   { border-color: var(--success); color: var(--success); background: var(--success-bg); }
+    .tbl-btn.safe:hover { background: var(--success); color: white; }
+    .tbl-btn.danger { border-color: var(--danger); color: var(--danger); background: var(--danger-bg); }
+    .tbl-btn.danger:hover { background: var(--danger); color: white; }
+
+    /* ── EMPTY STATE ── */
+    .empty-state {
+      padding: 28px 20px; text-align: center;
+      background: white; border: 1.5px solid var(--accent);
+      box-shadow: 3px 3px 0 var(--accent); border-radius: var(--radius-lg);
+    }
+    .empty-state .es-icon { font-size: 2rem; margin-bottom: 8px; }
+    .empty-state p { font-size: 0.85rem; color: var(--aged); font-weight: 600; }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(26,20,0,0.55);
+      backdrop-filter: blur(3px); z-index: 200;
+      display: none; align-items: center; justify-content: center; padding: 20px;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: var(--wax); border: 2px solid var(--accent);
+      border-radius: var(--radius-lg); padding: 0;
+      width: min(520px, 96vw); position: relative;
+      box-shadow: var(--shadow-lg), 4px 4px 0 var(--hive);
+      max-height: 90vh; overflow-y: auto;
+    }
+    .modal-head {
+      background: var(--amber); border-bottom: 2px solid var(--hive);
+      padding: 15px 20px; display: flex; align-items: center; justify-content: space-between;
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    }
+    .modal-head h3 { font-size: 0.95rem; font-weight: 800; color: var(--hive); }
+    .modal-head.danger-head { background: #fee2e2; border-color: #ef4444; }
+    .modal-head.danger-head h3 { color: #991b1b; }
+    .modal-close {
+      background: none; border: none; font-size: 1.4rem;
+      color: var(--hive); cursor: pointer; transition: opacity .15s;
+    }
+    .modal-close:hover { opacity: 0.6; }
+    .modal-body { padding: 20px 22px; display: flex; flex-direction: column; gap: 13px; }
+    .modal-footer {
+      padding: 13px 22px; border-top: 1px solid var(--pale);
+      display: flex; justify-content: flex-end; gap: 10px;
+    }
+    .modal-btn {
+      padding: 9px 22px; border-radius: var(--radius);
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: 0.88rem; font-weight: 700; cursor: pointer;
+      border: 2px solid transparent; transition: all 0.15s;
+    }
+    .modal-btn.primary { background: var(--amber); color: var(--hive); border-color: var(--hive); box-shadow: 2px 2px 0 var(--hive); }
+    .modal-btn.primary:hover { background: var(--amber-d); transform: translate(-1px,-1px); box-shadow: 3px 3px 0 var(--hive); }
+    .modal-btn.secondary { background: #f3f4f6; color: var(--aged); border-color: #e5e7eb; }
+    .modal-btn.secondary:hover { background: #e5e7eb; }
+    .modal-btn.danger-btn { background: var(--danger-bg); color: var(--danger); border-color: var(--danger); }
+    .modal-btn.danger-btn:hover { background: var(--danger); color: white; }
+
+    .modal-alert {
+      background: #fff7ed; border: 1.5px solid #fed7aa;
+      border-radius: 8px; padding: 10px 14px;
+      font-size: 0.84rem; color: #92400e;
+    }
+    .modal-field { display: flex; flex-direction: column; gap: 5px; }
+    .modal-field label {
+      font-size: 0.72rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: .08em; color: var(--hive);
+    }
+    .modal-field textarea, .modal-field input {
+      font-family: 'Bricolage Grotesque', sans-serif; font-size: 0.88rem;
+      padding: 9px 12px; border: 1.5px solid var(--pale); border-radius: 6px;
+      background: #fff; outline: none; transition: border-color .18s; width: 100%;
+    }
+    .modal-field textarea { resize: none; min-height: 80px; }
+    .modal-field textarea:focus, .modal-field input:focus { border-color: var(--amber); }
+
+    .info-field {
+      background: #fff; border: 1.5px solid var(--accent);
+      border-radius: var(--radius); padding: 12px 15px;
+    }
+    .info-field label {
+      font-size: 0.69rem; font-weight: 800; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--aged); display: block; margin-bottom: 5px;
+    }
+    .info-field .val { font-size: 0.92rem; font-weight: 700; color: var(--hive); }
+    .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed; bottom: 24px; right: 24px;
+      background: var(--hive); color: #fff; padding: 12px 20px;
+      border-radius: 10px; font-size: 0.88rem; font-weight: 600;
+      z-index: 999; transform: translateY(80px); opacity: 0;
+      transition: all 0.3s ease; border-left: 4px solid var(--amber);
+      box-shadow: var(--shadow-lg);
+    }
+    .toast.show    { transform: translateY(0); opacity: 1; }
+    .toast.success { border-color: #22c55e; }
+    .toast.warn    { border-color: var(--amber); }
+    .toast.error   { border-color: var(--danger); }
+
+    @media (max-width: 768px) {
+      .reg-sidebar { display: none; }
+      .reg-main { margin-left: 0; padding: 20px 16px 40px; }
+      .detail-grid { grid-template-columns: 1fr; }
+      .verif-card { flex-wrap: wrap; }
+      .verif-actions { flex-direction: row; flex-wrap: wrap; justify-content: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="reg-nav">
+  <a href="#" class="logo"><span>Hive</span>Minds</a>
+  <div class="nav-links">
+    <a href="Dean-admin-dashboard.html">Dashboard</a>
+    <a href="Dean-admin-users.html">Users</a>
+    <a href="Dean-admin-hives.html">Hives</a>
+    <a href="Dean-admin-verifications.html" class="active">Verifications</a>
+  </div>
+  <a href="../../pages/auth/login.html" class="nav-user" onclick="handleLogout(event)">
+    👤 Dean Admin &nbsp;·&nbsp; Log out
+  </a>
+</nav>
+
+<div class="reg-layout">
+  <!-- SIDEBAR -->
+  <aside class="reg-sidebar">
+    <div>
+      <div class="sidebar-section-label">Menu</div>
+      <div class="sidebar-divider"></div>
+      <a href="Dean-admin-dashboard.html"      class="sidebar-link"><span class="sico">⊞</span> Dashboard</a>
+      <a href="Dean-admin-users.html"          class="sidebar-link"><span class="sico">👥</span> Users</a>
+      <a href="Dean-admin-hives.html"          class="sidebar-link"><span class="sico">🐝</span> Hives</a>
+      <a href="Dean-admin-verifications.html"  class="sidebar-link active"><span class="sico">✓</span> Group Verifications</a>
+      <a href="Dean-admin-settings.html"       class="sidebar-link"><span class="sico">⚙</span> Settings</a>
+    </div>
+    <div>
+      <div class="sidebar-section-label">Filter by Status</div>
+      <div class="sidebar-divider"></div>
+      <div class="sidebar-filter-btn active" id="sf-all"      onclick="filterSidebar('all')">All Requests</div>
+      <div class="sidebar-filter-btn"        id="sf-pending"  onclick="filterSidebar('pending')">Pending</div>
+      <div class="sidebar-filter-btn"        id="sf-approved" onclick="filterSidebar('approved')">Approved</div>
+      <div class="sidebar-filter-btn"        id="sf-rejected" onclick="filterSidebar('rejected')">Rejected</div>
+    </div>
+    <div>
+      <div class="sidebar-section-label">Quick Stats</div>
+      <div class="sidebar-divider"></div>
+      <div class="stat-pill"><span class="dot"></span> 124 total users</div>
+      <div class="stat-pill"><span class="dot"></span> 38 active hives</div>
+      <div class="stat-pill"><span class="dot"></span> 3 flagged posts</div>
+      <div class="stat-pill"><span class="dot"></span> 12 new today</div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="reg-main">
+    <div class="page-header">
+      <h1>Group Verifications</h1>
+      <p>Review and approve study group verification requests</p>
+    </div>
+
+    <!-- INFO BANNER -->
+    <div class="info-banner">
+      <div class="banner-label">Dean Responsibilities</div>
+      <ul>
+        <li>Approve or reject group verifications before they become active.</li>
+        <li>Manage student reports and moderate group behavior.</li>
+        <li>Protect college integrity through careful review and approval.</li>
+      </ul>
+    </div>
+
+    <!-- PENDING SECTION -->
+    <div class="section-block" id="block-pending">
+      <div class="section-heading">
+        Pending Requests
+        <span class="section-count" id="count-pending">5</span>
+      </div>
+      <div id="sec-pending">
+
+        <div class="verif-card" data-status="pending" data-name="Real World Programming Group" data-owner="Rick Buzztley">
+          <div class="verif-icon"><i class="fa fa-users"></i></div>
+          <div class="verif-info">
+            <div class="verif-name">Real World Programming Group</div>
+            <div class="verif-meta">
+              <span><b>Owner</b> Rick Buzztley</span>
+              <span><b>Subject</b> Technology, Mathematics</span>
+              <span><b>Members</b> 18</span>
+              <span><b>Department</b> College of Computing Studies</span>
             </div>
-        </nav>
+            <div class="verif-submitted">Requested: Mar 20, 2026 · 9:14 AM</div>
+          </div>
+          <div class="verif-actions">
+            <span class="badge badge-pending">Pending</span>
+            <button class="tbl-btn safe" onclick="openApproveModal(this)">Approve</button>
+            <button class="tbl-btn danger" onclick="openRejectModal(this)">Reject</button>
+          </div>
+        </div>
 
-
-        <main>
-            <div id="container">
-                <div id="sidebar">
-                    <div id="menu">
-                        <p>MENU</p>
-                        <hr>
-                        <a href="Dean-admin-dashboard.html">
-                            <div class="sidebar-button menu"><p>Dashboard</p></div>
-                        </a>
-                        <a href="Dean-admin-users.html">
-                            <div class="sidebar-button menu"><p>Users</p></div>
-                        </a>
-                        <a href="Dean-admin-hives.html">
-                            <div class="sidebar-button menu"><p>Hives</p></div>
-                        </a>
-                        <a href="Dean-admin-verifications.html">
-                            <div class="sidebar-button menu active"><p> Group Verifications</p></div>
-                        </a>
-                        <a href="Dean-admin-settings.html">
-                            <div class="sidebar-button menu"><p>Settings</p></div>
-                        </a>
-                    </div>
-
-                    <div id="my-hives">
-                        <p>QUICK STATS</p>
-                        <hr>
-                        <div class="sidebar-button my-hives"><span class="hex"></span><p>124 Total users</p></div>
-                        <div class="sidebar-button my-hives"><span class="hex"></span><p>38 Active hives</p></div>
-                        <div class="sidebar-button my-hives"><span class="hex"></span><p>3 Flagged posts</p></div>
-                        <div class="sidebar-button my-hives"><span class="hex"></span><p>12 New today</p></div>
-                    </div>
-                </div>
-
-                <div id="content">
-                    <div id="qotd">Dean Admin — Verifications</div>
-
-                    <div class="admin-card" style="margin-bottom: 20px; padding: 18px;">
-                        <div class="section-label">Dean Responsibilities</div>
-                        <ul style="margin: 10px 0 0 16px; padding-left: 16px;">
-                            <li>Approve or reject group verifications before they become active.</li>
-                            <li>Manage student reports and moderate group behavior.</li>
-                            <li>Protect college integrity through careful review and approval.</li>
-                        </ul>
-                    </div>
-
-                    <div id="verification-body">
-
-                        <div id="sec-pending">
-                            <div class="section-label">Group Verification Requests</div>
-
-                            <div class="verif-card">
-                                <div class="verif-avatar-placeholder"><i class="fa fa-users"></i></div>
-                                <div class="verif-info">
-                                    <div class="verif-name">Real World Programming  Group</div>
-                                    <div class="verif-meta">
-                                        <span><b>Owner </b>Rick Buzztley</span>
-                                        <span><b>Subject </b>Technology, Mathematics</span>
-                                        <span><b>Members </b>18</span>
-                                    
-                                        <span><b>Department </b>College of Computing Studies</span>
-                                        <span><b>Status </b>Group Pending Verification</span>
-                                    </div>
-                                    <div class="verif-submitted">Requested: Mar 20, 2026 &middot; 9:14 AM</div>
-                                </div>
-                                <div class="verif-actions">
-                                    <span class="badge badge-pending">Pending</span>
-                                    <button class="btn-approve" onclick="approveGroup(this)">Approve</button>
-                                    <button class="btn-reject" onclick="rejectGroup(this)">Reject</button>
-                                </div>
-                            </div>
-
-                            <div class="verif-card">
-                                <div class="verif-avatar-placeholder"><i class="fa fa-users"></i></div>
-                                <div class="verif-info">
-                                    <div class="verif-name">Programming in Real World Context Group</div>
-                                    <div class="verif-meta">
-                                        <span><b>Owner </b>Maya Santos</span>
-                                        <span><b>Subject </b>Technology</span>
-                                        <span><b>Members </b>12</span>
-                                      
-                                        <span><b>Department </b>College of Computing Studies</span>
-                                        <span><b>Status </b>Group Pending Verification</span>
-                                    </div>
-                                    <div class="verif-submitted">Requested: Mar 21, 2026 &middot; 2:38 PM</div>
-                                </div>
-                                <div class="verif-actions">
-                                    <span class="badge badge-pending">Pending</span>
-                                    <button class="btn-approve" onclick="approveGroup(this)">Approve</button>
-                                    <button class="btn-reject" onclick="rejectGroup(this)">Reject</button>
-                                </div>
-                            </div>
-
-                            <div class="verif-card">
-                                <div class="verif-avatar-placeholder"><i class="fa fa-users"></i></div>
-                                <div class="verif-info">
-                                    <div class="verif-name">Java Course 1 Study Group</div>
-                                    <div class="verif-meta">
-                                        <span><b>Owner </b>Leo Reyes</span>
-                                        <span><b>Subject </b>Technology</span>
-                                        <span><b>Members </b>21</span>
-                                  
-                                        <span><b>Department </b>College of Computing Studies</span>
-                                        <span><b>Status </b>Group Pending Verification</span>
-                                    </div>
-                                    <div class="verif-submitted">Requested: Mar 22, 2026 &middot; 8:05 AM</div>
-                                </div>
-                                <div class="verif-actions">
-                                    <span class="badge badge-pending">Pending</span>
-                                    <button class="btn-approve" onclick="approveGroup(this)">Approve</button>
-                                    <button class="btn-reject" onclick="rejectGroup(this)">Reject</button>
-                                </div>
-                            </div>
-
-                            <div class="verif-card">
-                                <div class="verif-avatar-placeholder"><i class="fa fa-users"></i></div>
-                                <div class="verif-info">
-                                    <div class="verif-name">TurboC Mastery Group</div>
-                                    <div class="verif-meta">
-                                        <span><b>Owner </b>Carla Mendez</span>
-                                        <span><b>Subject </b>Technology</span>
-                                        <span><b>Members </b>42</span>
-                                   
-                                        <span><b>Department </b>College of Computing Studies</span>
-                                        <span><b>Status </b>Group Pending Verification</span>
-                                    </div>
-                                    <div class="verif-submitted">Requested: Mar 22, 2026 &middot; 11:20 AM</div>
-                                </div>
-                                <div class="verif-actions">
-                                    <span class="badge badge-pending">Pending</span>
-                                    <button class="btn-approve" onclick="approveGroup(this)">Approve</button>
-                                    <button class="btn-reject" onclick="rejectGroup(this)">Reject</button>
-                                </div>
-                            </div>
-
-                            <div class="verif-card">
-                                <div class="verif-avatar-placeholder"><i class="fa fa-users"></i></div>
-                                <div class="verif-info">
-                                    <div class="verif-name">JavaRice </div>
-                                    <div class="verif-meta">
-                                        <span><b>Owner </b>Sam Uy</span>
-                                        <span><b>Subject </b>Technology</span>
-                                        <span><b>Members </b>15</span>
-                                  
-                                        <span><b>Department </b>College of Computing Studies</span>
-                                        <span><b>Status </b>Group Pending Verification</span>
-                                    </div>
-                                    <div class="verif-submitted">Requested: Mar 23, 2026 &middot; 4:52 PM</div>
-                                </div>
-                                <div class="verif-actions">
-                                    <span class="badge badge-pending">Pending</span>
-                                    <button class="btn-approve" onclick="approveGroup(this)">Approve</button>
-                                    <button class="btn-reject" onclick="rejectGroup(this)">Reject</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="sec-approved">
-                            <div class="section-label">Approved</div>
-
-                            <div class="verif-card">
-                                <div class="verif-avatar-placeholder"><i class="fa fa-users"></i></div>
-                                <div class="verif-info">
-                                    <div class="verif-name">Pythons Juniors</div>
-                                    <div class="verif-meta">
-                                        <span><b>Owner </b>Ana Cruz</span>
-                                        <span><b>Subject </b>Technology</span>
-                                        <span><b>Members </b>38</span>
-                                       
-                                        <span><b>Department </b>College of Computing Studies</span>
-                                        <span><b>Status </b>Group Verified</span>
-                                    </div>
-                                    <div class="verif-submitted">Approved: Mar 18, 2026</div>
-                                </div>
-                                <div class="verif-actions">
-                                    <span class="badge badge-approved">Approved</span>
-                                </div>
-                            </div>
-
-                            <div class="verif-card">
-                                <div class="verif-avatar-placeholder"><i class="fa fa-users"></i></div>
-                                <div class="verif-info">
-                                    <div class="verif-name">javaRice Group</div><div class="verif-meta">
-                                        <span><b>Owner </b>Ben Torres</span>
-                                        <span><b>Subject </b>Technology</span>
-                                        <span><b>Members </b>29</span>
-                                      
-                                        <span><b>Department </b>College of Computing Studies</span>
-                                        <span><b>Status </b>Group Verified</span>
-                                    </div>
-                                    <div class="verif-submitted">Approved: Mar 19, 2026</div>
-                                </div>
-                                <div class="verif-actions">
-                                    <span class="badge badge-approved">Approved</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="sec-rejected">
-                            <div class="section-label">Rejected</div>
-
-                            <div class="verif-card">
-                                <div class="verif-avatar-placeholder"><i class="fa fa-users"></i></div>
-                                <div class="verif-info">
-                                    <div class="verif-name">Spam Study Circle</div>
-                                    <div class="verif-meta">
-                                        <span><b>Owner </b>Dan Flores</span>
-                                        <span><b>Subject </b>Miscellaneous</span>
-                                        <span><b>Members </b>8</span>
-                                  
-                                        <span><b>Department </b>College of Computing Studies</span>
-                                        <span><b>Status </b>Verification Rejected</span>
-                                    </div>
-                                    <div class="verif-submitted">Rejected: Mar 17, 2026 &middot; Reason: Does not meet group conduct standards</div>
-                                </div>
-                                <div class="verif-actions">
-                                    <span class="badge badge-rejected">Rejected</span>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
+        <div class="verif-card" data-status="pending" data-name="Programming in Real World Context Group" data-owner="Maya Santos">
+          <div class="verif-icon"><i class="fa fa-users"></i></div>
+          <div class="verif-info">
+            <div class="verif-name">Programming in Real World Context Group</div>
+            <div class="verif-meta">
+              <span><b>Owner</b> Maya Santos</span>
+              <span><b>Subject</b> Technology</span>
+              <span><b>Members</b> 12</span>
+              <span><b>Department</b> College of Computing Studies</span>
             </div>
-        </main>
+            <div class="verif-submitted">Requested: Mar 21, 2026 · 2:38 PM</div>
+          </div>
+          <div class="verif-actions">
+            <span class="badge badge-pending">Pending</span>
+            <button class="tbl-btn safe" onclick="openApproveModal(this)">Approve</button>
+            <button class="tbl-btn danger" onclick="openRejectModal(this)">Reject</button>
+          </div>
+        </div>
 
-        <script>
-            function approveGroup(btn) {
-                const card = btn.closest('.verif-card');
-                const name = card.querySelector('.verif-name').textContent;
-                if (confirm(`Approve verification for "${name}"?`)) {
-                    card.querySelector('.verif-actions').innerHTML = '<span class="badge badge-approved">Approved</span>';
-                    const meta = card.querySelector('.verif-meta');
-                    meta.querySelector('span:last-child').innerHTML = '<b>Status </b>Group Verified';
-                    
-                    const now = new Date();
-                    const dateStr = now.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-                    card.querySelector('.verif-submitted').textContent = `Approved: ${dateStr}`;
-                    
-                    document.getElementById('sec-approved').appendChild(card);
-                }
-            }
+        <div class="verif-card" data-status="pending" data-name="Java Course 1 Study Group" data-owner="Leo Reyes">
+          <div class="verif-icon"><i class="fa fa-users"></i></div>
+          <div class="verif-info">
+            <div class="verif-name">Java Course 1 Study Group</div>
+            <div class="verif-meta">
+              <span><b>Owner</b> Leo Reyes</span>
+              <span><b>Subject</b> Technology</span>
+              <span><b>Members</b> 21</span>
+              <span><b>Department</b> College of Computing Studies</span>
+            </div>
+            <div class="verif-submitted">Requested: Mar 22, 2026 · 8:05 AM</div>
+          </div>
+          <div class="verif-actions">
+            <span class="badge badge-pending">Pending</span>
+            <button class="tbl-btn safe" onclick="openApproveModal(this)">Approve</button>
+            <button class="tbl-btn danger" onclick="openRejectModal(this)">Reject</button>
+          </div>
+        </div>
 
-            function rejectGroup(btn) {
-                const card = btn.closest('.verif-card');
-                const name = card.querySelector('.verif-name').textContent;
-                const reason = prompt(`Enter rejection reason for "${name}":`, "Does not meet group conduct standards");
-                
-                if (reason) {
-                    card.querySelector('.verif-actions').innerHTML = '<span class="badge badge-rejected">Rejected</span>';
-                    const meta = card.querySelector('.verif-meta');
-                    meta.querySelector('span:last-child').innerHTML = '<b>Status </b>Verification Rejected';
-                    
-                    const now = new Date();
-                    const dateStr = now.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-                    card.querySelector('.verif-submitted').textContent = `Rejected: ${dateStr} · Reason: ${reason}`;
-                    
-                    document.getElementById('sec-rejected').appendChild(card);
-                }
-            }
-        </script>
-    </body>
+        <div class="verif-card" data-status="pending" data-name="TurboC Mastery Group" data-owner="Carla Mendez">
+          <div class="verif-icon"><i class="fa fa-users"></i></div>
+          <div class="verif-info">
+            <div class="verif-name">TurboC Mastery Group</div>
+            <div class="verif-meta">
+              <span><b>Owner</b> Carla Mendez</span>
+              <span><b>Subject</b> Technology</span>
+              <span><b>Members</b> 42</span>
+              <span><b>Department</b> College of Computing Studies</span>
+            </div>
+            <div class="verif-submitted">Requested: Mar 22, 2026 · 11:20 AM</div>
+          </div>
+          <div class="verif-actions">
+            <span class="badge badge-pending">Pending</span>
+            <button class="tbl-btn safe" onclick="openApproveModal(this)">Approve</button>
+            <button class="tbl-btn danger" onclick="openRejectModal(this)">Reject</button>
+          </div>
+        </div>
+
+        <div class="verif-card" data-status="pending" data-name="JavaRice" data-owner="Sam Uy">
+          <div class="verif-icon"><i class="fa fa-users"></i></div>
+          <div class="verif-info">
+            <div class="verif-name">JavaRice</div>
+            <div class="verif-meta">
+              <span><b>Owner</b> Sam Uy</span>
+              <span><b>Subject</b> Technology</span>
+              <span><b>Members</b> 15</span>
+              <span><b>Department</b> College of Computing Studies</span>
+            </div>
+            <div class="verif-submitted">Requested: Mar 23, 2026 · 4:52 PM</div>
+          </div>
+          <div class="verif-actions">
+            <span class="badge badge-pending">Pending</span>
+            <button class="tbl-btn safe" onclick="openApproveModal(this)">Approve</button>
+            <button class="tbl-btn danger" onclick="openRejectModal(this)">Reject</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- APPROVED SECTION -->
+    <div class="section-block" id="block-approved">
+      <div class="section-heading">
+        Approved
+        <span class="section-count" id="count-approved">2</span>
+      </div>
+      <div id="sec-approved">
+
+        <div class="verif-card" data-status="approved" data-name="Pythons Juniors" data-owner="Ana Cruz">
+          <div class="verif-icon" style="background:var(--success-bg);border-color:#bbf7d0;color:var(--success);">
+            <i class="fa fa-check"></i>
+          </div>
+          <div class="verif-info">
+            <div class="verif-name">Pythons Juniors</div>
+            <div class="verif-meta">
+              <span><b>Owner</b> Ana Cruz</span>
+              <span><b>Subject</b> Technology</span>
+              <span><b>Members</b> 38</span>
+              <span><b>Department</b> College of Computing Studies</span>
+            </div>
+            <div class="verif-submitted">Approved: Mar 18, 2026</div>
+          </div>
+          <div class="verif-actions">
+            <span class="badge badge-approved">Approved</span>
+          </div>
+        </div>
+
+        <div class="verif-card" data-status="approved" data-name="javaRice Group" data-owner="Ben Torres">
+          <div class="verif-icon" style="background:var(--success-bg);border-color:#bbf7d0;color:var(--success);">
+            <i class="fa fa-check"></i>
+          </div>
+          <div class="verif-info">
+            <div class="verif-name">javaRice Group</div>
+            <div class="verif-meta">
+              <span><b>Owner</b> Ben Torres</span>
+              <span><b>Subject</b> Technology</span>
+              <span><b>Members</b> 29</span>
+              <span><b>Department</b> College of Computing Studies</span>
+            </div>
+            <div class="verif-submitted">Approved: Mar 19, 2026</div>
+          </div>
+          <div class="verif-actions">
+            <span class="badge badge-approved">Approved</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- REJECTED SECTION -->
+    <div class="section-block" id="block-rejected">
+      <div class="section-heading">
+        Rejected
+        <span class="section-count" id="count-rejected">1</span>
+      </div>
+      <div id="sec-rejected">
+
+        <div class="verif-card" data-status="rejected" data-name="Spam Study Circle" data-owner="Dan Flores">
+          <div class="verif-icon" style="background:var(--danger-bg);border-color:#fecaca;color:var(--danger);">
+            <i class="fa fa-times"></i>
+          </div>
+          <div class="verif-info">
+            <div class="verif-name">Spam Study Circle</div>
+            <div class="verif-meta">
+              <span><b>Owner</b> Dan Flores</span>
+              <span><b>Subject</b> Miscellaneous</span>
+              <span><b>Members</b> 8</span>
+              <span><b>Department</b> College of Computing Studies</span>
+            </div>
+            <div class="verif-submitted">Rejected: Mar 17, 2026 · Reason: Does not meet group conduct standards</div>
+          </div>
+          <div class="verif-actions">
+            <span class="badge badge-rejected">Rejected</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- APPROVE MODAL -->
+<div class="modal-overlay" id="approveModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3><i class="fa-solid fa-circle-check"></i>&nbsp; Approve Group</h3>
+      <button class="modal-close" onclick="closeModal('approveModal')">&#x2715;</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-alert" style="background:var(--success-bg);border-color:#bbf7d0;color:var(--success);">
+        <i class="fa-solid fa-circle-check" style="margin-right:6px;"></i>
+        You are approving <strong id="approve-name">—</strong> by <strong id="approve-owner">—</strong>. This will mark the group as verified and active.
+      </div>
+      <div class="modal-field">
+        <label>Note (optional)</label>
+        <textarea id="approve-note" placeholder="Add an approval note or leave blank…"></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="modal-btn secondary" onclick="closeModal('approveModal')">Cancel</button>
+      <button class="modal-btn primary" onclick="confirmApprove()">
+        <i class="fa-solid fa-circle-check"></i> Confirm Approval
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- REJECT MODAL -->
+<div class="modal-overlay" id="rejectModal">
+  <div class="modal-box">
+    <div class="modal-head danger-head">
+      <h3><i class="fa-solid fa-circle-xmark"></i>&nbsp; Reject Group</h3>
+      <button class="modal-close" onclick="closeModal('rejectModal')">&#x2715;</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-alert">
+        <i class="fa-solid fa-triangle-exclamation" style="color:#f97316;margin-right:6px;"></i>
+        You are rejecting <strong id="reject-name">—</strong> by <strong id="reject-owner">—</strong>. The owner will be notified.
+      </div>
+      <div class="modal-field">
+        <label>Rejection Reason <span style="color:var(--danger);">*</span></label>
+        <textarea id="reject-reason" placeholder="Describe why this group is being rejected…"></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="modal-btn secondary" onclick="closeModal('rejectModal')">Cancel</button>
+      <button class="modal-btn danger-btn" onclick="confirmReject()">
+        <i class="fa-solid fa-circle-xmark"></i> Confirm Rejection
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  let pendingCard  = null;
+  let currentFilter = 'all';
+
+  // ── SIDEBAR FILTER ──
+  function filterSidebar(status) {
+    currentFilter = status;
+    ['all','pending','approved','rejected'].forEach(s => {
+      document.getElementById('sf-' + s)?.classList.remove('active');
+    });
+    document.getElementById('sf-' + status)?.classList.add('active');
+    applyFilter();
+  }
+
+  function applyFilter() {
+    const blocks = {
+      pending:  document.getElementById('block-pending'),
+      approved: document.getElementById('block-approved'),
+      rejected: document.getElementById('block-rejected')
+    };
+    Object.entries(blocks).forEach(([key, el]) => {
+      el.style.display = (currentFilter === 'all' || currentFilter === key) ? '' : 'none';
+    });
+  }
+
+  // ── APPROVE MODAL ──
+  function openApproveModal(btn) {
+    pendingCard = btn.closest('.verif-card');
+    document.getElementById('approve-name').textContent  = pendingCard.dataset.name;
+    document.getElementById('approve-owner').textContent = pendingCard.dataset.owner;
+    document.getElementById('approve-note').value = '';
+    document.getElementById('approveModal').classList.add('open');
+  }
+
+  function confirmApprove() {
+    const card = pendingCard;
+    const name = card.dataset.name;
+
+    // Update icon
+    card.querySelector('.verif-icon').innerHTML = '<i class="fa fa-check"></i>';
+    card.querySelector('.verif-icon').style.cssText = 'background:var(--success-bg);border-color:#bbf7d0;color:var(--success);';
+
+    // Update badge & remove buttons
+    card.querySelector('.verif-actions').innerHTML = '<span class="badge badge-approved">Approved</span>';
+
+    // Update submitted date
+    const now = new Date();
+    const dateStr = now.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    card.querySelector('.verif-submitted').textContent = `Approved: ${dateStr}`;
+
+    // Move to approved section
+    document.getElementById('sec-approved').appendChild(card);
+    updateCounts();
+    closeModal('approveModal');
+    showToast(`"${name}" has been approved.`, 'success');
+  }
+
+  // ── REJECT MODAL ──
+  function openRejectModal(btn) {
+    pendingCard = btn.closest('.verif-card');
+    document.getElementById('reject-name').textContent  = pendingCard.dataset.name;
+    document.getElementById('reject-owner').textContent = pendingCard.dataset.owner;
+    document.getElementById('reject-reason').value = '';
+    document.getElementById('rejectModal').classList.add('open');
+  }
+
+  function confirmReject() {
+    const reason = document.getElementById('reject-reason').value.trim();
+    if (!reason) { showToast('Please enter a rejection reason.', 'error'); return; }
+
+    const card = pendingCard;
+    const name = card.dataset.name;
+
+    // Update icon
+    card.querySelector('.verif-icon').innerHTML = '<i class="fa fa-times"></i>';
+    card.querySelector('.verif-icon').style.cssText = 'background:var(--danger-bg);border-color:#fecaca;color:var(--danger);';
+
+    // Update badge & remove buttons
+    card.querySelector('.verif-actions').innerHTML = '<span class="badge badge-rejected">Rejected</span>';
+
+    // Update submitted text
+    const now = new Date();
+    const dateStr = now.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    card.querySelector('.verif-submitted').textContent = `Rejected: ${dateStr} · Reason: ${reason}`;
+
+    // Move to rejected section
+    document.getElementById('sec-rejected').appendChild(card);
+    updateCounts();
+    closeModal('rejectModal');
+    showToast(`"${name}" has been rejected.`, 'error');
+  }
+
+  // ── COUNT UPDATER ──
+  function updateCounts() {
+    document.getElementById('count-pending').textContent  = document.querySelectorAll('#sec-pending .verif-card').length;
+    document.getElementById('count-approved').textContent = document.querySelectorAll('#sec-approved .verif-card').length;
+    document.getElementById('count-rejected').textContent = document.querySelectorAll('#sec-rejected .verif-card').length;
+  }
+
+  // ── MODAL HELPERS ──
+  function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+  document.querySelectorAll('.modal-overlay').forEach(o => {
+    o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); });
+  });
+
+  // ── TOAST ──
+  function showToast(msg, type = 'success') {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast ' + type + ' show';
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => t.classList.remove('show'), 3200);
+  }
+
+  // ── LOGOUT ──
+  function handleLogout(e) {
+    e.preventDefault();
+    if (confirm('Are you sure you want to log out?')) {
+      window.location.href = '../../pages/auth/login.html';
+    }
+  }
+</script>
+</body>
 </html>

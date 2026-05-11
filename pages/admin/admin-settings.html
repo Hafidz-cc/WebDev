@@ -1,311 +1,490 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../../assets/CSS/base/base.css">
-        <link rel="stylesheet" href="../../assets/CSS/base/navbar.css">
-        <link rel="stylesheet" href="../../assets/CSS/base/layout.css">
-        <link rel="stylesheet" href="../../assets/CSS/admin/admin.css">
-        <link rel="stylesheet" href="../../assets/CSS/admin/admin-pages.css">
-        <link rel="stylesheet" href="../../assets/CSS/misc/switcher.css">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings — Super Admin | HiveMinds</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Belanosima&family=Bricolage+Grotesque:opsz,wght@12..96,420&family=Coiny&family=McLaren&family=Pacifico&family=Pangolin&display=swap" rel="stylesheet">
-    
-        <style>
-            #container {
-                display: flex;
-                align-items: flex-start;
-            }
-            #sidebar {
-                width: 230px;
-                flex-shrink: 0;
-            }
-            #content {
-                flex: 1;
-            }
-        </style>
-    </head>
+    :root {
+      --amber:      #FFB500;
+      --amber-d:    #E6A000;
+      --hive:       #1A1400;
+      --wax:        #FEFAF0;
+      --comb:       #FDF3D0;
+      --accent:     #EDD97A;
+      --pale:       #F0E6B8;
+      --aged:       #8C7A50;
+      --warmgray:   #6b7280;
+      --text:       #2D2410;
+      --success:    #166534;
+      --success-bg: #dcfce7;
+      --warning:    #92400e;
+      --warning-bg: #fef3c7;
+      --danger:     #991b1b;
+      --danger-bg:  #fee2e2;
+      --sidebar-w:  240px;
+      --nav-h:      58px;
+      --radius:     10px;
+      --radius-lg:  14px;
+      --shadow-sm:  0 1px 4px rgba(0,0,0,0.07);
+      --shadow:     0 2px 12px rgba(0,0,0,0.09);
+      --shadow-lg:  0 6px 24px rgba(0,0,0,0.13);
+    }
 
-    <body>
-                <nav>
-            <div id="nav-container">
-                 <a href="/WebDev/pages/home/homepage.html">
-                    <div class="logo">
-                        <span class="black">Hive</span><span class="orange">Minds</span>
-                    </div>
-                </a>
-                <div id="nav-links">
-                    <a class="hover" href="admin-dashboard.html">Dashboard</a>
-                    <a class="hover" href="admin-users.html">Users</a>
-                    <a class="hover" href="admin-hives.html">Hives</a>
-                </div>
-                <div id="auth-links">
-                    <a class="hover" href="../../pages/misc/profile.html">Admin</a>
-                </div>
-            </div>
-        </nav>
+    body {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      background: #F5EDD5;
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
 
+    /* ── NAVBAR ── */
+    .reg-nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      background: rgba(254,250,240,0.94);
+      backdrop-filter: blur(14px);
+      border-bottom: 1.5px solid #E8C84A;
+      display: flex; align-items: center;
+      padding: 0 28px; z-index: 100; gap: 24px;
+    }
+    .reg-nav .logo {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 1.45rem; font-weight: 700;
+      letter-spacing: -0.03em; color: #0D0B00;
+      text-decoration: none; flex-shrink: 0; margin-right: 8px; line-height: 1;
+    }
+    .reg-nav .logo span { color: #FF5F00; }
+    .nav-links { display: flex; align-items: center; gap: 4px; flex: 1; justify-content: center; }
+    .nav-links a {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.88rem; font-weight: 600; color: #3A2E00;
+      text-decoration: none; padding: 6px 14px; border-radius: 6px;
+      transition: all .18s; letter-spacing: .01em;
+    }
+    .nav-links a:hover { background: rgba(255,212,0,0.18); color: #1A1600; }
+    .nav-links a.active { background: var(--amber); color: #0D0B00; font-weight: 700; border: 1.5px solid rgba(0,0,0,0.15); }
+    .nav-user {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.83rem; font-weight: 600; color: #3A2E00;
+      text-decoration: none; padding: 5px 14px 5px 6px;
+      border-radius: 30px; border: 1.5px solid rgba(0,0,0,0.15);
+      transition: all .18s; cursor: pointer;
+      display: flex; align-items: center; gap: 9px; background: #fff;
+    }
+    .nav-user:hover { background: var(--amber); border-color: rgba(0,0,0,0.2); color: #0D0B00; }
 
-        <main>
-            <div id="container">
-                <div id="sidebar">
-                    <div id="menu">
-                        <p>MENU</p>
-                        <hr>
-                        <a href="admin-dashboard.html">
-                            <div class="sidebar-button menu">
-                                <p>Dashboard</p>
-                            </div>
-                        </a>
-                        <a href="admin-users.html">
-                            <div class="sidebar-button menu">
-                                <p>Users</p>
-                            </div>
-                        </a>
-                        <a href="admin-hives.html">
-                            <div class="sidebar-button menu">
-                                <p>Hives</p>
-                            </div>
-                        </a>
-                         <a href="admin-verifications.html">
-                            <div class="sidebar-button menu">
-                                <p>Verifications</p>
-                            </div>
-                        </a>
-                        <a href="admin-settings.html">
-                            <div class="sidebar-button menu active">
-                                <p>Settings</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div id="my-hives">
-                        <p>QUICK STATS</p>
-                        <hr>
-                        <div class="sidebar-button my-hives">
-                            <span class="hex"></span><p>124 total users</p>
-                        </div>
-                        <div class="sidebar-button my-hives">
-                            <span class="hex"></span><p>38 active hives</p>
-                        </div>
-                        <div class="sidebar-button my-hives">
-                            <span class="hex"></span><p>3 flagged posts</p>
-                        </div>
-                        <div class="sidebar-button my-hives">
-                            <span class="hex"></span><p>12 new today</p>
-                        </div>
-                    </div>
-                </div>
+    /* ── LAYOUT ── */
+    .reg-layout { display: flex; margin-top: var(--nav-h); min-height: calc(100vh - var(--nav-h)); }
 
-                <div id="content">
-                    <div id="qotd">Admin — Settings</div>
+    /* ── SIDEBAR ── */
+    .reg-sidebar {
+      width: var(--sidebar-w); flex-shrink: 0;
+      position: fixed; top: var(--nav-h); left: 0; bottom: 0;
+      background: var(--hive); border-right: 3px solid var(--aged);
+      overflow-y: auto; padding: 20px 14px 40px;
+      display: flex; flex-direction: column; gap: 24px;
+    }
+    .sidebar-section-label {
+      font-size: 0.68rem; font-weight: 800; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--pale); padding: 0 8px; margin-bottom: 6px;
+    }
+    .sidebar-divider { height: 1px; background: var(--amber-d); margin: 0 4px 10px; border: none; }
+    .sidebar-link {
+      display: flex; align-items: center; gap: 9px;
+      padding: 9px 12px; border-radius: 9px;
+      font-size: 0.875rem; font-weight: 600; color: var(--pale);
+      text-decoration: none; transition: all .16s; margin-bottom: 2px;
+      cursor: pointer; border-left: 3px solid transparent;
+    }
+    .sidebar-link .sico { width: 18px; text-align: center; font-size: 1rem; flex-shrink: 0; color: var(--aged); }
+    .sidebar-link:hover { background: var(--aged); border-left: 5px solid var(--amber); color: var(--amber); }
+    .sidebar-link:hover .sico { color: var(--amber); }
+    .sidebar-link.active { background: var(--aged); border-left: 5px solid var(--amber-d); color: var(--wax); font-weight: 700; }
+    .sidebar-link.active .sico { color: var(--amber); }
+    .stat-pill {
+      display: flex; align-items: center; gap: 9px;
+      padding: 8px 12px; border-radius: 9px;
+      font-size: 0.82rem; font-weight: 500; color: var(--pale);
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,181,0,0.2);
+      margin-bottom: 5px;
+    }
+    .stat-pill .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--amber); flex-shrink: 0; }
 
-                    <div class="admin-page-body">
+    /* ── MAIN ── */
+    .reg-main {
+      flex: 1; margin-left: var(--sidebar-w);
+      padding: 28px 28px 48px;
+    }
+    .page-header { margin-bottom: 24px; }
+    .page-header h1 { font-size: 1.45rem; font-weight: 800; color: var(--hive); letter-spacing: -0.02em; }
+    .page-header p  { font-size: 0.87rem; color: var(--aged); margin-top: 3px; }
 
-                        <div class="page-topbar">
-                            <div class="page-topbar-title">Settings</div>
-                        </div>
+    /* ── SETTINGS GRID ── */
+    .settings-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
 
-                        <div class="settings-grid">
+    /* ── SETTINGS CARD ── */
+    .settings-card {
+      background: white; border: 1.5px solid var(--accent);
+      box-shadow: 3px 3px 0 var(--accent); border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .settings-card.danger-card {
+      border-color: #fca5a5;
+      box-shadow: 3px 3px 0 #fca5a5;
+    }
+    .settings-card-header {
+      padding: 16px 20px 14px;
+      border-bottom: 1.5px solid var(--pale);
+      background: var(--comb);
+    }
+    .settings-card.danger-card .settings-card-header {
+      background: var(--danger-bg);
+      border-bottom-color: #fca5a5;
+    }
+    .settings-card-title {
+      font-size: 0.9rem; font-weight: 800; color: var(--hive);
+      letter-spacing: -0.01em;
+    }
+    .settings-card.danger-card .settings-card-title { color: var(--danger); }
+    .settings-card-desc {
+      font-size: 0.78rem; color: var(--aged); margin-top: 3px;
+    }
+    .settings-card-body { padding: 16px 20px; }
 
-                            <!-- Admin Account -->
-                            <div class="settings-card">
-                                <div class="settings-card-header">
-                                    <div>
-                                        <div class="settings-card-title">Admin Account</div>
-                                        <div class="settings-card-desc">Update your admin credentials</div>
-                                    </div>
-                                </div>
-                                <div class="settings-card-body">
-                                    <div class="settings-field">
-                                        <label>Name</label>
-                                        <input type="text" value="Admin">
-                                    </div>
-                                    <hr class="settings-divider">
-                                    <div class="settings-field">
-                                        <label>Email</label>
-                                        <input type="email" value="admin@hiveminds.com">
-                                    </div>
-                                    <hr class="settings-divider">
-                                    <div class="settings-field">
-                                        <label>Password</label>
-                                        <input type="password" value="placeholder">
-                                    </div>
-                                    <div class="settings-save-row">
-                                        <button class="btn-save">Save Changes</button>
-                                    </div>
-                                </div>
-                            </div>
+    /* ── FIELD ── */
+    .settings-field { display: flex; flex-direction: column; gap: 5px; padding: 4px 0; }
+    .settings-field label {
+      font-size: 0.74rem; font-weight: 700; color: var(--aged);
+      text-transform: uppercase; letter-spacing: 0.07em;
+    }
+    .settings-field input {
+      padding: 8px 12px; border: 1.5px solid var(--pale);
+      border-radius: var(--radius); font-size: 0.875rem;
+      font-family: 'Bricolage Grotesque', sans-serif;
+      color: var(--text); background: var(--wax); outline: none;
+      transition: border-color .18s, box-shadow .18s;
+    }
+    .settings-field input:focus {
+      border-color: var(--amber-d);
+      box-shadow: 0 0 0 3px rgba(255,181,0,0.15);
+    }
+    .settings-divider {
+      border: none; border-top: 1px solid var(--pale); margin: 8px 0;
+    }
+    .settings-save-row {
+      display: flex; justify-content: flex-end; margin-top: 14px;
+    }
 
-                            <!-- Platform Settings -->
-                            <div class="settings-card">
-                                <div class="settings-card-header">
-                                    <div>
-                                        <div class="settings-card-title">Platform Settings</div>
-                                        <div class="settings-card-desc">Control platform-wide behaviour</div>
-                                    </div>
-                                </div>
-                                <div class="settings-card-body">
-                                    <div class="toggle-row">
-                                        <div class="toggle-info">
-                                            <div class="toggle-label">Allow new registrations</div>
-                                            <div class="toggle-desc">Let new users sign up for HiveMinds</div>
-                                        </div>
-                                        <label class="toggle">
-                                            <input type="checkbox" checked>
-                                            <span class="toggle-slider"></span>
-                                        </label>
-                                    </div>
-                                    <div class="toggle-row">
-                                        <div class="toggle-info">
-                                            <div class="toggle-label">Allow hive creation</div>
-                                            <div class="toggle-desc">Let students create new hives</div>
-                                        </div>
-                                        <label class="toggle">
-                                            <input type="checkbox" checked>
-                                            <span class="toggle-slider"></span>
-                                        </label>
-                                    </div>
-                                    <div class="toggle-row">
-                                        <div class="toggle-info">
-                                            <div class="toggle-label">Require email verification</div>
-                                            <div class="toggle-desc">New accounts must verify email before joining</div>
-                                        </div>
-                                        <label class="toggle">
-                                            <input type="checkbox" checked>
-                                            <span class="toggle-slider"></span>
-                                        </label>
-                                    </div>
-                                    <div class="toggle-row">
-                                        <div class="toggle-info">
-                                            <div class="toggle-label">Maintenance mode</div>
-                                            <div class="toggle-desc">Take the site offline for maintenance</div>
-                                        </div>
-                                        <label class="toggle">
-                                            <input type="checkbox">
-                                            <span class="toggle-slider"></span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
+    /* ── TOGGLE ROWS ── */
+    .toggle-row {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; padding: 10px 0;
+      border-bottom: 1px solid var(--pale);
+    }
+    .toggle-row:last-child { border-bottom: none; }
+    .toggle-info { flex: 1; min-width: 0; }
+    .toggle-label { font-size: 0.86rem; font-weight: 700; color: var(--hive); }
+    .toggle-desc  { font-size: 0.76rem; color: var(--aged); margin-top: 2px; }
 
-                            <!-- Hive Limits -->
-                            <div class="settings-card">
-                                <div class="settings-card-header">
-                                    <div>
-                                        <div class="settings-card-title">Hive Limits</div>
-                                        <div class="settings-card-desc">Set default caps for hive creation and membership</div>
-                                    </div>
-                                </div>
-                                <div class="settings-card-body">
-                                    <div class="settings-field">
-                                        <label>Max hives per user</label>
-                                        <input type="number" value="10" min="1" max="50">
-                                    </div>
-                                    <hr class="settings-divider">
-                                    <div class="settings-field">
-                                        <label>Default member limit</label>
-                                        <input type="number" value="30" min="2" max="200">
-                                    </div>
-                                    <hr class="settings-divider">
-                                    <div class="settings-field">
-                                        <label>Max member limit</label>
-                                        <input type="number" value="200" min="2" max="500">
-                                    </div>
-                                    <div class="settings-save-row">
-                                        <button class="btn-save">Save Changes</button>
-                                    </div>
-                                </div>
-                            </div>
+    /* ── TOGGLE SWITCH ── */
+    .toggle { position: relative; display: inline-block; width: 40px; height: 22px; flex-shrink: 0; }
+    .toggle input { opacity: 0; width: 0; height: 0; }
+    .toggle-slider {
+      position: absolute; inset: 0; border-radius: 22px;
+      background: #ddd; transition: background .2s; cursor: pointer;
+    }
+    .toggle-slider::before {
+      content: ''; position: absolute;
+      width: 16px; height: 16px; border-radius: 50%;
+      left: 3px; top: 3px; background: white;
+      transition: transform .2s; box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+    .toggle input:checked + .toggle-slider { background: var(--amber); }
+    .toggle input:checked + .toggle-slider::before { transform: translateX(18px); }
 
-                            <!-- Moderation -->
-                            <div class="settings-card">
-                                <div class="settings-card-header">
-                                    <div>
-                                        <div class="settings-card-title">Moderation</div>
-                                        <div class="settings-card-desc">Configure auto-moderation and reporting thresholds</div>
-                                    </div>
-                                </div>
-                                <div class="settings-card-body">
-                                    <div class="toggle-row">
-                                        <div class="toggle-info">
-                                            <div class="toggle-label">Auto-flag repeated reports</div>
-                                            <div class="toggle-desc">Automatically flag users reported 3+ times</div>
-                                        </div>
-                                        <label class="toggle">
-                                            <input type="checkbox" checked>
-                                            <span class="toggle-slider"></span>
-                                        </label>
-                                    </div>
-                                    <div class="toggle-row">
-                                        <div class="toggle-info">
-                                            <div class="toggle-label">Notify admin on new report</div>
-                                            <div class="toggle-desc">Send an email when a new report is submitted</div>
-                                        </div>
-                                        <label class="toggle">
-                                            <input type="checkbox" checked>
-                                            <span class="toggle-slider"></span>
-                                        </label>
-                                    </div>
-                                    <div class="settings-field" style="margin-top:10px;">
-                                        <label>Reports before auto-flag</label>
-                                        <input type="number" value="3" min="1" max="10">
-                                    </div>
-                                    <div class="settings-save-row">
-                                        <button class="btn-save">Save Changes</button>
-                                    </div>
-                                </div>
-                            </div>
+    /* ── BUTTONS ── */
+    .btn-save {
+      padding: 7px 18px; font-size: 0.8rem; font-weight: 700;
+      border-radius: 7px; cursor: pointer; border: 1.5px solid var(--amber-d);
+      background: var(--amber); color: var(--hive);
+      font-family: 'Bricolage Grotesque', sans-serif;
+      transition: .18s; box-shadow: 2px 2px 0 var(--amber-d);
+    }
+    .btn-save:hover { background: var(--amber-d); box-shadow: none; transform: translate(2px,2px); }
 
-                            <!-- Danger Zone -->
-                            <div class="settings-card">
-                                <div class="settings-card-header">
-                                    <div>
-                                        <div class="settings-card-title" style="color: var(--danger);">Danger Zone</div>
-                                        <div class="settings-card-desc">Irreversible actions — proceed with caution</div>
-                                    </div>
-                                </div>
-                                <div class="settings-card-body">
-                                    <div class="toggle-row">
-                                        <div class="toggle-info">
-                                            <div class="toggle-label">Clear all flagged posts</div>
-                                            <div class="toggle-desc">Permanently dismiss all current flagged content</div>
-                                        </div>
-                                        <button class="btn-danger-full">Clear All</button>
-                                    </div>
-                                    <div class="toggle-row">
-                                        <div class="toggle-info">
-                                            <div class="toggle-label">Remove all inactive users</div>
-                                            <div class="toggle-desc">Delete accounts with no activity in 90+ days</div>
-                                        </div>
-                                        <button class="btn-danger-full">Remove</button>
-                                    </div>
-                                    <div class="toggle-row">
-                                        <div class="toggle-info">
-                                            <div class="toggle-label">Log out</div>
-                                            <div class="toggle-desc">End the current admin session</div>
-                                        </div>
-                                        <a href="../../pages/auth/login.html"><button class="btn-danger-full">Log Out</button></a>
-                                    </div>
-                                </div>
-                            </div>
+    .btn-danger {
+      padding: 6px 14px; font-size: 0.78rem; font-weight: 700;
+      border-radius: 7px; cursor: pointer;
+      border: 1.5px solid var(--danger); color: var(--danger);
+      background: var(--danger-bg);
+      font-family: 'Bricolage Grotesque', sans-serif;
+      transition: .18s; white-space: nowrap; flex-shrink: 0;
+    }
+    .btn-danger:hover { background: var(--danger); color: white; }
 
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
+    /* ── TOAST ── */
+    .toast {
+      position: fixed; bottom: 24px; right: 24px;
+      background: var(--hive); color: #fff; padding: 12px 20px;
+      border-radius: 10px; font-size: 0.88rem; font-weight: 600;
+      z-index: 999; transform: translateY(80px); opacity: 0;
+      transition: all 0.3s ease; border-left: 4px solid var(--amber);
+      box-shadow: var(--shadow-lg);
+    }
+    .toast.show    { transform: translateY(0); opacity: 1; }
+    .toast.success { border-color: #22c55e; }
+    .toast.warn    { border-color: var(--amber); }
+    .toast.error   { border-color: var(--danger); }
 
-           <div id="role-switcher">
-            <span class="switcher-label">View as</span>
-             <a href="/WebDev/pages/admin/admin-dashboard.html" class="switcher-btn">Super-Admin</a>
-            <a href="/WebDev/pages/adminRegistrar/Registrar-admin-verifications.html" class="switcher-btn">Registrar-Admin</a>
-            <a href="/WebDev/pages/adminDean/Dean-admin-dashboard.html" class="switcher-btn">Dean</a>
-            <a href="/WebDev/pages/adminAdviser/Adviser_dashboard.html" class="switcher-btn">Adviser</a>
+    @media (max-width: 1000px) { .settings-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 768px) {
+      .reg-sidebar { display: none; }
+      .reg-main { margin-left: 0; padding: 20px 16px 40px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="reg-nav">
+  <a href="#" class="logo"><span>Hive</span>Minds</a>
+  <div class="nav-links">
+    <a href="admin-dashboard.html">Dashboard</a>
+    <a href="admin-users.html">Users</a>
+    <a href="admin-hives.html">Hives</a>
+    <a href="admin-verifications.html">Verifications</a>
+  </div>
+  <a href="../../pages/auth/login.html" class="nav-user" onclick="handleLogout(event)">
+    👤 Super Admin &nbsp;·&nbsp; Log out
+  </a>
+</nav>
+
+<div class="reg-layout">
+  <!-- SIDEBAR -->
+  <aside class="reg-sidebar">
+    <div>
+      <div class="sidebar-section-label">Menu</div>
+      <div class="sidebar-divider"></div>
+      <a href="admin-dashboard.html"     class="sidebar-link"><span class="sico">⊞</span> Dashboard</a>
+      <a href="admin-users.html"         class="sidebar-link"><span class="sico">👥</span> Users</a>
+      <a href="admin-hives.html"         class="sidebar-link"><span class="sico">🐝</span> Hives</a>
+      <a href="admin-verifications.html" class="sidebar-link"><span class="sico">✓</span> Verifications</a>
+      <a href="admin-settings.html"      class="sidebar-link active"><span class="sico">⚙</span> Settings</a>
+    </div>
+    <div>
+      <div class="sidebar-section-label">Quick Stats</div>
+      <div class="sidebar-divider"></div>
+      <div class="stat-pill"><span class="dot"></span> 124 total users</div>
+      <div class="stat-pill"><span class="dot"></span> 38 active hives</div>
+      <div class="stat-pill"><span class="dot"></span> 3 flagged posts</div>
+      <div class="stat-pill"><span class="dot"></span> 12 new today</div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="reg-main">
+    <div class="page-header">
+      <h1>Settings</h1>
+      <p>Platform configuration and admin preferences — HiveMinds</p>
+    </div>
+
+    <div class="settings-grid">
+
+      <!-- Admin Account -->
+      <div class="settings-card">
+        <div class="settings-card-header">
+          <div class="settings-card-title">Admin Account</div>
+          <div class="settings-card-desc">Update your admin credentials</div>
         </div>
-            
-    </body>
+        <div class="settings-card-body">
+          <div class="settings-field">
+            <label>Name</label>
+            <input type="text" value="Admin">
+          </div>
+          <hr class="settings-divider">
+          <div class="settings-field">
+            <label>Email</label>
+            <input type="email" value="admin@hiveminds.com">
+          </div>
+          <hr class="settings-divider">
+          <div class="settings-field">
+            <label>Password</label>
+            <input type="password" value="placeholder">
+          </div>
+          <div class="settings-save-row">
+            <button class="btn-save" onclick="showToast('Account changes saved.', 'success')">Save Changes</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Platform Settings -->
+      <div class="settings-card">
+        <div class="settings-card-header">
+          <div class="settings-card-title">Platform Settings</div>
+          <div class="settings-card-desc">Control platform-wide behaviour</div>
+        </div>
+        <div class="settings-card-body">
+          <div class="toggle-row">
+            <div class="toggle-info">
+              <div class="toggle-label">Allow new registrations</div>
+              <div class="toggle-desc">Let new users sign up for HiveMinds</div>
+            </div>
+            <label class="toggle"><input type="checkbox" checked onchange="toastToggle(this, 'New registrations')"><span class="toggle-slider"></span></label>
+          </div>
+          <div class="toggle-row">
+            <div class="toggle-info">
+              <div class="toggle-label">Allow hive creation</div>
+              <div class="toggle-desc">Let students create new hives</div>
+            </div>
+            <label class="toggle"><input type="checkbox" checked onchange="toastToggle(this, 'Hive creation')"><span class="toggle-slider"></span></label>
+          </div>
+          <div class="toggle-row">
+            <div class="toggle-info">
+              <div class="toggle-label">Require email verification</div>
+              <div class="toggle-desc">New accounts must verify email before joining</div>
+            </div>
+            <label class="toggle"><input type="checkbox" checked onchange="toastToggle(this, 'Email verification')"><span class="toggle-slider"></span></label>
+          </div>
+          <div class="toggle-row">
+            <div class="toggle-info">
+              <div class="toggle-label">Maintenance mode</div>
+              <div class="toggle-desc">Take the site offline for maintenance</div>
+            </div>
+            <label class="toggle"><input type="checkbox" onchange="toastToggle(this, 'Maintenance mode')"><span class="toggle-slider"></span></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hive Limits -->
+      <div class="settings-card">
+        <div class="settings-card-header">
+          <div class="settings-card-title">Hive Limits</div>
+          <div class="settings-card-desc">Set default caps for hive creation and membership</div>
+        </div>
+        <div class="settings-card-body">
+          <div class="settings-field">
+            <label>Max hives per user</label>
+            <input type="number" value="10" min="1" max="50">
+          </div>
+          <hr class="settings-divider">
+          <div class="settings-field">
+            <label>Default member limit</label>
+            <input type="number" value="30" min="2" max="200">
+          </div>
+          <hr class="settings-divider">
+          <div class="settings-field">
+            <label>Max member limit</label>
+            <input type="number" value="200" min="2" max="500">
+          </div>
+          <div class="settings-save-row">
+            <button class="btn-save" onclick="showToast('Hive limits updated.', 'success')">Save Changes</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Moderation -->
+      <div class="settings-card">
+        <div class="settings-card-header">
+          <div class="settings-card-title">Moderation</div>
+          <div class="settings-card-desc">Configure auto-moderation and reporting thresholds</div>
+        </div>
+        <div class="settings-card-body">
+          <div class="toggle-row">
+            <div class="toggle-info">
+              <div class="toggle-label">Auto-flag repeated reports</div>
+              <div class="toggle-desc">Automatically flag users reported 3+ times</div>
+            </div>
+            <label class="toggle"><input type="checkbox" checked onchange="toastToggle(this, 'Auto-flag')"><span class="toggle-slider"></span></label>
+          </div>
+          <div class="toggle-row">
+            <div class="toggle-info">
+              <div class="toggle-label">Notify admin on new report</div>
+              <div class="toggle-desc">Send an email when a new report is submitted</div>
+            </div>
+            <label class="toggle"><input type="checkbox" checked onchange="toastToggle(this, 'Admin notifications')"><span class="toggle-slider"></span></label>
+          </div>
+          <div class="settings-field" style="margin-top: 10px;">
+            <label>Reports before auto-flag</label>
+            <input type="number" value="3" min="1" max="10">
+          </div>
+          <div class="settings-save-row">
+            <button class="btn-save" onclick="showToast('Moderation settings saved.', 'success')">Save Changes</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Danger Zone -->
+      <div class="settings-card danger-card">
+        <div class="settings-card-header">
+          <div class="settings-card-title">Danger Zone</div>
+          <div class="settings-card-desc">Irreversible actions — proceed with caution</div>
+        </div>
+        <div class="settings-card-body">
+          <div class="toggle-row">
+            <div class="toggle-info">
+              <div class="toggle-label">Clear all flagged posts</div>
+              <div class="toggle-desc">Permanently dismiss all current flagged content</div>
+            </div>
+            <button class="btn-danger" onclick="dangerAction('Clear all flagged posts')">Clear All</button>
+          </div>
+          <div class="toggle-row">
+            <div class="toggle-info">
+              <div class="toggle-label">Remove all inactive users</div>
+              <div class="toggle-desc">Delete accounts with no activity in 90+ days</div>
+            </div>
+            <button class="btn-danger" onclick="dangerAction('Remove inactive users')">Remove</button>
+          </div>
+          <div class="toggle-row">
+            <div class="toggle-info">
+              <div class="toggle-label">Log out</div>
+              <div class="toggle-desc">End the current admin session</div>
+            </div>
+            <button class="btn-danger" onclick="handleLogout(event)">Log Out</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  function showToast(msg, type = 'success') {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast ' + type + ' show';
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => t.classList.remove('show'), 3200);
+  }
+
+  function toastToggle(checkbox, label) {
+    const state = checkbox.checked ? 'enabled' : 'disabled';
+    showToast(`${label} ${state}.`, checkbox.checked ? 'success' : 'warn');
+  }
+
+  function dangerAction(label) {
+    if (confirm(`Are you sure you want to: "${label}"? This cannot be undone.`)) {
+      showToast(`${label} completed.`, 'error');
+    }
+  }
+
+  function handleLogout(e) {
+    e.preventDefault();
+    if (confirm('Are you sure you want to log out?')) {
+      window.location.href = '../../pages/auth/login.html';
+    }
+  }
+</script>
+</body>
 </html>
